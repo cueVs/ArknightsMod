@@ -1,0 +1,3 @@
+displayName = Arknights Mod
+author = cueV
+version = 0.1
