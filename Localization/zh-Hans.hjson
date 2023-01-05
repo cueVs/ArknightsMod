@@ -27,6 +27,7 @@ Mods: {
 			OrirockCluster: "固源岩组"
 			OrirockConcentration: "提纯源岩"
 			Polyketon: "酮凝集"
+			KetonColloid: "酮阵列"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -48,6 +49,7 @@ Mods: {
 			OrirockCluster: "A conglomerate rock mined from the ground."
 			OrirockConcentration: "A refined matter produced with Orirock Cluster."
 			Polyketon: "A small amount of industrial organic compound."
+			KetonColloid: "A large amount of industrial organic compound."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
