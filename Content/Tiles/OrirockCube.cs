@@ -18,7 +18,7 @@ namespace ArknightsMod.Content.Tiles
 			// Main.tileShine[Type] = 975; // How often tiny dust appear off this tile. Larger is less frequently. Example: 975
 			Main.tileMergeDirt[Type] = true;
             Main.tileMerge[Type][TileID.WoodBlock] = true;
-            // Main.tileMerge[Type][TileID.Stone] = true; //If you enable this line, you must also enable the same option of (Global)Stone.
+            // Main.tileMerge[Type][TileID.Stone] = true; //If you enable this line, you must also enable the same option of (Global)Stone, because the Stones don't merge any blocks.
             Main.tileMerge[Type][TileID.SnowBlock] = true;
             Main.tileMerge[Type][TileID.IceBlock] = true;
 			Main.tileMerge[Type][TileID.Sand] = true;
