@@ -32,6 +32,9 @@ Mods: {
 			# Placeable
 			OrirockCube: "固源岩"
 
+			# Furniture
+			DareUsa: "Dare Usa"
+
 			# otherItems
 			Orundum: "合成玉"
 		}
@@ -53,6 +56,9 @@ Mods: {
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
+
+			# Furniture
+			DareUsa: "Mochi Mochi"
 
 			# otherItems
 			Orundum: "An artificial material commonly used to recruit operators."
@@ -116,6 +122,7 @@ Mods: {
 
 		MapObject: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
+			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 
 		Currencies: {

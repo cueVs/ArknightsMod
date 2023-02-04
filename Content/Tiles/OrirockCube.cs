@@ -66,7 +66,7 @@ namespace ArknightsMod.Content.Tiles
 
 			// Ores are quite simple, we simply use a for loop and the WorldGen.TileRunner to place splotches of the specified Tile in the world.
 			// "6E-05" is "scientific notation". It simply means 0.00006 but in some ways is easier to read.
-			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 5E-04); k++) {
+			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-04); k++) {
 				// The inside of this for loop corresponds to one single splotch of our Ore.
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
@@ -80,7 +80,7 @@ namespace ArknightsMod.Content.Tiles
                 // Wrapping WorldGen.TileRunner in the following condition would make the ore only generate in Dirt.
                 Tile tile = Framing.GetTileSafely(x, y);
                 if (tile.HasTile && tile.TileType == TileID.Dirt) {
-                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(5, 10), WorldGen.genRand.Next(7, 12), ModContent.TileType<OrirockCube>());
+                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(5, 7), WorldGen.genRand.Next(6, 9), ModContent.TileType<OrirockCube>());
                 }
             }
         }
