@@ -32,6 +32,9 @@ Mods: {
 			# Placeable
 			OrirockCube: "Orirock Cube"
 
+			# Furniture
+			DareUsa: "Dare Usa"
+
 			# otherItems
 			Orundum: "Orundum"
 		}
@@ -53,6 +56,9 @@ Mods: {
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
+
+			# Furniture
+			DareUsa: "Mochi Mochi"
 
 			# otherItems
 			Orundum: "An artificial material commonly used to recruit operators."
@@ -114,12 +120,13 @@ Mods: {
 			button2 : "Annihilation operations"
 		}
 
-			MapObject: {
-				OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			}
-
-			Currencies: {
-				OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
-			}
+		MapObject: {
+			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
+			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
+
+		Currencies: {
+				OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
+		}
+	}
 }
