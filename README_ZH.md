@@ -1,7 +1,7 @@
 [[English]](README.md) [[日本語]](README_JP.md) [中文]
 
 <p align="center" >
-![icon](icon.png)
+<img src="icon.png"/>
 </p>
 
 # 你好，博士!
