@@ -27,6 +27,7 @@ Mods: {
 			OrirockCluster: "固源岩组"
 			OrirockConcentration: "提纯源岩"
 			Polyketon: "酮凝集"
+			Aketon: "酮凝集组"
 			KetonColloid: "酮阵列"
 
 			# Placeable

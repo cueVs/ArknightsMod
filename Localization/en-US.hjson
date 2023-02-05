@@ -27,6 +27,7 @@ Mods: {
 			OrirockCluster: "Orirock Cluster"
 			OrirockConcentration: "Orirock Concentration"
 			Polyketon: "Polyketon"
+			Aketon: "Aketon"
 			KetonColloid: "Keton Colloid"
 
 			# Placeable
@@ -117,7 +118,7 @@ Mods: {
 		}
 
 		ButtonName: {
-			button2 : "Annihilation operations"
+			button2 : "Annihilation operation"
 		}
 
 		MapObject: {
