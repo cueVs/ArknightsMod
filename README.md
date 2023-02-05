@@ -22,7 +22,7 @@ You can play it as Arknights Doctor, and can use many items associated with many
 
 ## How to play?
 First, please purchase [the Desktop version (Steam) of Terraria](https://store.steampowered.com/app/105600/), and download [tModLoader](https://store.steampowered.com/app/1281930/tModLoader/) (which is free). tModLoader will automatically launch Terraria and allow you to install mods.
-Once it is up and running, select Workshop from the menu and open the Mod Browser. Then, search for Arknights Mod. Or download it directly from the Terraria forum (link) and place the file in `%userprofile%/Documents/My Games/Terraria/ModLoader/Mods/` for Windows or in`~/Library/Application support/Terraria/tModLoader/Mods` for Mac.
+Once it is up and running, select Workshop from the menu and open the Mod Browser. Then, search for Arknights Mod. Or download it directly from the Terraria forum (link) and place the file in `%userprofile%/Documents/My Games/Terraria/ModLoader/Mods/` for Windows or in `~/Library/Application support/Terraria/tModLoader/Mods` for Mac.
 
 ## Contributing
 Recruitment tag: [Program][Sprite][Terraria][Discussion][Audience]<br>
