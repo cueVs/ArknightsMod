@@ -1,3 +1,6 @@
 displayName = Arknights Mod
 author = cueV
 version = 0.1
+hideCode = true
+hideResources = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, .git\*
