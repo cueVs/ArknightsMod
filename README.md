@@ -25,10 +25,10 @@ First, please purchase [the Desktop version (Steam) of Terraria](https://store.s
 Once it is up and running, select Workshop from the menu and open the Mod Browser. Then, search for Arknights Mod. Or download it directly from the Terraria forum (link) and place the file in `%userprofile%/Documents/My Games/Terraria/ModLoader/Mods/` for Windows or in `~/Library/Application support/Terraria/tModLoader/Mods` for Mac.
 
 ## Contributing
-Recruitment tag: [Program][Sprite][Terraria][Discussion][Audience]<br>
+Recruitment tag: [Program] [Sprite] [Terraria] [Discussion] [Audience]<br>
 As long as you are interested in one of them, please join our Discord server (below) and tell us about it.<br>
 🐰"There's still lots of work that needs to be done, Doctor. We can't afford to have you resting."<br>
-There is a lot of work to be done in Terraria. We look forward to welcoming you and your doctors to join us.
+There is too many work to be done in Terraria. We look forward to welcoming you and your doctors to join us.
 
 ## Disclaimer
 - Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines).
