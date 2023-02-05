@@ -1,7 +1,8 @@
 [[English]](README.md) [[日本語]](README_JP.md) [中文]
 
-{: align="center"}
-![icon](icon.png)
+<p align="center" >
+<img src="icon.png"/>
+</p>
 
 # 你好，博士!
 此泰拉瑞亚MOD奉献给明日方舟的博士们。

@@ -1,7 +1,8 @@
 [English] [[日本語]](README_JP.md) [[中文]](README_ZH.md)
 
-{: align="center"}
-![icon](icon.png)
+<p align="center" >
+<img src="icon.png"/>
+</p>
 
 # Hello, Doctor!
 This Mod for Terraria is made for Arknights Doctor. I'm creating the Mod based on the idea of Arknights, adding my own interpretation.<br>

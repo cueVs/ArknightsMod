@@ -1,7 +1,8 @@
 [[English]](README.md) [日本語] [[中文]](README_ZH.md)
 
-{: align="center"}
-![icon](icon.png)
+<p align="center" >
+<img src="icon.png"/>
+</p>
 
 # こんにちは、ドクター!
 このMODはアークナイツしながらアークナイツしたい限界ドクターのために作られたテラリアのMODです。<br>
