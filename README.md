@@ -26,7 +26,7 @@ Once it is up and running, select Workshop from the menu and open the Mod Browse
 
 ## Contributing
 Recruitment tag: [Program] [Sprite] [Terraria] [Discussion] [Audience]<br>
-As long as you are interested in one of them, please join our Discord server (below) and tell us about it.<br>
+If you are interested in one of them, please join our Discord server (below) and tell us about it.<br>
 🐰"There's still lots of work that needs to be done, Doctor. We can't afford to have you resting."<br>
 There is too many work to be done in Terraria. We look forward to meet you.
 
