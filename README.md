@@ -22,11 +22,11 @@ You can play it as Arknights Doctor, and can use many items associated with many
 
 ## How to play?
 First, please purchase [the Desktop version (Steam) of Terraria](https://store.steampowered.com/app/105600/), and download [tModLoader](https://store.steampowered.com/app/1281930/tModLoader/) (which is free). tModLoader will automatically launch Terraria and allow you to install mods.
-Once it is up and running, select Workshop from the menu and open the Mod Browser. Then, search for Arknights Mod. Or download it directly from the Terraria forum (link) and place the file in `%userprofile%/Documents/My Games/Terraria/ModLoader/Mods/` for Windows or in `~/Library/Application support/Terraria/tModLoader/Mods` for Mac.
+Once it is up and running, select Workshop from the menu and open the Mod Browser. Then, search for Arknights Mod. <!-- Or download it directly from our forum thread (below) and place the file in `%userprofile%/Documents/My Games/Terraria/ModLoader/Mods/` for Windows or in `~/Library/Application support/Terraria/tModLoader/Mods` for Mac.-->
 
 ## Contributing
 Recruitment tag: [Program] [Sprite] [Terraria] [Discussion] [Audience]<br>
-If you are interested in one of them, please join our Discord server (below) and tell us about it.<br>
+If you are interested in one of them, please contact our forum thread (below).<br>
 🐰"There's still lots of work that needs to be done, Doctor. We can't afford to have you resting."<br>
 There is too many work to be done in Terraria. We look forward to meet you.
 
@@ -34,7 +34,7 @@ There is too many work to be done in Terraria. We look forward to meet you.
 - Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines).
 - I do not take any responsibility or liability for any damage or loss caused through this mod. (So, you should [back up the game data](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups) periodically.)
 - You are NOT allowed to use or to reproduce the code and the images of this mod.
-- If you have any questions regarding the use of this mod, please contact our Discord server (below).
+- If you have any questions regarding the use of this mod, please contact our forum thread (below).
 
 ## Contact
-hoge
+[Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)

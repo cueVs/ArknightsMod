@@ -45,12 +45,12 @@ namespace ArknightsMod.Content.Items.Weapons
             };
         }
 
-		public override void AddRecipes()
-		{
-			Recipe recipe = CreateRecipe();
-            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5); //Please check here: https://github.com/tModLoader/tModLoader/wiki/Intermediate-Recipes#recipegroups
-            recipe.AddTile(TileID.Anvils);
-			recipe.Register();
-		}
+		//public override void AddRecipes()
+		//{
+		//	Recipe recipe = CreateRecipe();
+  //          recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5); //Please check here: https://github.com/tModLoader/tModLoader/wiki/Intermediate-Recipes#recipegroups
+  //          recipe.AddTile(TileID.Anvils);
+		//	recipe.Register();
+		//}
     }
 }

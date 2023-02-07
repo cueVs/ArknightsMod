@@ -39,12 +39,12 @@ namespace ArknightsMod.Content.Items.Weapons
             };
         }
 
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-			recipe.AddRecipeGroup(RecipeGroupID.Wood, 10);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
-        }
+   //     public override void AddRecipes()
+   //     {
+   //         Recipe recipe = CreateRecipe();
+			//recipe.AddRecipeGroup(RecipeGroupID.Wood, 10);
+   //         recipe.AddTile(TileID.WorkBenches);
+   //         recipe.Register();
+   //     }
     }
 }
