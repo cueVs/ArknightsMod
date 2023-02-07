@@ -50,13 +50,14 @@ Mods: {
 			ExusiaiWings: "苹果派！"
 
 			# Material
-			OrirockCluster: "A conglomerate rock mined from the ground."
-			OrirockConcentration: "A refined matter produced with Orirock Cluster."
-			Polyketon: "A small amount of industrial organic compound."
-			KetonColloid: "A large amount of industrial organic compound."
+			OrirockCluster: "从地表开采出的岩石固块组"
+			OrirockConcentration: "从地表开采出的岩石固块组提纯出的物质。"
+			Polyketon: "少量的工业用有机化合物。"
+			Aketon: "酮凝集组"
+			KetonColloid: "大量的工业用有机化合物。"
 
 			# Placeable
-			OrirockCube: "Orirock cube mined from the ground."
+			OrirockCube: "从地表开采出的岩石固块。"
 
 			# Furniture
 			DareUsa: "很大很大的兔兔，很软，很可爱，很舒服。"
