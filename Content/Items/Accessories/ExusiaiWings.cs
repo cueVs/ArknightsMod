@@ -76,12 +76,12 @@ namespace ArknightsMod.Content.Items.Accessories
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-        public override void AddRecipes() {
-			CreateRecipe()
-				.AddIngredient<Material.OrirockConcentration>(3)
-				.AddTile(TileID.WorkBenches)
-				.SortBefore(Main.recipe.First(recipe => recipe.createItem.wingSlot != -1)) // Places this recipe before any wing so every wing stays together in the crafting menu.
-				.Register();
-		}
+  //      public override void AddRecipes() {
+		//	CreateRecipe()
+		//		.AddIngredient<Material.OrirockConcentration>(3)
+		//		.AddTile(TileID.WorkBenches)
+		//		.SortBefore(Main.recipe.First(recipe => recipe.createItem.wingSlot != -1)) // Places this recipe before any wing so every wing stays together in the crafting menu.
+		//		.Register();
+		//}
 	}
 }
