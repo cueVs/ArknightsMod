@@ -32,6 +32,7 @@ Mods: {
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
+			MnOre: "Manganese Ore"
 
 			# Furniture
 			DareUsa: "Rabbit-like Bean Bag Sofa"
@@ -57,6 +58,7 @@ Mods: {
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
+			MnOre: "A metal ore used for metallurgy."
 
 			# Furniture
 			DareUsa: "It looks like a big cute rabbit, and feels like one too."
@@ -123,6 +125,7 @@ Mods: {
 
 		MapObject: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
+			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 

@@ -37,12 +37,14 @@ namespace ArknightsMod.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<ShinginzanProjectile>(); // The projectile is what makes a shortsword work
             Item.shootSpeed = 4f; // This value bleeds into the behavior of the projectile as velocity, keep that in mind when tweaking values
 
+            Item.UseSound = SoundID.Item69; // The sound when the weapon is being used.
+
             // The sound that this item plays when used. Need "using Terraria.Audio;"
-            Item.UseSound = new SoundStyle("ArknightsMod/Assets/Sounds/Items/Weapons/Shinginzan")
-            {
-                Volume = 0.2f,
-                MaxInstances = 3, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-            };
+            //Item.UseSound = new SoundStyle("ArknightsMod/Assets/Sounds/Items/Weapons/Shinginzan")
+            //{
+            //    Volume = 0.2f,
+            //    MaxInstances = 3, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+            //};
         }
 
 		//public override void AddRecipes()
