@@ -29,6 +29,7 @@ Mods: {
 			Polyketon: "Polyketon"
 			Aketon: "Aketon"
 			KetonColloid: "Keton Colloid"
+			MnTri: "Manganese Trihydrate"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -55,6 +56,7 @@ Mods: {
 			OrirockConcentration: "A refined matter produced with Orirock Cluster."
 			Polyketon: "A small amount of industrial organic compound."
 			KetonColloid: "A large amount of industrial organic compound."
+			MnTri: "A metal ore used for metallurgy."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
