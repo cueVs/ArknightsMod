@@ -22,12 +22,12 @@ namespace ArknightsMod.Content.Items.Armor.Vanity
 			Item.vanity = true;
 		}
 
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddRecipeGroup(RecipeGroupID.Wood, 2);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
-        }
+        //public override void AddRecipes()
+        //{
+        //    Recipe recipe = CreateRecipe();
+        //    recipe.AddRecipeGroup(RecipeGroupID.Wood, 2);
+        //    recipe.AddTile(TileID.WorkBenches);
+        //    recipe.Register();
+        //}
     }
 }

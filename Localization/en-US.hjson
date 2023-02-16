@@ -23,6 +23,9 @@ Mods: {
 			DoctorJacket: "Arknights Doctor's jacket"
 			DoctorLeggings: "Arknights Doctor's leggings"
 
+			# Consumables
+			StartBag: "Arknights Doctor's outfit"
+
 			# Material
 			OrirockCluster: "Orirock Cluster"
 			OrirockConcentration: "Orirock Concentration"
@@ -50,6 +53,12 @@ Mods: {
 
 			# Accessories
 			ExusiaiWings: "Apple pie!"
+
+			# Consumables
+			StartBag: '''
+								{$CommonItemTooltip.RightClickToOpen}
+								All equipment for operators is provided by Rhodes Island. And of course, yours.
+								'''
 
 			# Material
 			OrirockCluster: "A conglomerate rock mined from the ground."

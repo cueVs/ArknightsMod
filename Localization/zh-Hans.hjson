@@ -18,6 +18,9 @@ Mods: {
 			# Accessories
 			ExusiaiWings: "Exusiai's wings"
 
+			# Consumables
+			StartBag: "Arknights Doctor's outfit"
+
 			# Armor/Vanity
 			DoctorHood: "Arknights Doctor's hood"
 			DoctorJacket: "Arknights Doctor's jacket"
@@ -50,6 +53,12 @@ Mods: {
 
 			# Accessories
 			ExusiaiWings: "苹果派！"
+
+			# Consumables
+			StartBag: '''
+								{$CommonItemTooltip.RightClickToOpen}
+								All equipment for operators is provided by Rhodes Island. And of course, yours.
+								'''
 
 			# Material
 			OrirockCluster: "从地表开采出的岩石固块组"
