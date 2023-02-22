@@ -37,6 +37,7 @@ Mods: {
 			# Placeable
 			OrirockCube: "固源岩"
 			MnOre: "轻锰矿"
+			Grind: "研磨石"
 
 			# Furniture
 			DareUsa: "懒人沙发兔"
@@ -71,6 +72,7 @@ Mods: {
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"
 			MnOre: "用于提炼冶炼用的金属矿物。"
+			Grind: "用于加工武器零件的研磨石。"
 
 			# Furniture
 			DareUsa: "很大很大的兔兔，很软，很可爱，很舒服。"
@@ -138,6 +140,7 @@ Mods: {
 		MapObject: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
+			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 
