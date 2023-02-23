@@ -298,7 +298,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Polyketon>());
-            shop.item[nextSlot].shopCustomPrice = 3;
+            shop.item[nextSlot].shopCustomPrice = 1;
             shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Placeable.Furniture.DareUsa>());
