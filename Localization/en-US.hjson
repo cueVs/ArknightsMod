@@ -33,6 +33,7 @@ Mods: {
 			Aketon: "Aketon"
 			KetonColloid: "Keton Colloid"
 			MnTri: "Manganese Trihydrate"
+			GP: "Grindstone Pentahydrate"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -67,6 +68,7 @@ Mods: {
 			Polyketon: "A small amount of industrial organic compound."
 			KetonColloid: "A large amount of industrial organic compound."
 			MnTri: "A metal ore used for metallurgy."
+			GP: "An advanced grindstone used in the finish machining of weapon parts."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
