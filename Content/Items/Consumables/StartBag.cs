@@ -33,7 +33,7 @@ namespace ArknightsMod.Content.Items.Consumables
 		public override void ModifyItemLoot(ItemLoot itemLoot) {
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorHood>()));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorJacket>()));
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorLeggings>()));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorPants>()));
         }
     }
 }

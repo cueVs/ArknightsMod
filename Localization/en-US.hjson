@@ -21,7 +21,7 @@ Mods: {
 			# Armor/Vanity
 			DoctorHood: "Arknights Doctor's hood"
 			DoctorJacket: "Arknights Doctor's jacket"
-			DoctorLeggings: "Arknights Doctor's leggings"
+			DoctorPants: "Arknights Doctor's pants"
 
 			# Consumables
 			StartBag: "Arknights Doctor's outfit"
@@ -39,6 +39,7 @@ Mods: {
 			OrirockCube: "Orirock Cube"
 			MnOre: "Manganese Ore"
 			Grind: "Grindstone"
+			RMA12: "RMA70-12"
 
 			# Furniture
 			DareUsa: "Rabbit-like Bean Bag Sofa"
@@ -74,6 +75,7 @@ Mods: {
 			OrirockCube: "Orirock cube mined from the ground."
 			MnOre: "A metal ore used for metallurgy."
 			Grind: "A grindstone used to process weapon parts."
+			RMA12: "A sensitive mineral with high conductivity."
 
 			# Furniture
 			DareUsa: "It looks like a big cute rabbit, and feels like one too."
@@ -142,6 +144,7 @@ Mods: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
+			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 
