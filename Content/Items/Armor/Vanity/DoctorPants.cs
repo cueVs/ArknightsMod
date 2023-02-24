@@ -7,11 +7,11 @@ namespace ArknightsMod.Content.Items.Armor.Vanity
 {
     // See also: ExampleCostume
     [AutoloadEquip(EquipType.Legs)]
-    public class DoctorLeggings : ModItem
+    public class DoctorPants : ModItem
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Arknights Doctor's Leggings");
+            // DisplayName.SetDefault("Arknights Doctor's Pants");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

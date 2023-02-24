@@ -24,7 +24,7 @@ Mods: {
 			# Armor/Vanity
 			DoctorHood: "Arknights Doctor's hood"
 			DoctorJacket: "Arknights Doctor's jacket"
-			DoctorLeggings: "Arknights Doctor's leggings"
+			DoctorPants: "Arknights Doctor's pants"
 
 			# Material
 			OrirockCluster: "固源岩组"
@@ -39,6 +39,7 @@ Mods: {
 			OrirockCube: "固源岩"
 			MnOre: "轻锰矿"
 			Grind: "研磨石"
+			RMA12: "RMA70-12"
 
 			# Furniture
 			DareUsa: "懒人沙发兔"
@@ -75,12 +76,13 @@ Mods: {
 			OrirockCube: "从地表开采出的岩石固块。"
 			MnOre: "用于提炼冶炼用的金属矿物。"
 			Grind: "用于加工武器零件的研磨石。"
+			RMA12: "一种敏感且有良好传导效果的矿物。"
 
 			# Furniture
 			DareUsa: "很大很大的兔兔，很软，很可爱，很舒服。"
 
 			# otherItems
-			Orundum: "An artificial material commonly used to recruit operators."
+			Orundum: "常用于招募干员。"
 		}
 
 		NPCName: {
@@ -143,6 +145,7 @@ Mods: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
+			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 
