@@ -34,6 +34,7 @@ Mods: {
 			KetonColloid: "Keton Colloid"
 			MnTri: "Manganese Trihydrate"
 			GP: "Grindstone Pentahydrate"
+			RMA24: "RMA70-24"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -70,6 +71,7 @@ Mods: {
 			KetonColloid: "A large amount of industrial organic compound."
 			MnTri: "A metal ore used for metallurgy."
 			GP: "An advanced grindstone used in the finish machining of weapon parts."
+			RMA24: "A highly sensitive mineral with outstanding conductivity."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
@@ -144,7 +146,7 @@ Mods: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
-			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
+			RMA12: "{$Mods.ArknightsMod.ItemName.R}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 
