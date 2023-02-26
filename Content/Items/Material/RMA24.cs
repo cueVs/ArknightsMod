@@ -16,7 +16,7 @@ namespace ArknightsMod.Content.Items.Material
 		}
 
 		public override void SetDefaults() {
-			Item.width = 32; // The item texture's width
+			Item.width = 34; // The item texture's width
 			Item.height = 34; // The item texture's height
 
 			Item.maxStack = 999; // The item's max stack value
