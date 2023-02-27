@@ -24,11 +24,11 @@ namespace ArknightsMod.Content.Items
         }
 
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-		public override void AddRecipes() {
-			CreateRecipe()
-				.AddIngredient<Placeable.OrirockCube>(5)
-				.AddTile(TileID.WorkBenches)
-				.Register();
-		}
+		//public override void AddRecipes() {
+		//	CreateRecipe()
+		//		.AddIngredient<Placeable.OrirockCube>(5)
+		//		.AddTile(TileID.WorkBenches)
+		//		.Register();
+		//}
 	}
 }
