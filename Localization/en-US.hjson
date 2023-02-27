@@ -35,6 +35,7 @@ Mods: {
 			MnTri: "Manganese Trihydrate"
 			GP: "Grindstone Pentahydrate"
 			RMA24: "RMA70-24"
+			LoxicKohl: "Loxic Kohl"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -72,6 +73,7 @@ Mods: {
 			MnTri: "A metal ore used for metallurgy."
 			GP: "An advanced grindstone used in the finish machining of weapon parts."
 			RMA24: "A highly sensitive mineral with outstanding conductivity."
+			LoxicKohl: "A flaky organic compound."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
