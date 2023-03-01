@@ -1,8 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Net;
-using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
@@ -23,12 +21,13 @@ namespace ArknightsMod.Content.Items.Material
             Item.value = Item.sellPrice(0, 0, 6, 00); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
         }
 
-		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-		public override void AddRecipes() {
-			CreateRecipe()
-				.AddIngredient<Placeable.Grind>(1)
-				.AddTile(TileID.WorkBenches)
-				.Register();
-		}
-	}
+        // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<Placeable.Grind>(1)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+        }
+    }
 }

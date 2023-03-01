@@ -14,6 +14,7 @@ Mods: {
 			YatoKatana: "Yato's Katana"
 			DurinWand: "Durin's wand"
 			Shinginzan: "Shinginzan"
+			BagpipeSpear: "Piledriver Spear"
 
 			# Accessories
 			ExusiaiWings: "Exusiai's wings"
@@ -55,6 +56,7 @@ Mods: {
 			YatoKatana: "Yato has joined the team."
 			DurinWand: "She looks quite sleepy."
 			Shinginzan: "SilverAsh"
+			BagpipeSpear: "My spear and I hail from Victoria!"
 
 			# Accessories
 			ExusiaiWings: "Apple pie!"
