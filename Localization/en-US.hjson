@@ -37,6 +37,7 @@ Mods: {
 			GP: "Grindstone Pentahydrate"
 			RMA24: "RMA70-24"
 			LoxicKohl: "Loxic Kohl"
+			WHKohl: "White Horse Kohl"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -76,6 +77,7 @@ Mods: {
 			GP: "An advanced grindstone used in the finish machining of weapon parts."
 			RMA24: "A highly sensitive mineral with outstanding conductivity."
 			LoxicKohl: "A flaky organic compound."
+			WHKohl: "A product made from Loxic Kohl after fine processing."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
