@@ -36,6 +36,7 @@ Mods: {
 			GP: "五水研磨石"
 			RMA24: "RMA70-24"
 			LoxicKohl: "扭转醇"
+			WHKohl: "白马醇"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -75,6 +76,7 @@ Mods: {
 			GP: "用于精加工武器零件的高级研磨石。"
 			RMA24: "一种十分敏感且有优秀传导效果的矿物。"
 			LoxicKohl: "片状有机化合物。"
+			WHKohl: "扭转醇精加工后的产物。"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"
