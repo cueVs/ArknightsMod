@@ -78,7 +78,7 @@ Mods: {
 			RMA24: "一种十分敏感且有优秀传导效果的矿物。"
 			LoxicKohl: "片状有机化合物。"
 			WHKohl: "扭转醇精加工后的产物。"
-			Device:"收缴来的常规机械装置，可用于多种强化场合。"
+			Device:"收缴来的常规机械装置。"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"
