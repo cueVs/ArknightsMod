@@ -34,8 +34,8 @@ namespace ArknightsMod.Content.Items.Weapons
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 0, 4, 0);
 
-            // Item.shoot = ModContent.ProjectileType<ShinginzanProjectile>(); // The projectile is what makes a shortsword work
-            // Item.shootSpeed = 4f; // This value bleeds into the behavior of the projectile as velocity, keep that in mind when tweaking values
+            Item.shoot = ModContent.ProjectileType<ThornsSwordProjectile>(); // The projectile is what makes a shortsword work
+            Item.shootSpeed = 8f; // This value bleeds into the behavior of the projectile as velocity, keep that in mind when tweaking values
 
             // The sound that this item plays when used. Need "using Terraria.Audio;"
             Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ThornsSword")

@@ -150,7 +150,7 @@ Mods: {
 			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
-			RMA12: "{$Mods.ArknightsMod.ItemName.R}"
+			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 		}
 
