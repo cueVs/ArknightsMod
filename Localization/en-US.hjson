@@ -38,6 +38,7 @@ Mods: {
 			RMA24: "RMA70-24"
 			LoxicKohl: "Loxic Kohl"
 			WHKohl: "White Horse Kohl"
+			Device:"Device"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -78,6 +79,7 @@ Mods: {
 			RMA24: "A highly sensitive mineral with outstanding conductivity."
 			LoxicKohl: "A flaky organic compound."
 			WHKohl: "A product made from Loxic Kohl after fine processing."
+			Device:"An ordinary mechanical device captured from Reunion."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
