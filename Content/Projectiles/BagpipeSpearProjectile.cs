@@ -15,7 +15,7 @@ namespace ArknightsMod.Content.Projectiles
     {
 
         // Define the range of the Spear Projectile. These are overrideable properties, in case you'll want to make a class inheriting from this one.
-        protected virtual float HoldoutRangeMin => 24f;
+        protected virtual float HoldoutRangeMin => 30f;
         protected virtual float HoldoutRangeMax => 96f;
 
         public override void SetStaticDefaults()
