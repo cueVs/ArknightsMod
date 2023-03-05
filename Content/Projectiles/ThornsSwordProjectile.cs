@@ -49,6 +49,12 @@ namespace ArknightsMod.Content.Projectiles
 
             // The code in this method is important to align the sprite with the hitbox how we want it to
             SetVisualOffsets();
+
+            // Let's add some dust for special effect. In this case, it runs every other tick (30 ticks per second).
+            if (Projectile.timeLeft % 2 == 0)
+            {
+                Dust.NewDustPerfect(new Vector2(Projectile.Center.X - (Projectile.width * Projectile.direction), Projectile.Center.Y), DustID.Bee, null, 0, default, 0.5f); //Here we spawn the dust at the back of the projectile with half scale.
+            }
         }
 
         // Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
