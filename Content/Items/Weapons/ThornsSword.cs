@@ -19,7 +19,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
         public override void SetDefaults()
 		{
-            Item.damage = 10;
+            Item.damage = 70;
             Item.knockBack = 6.5f;
             Item.useStyle = ItemUseStyleID.Swing; // Makes the player do the proper arm motion
             Item.useAnimation = 40;
