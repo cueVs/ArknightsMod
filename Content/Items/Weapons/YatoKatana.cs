@@ -37,12 +37,12 @@ namespace ArknightsMod.Content.Items.Weapons
             Item.shootSpeed = 2.3f; // This value bleeds into the behavior of the projectile as velocity, keep that in mind when tweaking values
         }
 
-		//public override void AddRecipes()
-		//{
-		//	Recipe recipe = CreateRecipe();
-  //          recipe.AddRecipeGroup(RecipeGroupID.IronBar, 5); //Please check here: https://github.com/tModLoader/tModLoader/wiki/Intermediate-Recipes#recipegroups
-  //          recipe.AddTile(TileID.Anvils);
-		//	recipe.Register();
-		//}
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient<Placeable.OrirockCube>(5); //Please check here: https://github.com/tModLoader/tModLoader/wiki/Intermediate-Recipes#recipegroups
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.Register();
+        }
     }
 }
