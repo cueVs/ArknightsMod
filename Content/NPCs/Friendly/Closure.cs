@@ -32,10 +32,10 @@ namespace ArknightsMod.Content.NPCs.Friendly
                 .SetBiomeAffection<ForestBiome>(AffectionLevel.Like) // Example Person prefers the forest.
                 .SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike) // Example Person dislikes the snow.
                 // .SetBiomeAffection<ExampleSurfaceBiome>(AffectionLevel.Love) // Example Person likes the Example Surface Biome
-                .SetNPCAffection(NPCID.Dryad, AffectionLevel.Love) // Loves living near the dryad.
-                .SetNPCAffection(NPCID.Guide, AffectionLevel.Like) // Likes living near the guide.
+                .SetNPCAffection(NPCID.Mechanic, AffectionLevel.Love) // Loves living near the dryad.
+                .SetNPCAffection(NPCID.Cyborg, AffectionLevel.Like) // Likes living near the guide.
                 .SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) // Dislikes living near the merchant.
-                .SetNPCAffection(NPCID.Demolitionist, AffectionLevel.Hate) // Hates living near the demolitionist.
+                .SetNPCAffection(NPCID.Angler, AffectionLevel.Hate) // Hates living near the demolitionist.
             ; // < Mind the semicolon!
         }
 
