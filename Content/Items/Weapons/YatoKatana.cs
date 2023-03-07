@@ -2,6 +2,7 @@ using ArknightsMod.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
@@ -23,7 +24,6 @@ namespace ArknightsMod.Content.Items.Weapons
             Item.useTime = 12;
             Item.width = 40;
             Item.height = 40;
-            Item.UseSound = SoundID.Item1;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.channel = true; //Channel so that you can held the weapon [Important]
             Item.autoReuse = false;
@@ -35,6 +35,13 @@ namespace ArknightsMod.Content.Items.Weapons
 
             Item.shoot = ModContent.ProjectileType<YatoKatanaProjectile>(); // The projectile is what makes a shortsword work
             Item.shootSpeed = 2.3f; // This value bleeds into the behavior of the projectile as velocity, keep that in mind when tweaking values
+
+            // The sound that this item plays when used. Need "using Terraria.Audio;"
+            Item.UseSound = new SoundStyle("ArknightsMod/Sounds/YatoKatana")
+            {
+                Volume = 0.2f,
+                MaxInstances = 1, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+            };
         }
 
         public override void AddRecipes()
