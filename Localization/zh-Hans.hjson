@@ -11,21 +11,22 @@ Mods: {
 
 		ItemName: {
 			# Weapons
-			YatoKatana: "Yato's Katana"
+			YatoKatana: "夜刀的剑"
 			DurinWand: "Durin's wand"
 			Shinginzan: "Shinginzan"
 			BagpipeSpear: "破城矛"
+			ThornsSword: "棘刺的剑"
 
 			# Accessories
 			ExusiaiWings: "Exusiai's wings"
 
 			# Consumables
-			StartBag: "Arknights Doctor's outfit"
+			StartBag: "明日方舟博士的衣服"
 
 			# Armor/Vanity
-			DoctorHood: "Arknights Doctor's hood"
-			DoctorJacket: "Arknights Doctor's jacket"
-			DoctorPants: "Arknights Doctor's pants"
+			DoctorHood: "明日方舟博士的兜帽"
+			DoctorJacket: "明日方舟博士的夹克"
+			DoctorPants: "明日方舟博士的裤子"
 
 			# Material
 			OrirockCluster: "固源岩组"
@@ -66,7 +67,7 @@ Mods: {
 			# Consumables
 			StartBag: '''
 								{$CommonItemTooltip.RightClickToOpen}
-								All equipment for operators is provided by Rhodes Island. And of course, yours.
+								所有干员的装备由罗德岛发放。当然，你的也是。
 								'''
 
 			# Material
@@ -97,7 +98,7 @@ Mods: {
 
 		NPCName: {
 			# Friendly
-			Closure: "Engineer"
+			Closure: "工程师"
 		}
 
 		NameList: {
@@ -137,8 +138,8 @@ Mods: {
 				Dialogue6: "人生最遥远的距离，就是你在我面前，但是我却买不起你。"
 				Dialogue7: "已经打过折了，博士！你怎么问我也没法更便宜了！"
 				Dialogue8: "这些东西博士不买的话，我就自己要了。"
-				AO: "I want you to take down 50 {0}. Bring me the banner to prove it."
-				AOThanks: "Thank you!"
+				AO: "我想你去帮我打倒50个{0}。结束后记得把旗帜拿来当作凭据哦。"
+				AOThanks: "谢啦～！"
 				AOStatus: "Finish!"
 			}
 		}
