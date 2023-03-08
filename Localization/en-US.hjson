@@ -39,6 +39,8 @@ Mods: {
 			LoxicKohl: "Loxic Kohl"
 			WHKohl: "White Horse Kohl"
 			Device:"Device"
+			IntegratedDevice:"Integrated Device"
+			OptimizedDevice:"Optimized Device"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -79,6 +81,8 @@ Mods: {
 			LoxicKohl: "A flaky organic compound."
 			WHKohl: "A product made from Loxic Kohl after fine processing."
 			Device:"An ordinary mechanical device captured from Reunion."
+			IntegratedDevice:"A set of brand new devices."
+			OptimizedDevice:"These devices have a large number of private modifications."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
