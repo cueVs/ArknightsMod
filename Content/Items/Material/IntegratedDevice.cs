@@ -26,7 +26,7 @@ namespace ArknightsMod.Content.Items.Material
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient<Material.Device>(4)
+				.AddIngredient<Device>(4)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

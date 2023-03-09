@@ -6,13 +6,15 @@ namespace ArknightsMod.Content.Items.Placeable.Furniture
 {
 	public class DareUsa : ModItem
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			// Tooltip.SetDefault("This is a modded chair.");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Furniture.DareUsa>());
 			Item.value = 150;
 			Item.maxStack = 99;
@@ -24,8 +26,8 @@ namespace ArknightsMod.Content.Items.Placeable.Furniture
 		//public override void AddRecipes() {
 		//	CreateRecipe()
 		//		.AddIngredient<OrirockCube>()
-  //              .AddTile(TileID.WorkBenches)
-  //              .Register();
+		//              .AddTile(TileID.WorkBenches)
+		//              .Register();
 		//}
 	}
 }
