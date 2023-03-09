@@ -40,6 +40,8 @@ Mods: {
 			LoxicKohl: "扭转醇"
 			WHKohl: "白马醇"
 			Device:"装置"
+			IntegratedDevice:"全新装置"
+			OptimizedDevice:"改量装置"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -56,13 +58,14 @@ Mods: {
 
 		ItemTooltip: {
 			# Weapons
-			YatoKatana: "'Yato has joined the team.'"
+			YatoKatana: "'夜刀，入队。'"
 			DurinWand: "She looks quite sleepy."
 			Shinginzan: "SilverAsh"
 			BagpipeSpear: "'我和我的破城矛，来自维多利亚！'"
+			ThornsSword: "'看仔细，这才是伊比利亚的至高之术！'"
 
 			# Accessories
-			ExusiaiWings: "苹果派！"
+			ExusiaiWings: "'苹果派！'"
 
 			# Consumables
 			StartBag: '''
@@ -82,6 +85,8 @@ Mods: {
 			LoxicKohl: "片状有机化合物。"
 			WHKohl: "扭转醇精加工后的产物。"
 			Device:"收缴来的常规机械装置。"
+			IntegratedDevice:"一套全新装配而成的装置。"
+			OptimizedDevice:"经过大量私自改造的装置。"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"

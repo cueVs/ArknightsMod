@@ -7,7 +7,7 @@ using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
 {
-	public class WHKohl : ModItem
+	public class OptimizedDevice : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -18,7 +18,7 @@ namespace ArknightsMod.Content.Items.Material
 
 		public override void SetDefaults()
 		{
-			Item.width = 30; // The item texture's width
+			Item.width = 28; // The item texture's width
 			Item.height = 28; // The item texture's height
 
 			Item.maxStack = 999; // The item's max stack value
@@ -29,8 +29,9 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient<LoxicKohl>(1)
-				.AddIngredient<Placeable.RMA12>(1)
+				.AddIngredient<Material.IntegratedDevice>(1)
+				.AddIngredient<Material.OrirockCluster>(2)
+				.AddIngredient<Placeable.Grind>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
