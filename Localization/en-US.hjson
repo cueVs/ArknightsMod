@@ -57,9 +57,10 @@ Mods: {
 
 		ItemTooltip: {
 			# Weapons
-			YatoKatana: "Yato has joined the team."
+			YatoKatana: "'Yato has joined the team.'"
 			DurinWand: "She looks quite sleepy."
 			Shinginzan: "SilverAsh"
+			ThornsSword: "'Watch carefully, this is the Destreza of Iberia!'"
 
 			# Accessories
 			ExusiaiWings: "Apple pie!"

@@ -7,14 +7,16 @@ namespace ArknightsMod.Content.Items.Placeable
 {
 	public class OrirockCube : ModItem
 	{
-		public override void SetStaticDefaults() {
-            // DisplayName.SetDefault("Orirock Cube"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-            // Tooltip.SetDefault("A rock cube mined from the ground."); // The (English) text shown below your item's name
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Orirock Cube"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
+			// Tooltip.SetDefault("A rock cube mined from the ground."); // The (English) text shown below your item's name
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 58;
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;
 			Item.useAnimation = 15;
@@ -25,7 +27,7 @@ namespace ArknightsMod.Content.Items.Placeable
 			Item.createTile = ModContent.TileType<Tiles.OrirockCube>();
 			Item.width = 20;
 			Item.height = 20;
-            Item.value = Item.sellPrice(0, 0, 0, 30);
-        }
+			Item.value = Item.sellPrice(0, 0, 0, 30);
+		}
 	}
 }
