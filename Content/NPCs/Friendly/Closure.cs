@@ -14,8 +14,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 	class Closure : ModNPC
 	{
 
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Engineer");
 			Main.npcFrameCount[NPC.type] = 22;
 			NPCID.Sets.ExtraFramesCount[NPC.type] = 6;
@@ -39,13 +38,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			; // < Mind the semicolon!
 		}
 
-		public override List<string> SetNPCNameList()
-		{
+		public override List<string> SetNPCNameList() {
 			return new List<string> { Language.GetTextValue("Mods.ArknightsMod.NameList.Closure") };
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			NPC.townNPC = true;
 			NPC.friendly = true;
 			NPC.width = 18;
@@ -60,30 +57,24 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			AnimationType = NPCID.Guide;
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-		{
-			foreach (Player player in Main.player)
-			{
-				if (!player.active)
-				{
+		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
+			foreach (Player player in Main.player) {
+				if (!player.active) {
 					continue;
 				}
-				if (player.statDefense > 0)
-				{
+				if (player.statDefense > 0) {
 					return true;
 				}
 			}
 			return false;
 		}
 
-		public override bool CanGoToStatue(bool toQueenStatue)
-		{
+		public override bool CanGoToStatue(bool toQueenStatue) {
 			return true;
 		}
 
 
-		public override string GetChat()
-		{
+		public override string GetChat() {
 			WeightedRandom<string> chat = new();
 			chat.Add(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.Dialogue1"));
 			chat.Add(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.Dialogue2"));
@@ -99,50 +90,40 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			//}
 			return chat;
 		}
-		public override void SetChatButtons(ref string button, ref string button2)
-		{
+		public override void SetChatButtons(ref string button, ref string button2) {
 			button = Language.GetTextValue("LegacyInterface.28");
 			button2 = Language.GetTextValue("Mods.ArknightsMod.ButtonName.button2");
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
-		{
-			if (firstButton)
-			{
+		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
+			if (firstButton) {
 				shop = true;
 				return;
 			}
-			else
-			{
+			else {
 				AO();
 			}
 		}
 
-		public void AO()
-		{
+		public void AO() {
 			var System = Main.player[Main.myPlayer].GetModPlayer<AOSystem>();
 			// AOStatus: false=最初の受注時, true=クエスト中
 			// QuestType: 0:pre/unfinAll 1:pre/fin (2:HM/unfin 3:HM/fin)
-			if (!System.AOStatus)
-			{
-				if (System.QuestType == 0)
-				{
+			if (!System.AOStatus) {
+				if (System.QuestType == 0) {
 					Main.npcChatText = System.GetCurrentQuest().ToString();
 					Main.npcChatCornerItem = System.GetCurrentQuest().QuestItem;
 					System.AOStatus = true;
 				}
-				else
-				{
+				else {
 					System.QuestNum = Main.rand.Next(System.CountQuest);
 					Main.npcChatText = System.GetCurrentQuest().ToString();
 					Main.npcChatCornerItem = System.GetCurrentQuest().QuestItem;
 					System.AOStatus = true;
 				}
 			}
-			else
-			{
-				if (System.CheckQuest())
-				{
+			else {
+				if (System.CheckQuest()) {
 					Main.npcChatText = System.GetCurrentQuest().Finish();
 					Main.npcChatCornerItem = 0;
 					System.SpawnReward(NPC);
@@ -151,8 +132,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 						System.QuestType = 1;
 					return;
 				}
-				else
-				{
+				else {
 					Main.npcChatText = System.GetCurrentQuest().ToString();
 					Main.npcChatCornerItem = System.GetCurrentQuest().QuestItem;
 				}
@@ -167,38 +147,32 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			public bool AOStatus = false;
 			public int QuestType = 0;
 
-			public override void Initialize()
-			{
+			public override void Initialize() {
 				Quests.Clear();
 				Quests.Add(new Quest(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AO", "Green Slimes"), ItemID.GreenSlimeBanner, 1, Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOThanks")));
 				Quests.Add(new Quest(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AO", "Blue Slimes"), ItemID.SlimeBanner, 1, Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOThanks")));
 				CountQuest = Quests.Count;
 			}
 
-			public Quest GetCurrentQuest()
-			{
+			public Quest GetCurrentQuest() {
 				return Quests[QuestNum];
 			}
 
-			public int Current
-			{
+			public int Current {
 				get { return QuestNum; }
 				set { QuestNum = value; }
 			}
 
-			public override void clientClone(ModPlayer clientClone)
-			{
+			public override void clientClone(ModPlayer clientClone) {
 				AOSystem clone = clientClone as AOSystem;
 				clone.QuestNum = QuestNum;
 				clone.QuestType = QuestType;
 				clone.AOStatus = AOStatus;
 			}
 
-			public override void SendClientChanges(ModPlayer clientPlayer)
-			{
+			public override void SendClientChanges(ModPlayer clientPlayer) {
 				AOSystem clone = clientPlayer as AOSystem;
-				if (clone.QuestNum != QuestNum || clone.QuestType != QuestType || clone.AOStatus != AOStatus)
-				{
+				if (clone.QuestNum != QuestNum || clone.QuestType != QuestType || clone.AOStatus != AOStatus) {
 					ModPacket packet = Mod.GetPacket();
 					packet.Write((byte)4);
 					packet.Write(Player.whoAmI);
@@ -209,8 +183,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				}
 			}
 
-			public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-			{
+			public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
 				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)4);
 				packet.Write(Player.whoAmI);
@@ -220,15 +193,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				packet.Send(toWho, fromWho);
 			}
 
-			public bool CheckQuest()
-			{
+			public bool CheckQuest() {
 				var quest = Quests[QuestNum];
-				foreach (var item in Player.inventory)
-				{
-					if (item.type == quest.QuestItem)
-					{
-						if (Player.CountItem(quest.QuestItem, quest.ItemAmount) >= quest.ItemAmount)
-						{
+				foreach (var item in Player.inventory) {
+					if (item.type == quest.QuestItem) {
+						if (Player.CountItem(quest.QuestItem, quest.ItemAmount) >= quest.ItemAmount) {
 							item.stack -= quest.ItemAmount;
 							if (item.stack <= 0)
 								item.SetDefaults();
@@ -239,28 +208,24 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				return false;
 			}
 
-			public void SpawnReward(NPC npc)
-			{
+			public void SpawnReward(NPC npc) {
 				int reward = Item.NewItem(npc.GetSource_Loot(), Player.getRect(), ModContent.ItemType<Items.Orundum>(), 50);
 				if (Main.netMode == NetmodeID.MultiplayerClient && reward >= 0)
 					NetMessage.SendData(MessageID.SyncItem, -1, -1, null, reward, 0f, 0f, 0f, 0);
 				return;
 			}
 
-			public static int StartQuest()
-			{
+			public static int StartQuest() {
 				return 0;
 			}
 
-			public override void SaveData(TagCompound tag)
-			{
+			public override void SaveData(TagCompound tag) {
 				tag.Add("QuestNum", QuestNum);
 				tag.Add("QuestType", QuestType);
 				tag.Add("AOStatus", AOStatus);
 			}
 
-			public override void LoadData(TagCompound tag)
-			{
+			public override void LoadData(TagCompound tag) {
 
 				QuestNum = tag.GetInt("QuestNum");
 				QuestType = tag.GetInt("QuestType");
@@ -277,27 +242,23 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			public string FinMessage;
 			public double Weight;
 
-			public Quest(string questMessage, int itemID, int itemAmount, string finMessage = null)
-			{
+			public Quest(string questMessage, int itemID, int itemAmount, string finMessage = null) {
 				QuestMessage = questMessage;
 				QuestItem = itemID;
 				ItemAmount = itemAmount;
 				FinMessage = finMessage;
 			}
 
-			public override string ToString()
-			{
+			public override string ToString() {
 				return Language.GetTextValue(QuestMessage, Main.LocalPlayer.name);
 			}
 
-			public string Finish()
-			{
+			public string Finish() {
 				return Language.GetTextValue(FinMessage);
 			}
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot)
-		{
+		public override void SetupShop(Chest shop, ref int nextSlot) {
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Polyketon>());
 			shop.item[nextSlot].shopCustomPrice = 1;
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
@@ -320,14 +281,12 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			nextSlot++;
 		}
 
-		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
-		{
+		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
 			damage = 30;
 			knockback = 4f;
 		}
 
-		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
-		{
+		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
 			cooldown = 30;
 			randExtraCooldown = 30;
 		}
