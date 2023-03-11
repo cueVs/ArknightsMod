@@ -43,6 +43,7 @@ Mods: {
 			IntegratedDevice: "Integrated Device"
 			OptimizedDevice: "Optimized Device"
 			Oriron: "Oriron"
+			OrironCluster: "Oriron Cluster"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -88,6 +89,7 @@ Mods: {
 			IntegratedDevice: "A set of brand new devices."
 			OptimizedDevice: "These devices have a large number of private modifications."
 			Oriron: "A rare industrial material."
+			OrironCluster: "A precious industrial material."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
