@@ -11,16 +11,14 @@ namespace ArknightsMod.Content.Items.Consumables
 {
 	public class StartBag : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Example CanStack Item: Gift Bag");
 			// Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.width = 38;
@@ -28,13 +26,11 @@ namespace ArknightsMod.Content.Items.Consumables
 			Item.rare = ItemRarityID.White;
 		}
 
-		public override bool CanRightClick()
-		{
+		public override bool CanRightClick() {
 			return true;
 		}
 
-		public override void ModifyItemLoot(ItemLoot itemLoot)
-		{
+		public override void ModifyItemLoot(ItemLoot itemLoot) {
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorHood>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorJacket>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorPants>()));

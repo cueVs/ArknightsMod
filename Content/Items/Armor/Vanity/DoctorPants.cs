@@ -9,14 +9,12 @@ namespace ArknightsMod.Content.Items.Armor.Vanity
 	[AutoloadEquip(EquipType.Legs)]
 	public class DoctorPants : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Pants");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Item.width = 22;
 			Item.height = 18;
 			Item.rare = ItemRarityID.Blue;
