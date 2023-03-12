@@ -14,6 +14,7 @@ Mods: {
 			YatoKatana: "夜刀的剑"
 			DurinWand: "Durin's wand"
 			Shinginzan: "Shinginzan"
+			BagpipeSpear: "破城矛"
 			ThornsSword: "棘刺的剑"
 
 			# Accessories
@@ -62,6 +63,7 @@ Mods: {
 			YatoKatana: "'夜刀，入队。'"
 			DurinWand: "She looks quite sleepy."
 			Shinginzan: "SilverAsh"
+			BagpipeSpear: "'我和我的破城矛，来自维多利亚！'"
 			ThornsSword: "'看仔细，这才是伊比利亚的至高之术！'"
 
 			# Accessories

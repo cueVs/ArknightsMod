@@ -1,8 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Net;
-using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
