@@ -67,7 +67,8 @@ namespace ArknightsMod.Content.Items.Weapons
 			CreateRecipe()
 				.AddIngredient<Material.OrirockConcentration>(9)
 				.AddIngredient<Material.KetonColloid>(4)
-				.AddTile(TileID.WorkBenches)
+				.AddIngredient<Material.OrironBlock>(4)
+				.AddTile(TileID.Anvils)
 				.Register();
 		}
 	}

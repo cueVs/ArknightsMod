@@ -44,6 +44,7 @@ Mods: {
 			OptimizedDevice: "改量装置"
 			Oriron: "异铁"
 			OrironCluster: "异铁组"
+			OrironBlock: "异铁块"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -91,6 +92,7 @@ Mods: {
 			OptimizedDevice: "经过大量私自改造的装置。"
 			Oriron: "罕见的工业材料。"
 			OrironCluster: "珍贵的工业材料。"
+			OrironBlock: "价值高昂的工业材料。"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"

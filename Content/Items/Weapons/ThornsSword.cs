@@ -46,11 +46,12 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 		public override void AddRecipes() {
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient<Material.OrirockConcentration>(4);
-			recipe.AddIngredient<Material.KetonColloid>(4);
-			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
+			CreateRecipe()
+				.AddIngredient<Material.OrirockConcentration>(4)
+				.AddIngredient<Material.KetonColloid>(4)
+				.AddIngredient<Material.OrironBlock>(6)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 	}
 }

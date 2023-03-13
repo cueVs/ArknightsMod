@@ -16,8 +16,7 @@ namespace ArknightsMod.Content.Items.Accessories
 	[AutoloadEquip(EquipType.Wings)]
 	public class ExusiaiWings : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Exusiai's wing");
 			// Tooltip.SetDefault("Apple pie!");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -29,8 +28,7 @@ namespace ArknightsMod.Content.Items.Accessories
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Item.width = 30;
 			Item.height = 28;
 			Item.value = Item.sellPrice(0, 3, 0, 0);
@@ -40,8 +38,7 @@ namespace ArknightsMod.Content.Items.Accessories
 
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-		{
+			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend) {
 			ascentWhenFalling = 0.85f; // Falling glide speed
 			ascentWhenRising = 0.15f; // Rising speed
 			maxCanAscendMultiplier = 1f;
@@ -57,8 +54,7 @@ namespace ArknightsMod.Content.Items.Accessories
 		//}
 
 
-		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-		{
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
 			Texture2D texture = ModContent.Request<Texture2D>("ArknightsMod/Content/Items/Accessories/ExusiaiWings_Glowmask", AssetRequestMode.ImmediateLoad).Value;
 			spriteBatch.Draw
 			(

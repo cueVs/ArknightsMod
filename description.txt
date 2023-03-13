@@ -1,5 +1,5 @@
 # Hello, Doctor!
-This Mod for Terraria is made for Arknights Doctor. I'm creating the Mod based on the idea of Arknights, adding my own interpretation.<br>
+This Mod for Terraria is made for Arknights Doctor. I'm creating the Mod based on the idea of Arknights, adding my own interpretation.
 Have a good life of Arknights in Terraria, Doctor!
 
 ## What is Arknights?
@@ -8,9 +8,20 @@ Arknights is a mobile tower defense (TD) game developed by Hypergryph. I think y
 ## What can you do with the Mod?
 You can play it as Arknights Doctor, and can use many items associated with many Operators.
 
+## Latest Update
+- Added Loxic Kohl and White Horse Kohl
+- Added Devices of all rarity
+- Added Oriron of all rarity
+- Modified recipes of some materials
+- Added Piledriver Spear
+- Added Thorns' Sword
+- Added Yato's Katana
+- Modified CN localization
+The weapons don't have ability of skills, but will be added in the future.
+
 ## Contributing
-Recruitment tag: [Program] [Sprite] [Terraria] [Discussion] [Audience]
-As long as you are interested in one of them, please contact our forum thread (below) and tell us about it.
+Recruitment tag: [Pixel Artist] [Spriter] [EN-CN translator] [JP-CN translator] [Programmer] [Terrarian] [Feedback] [Doctor]
+As long as you are interested in one of them, please contact our Discord (below) and tell us about it.
 🐰"There's still lots of work that needs to be done, Doctor. We can't afford to have you resting."
 There is a lot of work to be done in Terraria. We look forward to meet you.
 
@@ -18,7 +29,8 @@ There is a lot of work to be done in Terraria. We look forward to meet you.
 - Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines).
 - I do not take any responsibility or liability for any damage or loss caused through this mod. (So, you should back up the game data periodically.)
 - You are NOT allowed to use or to reproduce the code and the images of this mod.
-- If you have any questions regarding the use of this mod, please contact our forum thread (below).
+- If you have any questions regarding the use of this mod, please contact our Discord (below).
 
 ## Contact
-[Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)
+Discord (Lurker OK) : https://discord.gg/XKM2jeS9hY
+Arknights Mod thread: https://forums.terraria.org/index.php?threads/arknights-mod.117651/ (in Terraria Forums)

@@ -1,7 +1,7 @@
 displayName = Arknights Mod
 author = cueV
-version = 0.1.0
-homepage = https://forums.terraria.org/index.php?threads/arknights-mod.117651/
+version = 0.1.1
+homepage = https://discord.gg/XKM2jeS9hY
 hideCode = true
 hideResources = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, .git\*
