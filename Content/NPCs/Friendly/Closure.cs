@@ -30,7 +30,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			NPC.Happiness
 				.SetBiomeAffection<ForestBiome>(AffectionLevel.Like) // Example Person prefers the forest.
 				.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike) // Example Person dislikes the snow.
-																	  // .SetBiomeAffection<ExampleSurfaceBiome>(AffectionLevel.Love) // Example Person likes the Example Surface Biome
+				// .SetBiomeAffection<ExampleSurfaceBiome>(AffectionLevel.Love) // Example Person likes the Example Surface Biome
 				.SetNPCAffection(NPCID.Mechanic, AffectionLevel.Love) // Loves living near the dryad.
 				.SetNPCAffection(NPCID.Cyborg, AffectionLevel.Like) // Likes living near the guide.
 				.SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike) // Dislikes living near the merchant.
@@ -264,6 +264,10 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Oriron>());
+			shop.item[nextSlot].shopCustomPrice = 1;
+			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
+			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Sugar>());
 			shop.item[nextSlot].shopCustomPrice = 1;
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
 			nextSlot++;
