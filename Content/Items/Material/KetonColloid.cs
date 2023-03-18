@@ -26,6 +26,7 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient<Aketon>(2)
+				.AddIngredient<SugarPack>(1)
 				.AddIngredient<Placeable.MnOre>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();

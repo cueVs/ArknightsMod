@@ -46,6 +46,7 @@ Mods: {
 			OrironCluster: "异铁组"
 			OrironBlock: "异铁块"
 			Sugar: "糖"
+			SugarPack: "糖组"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -95,6 +96,7 @@ Mods: {
 			OrironCluster: "珍贵的工业材料。"
 			OrironBlock: "价值高昂的工业材料。"
 			Sugar: "机械化制作的少量糖块。"
+			SugarPack: "机械化制作的中等量糖块"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"

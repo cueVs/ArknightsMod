@@ -29,8 +29,8 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient<Material.IntegratedDevice>(1)
-				.AddIngredient<Material.OrirockCluster>(2)
+				.AddIngredient<IntegratedDevice>(1)
+				.AddIngredient<OrirockCluster>(2)
 				.AddIngredient<Placeable.Grind>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
