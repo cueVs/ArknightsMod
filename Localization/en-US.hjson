@@ -46,6 +46,7 @@ Mods: {
 			OrironCluster: "Oriron Cluster"
 			OrironBlock: "Oriron Block"
 			Sugar: "Sugar"
+			SugarPack: "Sugar Pack"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -94,6 +95,7 @@ Mods: {
 			OrironCluster: "A precious industrial material."
 			OrironBlock: "An expensive industrial material."
 			Sugar: "A small amount of sugar produced by assembly line."
+			SugarPack: "A decent amount of sugar produced by assembly line."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
