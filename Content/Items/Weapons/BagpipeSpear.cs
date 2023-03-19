@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using Terraria.Audio;
+using ArknightsMod.Common.Systems;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
@@ -49,6 +50,13 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override bool CanUseItem(Player player) {
 			// Ensures no more than one spear can be thrown out, use this when using autoReuse
 			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
+
+		public override void HoldItem(Player player) {
+
+			player.GetModPlayer<WeaponPlayer>().Charge += 1;
+
+			base.HoldItem(player);
 		}
 
 		//public override bool? UseItem(Player player)
