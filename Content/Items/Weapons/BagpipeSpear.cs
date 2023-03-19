@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using Terraria.Audio;
-using ArknightsMod.Common.Systems;
+using ArknightsMod.Common.Players;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
@@ -53,8 +53,11 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 		public override void HoldItem(Player player) {
-
-			player.GetModPlayer<WeaponPlayer>().Charge += 1;
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			modPlayer.SkillMax = 12;
+			if (player.GetModPlayer<WeaponPlayer>().SkillCharge < modPlayer.SkillMax * 60) {
+				player.GetModPlayer<WeaponPlayer>().SkillCharge += 1;
+			}
 
 			base.HoldItem(player);
 		}
