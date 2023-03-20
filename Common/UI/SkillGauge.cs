@@ -78,14 +78,8 @@ namespace ArknightsMod.Common.UI
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			
 			// Calculate quotient
-			float quotient = (float)modPlayer.SkillCharge / (modPlayer.SkillMax * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			float quotient = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-
-			float quotientOvercharge1 = (float)modPlayer.overCharge1 / (modPlayer.SkillMax * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotientOvercharge1 = Utils.Clamp(quotientOvercharge1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-
-			float quotientOvercharge2 = (float)modPlayer.overCharge2 / (modPlayer.SkillMax * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotientOvercharge2 = Utils.Clamp(quotientOvercharge2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
 			// Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
 			Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
@@ -94,35 +88,29 @@ namespace ArknightsMod.Common.UI
 			hitbox.Y += 8;
 			hitbox.Height -= 16;
 
+			var colorList = new List<Color>();
+			colorList.Add(gradientA);
+			colorList.Add(gradientB);
+			colorList.Add(gradientC);
+			colorList.Add(gradientD);
+			colorList.Add(gradientE);
+			colorList.Add(gradientF);
+
 			// Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
 			int left = hitbox.Left;
 			int right = hitbox.Right;
 			int steps = (int)((right - left) * quotient);
+			if (modPlayer.StockCount != 0) {
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 113, hitbox.Height), Color.Lerp(colorList[modPlayer.StockCount * 2 - 2], colorList[modPlayer.StockCount * 2 - 1], 100));
+			}
 			for (int i = 0; i < steps; i += 1) {
 				// float percent = (float)i / steps; // Alternate Gradient Approach
 				float percent = (float)i / (right - left);
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(colorList[modPlayer.StockCount * 2], colorList[modPlayer.StockCount * 2 + 1], percent));
 			}
+			if (modPlayer.StockCount == modPlayer.StockMax) {
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 113, hitbox.Height), finalColor);
 
-			//Overcharge 1
-			int stepsOvercharge1 = (int)((right - left) * quotientOvercharge1);
-			for (int i = 0; i < stepsOvercharge1; i += 1) {
-				//float percent = (float)i / steps; // Alternate Gradient Approach
-				float percent = (float)i / (right - left);
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientC, gradientD, percent));
-
-			}
-
-			//Overcharge 2
-			int stepsOvercharge2 = (int)((right - left) * quotientOvercharge2);
-			for (int i = 0; i < stepsOvercharge2; i += 1) {
-				//float percent = (float)i / steps; // Alternate Gradient Approach
-				float percent = (float)i / (right - left);
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientE, gradientF, percent));
-				if (i >= 113) {
-					spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 113, hitbox.Height), finalColor);
-
-				}
 			}
 		}
 
@@ -132,7 +120,7 @@ namespace ArknightsMod.Common.UI
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			// Setting the text per tick to update and show our resource values.
-			text.SetText($"Arknights Resource: {modPlayer.SkillCharge/60} / {modPlayer.SkillMax}");
+			text.SetText($"Arknights Resource: {modPlayer.SP} / {modPlayer.MaxSP}");
 			base.Update(gameTime);
 		}
 	}

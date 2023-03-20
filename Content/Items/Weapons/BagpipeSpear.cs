@@ -54,9 +54,27 @@ namespace ArknightsMod.Content.Items.Weapons
 
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			modPlayer.SkillMax = 12;
-			if (player.GetModPlayer<WeaponPlayer>().SkillCharge < modPlayer.SkillMax * 60) {
-				player.GetModPlayer<WeaponPlayer>().SkillCharge += 1;
+
+			modPlayer.MaxSP = 12;
+			modPlayer.StockMax = 1; //How many charges can the Operator store up to?
+			modPlayer.SkillChargeMax = modPlayer.MaxSP * 60; // in case of Auto Recovery Skill, you need x60 
+
+			if (modPlayer.StockCount < modPlayer.StockMax) {
+				modPlayer.SkillCharge += 1;
+
+				if (modPlayer.SkillCharge != 0 && modPlayer.SkillCharge % 60 == 0) {
+					modPlayer.SP += 1;
+				}
+
+				if (modPlayer.SkillCharge == modPlayer.SkillChargeMax) {
+					modPlayer.SkillCharge = 0;
+					modPlayer.StockCount += 1;
+					if (modPlayer.StockCount == modPlayer.StockMax) {
+						modPlayer.SP = modPlayer.MaxSP;
+					}
+					else modPlayer.SP = 0;
+				}
+
 			}
 
 			base.HoldItem(player);

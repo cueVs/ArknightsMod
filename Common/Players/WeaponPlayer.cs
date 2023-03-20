@@ -8,12 +8,14 @@ namespace ArknightsMod.Common.Players
 	{
 		// Here we create a custom resource, similar to mana or health.
 		// Creating some variables to define the current value of our example resource as well as the current maximum value. We also include a temporary max value, as well as some variables to handle the natural regeneration of this resource.
-		public int SkillCharge = 0; // Current value of our example resource
+		public int SkillCharge = 0; 
 		public int overCharge1 = 0;
 		public int overCharge2 = 0;
-		public const int Percentage = 100; // Default maximum value of example resource
-		public int SkillMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
-		public bool ChargeActive = false;
+		public int SkillChargeMax = 0;
+		public int SP = 0;
+		public int MaxSP = 0;
+		public int StockMax = 0; //How many charges can the Operator store up to?
+		public int StockCount = 0;
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
 		//public float RegenRate = 1f; // By changing that variable we can increase/decrease regeneration rate of our resource
 		//internal int Timer = 0; // A variable that is required for our timer
