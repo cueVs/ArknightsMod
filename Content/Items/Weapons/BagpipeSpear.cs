@@ -47,7 +47,37 @@ namespace ArknightsMod.Content.Items.Weapons
 			};
 		}
 
+		//public override bool AltFunctionUse(Player player) {
+
+		//	return true;
+		//}
+
 		public override bool CanUseItem(Player player) {
+			Item.useAnimation = 28; // The length of the item's use animation in ticks (60 ticks == 1 second.)
+			Item.useTime = 30; // The length of the item's use time in ticks (60 ticks == 1 second.) And if you want to attack triple hit, useTime = useAnimation/3
+			Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
+				Volume = 0.2f,
+				MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+			};
+
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+
+			if (modPlayer.StockCount > 0 && player.altFunctionUse != 2) {
+				Item.useTime = 15;
+				Item.useAnimation = 30;
+
+				if (modPlayer.StockCount == modPlayer.StockMax) {
+					modPlayer.SP = 0;
+				}
+
+				modPlayer.StockCount -= 1;
+
+				Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS2") {
+					Volume = 0.2f,
+					MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+				};
+			}
+
 			// Ensures no more than one spear can be thrown out, use this when using autoReuse
 			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
@@ -55,8 +85,8 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 
-			modPlayer.MaxSP = 12;
-			modPlayer.StockMax = 1; //How many charges can the Operator store up to?
+			modPlayer.MaxSP = 4;
+			modPlayer.StockMax = 3; //How many charges can the Operator store up to?
 			modPlayer.SkillChargeMax = modPlayer.MaxSP * 60; // in case of Auto Recovery Skill, you need x60 
 
 			if (modPlayer.StockCount < modPlayer.StockMax) {
