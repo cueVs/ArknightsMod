@@ -17,7 +17,6 @@ namespace ArknightsMod.Common.Players
 		public int StockCount = 0;
 		public int Div = 1;
 		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
-		public bool initial = true;
 		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
 
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
@@ -48,17 +47,13 @@ namespace ArknightsMod.Common.Players
 			StockMax = stockmax;
 			StockSkill = stockskill;
 			// initialize
-			initial = true;
 			SkillCharge = 0;
 			StockCount = 0;
+			SP = InitialSP;
+			SkillCharge = InitialSP * Div;
 		}
 
 		public void AutoCharge() {
-			if (initial){
-				SP = InitialSP;
-				SkillCharge = InitialSP * Div;
-				initial = false;
-			}
 			if (StockCount < StockMax) {
 				SkillCharge += 1;
 
