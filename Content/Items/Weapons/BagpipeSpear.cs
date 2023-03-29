@@ -77,7 +77,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 		public override bool CanUseItem(Player player) {
 			Item.useTime = 30; // If you want to attack triple hit, useTime = useAnimation/3
-			Item.damage = player.GetWeaponDamage(Item);
+			Item.damage = 76;
 			Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
 				Volume = 0.2f,
 				MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
@@ -88,7 +88,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			// S2
 			if (modPlayer.Skill == 1 && modPlayer.StockCount > 0 && player.altFunctionUse != 2) {
 				Item.useTime = 15;
-				Item.damage = player.GetWeaponDamage(Item) * 2;
+				Item.damage = 76 * 2;
 
 				if (modPlayer.StockCount == modPlayer.StockMax) {
 					modPlayer.SP = 0;
