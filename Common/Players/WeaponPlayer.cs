@@ -9,13 +9,17 @@ namespace ArknightsMod.Common.Players
 		// Here we create a custom resource, similar to mana or health.
 		// Creating some variables to define the current value of our example resource as well as the current maximum value. We also include a temporary max value, as well as some variables to handle the natural regeneration of this resource.
 		public int SkillCharge = 0; 
-		public int overCharge1 = 0;
-		public int overCharge2 = 0;
 		public int SkillChargeMax = 0;
 		public int SP = 0;
+		public int InitialSP = 0;
 		public int MaxSP = 0;
 		public int StockMax = 0; //How many charges can the Operator store up to?
 		public int StockCount = 0;
+		public int Div = 1;
+		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
+		public bool initial = true;
+		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
+
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
 		//public float RegenRate = 1f; // By changing that variable we can increase/decrease regeneration rate of our resource
 		//internal int Timer = 0; // A variable that is required for our timer
@@ -27,9 +31,53 @@ namespace ArknightsMod.Common.Players
 		// - Save/Load permanent changes to max resource: You'll need to implement Save/Load to remember increases to your exampleResourceMax cap.
 		// - Resouce replenishment item: Use GlobalNPC.NPCLoot to drop the item. ModItem.OnPickup and ModItem.ItemSpace will allow it to behave like Mana Star or Heart. Use code similar to Player.HealEffect to spawn (and sync) a colored number suitable to your resource.
 
-		//public override void Initialize() {
-		//	exampleResourceMax = SkillMax;
-		//}
+		public void SetS1Data(int initialsp, int maxsp, int div, int stockmax, bool stockskill) {
+			InitialSP = initialsp;
+			MaxSP = maxsp;
+			Div = div;
+			SkillChargeMax = maxsp * div;
+			StockMax = stockmax;
+			StockSkill = stockskill;
+		}
+
+		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, bool stockskill) {
+			InitialSP = initialsp;
+			MaxSP = maxsp;
+			Div = div;
+			SkillChargeMax = maxsp * div;
+			StockMax = stockmax;
+			StockSkill = stockskill;
+			// initialize
+			initial = true;
+			SkillCharge = 0;
+			StockCount = 0;
+		}
+
+		public void AutoCharge() {
+			if (initial){
+				SP = InitialSP;
+				SkillCharge = InitialSP * Div;
+				initial = false;
+			}
+			if (StockCount < StockMax) {
+				SkillCharge += 1;
+
+				if (SkillCharge != 0 && SkillCharge % 60 == 0) {
+					SP += 1;
+				}
+
+				if (SkillCharge == SkillChargeMax) {
+					SkillCharge = 0;
+					StockCount += 1;
+					if (StockCount == StockMax) {
+						SP = MaxSP;
+					}
+					else
+						SP = 0;
+				}
+
+			}
+		}
 
 		//public override void ResetEffects() {
 		//	ResetVariables();

@@ -76,7 +76,7 @@ namespace ArknightsMod.Common.UI
 			base.DrawSelf(spriteBatch);
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			
+
 			// Calculate quotient
 			float quotient = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
@@ -88,13 +88,19 @@ namespace ArknightsMod.Common.UI
 			hitbox.Y += 8;
 			hitbox.Height -= 16;
 
-			var colorList = new List<Color>();
-			colorList.Add(gradientA);
-			colorList.Add(gradientB);
-			colorList.Add(gradientC);
-			colorList.Add(gradientD);
-			colorList.Add(gradientE);
-			colorList.Add(gradientF);
+			var colorList = new List<Color>() {
+				gradientA,
+				gradientB,
+				gradientC,
+				gradientD,
+				gradientE,
+				gradientF
+			};
+
+			var aboveHead = new Rectangle((int)Main.screenWidth / 2 - 12, (int)Main.screenHeight / 2 - 75, 22, 22);
+			Texture2D skillStock1 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock1").Value;
+			Texture2D skillStock2 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock2").Value;
+			Texture2D skillStock3 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock3").Value;
 
 			// Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
 			int left = hitbox.Left;
@@ -105,12 +111,23 @@ namespace ArknightsMod.Common.UI
 			}
 			for (int i = 0; i < steps; i += 1) {
 				// float percent = (float)i / steps; // Alternate Gradient Approach
-				float percent = (float)i / (right - left);
+				float percent = (float) i / (right - left);
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(colorList[modPlayer.StockCount * 2], colorList[modPlayer.StockCount * 2 + 1], percent));
 			}
 			if (modPlayer.StockCount == modPlayer.StockMax) {
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 113, hitbox.Height), finalColor);
+			}
 
+			if (modPlayer.StockSkill && modPlayer.StockMax > 1) {
+				if (modPlayer.StockCount == 1) {
+					spriteBatch.Draw(skillStock1, aboveHead, Color.White);
+				}
+				else if (modPlayer.StockCount == 2) {
+					spriteBatch.Draw(skillStock2, aboveHead, Color.White);
+				}
+				else if (modPlayer.StockCount == 3) {
+					spriteBatch.Draw(skillStock3, aboveHead, Color.White);
+				}
 			}
 		}
 
@@ -120,7 +137,7 @@ namespace ArknightsMod.Common.UI
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			// Setting the text per tick to update and show our resource values.
-			text.SetText($"Arknights Resource: {modPlayer.SP} / {modPlayer.MaxSP}");
+			text.SetText($"SP: {modPlayer.SP} / {modPlayer.MaxSP}");
 			base.Update(gameTime);
 		}
 	}
