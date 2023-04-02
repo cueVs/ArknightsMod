@@ -10,6 +10,9 @@ namespace ArknightsMod.Common.Players
 		// Creating some variables to define the current value of our example resource as well as the current maximum value. We also include a temporary max value, as well as some variables to handle the natural regeneration of this resource.
 		public int SkillCharge = 0; 
 		public int SkillChargeMax = 0;
+		public bool SkillActive = false;
+		public int SkillActiveTime = 0;
+		public int SkillTimer = 0;
 		public int SP = 0;
 		public int InitialSP = 0;
 		public int MaxSP = 0;
@@ -18,6 +21,7 @@ namespace ArknightsMod.Common.Players
 		public int Div = 1;
 		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
 		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
+		public bool SkillInitialize = true;
 
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
 		//public float RegenRate = 1f; // By changing that variable we can increase/decrease regeneration rate of our resource
@@ -30,31 +34,30 @@ namespace ArknightsMod.Common.Players
 		// - Save/Load permanent changes to max resource: You'll need to implement Save/Load to remember increases to your exampleResourceMax cap.
 		// - Resouce replenishment item: Use GlobalNPC.NPCLoot to drop the item. ModItem.OnPickup and ModItem.ItemSpace will allow it to behave like Mana Star or Heart. Use code similar to Player.HealEffect to spawn (and sync) a colored number suitable to your resource.
 
-		public void SetS1Data(int initialsp, int maxsp, int div, int stockmax, bool stockskill) {
-			InitialSP = initialsp;
-			MaxSP = maxsp;
-			Div = div;
-			SkillChargeMax = maxsp * div;
-			StockMax = stockmax;
-			StockSkill = stockskill;
-		}
+		// InitialSP, MaxSP, Auto?(yes:60, no:1), stock, SlillActiveTime(/s)(if the skill doesn't have active time, any number), StockSkill?
+		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, int skillactivetime, bool stockskill) {
+			if (SkillInitialize) {
+				// initialize
+				InitialSP = initialsp;
+				MaxSP = maxsp;
+				Div = div;
+				SkillChargeMax = maxsp * div;
+				StockMax = stockmax;
+				SkillActiveTime = skillactivetime;
+				StockSkill = stockskill;
+				SkillCharge = initialsp * div;
+				SkillTimer = 0;
+				StockCount = 0;
+				SP = InitialSP;
+				SkillTimer = 0;
+				SkillActive = false;
 
-		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, bool stockskill) {
-			InitialSP = initialsp;
-			MaxSP = maxsp;
-			Div = div;
-			SkillChargeMax = maxsp * div;
-			StockMax = stockmax;
-			StockSkill = stockskill;
-			// initialize
-			SkillCharge = 0;
-			StockCount = 0;
-			SP = InitialSP;
-			SkillCharge = InitialSP * Div;
+				SkillInitialize = false;
+			}
 		}
 
 		public void AutoCharge() {
-			if (StockCount < StockMax) {
+			if (!SkillActive && StockCount < StockMax) {
 				SkillCharge += 1;
 
 				if (SkillCharge != 0 && SkillCharge % 60 == 0) {
@@ -72,6 +75,23 @@ namespace ArknightsMod.Common.Players
 				}
 
 			}
+		}
+
+		public void SkillActiveTimer() {
+			if (SkillActive) {
+				SkillTimer++;
+				if (SkillTimer == SkillActiveTime * 60) {
+					SkillActive = false;
+				}
+			}
+		}
+
+		public void SubStockCount() {
+			if (StockCount == StockMax) {
+				SP = 0;
+			}
+
+			StockCount -= 1;
 		}
 
 		//public override void ResetEffects() {

@@ -30,16 +30,16 @@ namespace ArknightsMod.Common.UI
 			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
-			area.Left.Set(-area.Width.Pixels - 600, 1f); // Place the resource bar to the left of the hearts.
-			area.Top.Set(30, 0f); // Placing it just a bit below the top of the screen.
+			area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
+			area.Top.Set(500, 0f); // Placing it just a bit below the top of the screen.
 			area.Width.Set(182, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
 			area.Height.Set(60, 0f);
 
 			barFrame = new UIImage(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillGaugeFrame")); // Frame of our resource bar
-			barFrame.Left.Set(22, 0f);
+			barFrame.Left.Set(10, 0f);
 			barFrame.Top.Set(0, 0f);
-			barFrame.Width.Set(138, 0f);
-			barFrame.Height.Set(34, 0f);
+			barFrame.Width.Set(122, 0f);
+			barFrame.Height.Set(14, 0f);
 
 			text = new UIText("0/0", 0.8f); // text to show stat
 			text.Width.Set(138, 0f);
@@ -47,8 +47,8 @@ namespace ArknightsMod.Common.UI
 			text.Top.Set(40, 0f);
 			text.Left.Set(0, 0f);
 
-			gradientA = new Color(123, 25, 138); // A dark purple
-			gradientB = new Color(187, 91, 201); // A light purple
+			gradientA = new Color(171, 181, 90); // A light green
+			gradientB = new Color(127, 114, 96); // A gray
 
 			gradientC = new Color(203, 160, 213); // 
 			gradientD = new Color(221, 80, 255); // 
@@ -58,7 +58,7 @@ namespace ArknightsMod.Common.UI
 
 			finalColor = new Color(255, 197, 0);
 
-			area.Append(text);
+			//area.Append(text);
 			area.Append(barFrame);
 			Append(area);
 		}
@@ -78,44 +78,45 @@ namespace ArknightsMod.Common.UI
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 
 			// Calculate quotient
-			float quotient = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
+			float quotient1 = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			quotient1 = Utils.Clamp(quotient1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
+			float quotient2 = (float)modPlayer.SkillTimer / (modPlayer.SkillActiveTime * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			quotient2 = Utils.Clamp(quotient2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
+
+
 
 			// Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
 			Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
-			hitbox.X += 12;
-			hitbox.Width -= 24;
-			hitbox.Y += 8;
-			hitbox.Height -= 16;
+			hitbox.X += 2;
+			hitbox.Width -= 4;
+			hitbox.Y += 2;
+			hitbox.Height -= 4;
 
-			var colorList = new List<Color>() {
-				gradientA,
-				gradientB,
-				gradientC,
-				gradientD,
-				gradientE,
-				gradientF
-			};
-
-			var aboveHead = new Rectangle((int)Main.screenWidth / 2 - 12, (int)Main.screenHeight / 2 - 75, 22, 22);
+			var aboveHead = new Rectangle((int)Main.screenWidth / 2 - 12, (int)Main.screenHeight / 2 - 65, 22, 22);
 			Texture2D skillStock1 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock1").Value;
 			Texture2D skillStock2 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock2").Value;
 			Texture2D skillStock3 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock3").Value;
+			Texture2D skill = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Skill").Value;
 
 			// Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
 			int left = hitbox.Left;
 			int right = hitbox.Right;
-			int steps = (int)((right - left) * quotient);
-			if (modPlayer.StockCount != 0) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 113, hitbox.Height), Color.Lerp(colorList[modPlayer.StockCount * 2 - 2], colorList[modPlayer.StockCount * 2 - 1], 100));
-			}
-			for (int i = 0; i < steps; i += 1) {
-				// float percent = (float)i / steps; // Alternate Gradient Approach
-				float percent = (float) i / (right - left);
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(colorList[modPlayer.StockCount * 2], colorList[modPlayer.StockCount * 2 + 1], percent));
+			int steps1 = (int)((right - left) * quotient1);
+			int steps2 = (int)((right - left) * quotient2);
+
+			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 118, hitbox.Height), gradientB);
+			for (int i = 0; i < steps1; i += 1) {
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
 			}
 			if (modPlayer.StockCount == modPlayer.StockMax) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 113, hitbox.Height), finalColor);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 118, hitbox.Height), gradientA);
+			}
+
+			if (modPlayer.SkillActive) {
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 118, hitbox.Height), finalColor);
+				for (int i = 0; i < steps2; i += 1) {
+					spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
+				}
 			}
 
 			if (modPlayer.StockSkill && modPlayer.StockMax > 1) {
@@ -129,6 +130,11 @@ namespace ArknightsMod.Common.UI
 					spriteBatch.Draw(skillStock3, aboveHead, Color.White);
 				}
 			}
+			else if (!modPlayer.StockSkill) {
+				if (modPlayer.StockCount == 1) {
+					spriteBatch.Draw(skill, aboveHead, Color.White);
+				}
+			}
 		}
 
 		public override void Update(GameTime gameTime) {
@@ -137,7 +143,7 @@ namespace ArknightsMod.Common.UI
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			// Setting the text per tick to update and show our resource values.
-			text.SetText($"SP: {modPlayer.SP} / {modPlayer.MaxSP}");
+			// text.SetText($"SP: {modPlayer.SP} / {modPlayer.MaxSP}");
 			base.Update(gameTime);
 		}
 	}
