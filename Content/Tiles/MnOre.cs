@@ -87,7 +87,7 @@ namespace ArknightsMod.Content.Tiles
 				Tile tile = Framing.GetTileSafely(x, y);
 				if (tile.HasTile && tile.TileType == TileID.Dirt)
 				{
-					WorldGen.TileRunner(x, y, WorldGen.genRand.Next(5, 7), WorldGen.genRand.Next(6, 9), ModContent.TileType<MnOre>());
+					WorldGen.TileRunner(x, y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(5, 8), ModContent.TileType<MnOre>());
 				}
 			}
 		}
