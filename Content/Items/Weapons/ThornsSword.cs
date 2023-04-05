@@ -37,7 +37,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 			// The sound that this item plays when used. Need "using Terraria.Audio;"
 			Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ThornsSwordS0") {
-				Volume = 0.2f,
+				Volume = 0.4f,
 				MaxInstances = 3, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 			};
 		}

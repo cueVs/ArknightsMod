@@ -20,11 +20,7 @@ namespace ArknightsMod.Common.UI
 		private UIImage barFrame;
 		private Color gradientA;
 		private Color gradientB;
-		private Color gradientC;
-		private Color gradientD;
-		private Color gradientE;
-		private Color gradientF;
-		private Color finalColor;
+		private Color skillColor;
 
 		public override void OnInitialize() {
 			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
@@ -38,8 +34,8 @@ namespace ArknightsMod.Common.UI
 			barFrame = new UIImage(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillGaugeFrame")); // Frame of our resource bar
 			barFrame.Left.Set(10, 0f);
 			barFrame.Top.Set(0, 0f);
-			barFrame.Width.Set(122, 0f);
-			barFrame.Height.Set(14, 0f);
+			barFrame.Width.Set(118, 0f);
+			barFrame.Height.Set(12, 0f);
 
 			text = new UIText("0/0", 0.8f); // text to show stat
 			text.Width.Set(138, 0f);
@@ -47,16 +43,10 @@ namespace ArknightsMod.Common.UI
 			text.Top.Set(40, 0f);
 			text.Left.Set(0, 0f);
 
-			gradientA = new Color(171, 181, 90); // A light green
+			gradientA = new Color(181, 191, 100); // A light green
 			gradientB = new Color(127, 114, 96); // A gray
 
-			gradientC = new Color(203, 160, 213); // 
-			gradientD = new Color(221, 80, 255); // 
-
-			gradientE = new Color(255, 181, 181); // 
-			gradientF = new Color(255, 67, 67); //
-
-			finalColor = new Color(255, 197, 0);
+			skillColor = new Color(255, 197, 0);
 
 			//area.Append(text);
 			area.Append(barFrame);
@@ -104,16 +94,16 @@ namespace ArknightsMod.Common.UI
 			int steps1 = (int)((right - left) * quotient1);
 			int steps2 = (int)((right - left) * quotient2);
 
-			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 118, hitbox.Height), gradientB);
+			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 114, hitbox.Height), gradientB);
 			for (int i = 0; i < steps1; i += 1) {
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
 			}
 			if (modPlayer.StockCount == modPlayer.StockMax) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 118, hitbox.Height), gradientA);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 114, hitbox.Height), gradientA);
 			}
 
 			if (modPlayer.SkillActive) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 118, hitbox.Height), finalColor);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 114, hitbox.Height), skillColor);
 				for (int i = 0; i < steps2; i += 1) {
 					spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
 				}

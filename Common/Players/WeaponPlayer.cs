@@ -86,7 +86,7 @@ namespace ArknightsMod.Common.Players
 			}
 		}
 
-		public void SubStockCount() {
+		public void DelStockCount() {
 			if (StockCount == StockMax) {
 				SP = 0;
 			}
