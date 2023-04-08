@@ -47,6 +47,7 @@ Mods: {
 			OrironBlock: "Oriron Block"
 			Sugar: "Sugar"
 			SugarPack: "Sugar Pack"
+			SugarLump: "Sugar Lump"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -96,6 +97,7 @@ Mods: {
 			OrironBlock: "An expensive industrial material."
 			Sugar: "A small amount of sugar produced by assembly line."
 			SugarPack: "A decent amount of sugar produced by assembly line."
+			SugarLump: "A large amount of sugar produced by assembly line."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
