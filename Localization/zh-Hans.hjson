@@ -57,6 +57,7 @@ Mods: {
 
 			# Furniture
 			DareUsa: "懒人沙发兔"
+			AnniversaryWheel: "周年庆典转盘"
 
 			# otherItems
 			Orundum: "合成玉"
@@ -108,6 +109,11 @@ Mods: {
 
 			# Furniture
 			DareUsa: "很大很大的兔兔，很软，很可爱，很舒服。"
+			AnniversaryWheel: '''
+												这个轮盘是为了素材刷取懒人准备的。
+												右击转动轮盘，通过公正的抽奖获取素材。
+												??? “绝对没有暗箱操作”
+												'''
 
 			# otherItems
 			Orundum: "常用于招募干员。"
@@ -175,6 +181,7 @@ Mods: {
 			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
 			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
+			DareUsa: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
 		}
 
 		Currencies: {

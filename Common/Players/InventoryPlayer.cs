@@ -19,11 +19,13 @@ namespace ArknightsMod.Common.Players
 			if (mediumCoreDeath)
 			{
 				return new[] {
-					new Item(ModContent.ItemType<Content.Items.Consumables.StartBag>())
+					new Item(ModContent.ItemType<Content.Items.Consumables.StartBag>()),
+					new Item(ModContent.ItemType<Content.Items.Placeable.Furniture.AnniversaryWheel>())
 				};
 			}
 			return new[] {
 				new Item(ModContent.ItemType<Content.Items.Consumables.StartBag>()),
+				new Item(ModContent.ItemType<Content.Items.Placeable.Furniture.AnniversaryWheel>())
 			};
 		}
 	}
