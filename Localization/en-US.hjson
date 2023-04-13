@@ -57,6 +57,7 @@ Mods: {
 
 			# Furniture
 			DareUsa: "Rabbit-like Bean Bag Sofa"
+			AnniversaryWheel: "Anniversary Wheel of Fortune"
 
 			# otherItems
 			Orundum: "Orundum"
@@ -107,6 +108,11 @@ Mods: {
 
 			# Furniture
 			DareUsa: "It looks like a big cute rabbit, and feels like one too."
+			AnniversaryWheel: '''
+												This roulette is made for those who have trouble digging.
+												You spin the roulette by Right Click and get materials by strict lottery.
+												??? "The lottery is definitely not rigged."
+												'''
 
 			# otherItems
 			Orundum: "An artificial material commonly used to recruit operators."
