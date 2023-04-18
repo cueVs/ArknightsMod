@@ -48,6 +48,7 @@ Mods: {
 			Sugar: "糖"
 			SugarPack: "糖组"
 			SugarLump: "糖聚块"
+			Polyester: "聚酸酯"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -81,7 +82,7 @@ Mods: {
 								'''
 
 			# Material
-			OrirockCluster: "从地表开采出的岩石固块组"
+			OrirockCluster: "从地表开采出的岩石固块组。"
 			OrirockConcentration: "从地表开采出的岩石固块组提纯出的物质。"
 			Polyketon: "少量的工业用有机化合物。"
 			Aketon: "中等量的工业用有机化合物。"
@@ -100,6 +101,7 @@ Mods: {
 			Sugar: "机械化制作的少量糖块。"
 			SugarPack: "机械化制作的中等量糖块。"
 			SugarLump: "机械化制作的大量糖块。"
+			Polyester: "工业制造所需的零散聚酸酯。"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"
@@ -182,6 +184,7 @@ Mods: {
 			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 			DareUsa: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			AnniversaryWheel: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
 		}
 
 		Currencies: {

@@ -13,7 +13,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 {
 	public class AnniversaryWheel : ModTile
 	{
-		public const int NextStyleHeight = 60; // Calculated by adding all CoordinateHeights{16, 16, 18} + CoordinatePaddingFix.Y{2} applied to all of them + 2
+		public const int NextStyleHeight = 42; // Calculated by adding all CoordinateHeights{16, 18} + CoordinatePaddingFix.Y{2} applied to all of them + 2
 
 		public override void SetStaticDefaults()
 		{
@@ -25,11 +25,11 @@ namespace ArknightsMod.Content.Tiles.Furniture
 
 			// DustType = ModContent.DustType<Sparkle>();
 
-			AdjTiles = new int[] { TileID.Chairs };
+			// AdjTiles = new int[] { TileID.Chairs };
 
 			// Names
 			ModTranslation name = CreateMapEntryName();
-			AddMapEntry(new Color(223, 170, 124), name);
+			AddMapEntry(new Color(183, 57, 76), name);
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
@@ -67,6 +67,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance))
 			{ // Avoid being able to trigger it from long range
 				player.GamepadEnableGrappleCooldown();
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Orundum>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.OrirockCube>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.Grind>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.MnOre>(), 100);
@@ -76,6 +77,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Oriron>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Polyketon>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Sugar>(), 100);
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Polyester>(), 100);
 			}
 
 			return true;
