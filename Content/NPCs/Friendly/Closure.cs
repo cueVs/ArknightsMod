@@ -275,6 +275,10 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			shop.item[nextSlot].shopCustomPrice = 1;
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
 			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Polyester>());
+			shop.item[nextSlot].shopCustomPrice = 1;
+			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
+			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.LoxicKohl>());
 			shop.item[nextSlot].shopCustomPrice = 1;
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;

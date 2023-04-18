@@ -19,7 +19,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 		//you should use local variable for batch change.
-		int defaultDamage = 76;
+		public const int defaultDamage = 76;
 
 		public override void SetDefaults() {
 			// Common Properties
