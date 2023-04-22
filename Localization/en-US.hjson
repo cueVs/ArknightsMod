@@ -85,6 +85,7 @@ Mods: {
 			OrirockCluster: "A conglomerate rock mined from the ground."
 			OrirockConcentration: "A refined matter produced with Orirock Cluster."
 			Polyketon: "A small amount of industrial organic compound."
+			Aketon: "A modest amount of industrial organic compound. "
 			KetonColloid: "A large amount of industrial organic compound."
 			MnTri: "A metal ore used for metallurgy."
 			GP: "An advanced grindstone used in the finish machining of weapon parts."
@@ -118,6 +119,21 @@ Mods: {
 
 			# otherItems
 			Orundum: "An artificial material commonly used to recruit operators."
+		}
+
+		BuffName: {
+			BagpipeSpearS1: "Swift Strike Gamma"
+			BagpipeSpearS2: "High-Impact Assault"
+			BagpipeSpearS3: "Locked Breech Burst"
+		}
+
+		BuffDescription: {
+			BagpipeSpearS1: "ATK +45%; ASPD +45"
+			BagpipeSpearS2: '''
+											Increases the ATK of the next attack to 200%, and strikes an additional time
+											Can store up to 1 charges
+											'''
+			BagpipeSpearS3: "ATK Interval increases, Block +1, ATK and DEF +120%, and attacks hit 3 times in a row"
 		}
 
 		NPCName: {

@@ -121,6 +121,21 @@ Mods: {
 			Orundum: "常用于招募干员。"
 		}
 
+		BuffName: {
+			BagpipeSpearS1: "迅捷打击·Gamma型"
+			BagpipeSpearS2: "高效冲击"
+			BagpipeSpearS3: "闭膛连发"
+		}
+
+		BuffDescription: {
+			BagpipeSpearS1: "攻击力+45%，攻击速度+45"
+			BagpipeSpearS2: '''
+											下一次的攻击力提升至200%，且额外攻击一次
+											可充能3次
+											'''
+			BagpipeSpearS3: "攻击间隔增大，阻挡数+1，攻击力和防御力+120%，攻击变为三连击"
+		}
+
 		NPCName: {
 			# Friendly
 			Closure: "工程师"
