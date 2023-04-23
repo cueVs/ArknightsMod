@@ -27,6 +27,7 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient<Placeable.MnOre>(2)
+				.AddIngredient<PolyesterPack>(1)
 				.AddIngredient<LoxicKohl>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
