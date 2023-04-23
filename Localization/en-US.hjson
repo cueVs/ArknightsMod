@@ -49,6 +49,7 @@ Mods: {
 			SugarPack: "Sugar Pack"
 			SugarLump: "Sugar Lump"
 			Polyester: "Polyester"
+			PolyesterPack: "Polyester Pack"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -102,6 +103,7 @@ Mods: {
 			SugarPack: "A decent amount of sugar produced by assembly line."
 			SugarLump: "A large amount of sugar produced by assembly line."
 			Polyester: "A small amount of polyester used in industrial production."
+			PolyesterPack: "A pack of polyester used in industrial production."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."

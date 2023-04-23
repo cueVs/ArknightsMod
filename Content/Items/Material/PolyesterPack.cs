@@ -7,7 +7,7 @@ using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
 {
-	public class OrironBlock : ModItem
+	public class PolyesterPack : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Polyketon"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
@@ -16,8 +16,8 @@ namespace ArknightsMod.Content.Items.Material
 		}
 
 		public override void SetDefaults() {
-			Item.width = 30; // The item texture's width
-			Item.height = 30; // The item texture's height
+			Item.width = 24; // The item texture's width
+			Item.height = 26; // The item texture's height
 
 			Item.maxStack = 999; // The item's max stack value
 			Item.value = Item.sellPrice(0, 0, 6, 00); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
@@ -26,9 +26,7 @@ namespace ArknightsMod.Content.Items.Material
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient<OrironCluster>(2)
-				.AddIngredient<IntegratedDevice>(1)
-				.AddIngredient<PolyesterPack>(1)
+				.AddIngredient<Polyester>(4)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
