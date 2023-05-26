@@ -13,6 +13,7 @@ Mods: {
 			# Weapons
 			YatoKatana: "Yato's Katana"
 			DurinWand: "Durin's wand"
+			KroosCrossbow: "Kroos' Crossbow"
 			Shinginzan: "Shinginzan"
 			BagpipeSpear: "Piledriver Spear"
 			ThornsSword: "Thorns' sword"
@@ -70,6 +71,7 @@ Mods: {
 			# Weapons
 			YatoKatana: "'Yato has joined the team.'"
 			DurinWand: "She looks quite sleepy."
+			KroosCrossbow: "'KO- KO- DA- YO-'"
 			Shinginzan: "SilverAsh"
 			BagpipeSpear: "'My spear and I hail from Victoria!'"
 			ThornsSword: "'Watch carefully, this is the Destreza of Iberia!'"
@@ -129,6 +131,7 @@ Mods: {
 			BagpipeSpearS1: "Swift Strike Gamma"
 			BagpipeSpearS2: "High-Impact Assault"
 			BagpipeSpearS3: "Locked Breech Burst"
+			KroosCrossbowS1: "Double Tap - Auto"
 		}
 
 		BuffDescription: {
@@ -138,6 +141,7 @@ Mods: {
 											Can store up to 1 charges
 											'''
 			BagpipeSpearS3: "ATK Interval increases, Block +1, ATK and DEF +120%, and attacks hit 3 times in a row"
+			KroosCrossbowS1: "The next attack shoots 2 in a row, dealing 140% of ATK in physical damage with each shot"
 		}
 
 		NPCName: {

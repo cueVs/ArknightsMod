@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using ArknightsMod.Content.Items.Weapons;
 
 namespace ArknightsMod.Common.Players
 {
@@ -8,7 +9,7 @@ namespace ArknightsMod.Common.Players
 	{
 		// Here we create a custom resource, similar to mana or health.
 		// Creating some variables to define the current value of our example resource as well as the current maximum value. We also include a temporary max value, as well as some variables to handle the natural regeneration of this resource.
-		public int SkillCharge = 0; 
+		public int SkillCharge = 0;
 		public int SkillChargeMax = 0;
 		public bool SkillActive = false;
 		public int SkillActiveTime = 0;
@@ -22,6 +23,9 @@ namespace ArknightsMod.Common.Players
 		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
 		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
 		public bool SkillInitialize = true;
+
+		public bool HoldBagpipeSpear = false;
+		public bool HoldKroosCrossbow = false;
 
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
 		//public float RegenRate = 1f; // By changing that variable we can increase/decrease regeneration rate of our resource
@@ -56,6 +60,15 @@ namespace ArknightsMod.Common.Players
 			}
 		}
 
+		public override void ResetEffects() {
+			if (Main.LocalPlayer.HeldItem.ModItem is not BagpipeSpear) {
+				HoldBagpipeSpear = false;
+			}
+			if (Main.LocalPlayer.HeldItem.ModItem is not KroosCrossbow) {
+				HoldKroosCrossbow = false;
+			}
+		}
+
 		public void AutoCharge() {
 			if (!SkillActive && StockCount < StockMax) {
 				SkillCharge += 1;
@@ -74,6 +87,24 @@ namespace ArknightsMod.Common.Players
 						SP = 0;
 				}
 
+			}
+		}
+
+		public void OffensiveRecovery() {
+			if (!SkillActive && StockCount < StockMax) {
+				SkillCharge += 1;
+				if (SkillCharge != 0) {
+					SP += 1;
+				}
+			}
+			if (SkillCharge == SkillChargeMax) {
+				SkillCharge = 0;
+				StockCount += 1;
+				if (StockCount == StockMax) {
+					SP = MaxSP;
+				}
+				else
+					SP = 0;
 			}
 		}
 

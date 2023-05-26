@@ -38,9 +38,9 @@ namespace ArknightsMod.Common.UI
 			barFrame.Height.Set(12, 0f);
 
 			text = new UIText("0/0", 0.8f); // text to show stat
-			text.Width.Set(138, 0f);
-			text.Height.Set(34, 0f);
-			text.Top.Set(40, 0f);
+			text.Width.Set(118, 0f);
+			text.Height.Set(12, 0f);
+			text.Top.Set(100, 0f);
 			text.Left.Set(0, 0f);
 
 			gradientA = new Color(181, 191, 100); // A light green
@@ -55,10 +55,12 @@ namespace ArknightsMod.Common.UI
 
 		public override void Draw(SpriteBatch spriteBatch) {
 			// This prevents drawing unless we are using an ExampleCustomResourceWeapon
-			if (Main.LocalPlayer.HeldItem.ModItem is not BagpipeSpear)
-				return;
-
-			base.Draw(spriteBatch);
+			if (Main.LocalPlayer.HeldItem.ModItem is BagpipeSpear) {
+				base.Draw(spriteBatch);
+			}
+			if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
+				base.Draw(spriteBatch);
+			}
 		}
 
 		// Here we draw our UI
@@ -127,15 +129,15 @@ namespace ArknightsMod.Common.UI
 			}
 		}
 
-		public override void Update(GameTime gameTime) {
-			if (Main.LocalPlayer.HeldItem.ModItem is not BagpipeSpear)
-				return;
+		//public override void Update(GameTime gameTime) {
+		//	if (Main.LocalPlayer.HeldItem.ModItem is not KroosCrossbow)
+		//		return;
 
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			// Setting the text per tick to update and show our resource values.
-			// text.SetText($"SP: {modPlayer.SP} / {modPlayer.MaxSP}");
-			base.Update(gameTime);
-		}
+		//	var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+		//	// Setting the text per tick to update and show our resource values.
+		//	text.SetText($"SP: {modPlayer.SP} / {modPlayer.MaxSP}");
+		//	base.Update(gameTime);
+		//}
 	}
 
 	class SkillGaugeSystem : ModSystem
