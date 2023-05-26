@@ -13,6 +13,7 @@ Mods: {
 			# Weapons
 			YatoKatana: "夜刀的剑"
 			DurinWand: "Durin's wand"
+			KroosCrossbow: "克洛丝的弩"
 			Shinginzan: "Shinginzan"
 			BagpipeSpear: "破城矛"
 			ThornsSword: "棘刺的剑"
@@ -70,6 +71,7 @@ Mods: {
 			# Weapons
 			YatoKatana: "'夜刀，入队。'"
 			DurinWand: "She looks quite sleepy."
+			KroosCrossbow: "'在~这~里~哦'"
 			Shinginzan: "SilverAsh"
 			BagpipeSpear: "'我和我的破城矛，来自维多利亚！'"
 			ThornsSword: "'看仔细，这才是伊比利亚的至高之术！'"

@@ -13,7 +13,7 @@ Mods: {
 			# Weapons
 			YatoKatana: "Yato's Katana"
 			DurinWand: "Durin's wand"
-			ThornsSword: "Thorns' sword"
+			KroosCrossbow: "Kroos' Crossbow"
 			Shinginzan: "Shinginzan"
 			BagpipeSpear: "Piledriver Spear"
 			ThornsSword: "Thorns' sword"
@@ -71,6 +71,7 @@ Mods: {
 			# Weapons
 			YatoKatana: "'Yato has joined the team.'"
 			DurinWand: "She looks quite sleepy."
+			KroosCrossbow: "'KO- KO- DA- YO-'"
 			Shinginzan: "SilverAsh"
 			BagpipeSpear: "'My spear and I hail from Victoria!'"
 			ThornsSword: "'Watch carefully, this is the Destreza of Iberia!'"
