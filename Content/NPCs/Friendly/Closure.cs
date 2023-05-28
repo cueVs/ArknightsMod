@@ -283,6 +283,10 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			shop.item[nextSlot].shopCustomPrice = 1;
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
 			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.CoagulatingGel>());
+			shop.item[nextSlot].shopCustomPrice = 1;
+			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
+			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Placeable.Furniture.DareUsa>());
 			shop.item[nextSlot].shopCustomPrice = 1;
 			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;

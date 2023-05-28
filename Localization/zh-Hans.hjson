@@ -52,6 +52,7 @@ Mods: {
 			Polyester: "聚酸酯"
 			PolyesterPack: "聚酸酯组"
 			PolyesterLump: "聚酸酯块"
+			CoagulatingGel: "凝胶"
 
 			# Placeable
 			OrirockCube: "固源岩"
@@ -108,6 +109,7 @@ Mods: {
 			Polyester: "工业制造所需的零散聚酸酯。"
 			PolyesterPack: "工业制造所需的一组聚酸酯。"
 			PolyesterLump: "工业制造所需的成块聚酸酯。"
+			CoagulatingGel: "一种高强度的可塑性材料。"
 
 			# Placeable
 			OrirockCube: "从地表开采出的岩石固块。"

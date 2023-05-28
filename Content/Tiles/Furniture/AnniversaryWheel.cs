@@ -78,6 +78,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Polyketon>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Sugar>(), 100);
 				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Polyester>(), 100);
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.CoagulatingGel>(), 100);
 			}
 
 			return true;
