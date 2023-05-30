@@ -53,6 +53,7 @@ Mods: {
 			PolyesterPack: "Polyester Pack"
 			PolyesterLump: "Polyester Lump"
 			CoagulatingGel: "Coagulating Gel"
+			PolymerizedGel: "Polymerized Gel"
 
 			# Placeable
 			OrirockCube: "Orirock Cube"
@@ -110,6 +111,7 @@ Mods: {
 			PolyesterPack: "A pack of polyester used in industrial production."
 			PolyesterLump: "A lump of polyester used in industrial production."
 			CoagulatingGel: "A high-strength plastic material suitable."
+			PolymerizedGel: "An extremely high-strength plastic material."
 
 			# Placeable
 			OrirockCube: "Orirock cube mined from the ground."
