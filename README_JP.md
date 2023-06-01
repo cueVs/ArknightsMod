@@ -38,5 +38,5 @@
 - 本MODの利用に関して不明な点があれば下記のスレッドまでお気軽にお問い合わせください。
 
 ## Contact
-[ディスコード](https://discord.gg/XKM2jeS9hY)
+[ディスコード](https://discord.gg/XKM2jeS9hY)<br>
 [本MODのスレッド](https://forums.terraria.org/index.php?threads/arknights-mod.117651/)(テラリアのフォーラム内)
