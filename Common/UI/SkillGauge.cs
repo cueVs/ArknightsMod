@@ -61,6 +61,9 @@ namespace ArknightsMod.Common.UI
 			if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
 				base.Draw(spriteBatch);
 			}
+			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
+				base.Draw(spriteBatch);
+			}
 		}
 
 		// Here we draw our UI

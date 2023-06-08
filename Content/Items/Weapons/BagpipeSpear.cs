@@ -188,7 +188,7 @@ namespace ArknightsMod.Content.Items.Weapons
 				modPlayer.SkillActiveTimer();
 			}
 
-			modPlayer.HoldBagpipeSpear = true;
+			modPlayer.HoldBagpipeSpear = true; // you have to write this line HERE!
 			base.HoldItem(player);
 		}
 

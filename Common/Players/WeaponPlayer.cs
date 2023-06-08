@@ -23,8 +23,13 @@ namespace ArknightsMod.Common.Players
 		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
 		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
 		public bool SkillInitialize = true;
+		public float mousePositionX = 0;
+		public float mousePositionY = 0;
+		public float playerPositionX = 0;
+		public float playerPositionY = 0;
 
 		public bool HoldBagpipeSpear = false;
+		public bool HoldChenSword = false;
 		public bool HoldKroosCrossbow = false;
 
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
@@ -66,6 +71,9 @@ namespace ArknightsMod.Common.Players
 			}
 			if (Main.LocalPlayer.HeldItem.ModItem is not KroosCrossbow) {
 				HoldKroosCrossbow = false;
+			}
+			if (Main.LocalPlayer.HeldItem.ModItem is not ChenSword) {
+				HoldChenSword = false;
 			}
 		}
 
