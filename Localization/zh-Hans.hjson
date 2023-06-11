@@ -151,6 +151,9 @@ Mods: {
 		NPCName: {
 			# Friendly
 			Closure: "工程师"
+			# Enemy
+			Soldier: "士兵"
+			OriginiumSlug: "源石虫"
 		}
 
 		NameList: {
@@ -194,6 +197,11 @@ Mods: {
 				AOThanks: "谢啦～！"
 				AOStatus: "Finish!"
 			}
+		}
+
+		Bestiary: {
+			Soldier: "整合运动的基础近身作战人员。装备了被缴获或非法渠道获得到的武器和服装，使用统一的面具和服装掩盖自己身份参与行动。"
+			OriginiumSlug: "野生的被感染生物。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻"
 		}
 
 		ProjectileName: {
