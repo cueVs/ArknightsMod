@@ -93,7 +93,7 @@ namespace ArknightsMod.Content.Items.Weapons
 					modPlayer.SkillTimer = 0;
 					modPlayer.mousePositionX = Main.MouseWorld.X;
 					modPlayer.mousePositionY = Main.MouseWorld.Y - 10f;
-					modPlayer.playerPositionX = player.Center.X - 10f * Math.Sign(Main.MouseWorld.X - player.Center.X);
+					modPlayer.playerPositionX = player.Center.X;
 					modPlayer.playerPositionY = player.Center.Y - 20f;
 
 					modPlayer.DelStockCount();
@@ -156,7 +156,12 @@ namespace ArknightsMod.Content.Items.Weapons
 
 					if (modPlayer.SkillActive) {
 						modPlayer.SkillTimer++;
-						if (modPlayer.SkillTimer <= 10) {
+						player.immune = true;
+						player.immuneTime = 5;
+						if (modPlayer.SkillTimer == 2) {
+							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
+						}
+						if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60) {
 							player.velocity = Vector2.Zero;
 						}
 						if (modPlayer.SkillTimer == 10) {
@@ -164,17 +169,38 @@ namespace ArknightsMod.Content.Items.Weapons
 							NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 						}
 
-						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer < modPlayer.SkillActiveTime * 60) {
+						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60 && modPlayer.SkillTimer % 5 == 0) {
 							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), (player.GetWeaponDamage(Item) / 2), 3, player.whoAmI, 0f);
+
+							if (modPlayer.SkillTimer == 60) {
+								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
+									Volume = 0.7f,
+									MaxInstances = 1,
+								};
+								SoundEngine.PlaySound(projSound);
+							}
+							else {
+								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
+									Volume = 0.7f,
+									MaxInstances = 4,
+								};
+								SoundEngine.PlaySound(projSound);
+							}
+						
 						}
 
-						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60) {
-							player.Teleport(new Vector2(modPlayer.playerPositionX, modPlayer.playerPositionY), 1, 0);
+						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60 + 10) {
+							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), 1, 0);
 							NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 
 							modPlayer.SkillActive = false;
+							modPlayer.SkillTimer = 0;
 						}
 					}
+					else {
+						player.immune = false;
+					}
+					
 				}
 			}
 

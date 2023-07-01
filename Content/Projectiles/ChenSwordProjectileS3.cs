@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {
-    //
     public class ChenSwordProjectileS3 : ModProjectile
 	{
 		public override void SetStaticDefaults()
@@ -20,18 +19,20 @@ namespace ArknightsMod.Content.Projectiles
 			Projectile.width = 154;
 			Projectile.height = 18;
 			Projectile.aiStyle = 0;
-			Projectile.timeLeft = 50;
-			Projectile.penetrate = 1;
-			Projectile.scale = 1f;
-			Projectile.alpha = 0;
-			
+			Projectile.timeLeft = 20;
+			Projectile.penetrate = -1; // Infinite pierce
+
+			Projectile.usesLocalNPCImmunity = true; // Used for hit cooldown changes in the ai hook
+			Projectile.localNPCHitCooldown = -1; // We set this to -1 to make sure the projectile doesn't hit twice
+
 			Projectile.hide = false;
 			Projectile.ownerHitCheck = true;
-			Projectile.DamageType = DamageClass.Magic;
+			Projectile.DamageType = DamageClass.Melee;
 			Projectile.tileCollide = false;
 			Projectile.friendly = true;
 			
-			Projectile.scale = 1f; 
+			Projectile.scale = 0.3f;
+			Projectile.alpha = 0;
 		}
 
 
@@ -48,11 +49,11 @@ namespace ArknightsMod.Content.Projectiles
 			FadeInAndOut();
 
 			// Slow down
-			Projectile.velocity *= 0.98f;
+			Projectile.velocity *= 0f;
 
 			// Despawn this projectile after 1 second (60 ticks)
 			// You can use Projectile.timeLeft = 60f in SetDefaults() for same goal
-			if (Projectile.ai[0] >= 60f)
+			if (Projectile.ai[0] >= 10f)
 				Projectile.Kill();
 
 			// Set both direction and spriteDirection to 1 or -1 (right and left respectively)
@@ -62,24 +63,25 @@ namespace ArknightsMod.Content.Projectiles
 			
 			Projectile.rotation = (float)(Projectile.velocity.ToRotation() + Math.Cos(Main.rand.Next(0, 90)));
 
-			Projectile.position.X = (float)Main.rand.Next(-10, 10);
-			Projectile.position.Y = (float)Main.rand.Next(-10, 10);
-			
+			Projectile.position.X += (float)Main.rand.Next(-7, 7) - 10;
+			Projectile.position.Y += (float)Main.rand.Next(-7, 7);
+
 
 		}
 
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
 		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] >= 1f) {
+			if (Projectile.ai[0] >= 1f && Projectile.ai[0] <= (float)Main.rand.Next(4, 7)) {
 				// Fade in
-				Projectile.scale += 0.2f;
-				// Cap alpha before timer reaches 50 ticks
-				if (Projectile.scale > 0.9)
+				Projectile.scale += 0.15f;
+				// Cap scale 
+				if (Projectile.scale > 0.95f)
 					Projectile.scale = 1f;
 
 				return;
 			}
+
 		}
 	}
 }
