@@ -151,6 +151,9 @@ Mods: {
 		NPCName: {
 			# Friendly
 			Closure: "Engineer"
+			# Enemy
+			Soldier: "Soldier"
+			OriginiumSlug: "Originium Slug"
 		}
 
 		NameList: {
@@ -194,6 +197,11 @@ Mods: {
 				AOThanks: "Thank you!"
 				AOStatus: "Finish!"
 			}
+		}
+
+		Bestiary: {
+			Soldier: "One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation."
+			OriginiumSlug: "An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions."
 		}
 
 		ProjectileName: {
