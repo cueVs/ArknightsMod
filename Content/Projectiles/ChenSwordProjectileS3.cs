@@ -16,7 +16,7 @@ namespace ArknightsMod.Content.Projectiles
 		}
 		public override void SetDefaults()
 		{
-			Projectile.width = 154;
+			Projectile.width = 198;
 			Projectile.height = 18;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 20;
@@ -31,7 +31,7 @@ namespace ArknightsMod.Content.Projectiles
 			Projectile.tileCollide = false;
 			Projectile.friendly = true;
 			
-			Projectile.scale = 0.3f;
+			Projectile.scale = 0.2f;
 			Projectile.alpha = 0;
 		}
 
@@ -63,7 +63,7 @@ namespace ArknightsMod.Content.Projectiles
 			
 			Projectile.rotation = (float)(Projectile.velocity.ToRotation() + Math.Cos(Main.rand.Next(0, 90)));
 
-			Projectile.position.X += (float)Main.rand.Next(-7, 7) - 10;
+			Projectile.position.X += (float)Main.rand.Next(-7, 7) - 15;
 			Projectile.position.Y += (float)Main.rand.Next(-7, 7);
 
 
@@ -74,10 +74,10 @@ namespace ArknightsMod.Content.Projectiles
 			// If last less than 50 ticks — fade in, than more — fade out
 			if (Projectile.ai[0] >= 1f && Projectile.ai[0] <= (float)Main.rand.Next(4, 7)) {
 				// Fade in
-				Projectile.scale += 0.15f;
+				Projectile.scale += 0.12f;
 				// Cap scale 
-				if (Projectile.scale > 0.95f)
-					Projectile.scale = 1f;
+				if (Projectile.scale > 0.80f)
+					Projectile.scale = 0.80f;
 
 				return;
 			}

@@ -8,7 +8,7 @@ namespace ArknightsMod.Content.Projectiles
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("The Only Thing I Know For Real");
-			Main.projFrames[Projectile.type] = 9;
+			Main.projFrames[Projectile.type] = 27;
 
 			//DrawOriginOffsetY = -40;
 		}
@@ -23,11 +23,11 @@ namespace ArknightsMod.Content.Projectiles
 			Projectile.timeLeft = 255;
 			Projectile.hide = false;
 			Projectile.ownerHitCheck = true;
-			Projectile.DamageType = DamageClass.Melee;
+			// Projectile.DamageType = DamageClass.Melee;
 
 			// no damage
-			Projectile.friendly = true;
-			//Projectile.hostile = false;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
 		}
 
 		// It appears that for this AI, only the ai0 field is used!
@@ -36,7 +36,7 @@ namespace ArknightsMod.Content.Projectiles
 			Projectile.ai[0] += 1f;
 			// Since we access the owner player instance so much, it's useful to create a helper local variable for this
 			// Sadly, Projectile/ModProjectile does not have its own
-			//Player projOwner = Main.player[Projectile.owner];
+			Player projOwner = Main.player[Projectile.owner];
 			// Here we set some of the projectile's owner properties, such as held item and itemtime, along with projectile direction and position based on the player
 			//Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, true);
 			//Projectile.direction = projOwner.direction;
@@ -55,22 +55,22 @@ namespace ArknightsMod.Content.Projectiles
 			//}
 			// Projectile.alpha -= 20;
 			// Projectile.position += Projectile.velocity * movementFactor;
-			
+
 			// Projectile.rotation = Projectile.velocity.ToRotation();
-			
-			if (Projectile.spriteDirection == -1) {
-				//Projectile.rotation -= MathHelper.ToRadians(180f);
-			}
+			Projectile.direction = (Main.MouseWorld.X > projOwner.Center.X).ToDirectionInt();
 			Projectile.spriteDirection = Projectile.direction;
 
 
 
-			if (++Projectile.frameCounter >= 20)
+			if (++Projectile.frameCounter >= 1)
 			{
 				Projectile.frameCounter = 0;
-				if (Projectile.frame < 9)
+				if (Projectile.frame < 26)
 				{
 					Projectile.frame++;
+					if (Projectile.frame > 24) {
+						Projectile.alpha += 50;
+					}
 				}
 				else {
 					Projectile.Kill();

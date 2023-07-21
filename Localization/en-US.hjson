@@ -16,6 +16,7 @@ Mods: {
 			KroosCrossbow: "Kroos' Crossbow"
 			Shinginzan: "Shinginzan"
 			BagpipeSpear: "Piledriver Spear"
+			ChenSword: "Chi Xiao"
 			ThornsSword: "Thorns' sword"
 
 			# Accessories
@@ -75,7 +76,11 @@ Mods: {
 			DurinWand: "She looks quite sleepy."
 			KroosCrossbow: "'KO- KO- DA- YO-'"
 			Shinginzan: "SilverAsh"
-			BagpipeSpear: "'My spear and I hail from Victoria!'"
+			BagpipeSpear: '''
+										Right Click in inventory to change skills
+										'My spear and I hail from Victoria!'
+										'''
+			ChenSword: "Ch'en always puts herself on the frontlines."
 			ThornsSword: "'Watch carefully, this is the Destreza of Iberia!'"
 
 			# Accessories
@@ -135,6 +140,7 @@ Mods: {
 			BagpipeSpearS1: "Swift Strike Gamma"
 			BagpipeSpearS2: "High-Impact Assault"
 			BagpipeSpearS3: "Locked Breech Burst"
+			ChenSwordS3: "Chi Xiao - Shadowless"
 			KroosCrossbowS1: "Double Tap - Auto"
 		}
 
@@ -145,6 +151,7 @@ Mods: {
 											Can store up to 1 charges
 											'''
 			BagpipeSpearS3: "ATK Interval increases, Block +1, ATK and DEF +120%, and attacks hit 3 times in a row"
+			ChenSwordS3: "Seeks the closest enemy around and launches 10 slashes in a row, each dealing 320% ATK as Physical damage (and Stun the target on the last hit for 4 seconds)"
 			KroosCrossbowS1: "The next attack shoots 2 in a row, dealing 140% of ATK in physical damage with each shot"
 		}
 

@@ -31,8 +31,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 			// Use Properties
 			Item.useStyle = ItemUseStyleID.Swing; // How you use the item (swinging, holding out, etc.)
-			Item.useAnimation = 20; // The length of the item's use animation in ticks (60 ticks == 1 second.)
-			Item.useTime = 20; // The length of the item's use time in ticks (60 ticks == 1 second.) And if you want to attack triple hit, useTime = useAnimation/3
+			Item.useAnimation = 15; // The length of the item's use animation in ticks (60 ticks == 1 second.)
+			Item.useTime = 15; // The length of the item's use time in ticks (60 ticks == 1 second.) And if you want to attack triple hit, useTime = useAnimation/3
 			Item.autoReuse = false; // Allows the player to hold click to automatically use the item again. Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 			Item.scale = 0.8f;
 
@@ -109,8 +109,8 @@ namespace ArknightsMod.Content.Items.Weapons
 					return false;
 			}
 			else {
-				Item.useAnimation = 20;
-				Item.useTime = 20; // If you want to attack triple hit, useTime = useAnimation/3
+				Item.useAnimation = 15;
+				Item.useTime = 15; // If you want to attack triple hit, useTime = useAnimation/3
 				Item.damage = defaultDamage;
 				Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS0") {
 					Volume = 0.4f,
@@ -125,7 +125,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			}
 
 			// Ensures no more than one spear can be thrown out, use this when using autoReuse
-			return player.ownedProjectileCounts[Item.shoot] < 1;
+			return player.ownedProjectileCounts[Item.shoot] < 3;
 		}
 
 		public override void HoldItem(Player player) {
@@ -139,7 +139,7 @@ namespace ArknightsMod.Content.Items.Weapons
 				// S3 (but now it sets S1)
 				if (modPlayer.Skill == 0) {
 					modPlayer.SetSkillData(20, 30, 1, 1, 1, false);
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS1>(), 10);
+					player.AddBuff(BuffType<ChenSwordS3>(), 10); 
 
 					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
 						for (int i = 0; i < 30; i++) {//Circle
@@ -158,20 +158,21 @@ namespace ArknightsMod.Content.Items.Weapons
 						modPlayer.SkillTimer++;
 						player.immune = true;
 						player.immuneTime = 5;
-						if (modPlayer.SkillTimer == 2) {
-							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
+						player.immuneAlpha = 255;
+						if (modPlayer.SkillTimer == 1) {
+							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X - 50, player.Center.Y - 100, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
 						}
 						if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60) {
 							player.velocity = Vector2.Zero;
 						}
 						if (modPlayer.SkillTimer == 10) {
-							player.Teleport(new Vector2(modPlayer.mousePositionX, modPlayer.mousePositionY), 1, 0);
+							player.Teleport(new Vector2(modPlayer.mousePositionX, modPlayer.mousePositionY), -1, 0);
 							NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 						}
 
 						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60 && modPlayer.SkillTimer % 5 == 0) {
-							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), (player.GetWeaponDamage(Item) / 2), 3, player.whoAmI, 0f);
-
+							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), player.GetWeaponDamage(Item) * 3, 2.5f, player.whoAmI, 0f);
+							player.immuneAlpha = 0;
 							if (modPlayer.SkillTimer == 60) {
 								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
 									Volume = 0.7f,
@@ -190,7 +191,7 @@ namespace ArknightsMod.Content.Items.Weapons
 						}
 
 						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60 + 10) {
-							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), 1, 0);
+							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), -1, 0);
 							NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 
 							modPlayer.SkillActive = false;
