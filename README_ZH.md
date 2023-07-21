@@ -30,5 +30,7 @@
 - 如果有任何关于此MOD的疑问，请通过以下Discord来联系我们。
 
 ## Contact
+QQ群: 891522802<br>
+WeChat: CueTheViolins (加我拉你进群)<br>
 [Dicord server](https://discord.gg/XKM2jeS9hY)<br>
 [Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)
