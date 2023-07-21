@@ -16,6 +16,7 @@ Mods: {
 			KroosCrossbow: "克洛丝的弩"
 			Shinginzan: "Shinginzan"
 			BagpipeSpear: "破城矛"
+			ChenSword: "赤霄"
 			ThornsSword: "棘刺的剑"
 
 			# Accessories
@@ -75,7 +76,11 @@ Mods: {
 			DurinWand: "She looks quite sleepy."
 			KroosCrossbow: "'在~这~里~哦'"
 			Shinginzan: "SilverAsh"
-			BagpipeSpear: "'我和我的破城矛，来自维多利亚！'"
+			BagpipeSpear: '''
+										右键点击物品栏内武器以切换技能
+										'我和我的破城矛，来自维多利亚！'
+										'''
+			ChenSword: "无论什么时候，陈总是会站在队伍的前端。"
 			ThornsSword: "'看仔细，这才是伊比利亚的至高之术！'"
 
 			# Accessories
@@ -135,6 +140,7 @@ Mods: {
 			BagpipeSpearS1: "迅捷打击·Gamma型"
 			BagpipeSpearS2: "高效冲击"
 			BagpipeSpearS3: "闭膛连发"
+			ChenSwordS3: "赤霄·绝影"
 			KroosCrossbowS1: "二连射·自动"
 		}
 
@@ -145,6 +151,7 @@ Mods: {
 											可充能3次
 											'''
 			BagpipeSpearS3: "攻击间隔增大，阻挡数+1，攻击力和防御力+120%，攻击变为三连击"
+			ChenSwordS3: "向周围寻找最近的敌方目标，对其发动10次连续斩击，每次造成相当于攻击力320%的物理伤害，(并在最后一击时使目标晕眩4秒)"
 			KroosCrossbowS1: "下次攻击时连续射击2次，每次射击造成相当于攻击力140%的物理伤害"
 		}
 

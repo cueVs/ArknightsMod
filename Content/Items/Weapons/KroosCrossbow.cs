@@ -43,7 +43,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.crit = 16; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 
 
-			Item.rare = ItemRarityID.White;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 3, 20);
 
 		}
@@ -100,7 +100,7 @@ namespace ArknightsMod.Content.Items.Weapons
 				player.AddBuff(ModContent.BuffType<KroosCrossbowS1>(), 10);
 			}
 
-			modPlayer.HoldKroosCrossbow = true;
+			modPlayer.HoldKroosCrossbow = true; // you have to write this line HERE!
 			base.HoldItem(player);
 		}
 
