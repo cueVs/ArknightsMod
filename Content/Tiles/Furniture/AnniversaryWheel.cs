@@ -67,18 +67,18 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance))
 			{ // Avoid being able to trigger it from long range
 				player.GamepadEnableGrappleCooldown();
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Orundum>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.OrirockCube>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.Grind>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.MnOre>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.RMA12>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Device>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.LoxicKohl>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Oriron>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Polyketon>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Sugar>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.Polyester>(), 100);
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Material.CoagulatingGel>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Orundum>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.OrirockCube>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.Grind>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.MnOre>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.RMA12>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Device>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.LoxicKohl>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Oriron>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Polyketon>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Sugar>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Polyester>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CoagulatingGel>(), 100);
 			}
 
 			return true;
