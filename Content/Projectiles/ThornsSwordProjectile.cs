@@ -13,8 +13,7 @@ namespace ArknightsMod.Content.Projectiles
 	public class ThornsSwordProjectile : ModProjectile
 	{
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 60;
 			Projectile.height = 60;
 
@@ -35,8 +34,7 @@ namespace ArknightsMod.Content.Projectiles
 		//    return new Color(0, 50, 100, 0) * Projectile.Opacity;
 		//}
 
-		public override void AI()
-		{
+		public override void AI() {
 			Projectile.ai[0] += 1f;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
@@ -60,11 +58,9 @@ namespace ArknightsMod.Content.Projectiles
 		}
 
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
-		public void FadeInAndOut()
-		{
+		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] <= 50f)
-			{
+			if (Projectile.ai[0] <= 50f) {
 				// Fade in
 				Projectile.alpha -= 25;
 				// Cap alpha before timer reaches 50 ticks
@@ -81,17 +77,15 @@ namespace ArknightsMod.Content.Projectiles
 				Projectile.alpha = 255;
 		}
 
-		private void DelayCollision()
-		{
-			if (Projectile.ai[0] <= 1f)
-			{
+		private void DelayCollision() {
+			if (Projectile.ai[0] <= 1f) {
 				Projectile.tileCollide = false;
 			}
-			else Projectile.tileCollide = true;
+			else
+				Projectile.tileCollide = true;
 		}
 
-		private void SetVisualOffsets()
-		{
+		private void SetVisualOffsets() {
 			// 32 is the sprite size (here both width and height equal)
 			const int HalfSpriteWidth = 60 / 2;
 			const int HalfSpriteHeight = 60 / 2;
@@ -116,11 +110,9 @@ namespace ArknightsMod.Content.Projectiles
 			//	DrawOriginOffsetY = 0;
 			//}
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockBack, bool crit)
-		{
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
 			target.AddBuff(BuffID.Poisoned, 180);
 		}
 	}
-
 
 }

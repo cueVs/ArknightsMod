@@ -66,8 +66,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 			});
 		}
 
-		// TODO: you should change here for 1.4.4
-		public override void HitEffect(int hitDirection, double damage) {
+		public override void HitEffect(NPC.HitInfo hit) {
 			// Spawn confetti when this zombie is hit.
 
 			for (int i = 0; i < 10; i++) {

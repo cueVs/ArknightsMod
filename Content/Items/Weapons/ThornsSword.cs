@@ -41,7 +41,9 @@ namespace ArknightsMod.Content.Items.Weapons
 				MaxInstances = 3, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 			};
 		}
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit) {
+
+		//　OnHitNPC is used in case of the effects when the hit happening
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone) {
 			target.AddBuff(BuffID.Poisoned, 180);
 		}
 
@@ -53,5 +55,11 @@ namespace ArknightsMod.Content.Items.Weapons
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
+		//public override void AddRecipes() {
+		//	CreateRecipe()
+		//		.AddIngredient(ItemID.DirtBlock, 1)
+		//		.AddTile(TileID.WorkBenches)
+		//		.Register();
+		//}
 	}
 }

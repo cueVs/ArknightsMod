@@ -8,165 +8,307 @@
 
 Mods: {
 	ArknightsMod: {
-
-		ItemName: {
+		Items: {
 			# Weapons
-			YatoKatana: "Yato's Katana"
-			DurinWand: "Durin's wand"
-			KroosCrossbow: "Kroos' Crossbow"
-			Shinginzan: "Shinginzan"
-			BagpipeSpear: "Piledriver Spear"
-			ChenSword: "Chi Xiao"
-			ThornsSword: "Thorns' sword"
+			YatoKatana: {
+				DisplayName: Yato's Katana
+				Tooltip: "'Yato has joined the team.'"
+			}
+
+			DurinWand: {
+				DisplayName: Durin's wand
+				Tooltip: She looks quite sleepy.
+			}
+
+			KroosCrossbow: {
+				DisplayName: Kroos' Crossbow
+				Tooltip: "'KO- KO- DA- YO-'"
+			}
+
+			Shinginzan: {
+				DisplayName: Shinginzan
+				Tooltip: SilverAsh
+			}
+
+			BagpipeSpear: {
+				DisplayName: Piledriver Spear
+				Tooltip:
+					'''
+					Right Click in inventory to change skills
+					'My spear and I hail from Victoria!'
+					'''
+			}
+
+			ChenSword: {
+				DisplayName: Chi Xiao
+				Tooltip: Ch'en always puts herself on the frontlines.
+			}
+
+			ThornsSword: {
+				DisplayName: Thorns' sword
+				Tooltip: "'Watch carefully, this is the Destreza of Iberia!'"
+			}
 
 			# Accessories
-			ExusiaiWings: "Exusiai's wings"
+			ExusiaiWings: {
+				DisplayName: Exusiai's wings
+				Tooltip: Apple pie!
+			}
 
-			# Armor/Vanity
-			DoctorHood: "Arknights Doctor's hood"
-			DoctorJacket: "Arknights Doctor's jacket"
-			DoctorPants: "Arknights Doctor's pants"
+			DoctorHood: {
+				# Armor/Vanity
+				DisplayName: Arknights Doctor's hood
+				Tooltip: ""
+			}
 
-			# Consumables
-			StartBag: "Arknights Doctor's outfit"
+			DoctorJacket: {
+				DisplayName: Arknights Doctor's jacket
+				Tooltip: ""
+			}
 
-			# Material
-			OrirockCluster: "Orirock Cluster"
-			OrirockConcentration: "Orirock Concentration"
-			Polyketon: "Polyketon"
-			Aketon: "Aketon"
-			KetonColloid: "Keton Colloid"
-			MnTri: "Manganese Trihydrate"
-			GP: "Grindstone Pentahydrate"
-			RMA24: "RMA70-24"
-			LoxicKohl: "Loxic Kohl"
-			WHKohl: "White Horse Kohl"
-			Device: "Device"
-			IntegratedDevice: "Integrated Device"
-			OptimizedDevice: "Optimized Device"
-			Oriron: "Oriron"
-			OrironCluster: "Oriron Cluster"
-			OrironBlock: "Oriron Block"
-			Sugar: "Sugar"
-			SugarPack: "Sugar Pack"
-			SugarLump: "Sugar Lump"
-			Polyester: "Polyester"
-			PolyesterPack: "Polyester Pack"
-			PolyesterLump: "Polyester Lump"
-			CoagulatingGel: "Coagulating Gel"
-			PolymerizedGel: "Polymerized Gel"
-
-			# Placeable
-			OrirockCube: "Orirock Cube"
-			MnOre: "Manganese Ore"
-			Grind: "Grindstone"
-			RMA12: "RMA70-12"
-
-			# Furniture
-			DareUsa: "Rabbit-like Bean Bag Sofa"
-			AnniversaryWheel: "Anniversary Wheel of Fortune"
-
-			# otherItems
-			Orundum: "Orundum"
-		}
-
-		ItemTooltip: {
-			# Weapons
-			YatoKatana: "'Yato has joined the team.'"
-			DurinWand: "She looks quite sleepy."
-			KroosCrossbow: "'KO- KO- DA- YO-'"
-			Shinginzan: "SilverAsh"
-			BagpipeSpear: '''
-										Right Click in inventory to change skills
-										'My spear and I hail from Victoria!'
-										'''
-			ChenSword: "Ch'en always puts herself on the frontlines."
-			ThornsSword: "'Watch carefully, this is the Destreza of Iberia!'"
-
-			# Accessories
-			ExusiaiWings: "Apple pie!"
+			DoctorPants: {
+				DisplayName: Arknights Doctor's pants
+				Tooltip: ""
+			}
 
 			# Consumables
-			StartBag: '''
-								{$CommonItemTooltip.RightClickToOpen}
-								All equipment for operators is provided by Rhodes Island. And of course, yours.
-								'''
+			StartBag: {
+				DisplayName: Arknights Doctor's outfit
+				Tooltip:
+					'''
+					{$CommonItemTooltip.RightClickToOpen}
+					All equipment for operators is provided by Rhodes Island. And of course, yours.
+					'''
+			}
 
 			# Material
-			OrirockCluster: "A conglomerate rock mined from the ground."
-			OrirockConcentration: "A refined matter produced with Orirock Cluster."
-			Polyketon: "A small amount of industrial organic compound."
-			Aketon: "A modest amount of industrial organic compound. "
-			KetonColloid: "A large amount of industrial organic compound."
-			MnTri: "A metal ore used for metallurgy."
-			GP: "An advanced grindstone used in the finish machining of weapon parts."
-			RMA24: "A highly sensitive mineral with outstanding conductivity."
-			LoxicKohl: "A flaky organic compound."
-			WHKohl: "A product made from Loxic Kohl after fine processing."
-			Device: "An ordinary mechanical device captured from Reunion."
-			IntegratedDevice: "A set of brand new devices."
-			OptimizedDevice: "These devices have a large number of private modifications."
-			Oriron: "A rare industrial material."
-			OrironCluster: "A precious industrial material."
-			OrironBlock: "An expensive industrial material."
-			Sugar: "A small amount of sugar produced by assembly line."
-			SugarPack: "A decent amount of sugar produced by assembly line."
-			SugarLump: "A large amount of sugar produced by assembly line."
-			Polyester: "A small amount of polyester used in industrial production."
-			PolyesterPack: "A pack of polyester used in industrial production."
-			PolyesterLump: "A lump of polyester used in industrial production."
-			CoagulatingGel: "A high-strength plastic material suitable."
-			PolymerizedGel: "An extremely high-strength plastic material."
+			OrirockCluster: {
+				DisplayName: Orirock Cluster
+				Tooltip: A conglomerate rock mined from the ground.
+			}
+
+			OrirockConcentration: {
+				DisplayName: Orirock Concentration
+				Tooltip: A refined matter produced with Orirock Cluster.
+			}
+
+			Polyketon: {
+				DisplayName: Polyketon
+				Tooltip: A small amount of industrial organic compound.
+			}
+
+			Aketon: {
+				DisplayName: Aketon
+				Tooltip: "A modest amount of industrial organic compound. "
+			}
+
+			KetonColloid: {
+				DisplayName: Keton Colloid
+				Tooltip: A large amount of industrial organic compound.
+			}
+
+			MnTri: {
+				DisplayName: Manganese Trihydrate
+				Tooltip: A metal ore used for metallurgy.
+			}
+
+			GP: {
+				DisplayName: Grindstone Pentahydrate
+				Tooltip: An advanced grindstone used in the finish machining of weapon parts.
+			}
+
+			RMA24: {
+				DisplayName: RMA70-24
+				Tooltip: A highly sensitive mineral with outstanding conductivity.
+			}
+
+			LoxicKohl: {
+				DisplayName: Loxic Kohl
+				Tooltip: A flaky organic compound.
+			}
+
+			WHKohl: {
+				DisplayName: White Horse Kohl
+				Tooltip: A product made from Loxic Kohl after fine processing.
+			}
+
+			Device: {
+				DisplayName: Device
+				Tooltip: An ordinary mechanical device captured from Reunion.
+			}
+
+			IntegratedDevice: {
+				DisplayName: Integrated Device
+				Tooltip: A set of brand new devices.
+			}
+
+			OptimizedDevice: {
+				DisplayName: Optimized Device
+				Tooltip: These devices have a large number of private modifications.
+			}
+
+			Oriron: {
+				DisplayName: Oriron
+				Tooltip: A rare industrial material.
+			}
+
+			OrironCluster: {
+				DisplayName: Oriron Cluster
+				Tooltip: A precious industrial material.
+			}
+
+			OrironBlock: {
+				DisplayName: Oriron Block
+				Tooltip: An expensive industrial material.
+			}
+
+			Sugar: {
+				DisplayName: Sugar
+				Tooltip: A small amount of sugar produced by assembly line.
+			}
+
+			SugarPack: {
+				DisplayName: Sugar Pack
+				Tooltip: A decent amount of sugar produced by assembly line.
+			}
+
+			SugarLump: {
+				DisplayName: Sugar Lump
+				Tooltip: A large amount of sugar produced by assembly line.
+			}
+
+			Polyester: {
+				DisplayName: Polyester
+				Tooltip: A small amount of polyester used in industrial production.
+			}
+
+			PolyesterPack: {
+				DisplayName: Polyester Pack
+				Tooltip: A pack of polyester used in industrial production.
+			}
+
+			PolyesterLump: {
+				DisplayName: Polyester Lump
+				Tooltip: A lump of polyester used in industrial production.
+			}
+
+			CoagulatingGel: {
+				DisplayName: Coagulating Gel
+				Tooltip: A high-strength plastic material suitable.
+			}
+
+			PolymerizedGel: {
+				DisplayName: Polymerized Gel
+				Tooltip: An extremely high-strength plastic material.
+			}
 
 			# Placeable
-			OrirockCube: "Orirock cube mined from the ground."
-			MnOre: "A metal ore used for metallurgy."
-			Grind: "A grindstone used to process weapon parts."
-			RMA12: "A sensitive mineral with high conductivity."
+			OrirockCube: {
+				DisplayName: Orirock Cube
+				Tooltip: Orirock cube mined from the ground.
+			}
 
-			# Furniture
-			DareUsa: "It looks like a big cute rabbit, and feels like one too."
-			AnniversaryWheel: '''
-												This roulette is made for those who have trouble digging.
-												You spin the roulette by Right Click and get materials by strict lottery.
-												??? "The lottery is definitely not rigged."
-												'''
+			MnOre: {
+				DisplayName: Manganese Ore
+				Tooltip: A metal ore used for metallurgy.
+			}
 
-			# otherItems
-			Orundum: "An artificial material commonly used to recruit operators."
+			Grind: {
+				DisplayName: Grindstone
+				Tooltip: A grindstone used to process weapon parts.
+			}
+
+			RMA12: {
+				DisplayName: RMA70-12
+				Tooltip: A sensitive mineral with high conductivity.
+			}
+
+			DareUsa: {
+				# Furniture
+				DisplayName: Rabbit-like Bean Bag Sofa
+				# Furniture
+				Tooltip: It looks like a big cute rabbit, and feels like one too.
+			}
+
+			AnniversaryWheel: {
+				DisplayName: Anniversary Wheel of Fortune
+				Tooltip:
+					'''
+					This roulette is made for those who have trouble digging.
+					You spin the roulette by Right Click and get materials by strict lottery.
+					??? "The lottery is definitely not rigged."
+					'''
+			}
+
+			Orundum: {
+				# otherItems
+				DisplayName: Orundum
+				# otherItems
+				Tooltip: An artificial material commonly used to recruit operators.
+			}
 		}
 
-		BuffName: {
-			BagpipeSpearS1: "Swift Strike Gamma"
-			BagpipeSpearS2: "High-Impact Assault"
-			BagpipeSpearS3: "Locked Breech Burst"
-			ChenSwordS3: "Chi Xiao - Shadowless"
-			KroosCrossbowS1: "Double Tap - Auto"
+		Buffs: {
+			BagpipeSpearS1: {
+				DisplayName: Swift Strike Gamma
+				Description: ATK +45%; ASPD +45
+			}
+
+			BagpipeSpearS2: {
+				DisplayName: High-Impact Assault
+				Description:
+					'''
+					Increases the ATK of the next attack to 200%, and strikes an additional time
+					Can store up to 3 charges
+					'''
+			}
+
+			BagpipeSpearS3: {
+				DisplayName: Locked Breech Burst
+				Description: ATK Interval increases, Block +1, ATK and DEF +120%, and attacks hit 3 times in a row
+			}
+
+			ChenSwordS3: {
+				DisplayName: Chi Xiao - Shadowless
+				Description: Seeks the closest enemy around and launches 10 slashes in a row, each dealing 320% ATK as Physical damage (and Stun the target on the last hit for 4 seconds)
+			}
+
+			KroosCrossbowS1: {
+				DisplayName: Double Tap - Auto
+				Description: The next attack shoots 2 in a row, dealing 140% of ATK in physical damage with each shot
+			}
 		}
 
-		BuffDescription: {
-			BagpipeSpearS1: "ATK +45%; ASPD +45"
-			BagpipeSpearS2: '''
-											Increases the ATK of the next attack to 200%, and strikes an additional time
-											Can store up to 1 charges
-											'''
-			BagpipeSpearS3: "ATK Interval increases, Block +1, ATK and DEF +120%, and attacks hit 3 times in a row"
-			ChenSwordS3: "Seeks the closest enemy around and launches 10 slashes in a row, each dealing 320% ATK as Physical damage (and Stun the target on the last hit for 4 seconds)"
-			KroosCrossbowS1: "The next attack shoots 2 in a row, dealing 140% of ATK in physical damage with each shot"
-		}
+		NPCs: {
+			Closure: {
+				# Friendly
+				DisplayName: Engineer
 
-		NPCName: {
-			# Friendly
-			Closure: "Engineer"
+				TownNPCMood: {
+					Content: "{$Mods.ArknightsMod.TownNPCMood.Closure.Content}"
+					NoHome: "{$Mods.ArknightsMod.TownNPCMood.Closure.NoHome}"
+					FarFromHome: "{$Mods.ArknightsMod.TownNPCMood.Closure.FarFromHome}"
+					LoveSpace: "{$Mods.ArknightsMod.TownNPCMood.Closure.LoveSpace}"
+					DislikeCrowded: "{$Mods.ArknightsMod.TownNPCMood.Closure.DislikeCrowded}"
+					HateCrowded: "{$Mods.ArknightsMod.TownNPCMood.Closure.HateCrowded}"
+					LikeBiome: "{$Mods.ArknightsMod.TownNPCMood.Closure.LikeBiome}"
+					DislikeBiome: "{$Mods.ArknightsMod.TownNPCMood.Closure.DislikeBiome}"
+					LoveNPC: "{$Mods.ArknightsMod.TownNPCMood.Closure.LoveNPC}"
+					LikeNPC: "{$Mods.ArknightsMod.TownNPCMood.Closure.LikeNPC}"
+					DislikeNPC: "{$Mods.ArknightsMod.TownNPCMood.Closure.DislikeNPC}"
+					HateNPC: "{$Mods.ArknightsMod.TownNPCMood.Closure.HateNPC}"
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+			}
+
 			# Enemy
-			Soldier: "Soldier"
-			OriginiumSlug: "Originium Slug"
+			Soldier.DisplayName: Soldier
+			OriginiumSlug.DisplayName: Originium Slug
 		}
 
-		NameList: {
-			# Friendly
-			Closure: "Closure"
-		}
+		# Friendly
+		NameList.Closure: Closure
 
 		# This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
 		# Double quotes(") combine several sentences into one.
@@ -179,57 +321,66 @@ Mods: {
 				DislikeCrowded: There are too many people around, it makes it hard for me to focus on mod making.
 				HateCrowded: I can't test my mod with so many people around!
 				LikeBiome: "{BiomeName} is a very nice place to this mods in."
-				LoveBiome: "I love {BiomeName}."
-				DislikeBiome: "It's way too cold in {BiomeName}, I'm freezing!"
-				HateBiome: "Its kind of hard to mod while being attacked by monsters in {BiomeName}."
-				LikeNPC: "I can respect {NPCName} as a fellow guide and educator!"
-				LoveNPC: "Do you think {NPCName} notices me?"
+				LoveBiome: I love {BiomeName}.
+				DislikeBiome: It's way too cold in {BiomeName}, I'm freezing!
+				HateBiome: Its kind of hard to mod while being attacked by monsters in {BiomeName}.
+				LikeNPC: I can respect {NPCName} as a fellow guide and educator!
+				LoveNPC: Do you think {NPCName} notices me?
 				DislikeNPC: '''"{NPCName} keeps rambling on about "payed mods"... Wish I could convince him how terrible of an idea that is."'''
-				HateNPC: "I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet."
+				HateNPC: I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet.
 			}
 		}
 
 		#This is used to display the NPC's dialogues.
 		Dialogue: {
 			Closure: {
-				Dialogue1: "What can I get for you, Doc?"
-				Dialogue2: "Pro Tip: This is all great stuff worth taking home!"
-				Dialogue3: "The Procurement Department has everything you need. Take your time."
-				Dialogue4: "No questions. I'll only tell you to buy it all!"
-				Dialogue5: "The Procurement Department can get you anything on the shopping list."
-				Dialogue6: "So close, yet so far. You're right in front of me, but I can't afford to buy you."
-				Dialogue7: "That's the best deal we can get, Doctor! Stop asking!"
-				Dialogue8: "I'll take them if you don't."
-				AO: "I want you to take down 50 {0}. Bring me the banner to prove it."
-				AOThanks: "Thank you!"
-				AOStatus: "Finish!"
+				Dialogue1: What can I get for you, Doc?
+				Dialogue2: Pro Tip: This is all great stuff worth taking home!
+				Dialogue3: The Procurement Department has everything you need. Take your time.
+				Dialogue4: No questions. I'll only tell you to buy it all!
+				Dialogue5: The Procurement Department can get you anything on the shopping list.
+				Dialogue6: So close, yet so far. You're right in front of me, but I can't afford to buy you.
+				Dialogue7: That's the best deal we can get, Doctor! Stop asking!
+				Dialogue8: I'll take them if you don't.
+				AO: I want you to take down 50 {0}. Bring me the banner to prove it.
+				AOThanks: Thank you!
+				AOStatus: Finish!
 			}
 		}
 
 		Bestiary: {
-			Soldier: "One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation."
-			OriginiumSlug: "An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions."
+			Soldier: One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation.
+			OriginiumSlug: An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 		}
 
-		ProjectileName: {
-			YatoKatanaProjectile: "{$Mods.ArknightsMod.ItemName.YatoKatana}"
+		Projectiles: {
+			YatoKatanaProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.YatoKatana}"
+			BagpipeSpearProjectileS0.DisplayName: "{$Mods.ArknightsMod.ItemName.BagpipeSpear}"
+			ChenSwordProjectileS3.DisplayName: "{$Mods.ArknightsMod.ItemName.ChenSword}"
+			ChenSwordProjectileS3Dragon.DisplayName: "{$Mods.ArknightsMod.ItemName.ChenSword}"
+			DurinWandProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.DurinWand}"
+			ShinginzanProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.Shinginzan}"
+			ThornsSwordProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.ThornsSword}"
 		}
 
-		ButtonName: {
-			button2 : "Annihilation operation"
+		ButtonName.button2: Annihilation operation
+
+		Tiles: {
+			OrirockCube.MapEntry: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
+			MnOre.MapEntry: "{$Mods.ArknightsMod.ItemName.MnOre}"
+			Grind.MapEntry: "{$Mods.ArknightsMod.ItemName.Grind}"
+			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
+			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
+			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
 		}
 
-		MapObject: {
-			OrirockCube: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			MnOre: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			Grind: "{$Mods.ArknightsMod.ItemName.Grind}"
-			RMA12: "{$Mods.ArknightsMod.ItemName.RMA12}"
-			DareUsa: "{$Mods.ArknightsMod.ItemName.DareUsa}"
-			AnniversaryWheel: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
-		}
+		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
 
-		Currencies: {
-				OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
+		WorldGen: {
+			GrindPassMessage: "{$Mods.ArknightsMod.ItemName.Grind}"
+			MnOrePassMessage: "{$Mods.ArknightsMod.ItemName.MnOre}"
+			OrirockCubePassMessage: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
+			RMA12PassMessage: "{$Mods.ArknightsMod.ItemName.RMA12}"
 		}
 	}
 }

@@ -11,11 +11,11 @@ using Terraria.ModLoader.IO;
 namespace ArknightsMod.Content.NPCs.Friendly
 {
 	[AutoloadHead]
-	class Closure : ModNPC
+	public class Closure : ModNPC
 	{
+		public const string ShopName = "Shop";
 
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Engineer");
 			Main.npcFrameCount[NPC.type] = 22;
 			NPCID.Sets.ExtraFramesCount[NPC.type] = 6;
 			NPCID.Sets.AttackFrameCount[NPC.type] = 1;
@@ -23,7 +23,10 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			NPCID.Sets.AttackType[NPC.type] = 3;
 			NPCID.Sets.AttackTime[NPC.type] = 18;
 			NPCID.Sets.AttackAverageChance[NPC.type] = 10;
-			NPCID.Sets.HatOffsetY[NPC.type] = 4;
+			NPCID.Sets.HatOffsetY[NPC.type] = 4; // For when a party is active, the party hat spawns at a Y offset.
+			// NPCID.Sets.ShimmerTownTransform[NPC.type] = true; // This set says that the Town NPC has a Shimmered form. Otherwise, the Town NPC will become transparent when touching Shimmer like other enemies.
+
+
 
 			// Set Example Person's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang).
 			// NOTE: The following code uses chaining - a style that works due to the fact that the SetXAffection methods return the same NPCHappiness instance they're called on.
@@ -57,7 +60,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			AnimationType = NPCID.Guide;
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
+		public override bool CanTownNPCSpawn(int numTownNPCs) {
 			foreach (Player player in Main.player) {
 				if (!player.active) {
 					continue;
@@ -69,10 +72,8 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			return false;
 		}
 
-		public override bool CanGoToStatue(bool toQueenStatue) {
-			return true;
-		}
-
+		// Make this Town NPC teleport to the King and/or Queen statue when triggered. Return toKingStatue for only King Statues. Return !toKingStatue for only Queen Statues. Return true for both.
+		public override bool CanGoToStatue(bool toQueenStatue) => true;
 
 		public override string GetChat() {
 			WeightedRandom<string> chat = new();
@@ -95,9 +96,9 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			button2 = Language.GetTextValue("Mods.ArknightsMod.ButtonName.button2");
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
+		public override void OnChatButtonClicked(bool firstButton, ref string shop) {
 			if (firstButton) {
-				shop = true;
+				shop = ShopName;
 				return;
 			}
 			else {
@@ -161,36 +162,6 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			public int Current {
 				get { return QuestNum; }
 				set { QuestNum = value; }
-			}
-
-			public override void clientClone(ModPlayer clientClone) {
-				AOSystem clone = clientClone as AOSystem;
-				clone.QuestNum = QuestNum;
-				clone.QuestType = QuestType;
-				clone.AOStatus = AOStatus;
-			}
-
-			public override void SendClientChanges(ModPlayer clientPlayer) {
-				AOSystem clone = clientPlayer as AOSystem;
-				if (clone.QuestNum != QuestNum || clone.QuestType != QuestType || clone.AOStatus != AOStatus) {
-					ModPacket packet = Mod.GetPacket();
-					packet.Write((byte)4);
-					packet.Write(Player.whoAmI);
-					packet.Write(QuestNum);
-					packet.Write(QuestType);
-					packet.Write(AOStatus);
-					packet.Send();
-				}
-			}
-
-			public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
-				ModPacket packet = Mod.GetPacket();
-				packet.Write((byte)4);
-				packet.Write(Player.whoAmI);
-				packet.Write(QuestNum);
-				packet.Write(QuestType);
-				packet.Write(AOStatus);
-				packet.Send(toWho, fromWho);
 			}
 
 			public bool CheckQuest() {
@@ -258,39 +229,42 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			}
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot) {
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Polyketon>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Oriron>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Sugar>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Device>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.Polyester>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.LoxicKohl>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Material.CoagulatingGel>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Placeable.Furniture.DareUsa>());
-			shop.item[nextSlot].shopCustomPrice = 1;
-			shop.item[nextSlot].shopSpecialCurrency = ArknightsMod.OrundumCurrencyId;
-			nextSlot++;
+		// Not completely finished, but below is what the NPC will sell
+		public override void AddShops() {
+			var npcShop = new NPCShop(Type, ShopName)
+				.Add(new Item(ModContent.ItemType<Items.Material.Polyketon>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.Oriron>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.Sugar>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.Device>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.Polyester>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.LoxicKohl>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.CoagulatingGel>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Placeable.Furniture.DareUsa>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				});
+			npcShop.Register(); // Name of this shop tab
 		}
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {

@@ -8,21 +8,16 @@ namespace ArknightsMod.Content.Items.Placeable
 	public class OrirockCube : ModItem
 	{
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Orirock Cube"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			// Tooltip.SetDefault("A rock cube mined from the ground."); // The (English) text shown below your item's name
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+			Item.ResearchUnlockCount = 100;
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 58;
+
+			// This ore can spawn in slime bodies like other pre-boss ores. (copper, tin, iron, etch)
+			// It will drop in amount from 3 to 13.
+			// ItemID.Sets.OreDropsFromSlime[Type] = (3, 13);
 		}
 
 		public override void SetDefaults() {
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useTurn = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.autoReuse = true;
-			Item.maxStack = 999;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.OrirockCube>();
+			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.OrirockCube>());
 			Item.width = 20;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 0, 30);

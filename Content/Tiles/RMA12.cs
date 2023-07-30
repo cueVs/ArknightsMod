@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.IO;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
@@ -26,12 +27,11 @@ namespace ArknightsMod.Content.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("{$Mods.ArknightsMod.Tile.OrirockCube}");
 			AddMapEntry(new Color(245, 238, 197), name); // Adds an entry to the minimap for this tile with the given color and display name. This should be called in SetDefaults. 
 
 			DustType = DustID.Bone;
-			ItemDrop = ModContent.ItemType<Items.Placeable.RMA12>();
 			HitSound = SoundID.Tink;
 			// MineResist = 4f;
 			MinPick = 30;
@@ -40,7 +40,13 @@ namespace ArknightsMod.Content.Tiles
 
 	public class RMA12System : ModSystem
 	{
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		public static LocalizedText RMA12PassMessage { get; private set; }
+
+		public override void SetStaticDefaults() {
+			RMA12PassMessage = Language.GetOrRegister(Mod.GetLocalizationKey($"WorldGen.{nameof(RMA12PassMessage)}"));
+		}
+
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			// Because world generation is like layering several images ontop of each other, we need to do some steps between the original world generation steps.
 
@@ -78,7 +84,7 @@ namespace ArknightsMod.Content.Tiles
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 
 				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
 
 				// Then, we call WorldGen.TileRunner with random "strength" and random "steps", as well as the Tile we wish to place.
 				// Feel free to experiment with strength and step to see the shape they generate.

@@ -215,7 +215,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		//public override void AddRecipes() {
 		//	CreateRecipe()
 		//		.AddIngredient(ItemID.DirtBlock, 1)
-		//		.AddTile(TileID.Anvils)
+		//		.AddTile(TileID.WorkBenches)
 		//		.Register();
 		//}
 	}

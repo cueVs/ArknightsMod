@@ -33,7 +33,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			AdjTiles = new int[] { TileID.Chairs };
 
 			// Names
-			ModTranslation name = CreateMapEntryName();
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(223, 170, 124), name);
 
 			// Placement
@@ -64,10 +64,10 @@ namespace ArknightsMod.Content.Tiles.Furniture
 		//	num = fail ? 1 : 3;
 		//}
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 50, ModContent.ItemType<Items.Placeable.Furniture.DareUsa>());
-		}
+		//public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		//{
+		//	Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 50, ModContent.ItemType<Items.Placeable.Furniture.DareUsa>());
+		//}
 
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
 		{

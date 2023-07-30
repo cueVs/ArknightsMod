@@ -167,7 +167,7 @@ namespace ArknightsMod.Content.Items.Weapons
 						}
 						if (modPlayer.SkillTimer == 10) {
 							player.Teleport(new Vector2(modPlayer.mousePositionX, modPlayer.mousePositionY), -1, 0);
-							NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
+							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 						}
 
 						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60 && modPlayer.SkillTimer % 5 == 0) {
@@ -192,7 +192,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60 + 10) {
 							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), -1, 0);
-							NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
+							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 
 							modPlayer.SkillActive = false;
 							modPlayer.SkillTimer = 0;
@@ -233,7 +233,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		//public override void AddRecipes() {
 		//	CreateRecipe()
 		//		.AddIngredient(ItemID.DirtBlock, 1)
-		//		.AddTile(TileID.Anvils)
+		//		.AddTile(TileID.WorkBenches)
 		//		.Register();
 		//}
 	}

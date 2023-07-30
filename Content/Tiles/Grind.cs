@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.IO;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
@@ -26,12 +27,10 @@ namespace ArknightsMod.Content.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 
-			ModTranslation name = CreateMapEntryName();
-			// name.SetDefault("{$Mods.ArknightsMod.Tile.OrirockCube}");
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(229, 183, 194), name); // Adds an entry to the minimap for this tile with the given color and display name. This should be called in SetDefaults. 
 
 			DustType = DustID.Bone;
-			ItemDrop = ModContent.ItemType<Items.Placeable.Grind>();
 			HitSound = SoundID.Tink;
 			// MineResist = 4f;
 			MinPick = 30;
@@ -40,16 +39,21 @@ namespace ArknightsMod.Content.Tiles
 
 	public class GrindSystem : ModSystem
 	{
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
-		{
-			// Because world generation is like layering several images ontop of each other, we need to do some steps between the original world generation steps.
+		public static LocalizedText GrindPassMessage { get; private set; }
 
-			// The first step is an Ore. Most vanilla ores are generated in a step called "Shinies", so for maximum compatibility, we will also do this.
+		public override void SetStaticDefaults() {
+			GrindPassMessage = Language.GetOrRegister(Mod.GetLocalizationKey($"WorldGen.{nameof(GrindPassMessage)}"));
+		}
+
+		// World generation is explained more in https://github.com/tModLoader/tModLoader/wiki/World-Generation
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) {
+			// Because world generation is like layering several images on top of each other, we need to do some steps between the original world generation steps.
+
+			// Most vanilla ores are generated in a step called "Shinies", so for maximum compatibility, we will also do this.
 			// First, we find out which step "Shinies" is.
 			int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
 
-			if (ShiniesIndex != -1)
-			{
+			if (ShiniesIndex != -1) {
 				// Next, we insert our pass directly after the original "Shinies" pass.
 				// ExampleOrePass is a class seen bellow
 				tasks.Insert(ShiniesIndex + 1, new GrindPass("Grindstone", 237.4298f));
@@ -78,7 +82,7 @@ namespace ArknightsMod.Content.Tiles
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 
 				// WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
 
 				// Then, we call WorldGen.TileRunner with random "strength" and random "steps", as well as the Tile we wish to place.
 				// Feel free to experiment with strength and step to see the shape they generate.
