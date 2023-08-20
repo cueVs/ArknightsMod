@@ -241,10 +241,18 @@ Mods: {
 			}
 
 			Orundum: {
-				# otherItems
 				DisplayName: 合成玉
-				# otherItems
 				Tooltip: 常用于招募干员。
+			}
+
+			IncandescentAlloy: {
+				DisplayName: 炽合金
+				Tooltip: 电子工业用特殊高熔点合金。
+			}
+
+			IncandescentAlloyBlock: {
+				DisplayName: 炽合金块
+				Tooltip: 产量稀少的电子工业用特殊高熔点合金。
 			}
 		}
 

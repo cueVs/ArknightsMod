@@ -241,10 +241,18 @@ Mods: {
 			}
 
 			Orundum: {
-				# otherItems
 				DisplayName: Orundum
-				# otherItems
 				Tooltip: An artificial material commonly used to recruit operators.
+			}
+
+			IncandescentAlloy: {
+				DisplayName: Incandescent Alloy
+				Tooltip: A special alloy with a high melting point, commonly used in the electronics industry.
+			}
+
+			IncandescentAlloyBlock: {
+				DisplayName: Incandescent Alloy Block
+				Tooltip: A rarely-produced alloy with a high melting point, commonly used in the electronics industry.
 			}
 		}
 

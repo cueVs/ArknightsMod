@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
 {
-	public class PolymerizedGel : ModItem
+	public class IncandescentAlloyBlock : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -16,7 +16,7 @@ namespace ArknightsMod.Content.Items.Material
 
 		public override void SetDefaults()
 		{
-			Item.width = 30; // The item texture's width
+			Item.width = 34; // The item texture's width
 			Item.height = 34; // The item texture's height
 
 			Item.maxStack = 999; // The item's max stack value
@@ -27,8 +27,8 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient<OrirockCluster>(1)
-				.AddIngredient<CoagulatingGel>(1)
+				.AddIngredient<IntegratedDevice>(1)
+				.AddIngredient<Placeable.Grind>(1)
 				.AddIngredient<IncandescentAlloy>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
