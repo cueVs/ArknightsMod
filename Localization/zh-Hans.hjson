@@ -254,6 +254,11 @@ Mods: {
 				DisplayName: 炽合金块
 				Tooltip: 产量稀少的电子工业用特殊高熔点合金。
 			}
+
+			CrystallineComponent: {
+				DisplayName: 晶体元件
+				Tooltip: "可以制作与合成更高级的源石电子元件。"
+			}
 		}
 
 		Buffs: {

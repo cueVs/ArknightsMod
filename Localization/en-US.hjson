@@ -254,6 +254,11 @@ Mods: {
 				DisplayName: Incandescent Alloy Block
 				Tooltip: A rarely-produced alloy with a high melting point, commonly used in the electronics industry.
 			}
+
+			CrystallineComponent: {
+				DisplayName: Crystalline Component
+				Tooltip: "Can be manufactured and assembled into more advanced Originium electric components."
+			}
 		}
 
 		Buffs: {

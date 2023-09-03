@@ -75,6 +75,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Polyester>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CoagulatingGel>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.IncandescentAlloy>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CrystallineComponent>(), 100);
 			}
 
 			return true;
