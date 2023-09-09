@@ -7,26 +7,27 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Effects;
 using ArknightsMod.Content.NPCs;
 using Terraria.Audio;
-using static Terraria.ModLoader.ModContent;
+//using static Terraria.ModLoader.ModContent;
 using System;
-using System.IO;
-using System.Data;
-using System.Collections.Generic;
+//using System.IO;
+//using System.Data;
+//using System.Collections.Generic;
 using Terraria.Graphics.Shaders;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.DataStructures;
-using ArknightsMod.VisualEffects.BossBars;
-using System.Threading;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using Terraria.DataStructures;
+using ArknightsMod.Content.BossBars;
+//using System.Threading;
 using ArknightsMod.Common.Players;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
+namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
 	[AutoloadBossHead]
 	public class IACT : ModNPC
 	{
-		private const string ChainTextPath= "ArknightsMod/Content/NPCs/Enemy/U12IACT/IACT";
+		private const string ChainTextPath= "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer";
         public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
@@ -174,15 +175,18 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 		{
 			if(IACTcrashed != true)//锁血后高亮消失
 			{
-				Texture2D maskTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IACTMask").Value;//常驻高亮部分
+				Texture2D maskTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTMask").Value;//常驻高亮部分
 				Main.EntitySpriteDraw(maskTexture, NPC.Center - Main.screenPosition + new Vector2(0,3), new Rectangle(0, 0, maskTexture.Width, maskTexture.Height), Color.White, NPC.rotation, new Vector2(maskTexture.Width / 2, maskTexture.Height / 2), 1f, SpriteEffects.None, 0);
 			}
 			
 			//光环部分
 			if(stage == 1 || stage == 1.5f)//一阶段+一转二阶段
             {
-				OAOScaleX++;
-				LightScale++;
+				if(Main.gamePaused != true)
+				{
+					OAOScaleX++;
+					LightScale++;
+				}
 				if(OAOScaleX >= 120)
 				{
 					OAOScaleX = 0;
@@ -192,9 +196,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					LightScale = 0;
 				}//周期3秒
 
-				Texture2D OutringTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/OAO").Value;
-				Texture2D InringTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IAOR").Value;
-				Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IACTLightwave").Value;
+				Texture2D OutringTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/OAO").Value;
+				Texture2D InringTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IAOR").Value;
+				Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLightwave").Value;
 
 				IAORScale = (float)(0.475f*Math.Sin(Math.PI*IAORScaleX/120f - Math.PI/2f)+0.475f);//内环缩放,周期4秒，在0~0.95倍之间变化
 				if(timer1<=60)//刚进入一阶段的第一秒，光环从0增大
@@ -211,7 +215,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//一转二
 					{
-						stage1to2timer1++;
+						if (Main.gamePaused != true)
+						{
+							stage1to2timer1++;
+						}
 						if(stage1to2timer1 >= 60)
 						{
 							stage1to2timer1 = 60;
@@ -237,7 +244,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//一转二的探照灯缩小回去
 					{
-						stage1to2timer2++;
+						if (Main.gamePaused != true)
+						{
+							stage1to2timer2++;
+						}
 						if(stage1to2timer2 >= 60)
 						{
 							stage1to2timer2 = 60;
@@ -249,9 +259,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 			}
 			else if(stage == 2 || stage == 2.5f)//二阶段+二转三阶段
             {
-				OAOScaleY++;
-				IAORScaleX++;
-				LightScale2++;
+				if (Main.gamePaused != true)
+				{
+					OAOScaleY++;
+					IAORScaleX++;
+					LightScale2++;
+				}
 				if(OAOScaleY >= 120)
 				{
 					OAOScaleY = 0;
@@ -265,9 +278,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					LightScale2 = 0;
 				}//周期3秒
 
-				Texture2D OutringTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/OAF").Value;
-				Texture2D InringTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IAFR").Value;
-				Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IACTLightwave").Value;
+				Texture2D OutringTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/OAF").Value;
+				Texture2D InringTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IAFR").Value;
+				Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLightwave").Value;
 				
 				if(stage2timer<=20)//刚进入二阶段的第1/3秒，内圈的2、8应用于此处
 				{
@@ -285,7 +298,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//二转三的光环缩小回去
 					{
-						stage2to3timer3++;
+						if (Main.gamePaused != true)
+						{
+							stage2to3timer3++;
+						}
 						if(stage2to3timer3 >= 60)
 						{
 							stage2to3timer3 = 60;
@@ -321,7 +337,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//二转三的光环缩小回去
 					{
-						stage2to3timer1++;
+						if (Main.gamePaused != true)
+						{
+							stage2to3timer1++;
+						}
 						if(stage2to3timer1 >= 60)
 						{
 							stage2to3timer1 = 60;
@@ -354,7 +373,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//二转三的探照灯缩小回去
 					{
-						stage2to3timer2++;
+						if (Main.gamePaused != true)
+						{
+							stage2to3timer2++;
+						}
 						if(stage2to3timer2 >= 60)
 						{
 							stage2to3timer2 = 60;
@@ -375,7 +397,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//二转三的光环缩小回去
 					{
-						stage2to3timer4++;
+						if (Main.gamePaused != true)
+						{
+							stage2to3timer4++;
+						}
 						if(stage2to3timer4 >= 60)
 						{
 							stage2to3timer4 = 60;
@@ -387,10 +412,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 			}
 			else if(stage >= 3)//三阶段
             {
-				OARScaleX++;
-				IAORScaleY++;
-				IARScaleX++;
-				LightScale3++;
+				if (Main.gamePaused != true)
+				{
+					OARScaleX++;
+					IAORScaleY++;
+					IARScaleX++;
+					LightScale3++;
+				}
 				if(OARScaleX >= 120)
 				{
 					OARScaleX = 0;
@@ -408,11 +436,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					IARScaleX = 0;
 				}//周期8秒
 
-				Texture2D OutringTexture3 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/OARS").Value;
-				Texture2D OutringTexture4 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/OAR").Value;
-				Texture2D InringTexture3 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IARS").Value;
-				Texture2D InringTexture4 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IAR").Value;
-				Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/U12IACT/IACTLightwave").Value;
+				Texture2D OutringTexture3 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/OARS").Value;
+				Texture2D OutringTexture4 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/OAR").Value;
+				Texture2D InringTexture3 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IARS").Value;
+				Texture2D InringTexture4 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IAR").Value;
+				Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLightwave").Value;
 
 				if(IACTcrashed != true)//探照灯之一
 				{
@@ -421,7 +449,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 				}
 				else//坠毁时光环缩小回去
 				{
-					stage3timer1++;
+					if (Main.gamePaused != true)
+					{
+						stage3timer1++;
+					}
 					if(stage3timer1 >= 60)
 					{
 						stage3timer1 = 60;
@@ -444,7 +475,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//坠毁时光环缩小回去
 					{
-						stage3timer2++;
+						if (Main.gamePaused != true)
+						{
+							stage3timer2++;
+						}
 						if(stage3timer2 >= 60)
 						{
 							stage3timer2 = 60;
@@ -482,7 +516,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//坠毁时光环缩小回去
 					{
-						stage3timer3++;
+						if (Main.gamePaused != true)
+						{
+							stage3timer3++;
+						}
 						if(stage3timer3 >= 60)
 						{
 							stage3timer3 = 60;
@@ -510,7 +547,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//坠毁时光环缩小回去
 					{
-						stage3timer4++;
+						if (Main.gamePaused != true)
+						{
+							stage3timer4++;
+						}
 						if(stage3timer4 >= 60)
 						{
 							stage3timer4 = 60;
@@ -540,7 +580,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//坠毁时光环缩小回去
 					{
-						stage3timer5++;
+						if (Main.gamePaused != true)
+						{
+							stage3timer5++;
+						}
 						if(stage3timer5 >= 60)
 						{
 							stage3timer5 = 60;
@@ -569,7 +612,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//坠毁时光环缩小回去
 					{
-						stage3timer6++;
+						if (Main.gamePaused != true)
+						{
+							stage3timer6++;
+						}
 						if(stage3timer6 >= 60)
 						{
 							stage3timer6 = 60;
@@ -597,7 +643,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else//坠毁时光环缩小回去
 					{
-						stage3timer7++;
+						if (Main.gamePaused != true)
+						{
+							stage3timer7++;
+						}
 						if(stage3timer7 >= 60)
 						{
 							stage3timer7 = 60;
@@ -727,8 +776,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 		private bool NormalMove = false;
 		private float diffX;
 		private float diffY;
+		private bool stg1to2movementsafe = false;
+		private float stg1to2safetimer = -1f;
+		private bool stg2to3movementsafe = false;
+		private float stg2to3safetimer = -1f;
+		private bool stgendmovementsafe = false;
+		private float stgendsafetimer = -1f;
 
-        public static int MinionType()
+		public static int MinionType()
         {
             return ModContent.NPCType<IACTStage3target>();
         }
@@ -738,38 +793,36 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 			//动态转角
 			NPC.rotation = 0.01f*(float)NPC.velocity.X;
 
-			if(Main.masterMode)//自定义血条
+			if (Main.masterMode)//自定义血条
 			{
 				NPC.BossBar = ModContent.GetInstance<IACTBossBarMT>();//大师模式血条,16200|32400/36000
 			}
-			else if(Main.expertMode)
-			{
+			else if (Main.expertMode) {
 				NPC.BossBar = ModContent.GetInstance<IACTBossBarEX>();//专家模式血条,10800|21600/24000
 			}
-				else
-			{
+			else {
 				NPC.BossBar = ModContent.GetInstance<IACTBossBarNM>();//普通模式血条,06000|12000/16000
 			}
 
-			if(stage <= 1)
+			if (stage <= 1)
 			{
-            	Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/IACTBoss1");//音乐一
+            	Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss1");//音乐一
 			}
 			else if(timer1to2 > 0 && timer1to2 <= 120)
 			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/null");//一转二阶段
+				Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/ImperialArtilleyCoreTargeteer/null");//一转二阶段
 			}
 			else if(timer2to3 > 0 && timer2to3 <= 240)
 			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/null");//二转三阶段
+				Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/ImperialArtilleyCoreTargeteer/null");//二转三阶段
 			}
 			else if(stage == 2)
 			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/IACTBoss2");//音乐二
+				Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss2");//音乐二
 			}
 			else if(stage >= 3)
 			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Content/Sounds/Music/IACTBoss3");//音乐三
+				Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss3");//音乐三
 			}
 
 			var newSource = NPC.GetSource_FromThis();
@@ -798,7 +851,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 			{
 				if(ontransform != true)//常态
 				{
-					Projectile.NewProjectile(newSource,NPC.position.X + 85, NPC.position.Y + 47, 0, 0, 90, (int)(NPC.damage * 0), 0f, 0, 0);//蓝色
+					Dust taildust2 = Terraria.Dust.NewDustPerfect(NPC.position + new Vector2(85, 47), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
+					taildust2.noGravity = true;
 				}
 				else//转阶段
 				{
@@ -879,7 +933,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 				if (timer2 >= 180)
 				{
 					timer2 = 0;
-					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
+					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
 					if (NPC.life < NPC.lifeMax * expertHealthFrac)//第二阶段
 					{
 						Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuraredPro>(), (int)(NPC.damage * 0.33), 0f, 0, 0);
@@ -1071,47 +1125,67 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					stage1to2atkspeed = 45;
 				}
 
-			 	if(timer1to2 <= stage1to2locktime)
+			 	if(stg1to2safetimer <= stage1to2locktime - 300)
 				{
 					timer1to2++;
 					NPC.dontTakeDamage = true;
-					if(timer1to2 < 120)
+					if (timer1to2 < 120)
 					{
-						NPC.velocity = Vector2.Lerp(NPC.velocity,Vector2.Zero,0.05f);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.05f);
 					}
-					else if(timer1to2 >= 120 && timer1to2 < 180)
+					else if (timer1to2 >= 120 && timer1to2 < 180)
 					{
-						if((int)timer1to2 == 120)
+						if ((int)timer1to2 == 120)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/IACTStageChangeTip") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/IACTStageChangeTip") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 						NPC.life = (int)(NPC.lifeMax * expertHealthFrac - 1);
 						stage = 2;
 					}
-					else if(timer1to2 >= 180 && timer1to2 < 240)
+					else if (timer1to2 >= 180 && timer1to2 < 240)
 					{
 						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
-						Vector2 targetv = 20f*(targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity,targetv,0.05f);
+						Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
 					}
-					else if(timer1to2 >= 240 && timer1to2 < 300)
+					else if (timer1to2 >= 240 && timer1to2 < 300)
 					{
 						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
-						Vector2 targetv = 40f*(targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity,targetv,0.05f);
+						Vector2 targetv = 40f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
 					}
-					else if(timer1to2 >= 300)
+					else if (timer1to2 >= 300)
 					{
-						if((int)timer1to2 == 300)
+						if ((int)(Player.Center.X-NPC.Center.X) >= -12 && (int)(Player.Center.X - NPC.Center.X) <= 12 && (int)(Player.Center.Y - NPC.Center.Y) >= stage1to2r - 12 && (int)(Player.Center.Y - NPC.Center.Y) <= stage1to2r + 12)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							stg1to2movementsafe = true;
 						}
-						targetX = (float)(stage1to2r*Math.Sin(2*(timer1to2-300)*Math.PI/(stage1to2locktime-300)));
-						targetY = (float)(-stage1to2r*Math.Cos(2*(timer1to2-300)*Math.PI/(stage1to2locktime-300)));
-						NPC.velocity = new Vector2((float)Player.Center.X, (float)Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
-						if ((int)timer1to2 % stage1to2atkspeed == 0)
+
+						if (stg1to2movementsafe != true)//防跳变保护机制
 						{
-							Projectile.NewProjectile(newSource,NPC.Center.X, NPC.Center.Y , 0, 0, ModContent.ProjectileType<Hitboxred>(),(int)(NPC.damage), 0f,  0, 0);
+							Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
+							Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+						}
+						else
+						{
+							stg1to2safetimer++;
+						}
+
+						if ((int)stg1to2safetimer == 0)
+						{
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+						}
+
+						if (stg1to2safetimer >= 0)
+						{
+							targetX = (float)(stage1to2r * Math.Sin(2 * stg1to2safetimer * Math.PI / (stage1to2locktime - 300)));
+							targetY = (float)(-stage1to2r * Math.Cos(2 * stg1to2safetimer * Math.PI / (stage1to2locktime - 300)));
+							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
+							if ((int)stg1to2safetimer % stage1to2atkspeed == 0)
+							{
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<Hitboxred>(), (int)(NPC.damage), 0f, 0, 0);
+							}
 						}
 					}
 				}
@@ -1161,7 +1235,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					stage2to3atkspeed = 30;
 				}
 
-			 	if(timer2to3 <= stage2to3locktime)
+			 	if(stg2to3safetimer <= stage2to3locktime - 480)
 				{
 					timer2to3++;
 					NPC.dontTakeDamage = true;
@@ -1182,7 +1256,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					{
 						if((int)timer2to3 == 240)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/IACTStageChangeTremor") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/IACTStageChangeTremor") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 						NPC.life = (int)(NPC.lifeMax * expertHealthFrac/2 - 1);
 						stage = 3;
@@ -1201,16 +1275,34 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 					}
 					else if(timer2to3 >= 480)
 					{
-						if((int)timer2to3 == 480)
+						if ((int)(Player.Center.X - NPC.Center.X) >= -12 && (int)(Player.Center.X - NPC.Center.X) <= 12 && (int)(Player.Center.Y - NPC.Center.Y) >= stage2to3r - 12 && (int)(Player.Center.Y - NPC.Center.Y) <= stage2to3r + 12)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							stg2to3movementsafe = true;
 						}
-						targetX = (float)(stage2to3r*Math.Sin(2*(timer2to3-480)*Math.PI/(stage2to3locktime-480)));
-						targetY = (float)(-stage2to3r*Math.Cos(2*(timer2to3-480)*Math.PI/(stage2to3locktime-480)));
-						NPC.velocity = new Vector2((float)Player.Center.X, (float)Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
-						if ((int)timer2to3 % stage2to3atkspeed == 0)
+
+						if (stg2to3movementsafe != true)//防跳变保护机制
 						{
-							Projectile.NewProjectile(newSource,NPC.Center.X, NPC.Center.Y , 0, 0, ModContent.ProjectileType<HitboxredPro>(),(int)(NPC.damage), 0f,  0, 0);
+							Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage2to3r);
+							Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+						}
+						else
+						{
+							stg2to3safetimer++;
+						}
+						if ((int)stg2to3safetimer == 0)
+						{
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+						}
+						if ((int)stg2to3safetimer >= 0)
+						{
+							targetX = (float)(stage2to3r * Math.Sin(2 * stg2to3safetimer * Math.PI / (stage2to3locktime - 480)));
+							targetY = (float)(-stage2to3r * Math.Cos(2 * stg2to3safetimer * Math.PI / (stage2to3locktime - 480)));
+							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
+							if ((int)stg2to3safetimer % stage2to3atkspeed == 0)
+							{
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), (int)(NPC.damage), 0f, 0, 0);
+							}
 						}
 					}
 				}
@@ -1273,46 +1365,69 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 			{
 				if(deathcheck == 1)//触发checkdead之后
 				{
-					endtimer++;
-					if(endtimer < 180)//先照例悬停
+					if(stgendsafetimer < 150)
 					{
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.05f);
+						endtimer++;
+						if(endtimer < 180)//先照例悬停
+						{
+							NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.05f);
 
-                    }
-					else if(endtimer >= 180 && endtimer < 240)
-					{
-                        if (stage == 3)
-                        {
-                            Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.End"), 240, 0, 0);
-                            ontransform = true;
-							stage += 1;
-                        }
-                        Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
-                        Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
-                    }
-					else if(endtimer >= 240 && endtimer < 360)
-					{
-                        Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
-                        Vector2 targetv = 40f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
-                    }
-                    else if (endtimer >= 360 && endtimer < 480)
-                    {
-                        if ((int)endtimer == 360)
-                        {
-                            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
-                        }
-                        targetX = (float)(360 * Math.Sin(2 * (endtimer - 360) * Math.PI / 180));
-                        targetY = (float)(-360 * Math.Cos(2 * (endtimer - 360) * Math.PI / 180));
-                        NPC.velocity = new Vector2((float)Player.Center.X, (float)Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
-                        endexplodespeed = (int)(Main.rand.NextFloat(0, 60));
-                        if ((int)endexplodespeed >= 57)
-                        {
-                            Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), (int)(NPC.damage), 0f, 0, 0);
-                        }
-                    }
-					else if (endtimer >= 480)
+						}
+						else if(endtimer >= 180 && endtimer < 240)
+						{
+							if (stage == 3)
+							{
+								Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.End"), 240, 0, 0);
+								ontransform = true;
+								stage += 1;
+							}
+							Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
+							Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+						}
+						else if(endtimer >= 240 && endtimer < 360)
+						{
+							Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
+							Vector2 targetv = 30f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+						}
+						else if (endtimer >= 360)
+						{
+							if ((int)(Player.Center.X - NPC.Center.X) >= -12 && (int)(Player.Center.X - NPC.Center.X) <= 12 && (int)(Player.Center.Y - NPC.Center.Y) >= 348 && (int)(Player.Center.Y - NPC.Center.Y) <= 372)
+							{
+								stgendmovementsafe = true;
+							}
+
+							if (stgendmovementsafe != true)//防跳变保护机制
+							{
+								Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
+								Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+								NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+							}
+							else
+							{
+								stgendsafetimer++;
+							}
+							if ((int)stgendsafetimer == 0)
+							{
+								SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							}
+							if ((int)stgendsafetimer >= 0)
+							{
+								targetX = (float)(360 * Math.Sin(2 * stgendsafetimer * Math.PI / 180));
+								targetY = (float)(-360 * Math.Cos(2 * stgendsafetimer * Math.PI / 180));
+								NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
+								endexplodespeed = (int)(Main.rand.NextFloat(0, 60));
+								if ((int)endexplodespeed >= 57)
+								{
+									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), (int)(NPC.damage), 0f, 0, 0);
+								}
+							}
+							
+						}
+
+					}
+					else if (stgendsafetimer >= 150)
 					{
 						IACTcrashed = true;
 						NPC.noTileCollide = false;//与物块相撞	
@@ -1358,7 +1473,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
                 }
-				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/IACTboom") with { Volume = 2f, Pitch = 0f }, Player.Center);//死亡音效
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/IACTboom") with { Volume = 2f, Pitch = 0f }, Player.Center);//死亡音效
 				Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Complete"), 138, 0, 18);
 				return true;
 			}
@@ -1376,7 +1491,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
     public class Deathdust : ModProjectile//死亡粒子效果触发器
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Deathdust";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Deathdust";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -1412,7 +1527,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class IACTStage3target : ModNPC
 	{
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/IACTStage3target";
+        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTStage3target";
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 1;//贴图帧数
@@ -1507,7 +1622,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class ISTG3InCore : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/ISTG3InCore";
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3InCore";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -1607,7 +1722,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
     public class ISTG3InRing : ModProjectile
     {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/ISTG3InRing";
+        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3InRing";
         public override void SetStaticDefaults()
         {
         }
@@ -1708,7 +1823,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
     public class ISTG3OutRing : ModProjectile
     {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/ISTG3OutRing";
+        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3OutRing";
         public override void SetStaticDefaults()
         {
         }
@@ -1810,7 +1925,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
     public class ISTG3OutPrism : ModProjectile
     {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/ISTG3OutPrism";
+        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3OutPrism";
         public override void SetStaticDefaults()
         {
         }
@@ -1911,7 +2026,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
     public class AuragreenPro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/AuragreenPro";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuragreenPro";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -1940,7 +2055,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class AuraredPro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/AuraredPro";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuraredPro";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -1969,7 +2084,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class Hitboxgreen : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitboxgreen";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -1998,7 +2113,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 		public override void Kill(int timeLeft)//下一阶段：召唤普通橘色判定箱和普通绿色伤害箱
 		{
 			var newSource = Projectile.GetSource_FromThis();
-			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/Alert") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Alert") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
 			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitboxorange>(),Projectile.damage, 0f,  0, 0);
 			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockgreen>(),Projectile.damage, 0f,  0, 0);
 		}
@@ -2006,7 +2121,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class HitboxgreenPro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitboxgreen";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2042,7 +2157,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class Hitboxorange : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitboxorange";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2083,7 +2198,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class HitboxorangePro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitboxorange";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2124,7 +2239,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class Hitboxred : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitboxred";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxred";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2170,14 +2285,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 		public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
 		{
 			var newSource = Projectile.GetSource_FromThis();
-            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
             Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10, 0f, 0, 0);
 		}
 	}
 
 	public class HitboxredPro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/HitboxredPro";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxredPro";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2223,14 +2338,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 		public override void Kill(int timeLeft)//下一阶段：召唤II阶爆炸
 		{
 			var newSource = Projectile.GetSource_FromThis();
-            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Content/Sounds/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
             Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
 		}
 	}
 
 	public class ExplodeArea : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitboxred";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxred";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2275,7 +2390,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class ExplodeAreaPro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/HitboxredPro";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxredPro";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2320,7 +2435,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class Hitblockgreen : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitblockgreen";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2354,7 +2469,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class HitblockgreenPro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitblockgreen";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2388,7 +2503,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class Hitblockorange : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitblockorange";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2431,7 +2546,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class HitblockorangePro : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/Hitblockorange";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2474,7 +2589,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class HitboxblueCore : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/HitboxblueCore";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueCore";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2541,7 +2656,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class HitboxblueFrame : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/HitboxblueFrame";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueFrame";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2623,7 +2738,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class IACTScreenWave : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/U12IACT/null";
+		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/null";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2694,7 +2809,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
 	public class missle : ModProjectile
     {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/missle";
+        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
         public override void SetStaticDefaults()
         {
         }
@@ -2735,7 +2850,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.U12IACT
 
     public class misslepro : ModProjectile
     {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/U12IACT/missle";
+        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
         public override void SetStaticDefaults()
         {
         }

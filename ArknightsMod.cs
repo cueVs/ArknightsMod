@@ -22,8 +22,8 @@ namespace ArknightsMod
 			//shader
 			if (Main.netMode != NetmodeID.Server)
 			{
-				IACTSW = ModContent.Request<Effect>("ArknightsMod/VisualEffects/Effects/IACTSW", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-				Filters.Scene["IACTSW"] = new Filter(new ScreenShaderData(new Terraria.Ref<Effect>(IACTSW), "IACTSW"), EffectPriority.VeryHigh);
+				IACTSW = ModContent.Request<Effect>("ArknightsMod/Assets/Effects/IACTSW", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				Filters.Scene["IACTSW"] = new Filter(new ScreenShaderData(new Ref<Effect>(IACTSW), "IACTSW"), EffectPriority.VeryHigh);
 				Filters.Scene["IACTSW"].Load();
 			}
 		}

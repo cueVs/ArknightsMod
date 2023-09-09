@@ -2,14 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
-using Terraria.DataStructures;
+//using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.BigProgressBar;
 
-namespace ArknightsMod.VisualEffects.BossBars
+namespace ArknightsMod.Content.BossBars
 {
-	public class IACTBossBarMT : ModBossBar
+	public class IACTBossBarNM : ModBossBar
 	{
 		private int bossHeadIndex = -1;
 

@@ -1,15 +1,15 @@
 using Terraria;
 using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
-using ArknightsMod.VisualEffects.Effects;
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria.Graphics.Effects;
+//using Terraria.ModLoader;
+//using ArknightsMod.VisualEffects.Effects;
+//using System;
+//using System.Collections.Generic;
+//using Microsoft.Xna.Framework;
+//using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.ID;
+//using Terraria.ID;
 
-namespace ArknightsMod.VisualEffects.Effects
+namespace ArknightsMod.Assets.Effects
 {
     public class TestScreenShaderData : ScreenShaderData
     {
