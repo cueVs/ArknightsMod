@@ -255,6 +255,11 @@ Mods: {
 				Tooltip: A rarely-produced alloy with a high melting point, commonly used in the electronics industry.
 			}
 
+			CrystallineComponent: {
+				DisplayName: Crystalline Component
+				Tooltip: Can be manufactured and assembled into more advanced Originium electric components.
+			}
+
 			#Summon
 			IACTSummon: {
 				DisplayName: Suspicious Remote Control
@@ -382,23 +387,11 @@ Mods: {
 			DurinWandProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.DurinWand}"
 			ShinginzanProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.Shinginzan}"
 			ThornsSwordProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.ThornsSword}"
-			AuragreenPro.DisplayName: Green Aura
-			AuraredPro.DisplayName: Red Aura
 			Deathdust.DisplayName: DeathDust
 			ExplodeArea.DisplayName: EXPLODE
 			ExplodeAreaPro.DisplayName: HUGE EXPLODE
-			Hitblockgreen.DisplayName: Green Hitblock
-			HitblockgreenPro.DisplayName: Green Hitblock II
-			Hitblockorange.DisplayName: Orange Hitblock
-			HitblockorangePro.DisplayName: Orange Hitblock II
 			HitboxblueCore.DisplayName: Pre-attack core
 			HitboxblueFrame.DisplayName: Pre-attack frame
-			Hitboxgreen.DisplayName: Green Hitbox
-			HitboxgreenPro.DisplayName: Green Hitbox II
-			Hitboxorange.DisplayName: Orange Hitbox
-			HitboxorangePro.DisplayName: Orange Hitbox II
-			Hitboxred.DisplayName: Red Hitbox
-			HitboxredPro.DisplayName: Red Hitbox II
 			IACTScreenWave.DisplayName: IACTScreenWave
 			ISTG3InCore.DisplayName: IACTSTG3TGT
 			ISTG3InRing.DisplayName: IACTSTG3TGT
@@ -406,6 +399,15 @@ Mods: {
 			ISTG3OutRing.DisplayName: IACTSTG3TGT
 			missle.DisplayName: Missle
 			misslepro.DisplayName: Missle II
+			HitboxRedCorner4.DisplayName: Hitbox
+			HitboxRedCorner3.DisplayName: Hitbox
+			HitboxRedCorner2.DisplayName: Hitbox
+			HitboxRedCorner1.DisplayName: Hitbox
+			ExplodeAimPro.DisplayName: Explode Aim
+			ExplodeAim.DisplayName: Explode Aim
+			HitboxRedFrame.DisplayName: Hitbox Red Frame
+			ExplodeRingSmall.DisplayName: Explode Ring Small
+			ExplodeRingBig.DisplayName: Explode Ring Big
 		}
 
 		ButtonName.button2: Annihilation operation

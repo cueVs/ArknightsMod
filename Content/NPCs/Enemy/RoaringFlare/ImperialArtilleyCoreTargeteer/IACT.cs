@@ -738,6 +738,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
         //AI
         #region
         private bool ontransform = false;//转阶段判定器
+		private int normalatkcooldown;//平A冷却
+		private float aimheight;
+		private float aimX;
 		private float BossHeadRotate;
 		private int truestage1to2;//进入第二阶段开始检测器（即一转二开始检测器）
 		private int truestage2;//进入第二阶段锁血解除检测器（即一转二结束检测器）
@@ -767,6 +770,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float stage2to3locktime;
 		private bool IACTcrashed = false;//是否坠毁？
 		private float endtimer;
+		private float movetimer;
 		private float endexplodespeed;
 		private int stage3atkloop;
         private int stage3dashtime;
@@ -851,16 +855,17 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			{
 				if(ontransform != true)//常态
 				{
-					Dust taildust2 = Terraria.Dust.NewDustPerfect(NPC.position + new Vector2(85, 47), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
+					Dust taildust2 = Terraria.Dust.NewDustPerfect(NPC.Center + new Vector2(0,12), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
 					taildust2.noGravity = true;
 				}
 				else//转阶段
 				{
-					Dust taildust = Terraria.Dust.NewDustPerfect(NPC.position + new Vector2(85,47), 130, new Vector2(0f, 0f), 0, new Color(255,255,255), 1.4f);//红色
+					Dust taildust = Terraria.Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12), 130, new Vector2(0f, 0f), 0, new Color(255,255,255), 1.4f);//红色
 					taildust.noGravity = true;
 				}
 			}
 
+			movetimer++;
 			timer1++;
 			timer2++;
 			//阶段判定区
@@ -887,37 +892,82 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				if(NPC.life <= NPC.lifeMax * expertHealthFrac/2)//三阶段
 				{
 					NPC.defense = 30;
-					NPC.damage = 96;
+					NPC.damage = 128;
 				}
 				else//二阶段
 				{
 					NPC.defense = 40;
-					NPC.damage = 64;
+					NPC.damage = 96;
 				}
 			}
 			else//一阶段
 			{
 				NPC.defense = 50;
-				NPC.damage = 40;
+				NPC.damage = 72;
 			}
 
-			//预判机制
+			//攻击机制
 			if(Main.masterMode)
 			{
+				if(stage == 1) {	
+					normalatkcooldown = 150;
+				}
+				else if(stage == 2) {
+					normalatkcooldown = 150;
+				}
+				else if(stage == 3) {
+					normalatkcooldown = 120;
+				}
 				playerprefire = 120;//攻击频率
 				prefire = 72;//72倍预判单位，等于准星
 			}
 			else if(Main.expertMode)
 			{
+				if (stage == 1) {
+					normalatkcooldown = 180;
+				}
+				else if (stage == 2) {
+					normalatkcooldown = 150;
+				}
+				else if (stage == 3) {
+					normalatkcooldown = 150;
+				}
 				playerprefire = 150;
 				prefire = 60;
 			}
 			else
 			{
+				if (stage == 1) {
+					normalatkcooldown = 210;
+				}
+				else if (stage == 2) {
+					normalatkcooldown = 180;
+				}
+				else if (stage == 3) {
+					normalatkcooldown = 150;
+				}
 				playerprefire = 180;
 				prefire = 54;
 			}
-
+			//移动锚点
+			if (stage <= 2) {
+				if (Main.masterMode) {
+					aimX = 300 * (float)Math.Sin(Math.PI * movetimer / 180);
+					aimheight = 300;
+				}
+				else if (Main.expertMode) {
+					aimX = 240 * (float)Math.Sin(Math.PI * movetimer / 240);
+					aimheight = 330;
+				}
+                else {
+					aimX = 180 * (float)Math.Sin(Math.PI * movetimer / 360);
+					aimheight = 360;
+                }
+            }
+			else {
+				aimX = 0;
+				aimheight = 0;
+			}
 			//主体AI
 			if(NPC.life > 1 && NPC.dontTakeDamage != true)//一二阶段和三阶段的部分移动
 			{
@@ -929,21 +979,22 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					timer1 = 0;
 				}
 
-				//固定判定区，3秒一个
-				if (timer2 >= 180)
+				//固定判定区，数秒一个
+				if (timer2 >= normalatkcooldown)
 				{
 					timer2 = 0;
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
-					if (NPC.life < NPC.lifeMax * expertHealthFrac)//第二阶段
-					{
-						Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuraredPro>(), (int)(NPC.damage * 0.33), 0f, 0, 0);
-						Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<HitboxgreenPro>(), NPC.damage, 0f, 0, 0);
-					}
-					else//第一阶段
-					{
-						Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuragreenPro>(), (int)(NPC.damage * 0.1), 0f, 0, 0);
-						Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<Hitboxgreen>(), NPC.damage, 0f, 0, 0);
-					}
+					//if (NPC.life < NPC.lifeMax * expertHealthFrac)//第二阶段
+					//{
+					//	//Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuraredPro>(), (int)(NPC.damage * 0.33), 0f, 0, 0);
+					//	Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
+					//}
+					//else//第一阶段
+					//{
+					//	//Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuragreenPro>(), (int)(NPC.damage * 0.1), 0f, 0, 0);
+					//	Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
+					//}
+					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 				}
 
 				//移动方式
@@ -952,10 +1003,25 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				float ay = 0.2f;
 				int haltDirectionX = velDiff.X > 0 ? 1 : -1;
 				int haltDirectionY = velDiff.Y > 0 ? 1 : -1;
-				float haltPointX = NPC.Center.X + haltDirectionX * (velDiff.X * velDiff.X) / (2 * ax);	
-				float haltPointY = NPC.Center.Y + haltDirectionY * (velDiff.Y * velDiff.Y) / (2 * ay);
+				float haltPointX = NPC.Center.X + haltDirectionX * (velDiff.X * velDiff.X) / (2 * ax) + aimX;	
+				float haltPointY = NPC.Center.Y + haltDirectionY * (velDiff.Y * velDiff.Y) / (2 * ay) + aimheight;
                 diffX = Player.Center.X - NPC.Center.X;
                 diffY = Player.Center.Y - NPC.Center.Y;
+				if (Player.Center.X > haltPointX) {
+					NPC.velocity.X += ax;
+				}
+				else {
+					NPC.velocity.X -= ax;
+				}
+				NPC.velocity.X = Math.Min(vx, Math.Max(-vx, NPC.velocity.X));
+
+				if (Player.Center.Y > haltPointY) {
+					NPC.velocity.Y += ay;
+				}
+				else {
+					NPC.velocity.Y -= ay;
+				}
+				NPC.velocity.Y = Math.Min(vy, Math.Max(-vy, NPC.velocity.Y));
 
 				if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) >= 75 * 16)//距离远于75格
 				{
@@ -1075,26 +1141,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						}
 					}
 				}
-
-				if (Player.Center.X > haltPointX)
-				{
-					NPC.velocity.X += ax;
-				}
-				else
-				{
-					NPC.velocity.X -= ax;
-				}
-				NPC.velocity.X = Math.Min(vx, Math.Max(-vx, NPC.velocity.X));
-
-				if (Player.Center.Y > haltPointY)
-				{
-				NPC.velocity.Y += ay;
-				}
-				else
-				{
-					NPC.velocity.Y -= ay;
-				}
-				NPC.velocity.Y = Math.Min(vy, Math.Max(-vy, NPC.velocity.Y));
 			}
 
 			if(truestage1to2 == 1)//一二阶段转阶段锁血以及攻击
@@ -1184,7 +1230,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg1to2safetimer % stage1to2atkspeed == 0)
 							{
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<Hitboxred>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), (int)(NPC.damage), 0f, 0, 0);
 							}
 						}
 					}
@@ -1301,7 +1347,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg2to3safetimer % stage2to3atkspeed == 0)
 							{
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
 							}
 						}
 					}
@@ -1420,7 +1466,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 								endexplodespeed = (int)(Main.rand.NextFloat(0, 60));
 								if ((int)endexplodespeed >= 57)
 								{
-									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), (int)(NPC.damage), 0f, 0, 0);
+									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
 								}
 							}
 							
@@ -1489,7 +1535,561 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
         #endregion
     }
 
-    public class Deathdust : ModProjectile//死亡粒子效果触发器
+	public class ExplodeAim : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeAim";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 110;
+			Projectile.height = 110;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 75;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float randomx;
+		private bool missled = false;
+		private float timer;
+
+		public override void AI()
+		{
+			var newSource = Projectile.GetSource_FromThis();
+			timer++;
+			if (missled != true) {
+				randomx = Main.rand.NextFloat(-300, 300);
+
+				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<missle>(), 15, 0f, 0, 0);
+				missled = true;
+			}
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
+			}
+			else if (timer > 10 && timer <= 60) {
+				Projectile.scale = 1f;
+			}
+			else if (timer > 60 && timer <= 75) {
+				Projectile.scale = (float)Math.Cos(Math.PI * timer / 30f);
+			}
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 10f) + 120);
+			}
+			else if (timer > 10 && timer <= 30) {
+				Projectile.alpha = 0;
+			}
+			else if (timer > 30 && timer <= 60) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * timer / 5f) + 120);
+			}
+			else if (timer > 60 && timer <= 75) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * timer / 15f) + 120);
+			}
+
+			if (timer == 10) {
+				Projectile.NewProjectile(newSource, Projectile.Center.X-30, Projectile.Center.Y-30, 0, 0, ModContent.ProjectileType<HitboxRedCorner1>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X+30, Projectile.Center.Y-30, 0, 0, ModContent.ProjectileType<HitboxRedCorner2>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X-30, Projectile.Center.Y+30, 0, 0, ModContent.ProjectileType<HitboxRedCorner3>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X+30, Projectile.Center.Y+30, 0, 0, ModContent.ProjectileType<HitboxRedCorner4>(), 0, 0f, 0, 0);
+			}
+
+			if (timer == 30) {
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<HitboxRedFrame>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeRingSmall>(), 0, 0f, 0, 0);
+			}
+
+			if (timer == 60) {
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10, 0f, 0, 0);
+			}
+		}
+	}
+
+	public class ExplodeAimPro : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeAimPro";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 110;
+			Projectile.height = 110;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 75;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float randomx;
+		private bool missled = false;
+		private float timer;
+
+		public override void AI() {
+			var newSource = Projectile.GetSource_FromThis();
+			timer++;
+			if (missled != true) {
+				randomx = Main.rand.NextFloat(-300, 300);
+
+				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<missle>(), 15, 0f, 0, 0);
+				missled = true;
+			}
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
+			}
+			else if (timer > 10 && timer <= 60) {
+				Projectile.scale = 1f;
+			}
+			else if (timer > 60 && timer <= 75) {
+				Projectile.scale = (float)Math.Cos(Math.PI * timer / 30f);
+			}
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 10f) + 120);
+			}
+			else if (timer > 10 && timer <= 30) {
+				Projectile.alpha = 0;
+			}
+			else if (timer > 30 && timer <= 60) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * timer / 5f) + 120);
+			}
+			else if (timer > 60 && timer <= 75) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * timer / 15f) + 120);
+			}
+
+			if (timer == 10) {
+				Projectile.NewProjectile(newSource, Projectile.Center.X - 30, Projectile.Center.Y - 30, 0, 0, ModContent.ProjectileType<HitboxRedCorner1>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X + 30, Projectile.Center.Y - 30, 0, 0, ModContent.ProjectileType<HitboxRedCorner2>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X - 30, Projectile.Center.Y + 30, 0, 0, ModContent.ProjectileType<HitboxRedCorner3>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X + 30, Projectile.Center.Y + 30, 0, 0, ModContent.ProjectileType<HitboxRedCorner4>(), 0, 0f, 0, 0);
+			}
+
+			if (timer == 30) {
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<HitboxRedFrame>(), 0, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeRingBig>(), 0, 0f, 0, 0);
+			}
+
+			if (timer == 60) {
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 10, 0f, 0, 0);
+			}
+		}
+	}
+
+	public class HitboxRedCorner1 : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner1";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 80;
+			Projectile.height = 80;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 80;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
+			}
+			else if (timer > 10 && timer <= 50) {
+				Projectile.scale = 1f;
+			}
+			else if (timer > 50 && timer <= 65) {
+				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
+			}
+
+			if (timer >= 0 && timer <= 20) {
+				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.alpha = 0;
+			}
+			else if (timer > 50 && timer <= 80) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30) + 120);
+			}
+
+			if (timer <= 20) {
+				Projectile.velocity = new Vector2(-9f, -9f);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.velocity = Vector2.Zero;
+			}
+			else if (timer > 50) {
+				Projectile.velocity = new Vector2(12f, 12f);
+			}
+		}
+	}
+
+	public class HitboxRedCorner2 : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner2";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 80;
+			Projectile.height = 80;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 80;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
+			}
+			else if (timer > 10 && timer <= 50) {
+				Projectile.scale = 1f;
+			}
+			else if (timer > 50 && timer <= 65) {
+				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
+			}
+
+			if (timer >= 0 && timer <= 20) {
+				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.alpha = 0;
+			}
+			else if (timer > 50 && timer <= 80) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30) + 120);
+			}
+
+			if (timer <= 20) {
+				Projectile.velocity = new Vector2(9f, -9f);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.velocity = Vector2.Zero;
+			}
+			else if (timer > 50) {
+				Projectile.velocity = new Vector2(-12f, 12f);
+			}
+		}
+	}
+
+	public class HitboxRedCorner3 : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner3";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 80;
+			Projectile.height = 80;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 80;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
+			}
+			else if (timer > 10 && timer <= 50) {
+				Projectile.scale = 1f;
+			}
+			else if (timer > 50 && timer <= 65) {
+				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
+			}
+
+			if (timer >= 0 && timer <= 20) {
+				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.alpha = 0;
+			}
+			else if (timer > 50 && timer <= 80) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30) + 120);
+			}
+
+			if (timer <= 20) {
+				Projectile.velocity = new Vector2(-9f, 9f);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.velocity = Vector2.Zero;
+			}
+			else if (timer > 50) {
+				Projectile.velocity = new Vector2(12f, -12f);
+			}
+		}
+	}
+
+	public class HitboxRedCorner4 : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner4";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 80;
+			Projectile.height = 80;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 80;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+
+			if (timer >= 0 && timer <= 10) {
+				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
+			}
+			else if (timer > 10 && timer <= 50) {
+				Projectile.scale = 1f;
+			}
+			else if (timer > 50 && timer <= 65) {
+				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
+			}
+
+			if (timer >= 0 && timer <= 20) {
+				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.alpha = 0;
+			}
+			else if (timer > 50 && timer <= 80) {
+				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30f) + 120);
+			}
+
+			if (timer <= 20) {
+				Projectile.velocity = new Vector2(9f, 9f);
+			}
+			else if (timer > 20 && timer <= 50) {
+				Projectile.velocity = Vector2.Zero;
+			}
+			else if (timer > 50) {
+				Projectile.velocity = new Vector2(-12f, -12f);
+			}
+		}
+	}
+
+	public class HitboxRedFrame : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedFrame";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 500;
+			Projectile.height = 500;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 30;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+			Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 5) + 135);
+		}
+	}
+
+	public class ExplodeRingBig : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeRingBig";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 460;
+			Projectile.height = 460;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 30;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+			Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 5) + 135);
+		}
+	}
+
+	public class ExplodeRingSmall : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeRingSmall";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 320;
+			Projectile.height = 320;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 30;
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private float timer;
+
+		public override void AI() {
+			timer++;
+			Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 5) + 135);
+		}
+	}
+
+	public class ExplodeArea : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeArea";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 500;
+			Projectile.height = 500;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 5;
+			Projectile.alpha = 0;
+			Projectile.damage = 60;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.scale = 1f;
+			Projectile.hide = true;
+		}
+
+		public override void AI() {
+			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
+			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
+			dust.noGravity = true;
+			dust.velocity = (4 * dustPos - 4 * Projectile.Center);
+			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
+			dust2.noGravity = true;
+			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
+			for (int i = 0; i < 2; i++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, Scale: 1.5f)].noGravity = true;
+			}
+			for (int j = 0; j < 4; j++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 4f)].noGravity = true;
+			}
+		}
+
+	}
+
+	public class ExplodeAreaPro : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeAreaPro";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 500;
+			Projectile.height = 500;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 5;
+			Projectile.alpha = 0;
+			Projectile.damage = 120;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.scale = 1f;
+			Projectile.hide = true;
+		}
+
+		public override void AI() {
+			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
+			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
+			dust.noGravity = true;
+			dust.velocity = (4 * dustPos - 4 * Projectile.Center);
+			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
+			dust2.noGravity = true;
+			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
+
+			for (int i = 0; i < 3; i++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, Scale: 1.5f)].noGravity = true;
+			}
+			for (int j = 0; j < 6; j++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 4f)].noGravity = true;
+			}
+		}
+	}
+
+	public class Deathdust : ModProjectile//死亡粒子效果触发器
 	{
 		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Deathdust";
 		public override void SetStaticDefaults()
@@ -2024,579 +2624,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
         }
     }
 
-    public class AuragreenPro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuragreenPro";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 200;
-			Projectile.height = 200;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 180;
-			Projectile.alpha = 50;
-			Projectile.damage = 15;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=true;
-		}
-
-		public override void AI()
-		{
-			Projectile.alpha = (int)(0.032 * Projectile.timeLeft * Projectile.timeLeft - 5.76 * Projectile.timeLeft + 259.2);
-			Projectile.scale = (float)(- 0.000125 * Projectile.timeLeft * Projectile.timeLeft + 0.0225 * Projectile.timeLeft - 0.0125);
-		}
-	}
-
-	public class AuraredPro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuraredPro";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 200;
-			Projectile.height = 200;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 180;
-			Projectile.alpha = 50;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=true;
-		}
-
-		public override void AI()
-		{
-			Projectile.alpha = (int)(0.032 * Projectile.timeLeft * Projectile.timeLeft - 5.76 * Projectile.timeLeft + 259.2);
-			Projectile.scale = (float)(- 0.000125 * Projectile.timeLeft * Projectile.timeLeft + 0.0225 * Projectile.timeLeft - 0.0125);
-		}
-	}
-
-	public class Hitboxgreen : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 250;
-			Projectile.height = 250;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 60;
-			Projectile.alpha = 50;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
-		}
-
-		public override void AI()
-		{
-			Projectile.alpha = (int)(4 * Projectile.timeLeft);
-			Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤普通橘色判定箱和普通绿色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Alert") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitboxorange>(),Projectile.damage, 0f,  0, 0);
-			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockgreen>(),Projectile.damage, 0f,  0, 0);
-		}
-	}
-
-	public class HitboxgreenPro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 250;
-			Projectile.height = 250;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 60;
-			Projectile.alpha = 50;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
-		}
-
-		public override void AI()
-		{
-			Projectile.alpha = (int)(4 * Projectile.timeLeft);
-			Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤高阶橘色判定箱和普通绿色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitboxorangePro>(),Projectile.damage, 0f,  0, 0);
-			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitblockgreenPro>(),Projectile.damage, 0f,  0, 0);
-		}
-	}
-
-	public class Hitboxorange : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 270;
-			Projectile.height = 270;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 240;
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
-		}
-
-		private float scalesize;
-
-		public override void AI()
-		{
-			scalesize = (float)(0.015*Projectile.timeLeft-1.6);
-			if(scalesize <= 1)
-			{
-				scalesize = 1;
-			}
-			Projectile.scale = scalesize;
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Hitboxred>(),(int)(Projectile.damage), 0f,  0, 0);
-		}
-	}
-
-	public class HitboxorangePro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 270;
-			Projectile.height = 270;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 180;
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
-		}
-
-		private float scalesize;
-
-		public override void AI()//ai
-		{
-			scalesize = (float)(0.015*Projectile.timeLeft-0.7);
-			if(scalesize <= 1)
-			{
-				scalesize = 1;
-			}
-			Projectile.scale = scalesize;
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤高伤红色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(),(int)(Projectile.damage), 0f,  0, 0);
-		}
-	}
-
-	public class Hitboxred : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxred";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 500;
-			Projectile.height = 500;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 60;
-			Projectile.alpha = 10;
-			Projectile.damage = 60;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-            Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private int alphasize;
-		private float randomx;
-		private bool missled = false;
-
-        public override void AI()
-		{
-            var newSource = Projectile.GetSource_FromThis();
-            if(missled != true)
-			{
-				randomx = Main.rand.NextFloat(-300, 300);
-                
-                Projectile.NewProjectile(newSource, Projectile.Center.X+randomx, Projectile.Center.Y - 1800, -randomx/60 , 0 , ModContent.ProjectileType<missle>(), 15, 0f, 0, 0);
-				missled = true;
-			}
-            alphasize = (int)(95*Math.Sin(0.4*Projectile.timeLeft-1)+127.5);
-			if(alphasize <= 0)
-			{
-				alphasize = 0;
-			}
-			Projectile.alpha = alphasize;
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-            Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10, 0f, 0, 0);
-		}
-	}
-
-	public class HitboxredPro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxredPro";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 500;
-			Projectile.height = 500;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 60;
-			Projectile.alpha = 10;
-			Projectile.damage = 120;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-            Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private int alphasize;
-        private float randomx;
-        private bool missled = false;
-
-        public override void AI()
-        {
-            var newSource = Projectile.GetSource_FromThis();
-            if (missled != true)
-            {
-                randomx = Main.rand.NextFloat(-300, 300);
-                
-                Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<misslepro>(), 30, 0f, 0, 0);
-                missled = true;
-            }
-            alphasize = (int)(95*Math.Sin(0.4*Projectile.timeLeft-1)+127.5);
-			if(alphasize <= 0)
-			{
-				alphasize = 0;
-			}
-			Projectile.alpha = alphasize;
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤II阶爆炸
-		{
-			var newSource = Projectile.GetSource_FromThis();
-            SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-            Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
-		}
-	}
-
-	public class ExplodeArea : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxred";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 500;
-			Projectile.height = 500;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 5;
-			Projectile.alpha = 255;
-			Projectile.damage = 60;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-            Projectile.hostile = true;
-			Projectile.scale = 1f;
-			Projectile.hide = true;
-		}
-
-		public override void AI()
-		{
-			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
-			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
-			dust.noGravity = true;
-			dust.velocity = (4*dustPos - 4*Projectile.Center);
-			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
-			dust2.noGravity = true;
-			dust2.velocity = (4*dustPos - 4*Projectile.Center);
-			for (int i = 0; i < 2; i++)
-			{
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, Scale: 1.5f)].noGravity = true;
-			}
-			for (int j = 0; j < 4; j++)
-			{
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 4f)].noGravity = true;
-			}
-		}
-
-	}
-
-	public class ExplodeAreaPro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxredPro";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 500;
-			Projectile.height = 500;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 5;
-			Projectile.alpha = 255;
-			Projectile.damage = 120;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-            Projectile.hostile = true;
-			Projectile.scale = 1f;
-			Projectile.hide = true;
-		}
-
-		public override void AI()
-		{
-			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
-			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
-			dust.noGravity = true;
-			dust.velocity = (4*dustPos - 4*Projectile.Center);
-			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
-			dust2.noGravity = true;
-			dust2.velocity = (4*dustPos - 4*Projectile.Center);
-			
-			for (int i = 0; i < 3; i++)
-			{
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, Scale: 1.5f)].noGravity = true;
-			}
-			for (int j = 0; j < 6; j++)
-			{
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 4f)].noGravity = true;
-			}
-		}
-	}
-
-	public class Hitblockgreen : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 250;
-			Projectile.height = 250;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 240;
-			Projectile.alpha = 50;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
-		}
-		public override void AI()//ai
-		{
-			Projectile.alpha = (int)(4 * Projectile.timeLeft);
-			Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤橘色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockorange>(),(int)(Projectile.damage*0.3), 0f,  0, 0);
-		}
-	}
-
-	public class HitblockgreenPro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 250;
-			Projectile.height = 250;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 240;
-			Projectile.alpha = 50;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
-		}
-		public override void AI()//ai
-		{
-			Projectile.alpha = (int)(4 * Projectile.timeLeft);
-			Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-		}
-
-		public override void Kill(int timeLeft)//下一阶段：召唤橘色伤害箱
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitblockorangePro>(),(int)(Projectile.damage*0.3), 0,  0, 0);
-		}
-	}
-
-	public class Hitblockorange : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 270;
-			Projectile.height = 270;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 240;
-			Projectile.alpha = 50;
-			Projectile.damage = 20;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=true;
-		}
-
-		private int alphasize;
-		private float scalesize;
-
-		public override void AI()//ai
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			scalesize = (float)(-0.00003*Projectile.timeLeft*Projectile.timeLeft+1.8);
-			if(scalesize >= 1)
-			{
-				scalesize = 1;
-			}
-			alphasize = (int)(-0.025*Projectile.timeLeft*Projectile.timeLeft-6*Projectile.timeLeft+255);
-			if(alphasize <= 0)
-			{
-				alphasize = 0;
-			}
-			Projectile.alpha = alphasize;
-			Projectile.scale = scalesize;
-		}
-	}
-
-	public class HitblockorangePro : ModProjectile
-	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
-		public override void SetStaticDefaults()
-		{
-		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 270;
-			Projectile.height = 270;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 240;
-			Projectile.alpha = 50;
-			Projectile.damage = 40;
-			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=true;
-		}
-
-		private int alphasize;
-		private float scalesize;
-
-		public override void AI()//ai
-		{
-			var newSource = Projectile.GetSource_FromThis();
-			scalesize = (float)(-0.00003*Projectile.timeLeft*Projectile.timeLeft+1.8);
-			if(scalesize >= 1)
-			{
-				scalesize = 1;
-			}
-			alphasize = (int)(-0.025*Projectile.timeLeft*Projectile.timeLeft-6*Projectile.timeLeft+255);
-			if(alphasize <= 0)
-			{
-				alphasize = 0;
-			}
-			Projectile.alpha = alphasize;
-			Projectile.scale = scalesize;
-		}
-	}
-
 	public class HitboxblueCore : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueCore";
-		public override void SetStaticDefaults()
-		{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueCore";
+		public override void SetStaticDefaults() {
 		}
-		public override void SetDefaults()
-		{
-			Projectile.width = 22;
-			Projectile.height = 22;
+		public override void SetDefaults() {
+			Projectile.width = 110;
+			Projectile.height = 110;
 			Projectile.aiStyle = 0;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
@@ -2605,8 +2640,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Projectile.alpha = 50;
 			Projectile.damage = 0;
 			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
 		}
 
 		private float click = 0;
@@ -2618,50 +2653,41 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 			click++;
 
-			if(Main.masterMode)
-			{
+			if (Main.masterMode) {
 				prefire = 48;
 			}
-			else if(Main.expertMode)
-			{
+			else if (Main.expertMode) {
 				prefire = 42;
 			}
-			else
-			{
+			else {
 				prefire = 36;
 			}
 
-			if(Projectile.scale > 1f)
-			{
+			if (Projectile.scale > 1f) {
 				Projectile.scale = 1f;
 			}
-			if(Projectile.scale < 0f)
-			{
+			if (Projectile.scale < 0f) {
 				Projectile.scale = 0f;
 			}
-			if(Projectile.alpha < 0)
-			{
+			if (Projectile.alpha < 0) {
 				Projectile.alpha = 0;
 			}
-			if(Projectile.alpha > 255)
-			{
+			if (Projectile.alpha > 255) {
 				Projectile.alpha = 255;
 			}
 
-			Projectile.Center = Player.Center+prefire*Player.velocity;
-			Projectile.scale = (float)(3.3f/(click/24+0.5f)/(click/24-5.5f)+1.4f);
-			Projectile.alpha = (int)(0.1*click*click-12*click+255);
+			Projectile.Center = Player.Center + prefire * Player.velocity;
+			Projectile.scale = (float)(3.3f / (click / 24 + 0.5f) / (click / 24 - 5.5f) + 1.4f);
+			Projectile.alpha = (int)(0.1 * click * click - 12 * click + 255);
 		}
 	}
 
 	public class HitboxblueFrame : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueFrame";
-		public override void SetStaticDefaults()
-		{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueFrame";
+		public override void SetStaticDefaults() {
 		}
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 200;
 			Projectile.height = 200;
 			Projectile.aiStyle = 0;
@@ -2672,8 +2698,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Projectile.alpha = 50;
 			Projectile.damage = 0;
 			Projectile.light = 0.6f;
-			Projectile.friendly=false;
-            Projectile.hostile=false;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
 		}
 
 		private float atktimer = 0;
@@ -2687,49 +2713,39 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			atktimer++;
 			skilltimer++;
 
-			if(Main.masterMode)
-			{
+			if (Main.masterMode) {
 				prefire = 48;
 			}
-			else if(Main.expertMode)
-			{
+			else if (Main.expertMode) {
 				prefire = 42;
 			}
-			else
-			{
+			else {
 				prefire = 36;
 			}
 
-			if(Projectile.scale > 1f)
-			{
+			if (Projectile.scale > 1f) {
 				Projectile.scale = 1f;
 			}
-			if(Projectile.scale < 0f)
-			{
+			if (Projectile.scale < 0f) {
 				Projectile.scale = 0f;
 			}
-			if(Projectile.alpha < 0)
-			{
+			if (Projectile.alpha < 0) {
 				Projectile.alpha = 0;
 			}
-			if(Projectile.alpha > 255)
-			{
+			if (Projectile.alpha > 255) {
 				Projectile.alpha = 255;
 			}
 
-			Projectile.Center = Player.Center+prefire*Player.velocity;
+			Projectile.Center = Player.Center + prefire * Player.velocity;
 
-			Projectile.scale = (float)(3.3f/(atktimer/24+0.5f)/(atktimer/24-5.5f)+1.4f);
-			Projectile.alpha = (int)(0.1*atktimer*atktimer-12*atktimer+255);
-			if(skilltimer == 120)
-			{
-				if(Player.velocity.X*Player.velocity.X + Player.velocity.Y*Player.velocity.Y >= 100)
-				{
-					Projectile.NewProjectile(newSource,Projectile.Center.X+0.25f*prefire*Player.velocity.X, Projectile.Center.Y+0.25f*prefire*Player.velocity.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), 0 , 0 , 0 , 0);
+			Projectile.scale = (float)(3.3f / (atktimer / 24 + 0.5f) / (atktimer / 24 - 5.5f) + 1.4f);
+			Projectile.alpha = (int)(0.1 * atktimer * atktimer - 12 * atktimer + 255);
+			if (skilltimer == 120) {
+				if (Player.velocity.X * Player.velocity.X + Player.velocity.Y * Player.velocity.Y >= 100) {
+					Projectile.NewProjectile(newSource, Projectile.Center.X + 0.25f * prefire * Player.velocity.X, Projectile.Center.Y + 0.25f * prefire * Player.velocity.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), 0, 0, 0, 0);
 				}
-				else
-				{
-					Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(), 0 , 0 , 0 , 0);
+				else {
+					Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), 0, 0, 0, 0);
 				}
 				skilltimer = 0;
 			}
@@ -2738,12 +2754,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class IACTScreenWave : ModProjectile
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/null";
-		public override void SetStaticDefaults()
-		{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/null";
+		public override void SetStaticDefaults() {
 		}
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 1;
 			Projectile.height = 1;
 			Projectile.aiStyle = 0;
@@ -2756,137 +2770,595 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Projectile.light = 1f;
 			Projectile.scale = 0f;
 			Projectile.friendly = false;
-            Projectile.hostile = false;
+			Projectile.hostile = false;
 		}
 
 		private int shadertimer = 0;//充当utime
-		//private int shadercheck = 0;
+									//private int shadercheck = 0;
 		private int ammount = 50;//波纹数量
 		private int scalesize = 1;//波纹大小
 		private int wavevelocity;//波纹速度
 		private float distortStrength = 100f;//强度
 
-		public override void AI()
-		{
+		public override void AI() {
 			shadertimer++;
-			if(shadertimer > 75)
-			{
+			if (shadertimer > 75) {
 				shadertimer = 75;
 			}
-			wavevelocity = (int)(0.0015*shadertimer*shadertimer-0.225*shadertimer+8.4375);
-			if(wavevelocity < 0)
-			{
+			wavevelocity = (int)(0.0015 * shadertimer * shadertimer - 0.225 * shadertimer + 8.4375);
+			if (wavevelocity < 0) {
 				wavevelocity = 0;
 			}
 
-			if (shadertimer <= 60)
-			{
-				if (Projectile.ai[0] == 0)
-        		{
-            		Projectile.ai[0] = 1;
-					if (Main.netMode != NetmodeID.Server && !Filters.Scene["IACTSW"].IsActive())
-					{
+			if (shadertimer <= 60) {
+				if (Projectile.ai[0] == 0) {
+					Projectile.ai[0] = 1;
+					if (Main.netMode != NetmodeID.Server && !Filters.Scene["IACTSW"].IsActive()) {
 						Filters.Scene.Activate("IACTSW", Projectile.Center).GetShader().UseColor(ammount, scalesize, wavevelocity).UseTargetPosition(Projectile.Center);
 					}
 				}
 
-				if (Main.netMode != NetmodeID.Server && Filters.Scene["IACTSW"].IsActive())
-				{
+				if (Main.netMode != NetmodeID.Server && Filters.Scene["IACTSW"].IsActive()) {
 					float progress = (shadertimer) / 60f;
 					Filters.Scene["IACTSW"].GetShader().UseProgress(3 * progress).UseOpacity(distortStrength * (1 - progress / 1f));
 				}
 			}
 		}
 
-		public override void Kill(int timeLeft)
-		{
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["IACTSW"].IsActive())
-			{
+		public override void Kill(int timeLeft) {
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["IACTSW"].IsActive()) {
 				Filters.Scene["IACTSW"].Deactivate();
 			}
 		}
 	}
 
 	public class missle : ModProjectile
-    {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
-        public override void SetStaticDefaults()
-        {
-        }
-        public override void SetDefaults()
-        {
-            Projectile.width = 28;
-            Projectile.height = 52;
-            Projectile.aiStyle = 0;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            Projectile.timeLeft = 60;
-            Projectile.alpha = 10;
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 28;
+			Projectile.height = 52;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 60;
+			Projectile.alpha = 10;
 			Projectile.damage = 60;
-            Projectile.light = 0.6f;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
-            Projectile.scale = 1f;
-        }
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.scale = 1f;
+		}
 
-        private float speedy;
+		private float speedy;
 
-        public override void AI()
-        {
-            Dust dust = Terraria.Dust.NewDustPerfect(Projectile.Center + new Vector2(0, -10), 204, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
-            Projectile.ai[0]++;
-            Projectile.rotation = Projectile.velocity.X * 0.01f;
-            speedy = 20f + Projectile.ai[0] / 3f;
-			Projectile.velocity.Y = speedy;
-        }
-
-        //public override void Kill(int timeLeft)//途中撞上人或者到时间就爆炸
-        //{
-        //    var newSource = Projectile.GetSource_FromThis();
-        //    Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10 , 0f, 0, 0);
-        //}
-    }
-
-    public class misslepro : ModProjectile
-    {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
-        public override void SetStaticDefaults()
-        {
-        }
-        public override void SetDefaults()
-        {
-            Projectile.width = 28;
-            Projectile.height = 52;
-            Projectile.aiStyle = 0;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            Projectile.timeLeft = 60;
-            Projectile.alpha = 10;
-            Projectile.damage = 120;
-            Projectile.light = 0.6f;
-            Projectile.friendly = false;
-            Projectile.hostile = true;
-            Projectile.scale = 1f;
-        }
-
-        private float speedy;
-
-        public override void AI()
-        {
+		public override void AI() {
+			Dust dust = Terraria.Dust.NewDustPerfect(Projectile.Center + new Vector2(0, -10), 204, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
 			Projectile.ai[0]++;
 			Projectile.rotation = Projectile.velocity.X * 0.01f;
-            speedy = 20f + Projectile.ai[0] / 3f;
-            Projectile.velocity.Y = speedy;
-            Dust dust = Terraria.Dust.NewDustPerfect(Projectile.Center + new Vector2(0,-10), 204, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
+			speedy = 20f + Projectile.ai[0] / 3f;
+			Projectile.velocity.Y = speedy;
+		}
 
-        }
+		//public override void Kill(int timeLeft)//途中撞上人或者到时间就爆炸
+		//{
+		//    var newSource = Projectile.GetSource_FromThis();
+		//    Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10 , 0f, 0, 0);
+		//}
+	}
 
-        //public override void Kill(int timeLeft)//途中撞上人或者到时间就爆炸
-        //{
-        //    var newSource = Projectile.GetSource_FromThis();
-        //    Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
-        //}
-    }
+	public class misslepro : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
+		public override void SetStaticDefaults() {
+		}
+		public override void SetDefaults() {
+			Projectile.width = 28;
+			Projectile.height = 52;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 60;
+			Projectile.alpha = 10;
+			Projectile.damage = 120;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.scale = 1f;
+		}
+
+		private float speedy;
+
+		public override void AI() {
+			Projectile.ai[0]++;
+			Projectile.rotation = Projectile.velocity.X * 0.01f;
+			speedy = 20f + Projectile.ai[0] / 3f;
+			Projectile.velocity.Y = speedy;
+			Dust dust = Terraria.Dust.NewDustPerfect(Projectile.Center + new Vector2(0, -10), 204, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
+
+		}
+
+		//public override void Kill(int timeLeft)//途中撞上人或者到时间就爆炸
+		//{
+		//    var newSource = Projectile.GetSource_FromThis();
+		//    Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
+		//}
+	}
+
+	//   public class AuragreenPro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuragreenPro";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 200;
+	//		Projectile.height = 200;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 180;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 15;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=true;
+	//	}
+
+	//	public override void AI()
+	//	{
+	//		Projectile.alpha = (int)(0.032 * Projectile.timeLeft * Projectile.timeLeft - 5.76 * Projectile.timeLeft + 259.2);
+	//		Projectile.scale = (float)(- 0.000125 * Projectile.timeLeft * Projectile.timeLeft + 0.0225 * Projectile.timeLeft - 0.0125);
+	//	}
+	//}
+
+	//public class AuraredPro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuraredPro";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 200;
+	//		Projectile.height = 200;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 180;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=true;
+	//	}
+
+	//	public override void AI()
+	//	{
+	//		Projectile.alpha = (int)(0.032 * Projectile.timeLeft * Projectile.timeLeft - 5.76 * Projectile.timeLeft + 259.2);
+	//		Projectile.scale = (float)(- 0.000125 * Projectile.timeLeft * Projectile.timeLeft + 0.0225 * Projectile.timeLeft - 0.0125);
+	//	}
+	//}
+
+	//public class Hitboxgreen : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 250;
+	//		Projectile.height = 250;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 60;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=false;
+	//	}
+
+	//	public override void AI()
+	//	{
+	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
+	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤普通橘色判定箱和普通绿色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Alert") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitboxorange>(),Projectile.damage, 0f,  0, 0);
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockgreen>(),Projectile.damage, 0f,  0, 0);
+	//	}
+	//}
+
+	//public class HitboxgreenPro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 250;
+	//		Projectile.height = 250;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 60;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=false;
+	//	}
+
+	//	public override void AI()
+	//	{
+	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
+	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤高阶橘色判定箱和普通绿色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitboxorangePro>(),Projectile.damage, 0f,  0, 0);
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitblockgreenPro>(),Projectile.damage, 0f,  0, 0);
+	//	}
+	//}
+
+	//public class Hitboxorange : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 270;
+	//		Projectile.height = 270;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 240;
+	//		Projectile.alpha = 10;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=false;
+	//	}
+
+	//	private float scalesize;
+
+	//	public override void AI()
+	//	{
+	//		scalesize = (float)(0.015*Projectile.timeLeft-1.6);
+	//		if(scalesize <= 1)
+	//		{
+	//			scalesize = 1;
+	//		}
+	//		Projectile.scale = scalesize;
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Hitboxred>(),(int)(Projectile.damage), 0f,  0, 0);
+	//	}
+	//}
+
+	//public class HitboxorangePro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 270;
+	//		Projectile.height = 270;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 180;
+	//		Projectile.alpha = 10;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=false;
+	//	}
+
+	//	private float scalesize;
+
+	//	public override void AI()//ai
+	//	{
+	//		scalesize = (float)(0.015*Projectile.timeLeft-0.7);
+	//		if(scalesize <= 1)
+	//		{
+	//			scalesize = 1;
+	//		}
+	//		Projectile.scale = scalesize;
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤高伤红色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(),(int)(Projectile.damage), 0f,  0, 0);
+	//	}
+	//}
+
+	//public class Hitboxred : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxred";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 500;
+	//		Projectile.height = 500;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 60;
+	//		Projectile.alpha = 10;
+	//		Projectile.damage = 60;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly = false;
+	//           Projectile.hostile = false;
+	//		Projectile.scale = 1f;
+	//	}
+
+	//	private int alphasize;
+	//	private float randomx;
+	//	private bool missled = false;
+
+	//       public override void AI()
+	//	{
+	//           var newSource = Projectile.GetSource_FromThis();
+	//           if(missled != true)
+	//		{
+	//			randomx = Main.rand.NextFloat(-300, 300);
+
+	//               Projectile.NewProjectile(newSource, Projectile.Center.X+randomx, Projectile.Center.Y - 1800, -randomx/60 , 0 , ModContent.ProjectileType<missle>(), 15, 0f, 0, 0);
+	//			missled = true;
+	//		}
+	//           alphasize = (int)(95*Math.Sin(0.4*Projectile.timeLeft-1)+127.5);
+	//		if(alphasize <= 0)
+	//		{
+	//			alphasize = 0;
+	//		}
+	//		Projectile.alpha = alphasize;
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//           SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+	//           Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10, 0f, 0, 0);
+	//	}
+	//}
+
+	//public class HitboxredPro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxredPro";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 500;
+	//		Projectile.height = 500;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 60;
+	//		Projectile.alpha = 10;
+	//		Projectile.damage = 120;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly = false;
+	//           Projectile.hostile = false;
+	//		Projectile.scale = 1f;
+	//	}
+
+	//	private int alphasize;
+	//       private float randomx;
+	//       private bool missled = false;
+
+	//       public override void AI()
+	//       {
+	//           var newSource = Projectile.GetSource_FromThis();
+	//           if (missled != true)
+	//           {
+	//               randomx = Main.rand.NextFloat(-300, 300);
+
+	//               Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<misslepro>(), 30, 0f, 0, 0);
+	//               missled = true;
+	//           }
+	//           alphasize = (int)(95*Math.Sin(0.4*Projectile.timeLeft-1)+127.5);
+	//		if(alphasize <= 0)
+	//		{
+	//			alphasize = 0;
+	//		}
+	//		Projectile.alpha = alphasize;
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤II阶爆炸
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//           SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+	//           Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
+	//	}
+	//}
+
+	//public class Hitblockgreen : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 250;
+	//		Projectile.height = 250;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 240;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=false;
+	//	}
+	//	public override void AI()//ai
+	//	{
+	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
+	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤橘色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockorange>(),(int)(Projectile.damage*0.3), 0f,  0, 0);
+	//	}
+	//}
+
+	//public class HitblockgreenPro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 250;
+	//		Projectile.height = 250;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 240;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 0;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=false;
+	//	}
+	//	public override void AI()//ai
+	//	{
+	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
+	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
+	//	}
+
+	//	public override void Kill(int timeLeft)//下一阶段：召唤橘色伤害箱
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitblockorangePro>(),(int)(Projectile.damage*0.3), 0,  0, 0);
+	//	}
+	//}
+
+	//public class Hitblockorange : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 270;
+	//		Projectile.height = 270;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 240;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 20;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=true;
+	//	}
+
+	//	private int alphasize;
+	//	private float scalesize;
+
+	//	public override void AI()//ai
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		scalesize = (float)(-0.00003*Projectile.timeLeft*Projectile.timeLeft+1.8);
+	//		if(scalesize >= 1)
+	//		{
+	//			scalesize = 1;
+	//		}
+	//		alphasize = (int)(-0.025*Projectile.timeLeft*Projectile.timeLeft-6*Projectile.timeLeft+255);
+	//		if(alphasize <= 0)
+	//		{
+	//			alphasize = 0;
+	//		}
+	//		Projectile.alpha = alphasize;
+	//		Projectile.scale = scalesize;
+	//	}
+	//}
+
+	//public class HitblockorangePro : ModProjectile
+	//{
+	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
+	//	public override void SetStaticDefaults()
+	//	{
+	//	}
+	//	public override void SetDefaults()
+	//	{
+	//		Projectile.width = 270;
+	//		Projectile.height = 270;
+	//		Projectile.aiStyle = 0;
+	//		Projectile.penetrate = -1;
+	//		Projectile.tileCollide = false;
+	//		Projectile.ignoreWater = true;
+	//		Projectile.timeLeft = 240;
+	//		Projectile.alpha = 50;
+	//		Projectile.damage = 40;
+	//		Projectile.light = 0.6f;
+	//		Projectile.friendly=false;
+	//           Projectile.hostile=true;
+	//	}
+
+	//	private int alphasize;
+	//	private float scalesize;
+
+	//	public override void AI()//ai
+	//	{
+	//		var newSource = Projectile.GetSource_FromThis();
+	//		scalesize = (float)(-0.00003*Projectile.timeLeft*Projectile.timeLeft+1.8);
+	//		if(scalesize >= 1)
+	//		{
+	//			scalesize = 1;
+	//		}
+	//		alphasize = (int)(-0.025*Projectile.timeLeft*Projectile.timeLeft-6*Projectile.timeLeft+255);
+	//		if(alphasize <= 0)
+	//		{
+	//			alphasize = 0;
+	//		}
+	//		Projectile.alpha = alphasize;
+	//		Projectile.scale = scalesize;
+	//	}
+	//}
 }
