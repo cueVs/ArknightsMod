@@ -259,6 +259,11 @@ Mods: {
 				DisplayName: 晶体元件
 				Tooltip: 可以制作与合成更高级的源石电子元件。
 			}
+
+			WMusicBox: {
+				Tooltip: 原曲是Renegade
+				DisplayName: 音乐盒(W)
+			}
 		}
 
 		Buffs: {
@@ -385,6 +390,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			WMusicBoxTile.MapEntry: 音乐盒(W)
 		}
 
 		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"

@@ -259,6 +259,11 @@ Mods: {
 				DisplayName: Crystalline Component
 				Tooltip: Can be manufactured and assembled into more advanced Originium electric components.
 			}
+
+			WMusicBox: {
+				Tooltip: The original song is Renegade.
+				DisplayName: W Music Box
+			}
 		}
 
 		Buffs: {
@@ -385,6 +390,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			WMusicBoxTile.MapEntry: W Music Box
 		}
 
 		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
