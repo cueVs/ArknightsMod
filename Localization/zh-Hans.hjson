@@ -261,8 +261,8 @@ Mods: {
 			}
 
 			WMusicBox: {
-				// Tooltip: ""
-				// DisplayName: W Music Box
+				 Tooltip: "原曲是Renegade"
+				 DisplayName: 音乐盒(W)
 			}
 		}
 
@@ -390,7 +390,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
-			// WMusicBoxTile.MapEntry: W Music Box Tile
+			WMusicBoxTile.MapEntry: 音乐盒(W)
 		}
 
 		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"

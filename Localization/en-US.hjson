@@ -261,7 +261,7 @@ Mods: {
 			}
 
 			WMusicBox: {
-				Tooltip: ""
+				Tooltip: "The original song is Renegade."
 				DisplayName: W Music Box
 			}
 		}
@@ -390,7 +390,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
-			WMusicBoxTile.MapEntry: W Music Box Tile
+			WMusicBoxTile.MapEntry: W Music Box
 		}
 
 		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
