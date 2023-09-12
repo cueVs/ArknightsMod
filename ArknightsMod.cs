@@ -8,6 +8,7 @@ namespace ArknightsMod
 	{
 		public static int OrundumCurrencyId;
 		internal Closure.AOSystem CurrentAO;
+		public const string AssetPath = "ArknightsMod/Assets/";
 
 		public override void Load()
 		{

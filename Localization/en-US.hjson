@@ -257,7 +257,12 @@ Mods: {
 
 			CrystallineComponent: {
 				DisplayName: Crystalline Component
-				Tooltip: "Can be manufactured and assembled into more advanced Originium electric components."
+				Tooltip: Can be manufactured and assembled into more advanced Originium electric components.
+			}
+
+			WMusicBox: {
+				Tooltip: ""
+				DisplayName: W Music Box
 			}
 		}
 
@@ -385,6 +390,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			WMusicBoxTile.MapEntry: W Music Box Tile
 		}
 
 		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
