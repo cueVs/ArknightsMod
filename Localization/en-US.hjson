@@ -99,7 +99,7 @@ Mods: {
 
 			Aketon: {
 				DisplayName: Aketon
-				Tooltip: "A modest amount of industrial organic compound. "
+				Tooltip: A modest amount of industrial organic compound.
 			}
 
 			KetonColloid: {
@@ -257,7 +257,7 @@ Mods: {
 
 			CrystallineComponent: {
 				DisplayName: Crystalline Component
-				Tooltip: "Can be manufactured and assembled into more advanced Originium electric components."
+				Tooltip: Can be manufactured and assembled into more advanced Originium electric components.
 			}
 		}
 
