@@ -257,7 +257,7 @@ Mods: {
 
 			CrystallineComponent: {
 				DisplayName: 晶体元件
-				Tooltip: "可以制作与合成更高级的源石电子元件。"
+				Tooltip: 可以制作与合成更高级的源石电子元件。
 			}
 		}
 
