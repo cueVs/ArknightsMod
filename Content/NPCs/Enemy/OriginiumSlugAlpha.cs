@@ -11,9 +11,8 @@ using ArknightsMod.Content.Items;
 namespace ArknightsMod.Content.NPCs.Enemy
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
-	public class OriginiumSlug : ModNPC
+	public class OriginiumSlugAlpha : ModNPC
 	{
-		private const int TimerMax = 80;
 		// This is a reference property. It lets us write FirstStageTimer as if it's NPC.localAI[1], essentially giving it our own name
 		public ref float Timer => ref NPC.localAI[0];
 
@@ -34,9 +33,9 @@ namespace ArknightsMod.Content.NPCs.Enemy
 		public override void SetDefaults() {
 			NPC.width = 30;
 			NPC.height = 20;
-			NPC.damage = 6;
-			NPC.defense = 0;
-			NPC.lifeMax = 14;
+			NPC.damage = 7;
+			NPC.defense = 2;
+			NPC.lifeMax = 25;
 
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -48,12 +47,12 @@ namespace ArknightsMod.Content.NPCs.Enemy
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeable.OrirockCube>(), 8, 1, 1));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeable.OrirockCube>(), 8, 1, 3));
 
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-			return SpawnCondition.OverworldDaySlime.Chance * 1f; // Spawn with 1/1st the chance of a regular slime.
+			return SpawnCondition.OverworldDaySlime.Chance * 20f; // Spawn with 1/1st the chance of a regular slime.
 			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 
@@ -78,7 +77,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 			// In this case: 0-1-2-3-0-1-2-3
 			int startFrame = 0;
 			int finalFrame = 3;
-			int frameSpeed = 6;
+			int frameSpeed = 4;
 
 			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
 				NPC.frameCounter += 0.5f;
@@ -118,22 +117,22 @@ namespace ArknightsMod.Content.NPCs.Enemy
 			switch (status) {
 				case 0:
 					NPC.direction = 1;
-					NPC.velocity.X = 0.6f * NPC.direction;
+					NPC.velocity.X = 0.7f * NPC.direction;
 					break;
 				case 1:
 					NPC.direction = -1;
-					NPC.velocity.X = 0.6f * NPC.direction;
+					NPC.velocity.X = 0.8f * NPC.direction;
 					break;
 				case 2:
 					NPC.position.X = preposition;
 					break;
 				case 3:
 					NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
-					NPC.velocity.X = 1f * (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
+					NPC.velocity.X = 1.2f * (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
 					break;
 				case 4:
 					NPC.direction = direction;
-					NPC.velocity.X = 0.6f * direction;
+					NPC.velocity.X = 0.8f * direction;
 					break;
 			}
 

@@ -318,11 +318,12 @@ Mods: {
 			# Enemy
 			Soldier.DisplayName: 士兵
 			OriginiumSlug.DisplayName: 源石虫
+			OriginiumSlugAlpha.DisplayName: 源石虫・Alpha
 		}
 
 		# Friendly
 		NameList.Closure: 可露希尔
-
+			
 		# This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
 		# Double quotes(") combine several sentences into one.
 		TownNPCMood: {

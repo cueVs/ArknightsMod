@@ -318,6 +318,7 @@ Mods: {
 			# Enemy
 			Soldier.DisplayName: Soldier
 			OriginiumSlug.DisplayName: Originium Slug
+			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
 		}
 
 		# Friendly
