@@ -82,7 +82,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 
 			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
 				NPC.frameCounter += 0.5f;
-				NPC.frameCounter += NPC.velocity.Length() / 10f; // Make the counter go faster with more movement speed
+				NPC.frameCounter += NPC.velocity.Length() / 8f; // Make the counter go faster with more movement speed
 			}
 
 			if (NPC.frameCounter > frameSpeed) {
@@ -125,7 +125,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 					NPC.velocity.X = 0.6f * NPC.direction;
 					break;
 				case 2:
-					NPC.position.X = preposition;
+					NPC.velocity.X *= 0;
 					break;
 				case 3:
 					NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
