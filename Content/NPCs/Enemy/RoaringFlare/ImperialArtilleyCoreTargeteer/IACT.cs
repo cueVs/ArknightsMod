@@ -5,29 +5,14 @@ using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Effects;
-using ArknightsMod.Content.NPCs;
 using Terraria.Audio;
-//using static Terraria.ModLoader.ModContent;
 using System;
-//using System.IO;
-//using System.Data;
-//using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Terraria.DataStructures;
-using ArknightsMod.Content.BossBars;
-//using System.Threading;
 using ArknightsMod.Common.Players;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
-	[AutoloadBossHead]
 	public class IACT : ModNPC
 	{
-		private const string ChainTextPath= "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer";
         public override void SetStaticDefaults()
 		{
 			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
@@ -45,7 +30,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			NPC.noTileCollide = true;//不与物块相撞
             NPC.lavaImmune = true;//免疫岩浆
 			NPC.aiStyle = -1;
-            NPC.boss = true;//BOSS
 			NPC.HitSound = SoundID.NPCHit4;//金属声
 			NPC.DeathSound = SoundID.NPCDeath14;//爆炸声
 			NPC.buffImmune[BuffID.Confused] = true;//免疫混乱
@@ -170,16 +154,24 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private int stage3timer6;
 		private int stage3timer7;
 
+		private int bartimer;
+		private float barscale;
+		private int crashtimer;
+		private float bardistance;
+		private float stage1healthscale;
+		private float stage1to2healthscale;
+		private float stage2healthscale;
+		private float stage2to3healthscale;
+		private float stage3healthscale;
+		private float atkscale;
+
 		//NPC贴图黑暗高亮发光效果+光环效果
+
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)//贴图，位置，大小区域，光亮颜色，转动角度，中心点坐标，缩放倍率，特殊效果(翻转)，图层
 		{
-			if(IACTcrashed != true)//锁血后高亮消失
-			{
-				Texture2D maskTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTMask").Value;//常驻高亮部分
-				Main.EntitySpriteDraw(maskTexture, NPC.Center - Main.screenPosition + new Vector2(0,3), new Rectangle(0, 0, maskTexture.Width, maskTexture.Height), Color.White, NPC.rotation, new Vector2(maskTexture.Width / 2, maskTexture.Height / 2), 1f, SpriteEffects.None, 0);
-			}
-			
-			//光环部分
+			//鉴于layerdepth是个废物，越靠下出现的实际上越在上层
+			//光环部分，参数见ai
+			#region
 			if(stage == 1 || stage == 1.5f)//一阶段+一转二阶段
             {
 				if(Main.gamePaused != true)
@@ -658,12 +650,64 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					}
 				}
 			}
-        }
+			#endregion
+
+
+			if (stage == 1) {
+				Texture2D healthTexture1 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB1").Value;//一·阶段血条
+				Main.EntitySpriteDraw(healthTexture1, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture1.Width * stage1healthscale), healthTexture1.Height), Color.White, 0, new Vector2(healthTexture1.Width / 2, healthTexture1.Height / 2), barscale, SpriteEffects.None, 0);
+			}
+
+			if (stage == 2) {
+				Texture2D healthTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB2").Value;//二阶段血条
+				if (timer1to2 <= 300) {
+					Main.EntitySpriteDraw(healthTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture2.Width * stage1to2healthscale), healthTexture2.Height), Color.White, 0, new Vector2(healthTexture2.Width / 2, healthTexture2.Height / 2), barscale, SpriteEffects.None, 0);
+				}
+				else {
+					Main.EntitySpriteDraw(healthTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture2.Width * stage2healthscale), healthTexture2.Height), Color.White, 0, new Vector2(healthTexture2.Width / 2, healthTexture2.Height / 2), barscale, SpriteEffects.None, 0);
+				}
+			}
+
+			if (stage == 3) {
+				Texture2D healthTexture3 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB3").Value;//三阶段血条
+				if (timer2to3 <= 480) {
+					Main.EntitySpriteDraw(healthTexture3, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture3.Width * stage2to3healthscale), healthTexture3.Height), Color.White, 0, new Vector2(healthTexture3.Width / 2, healthTexture3.Height / 2), barscale, SpriteEffects.None, 0);
+				}
+				else {
+					Main.EntitySpriteDraw(healthTexture3, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture3.Width * stage3healthscale), healthTexture3.Height), Color.White, 0, new Vector2(healthTexture3.Width / 2, healthTexture3.Height / 2), barscale, SpriteEffects.None, 0);
+				}
+			}
+
+			Texture2D atkTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTTM").Value;//攻击冷却条
+			Main.EntitySpriteDraw(atkTexture, NPC.Center - Main.screenPosition + new Vector2(0, 8 + bardistance), new Rectangle(0, 0, (int)(atkTexture.Width * atkscale), atkTexture.Height), Color.White, 0, new Vector2(atkTexture.Width / 2, atkTexture.Height / 2), barscale, SpriteEffects.None, 0);
+
+			Texture2D barTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTBar").Value;//属性条
+			Main.EntitySpriteDraw(barTexture, NPC.Center - Main.screenPosition + new Vector2(0, 3 + bardistance), new Rectangle(0, 0, barTexture.Width, barTexture.Height), Color.White, 0, new Vector2(barTexture.Width / 2, barTexture.Height / 2), barscale, SpriteEffects.None, 0);
+
+			if (IACTcrashed != true)//灯光，坠毁锁血后高亮消失
+			{
+				Texture2D maskTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTMask").Value;//常驻高亮部分
+				Texture2D lightsTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLights").Value;//闪灯部分
+				Main.EntitySpriteDraw(maskTexture, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, maskTexture.Width, maskTexture.Height), Color.White, NPC.rotation, new Vector2(maskTexture.Width / 2, maskTexture.Height / 2), 1f, SpriteEffects.None, 0);
+				if (lightsOn == true) {
+					Main.EntitySpriteDraw(lightsTexture, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, maskTexture.Width, maskTexture.Height), Color.White, NPC.rotation, new Vector2(maskTexture.Width / 2, maskTexture.Height / 2), 1f, SpriteEffects.None, 0);
+				}
+			}
+		}
 
 		private float MISSChance = 0f;
 		private int hpdecreasecooldown;
 
-        public override bool? CanBeHitByProjectile(Projectile Projectile)//不被敌方弹幕和无来源弹幕攻击&闪避
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)//隐藏下方血条
+		{
+			return false;
+		}
+		public override bool? CanBeHitByItem(Player player, Item item)//无敌帧
+		{
+			return null;
+		}
+
+		public override bool? CanBeHitByProjectile(Projectile Projectile)//不被敌方弹幕和无来源弹幕攻击&闪避
         {
 			hpdecreasecooldown++;
 
@@ -696,56 +740,23 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}	
         }
 
-		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)//击落后隐藏下方血条
-        {
-			scale = 1.5f;
-			if(IACTcrashed == true)
-			{
-				position += new Vector2(0, 10000);
-				return true;
-			}
-			else
-			{
-				return true;
-			}
-        }
-
-		public override void BossHeadRotation(ref float rotation)//boss地图图标旋转
-		{
-			BossHeadRotate++;
-			rotation = BossHeadRotate / 10;
-		}
-
-		public static int HeadSlot = -1;
-		public override void Load()
-		{
-			string texture = BossHeadTexture;
-			HeadSlot = Mod.AddBossHeadTexture(texture, -1);
-		}
-
-		public override void BossHeadSlot(ref int index)//击落后不显示图标和特殊血条
-        {
-			int slot = HeadSlot;
-			index = slot;
-        }
-
 		public override void HitEffect(NPC.HitInfo hit)//击中效果
 		{
-			Dust.NewDust(NPC.Center, 10, 10, 219, hit.HitDirection , 0, -1, new Color(255,255,255), 1f);
+			Dust.NewDust(NPC.Center, 10, 10, DustID.Fireworks, hit.HitDirection , 0, -1, new Color(255,255,255), 1f);
 		}
         #endregion
 
         //AI
         #region
         private bool ontransform = false;//转阶段判定器
-		private int normalatkcooldown;//平A冷却
+		private bool lightsOn = false;//灯光
+		private int normalatkcooldown = 120;//平A冷却
 		private float aimheight;
 		private float aimX;
-		private float BossHeadRotate;
+		private float basedistance;//转阶段速度
 		private int truestage1to2;//进入第二阶段开始检测器（即一转二开始检测器）
 		private int truestage2;//进入第二阶段锁血解除检测器（即一转二结束检测器）
 		private int truestage2to3;//二转三开始检测器
-		private int truestage3;
 		private int timer1;//玩家位置发射计时器
 		private int timer2;//固定判定点发射计时器
 		private int stage2timer;//第二阶段开始计时
@@ -754,7 +765,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private int deathtimer;//伪死亡计时
 		private int deathcheck;//checkdead触发检测
 		private float prefire;//预判速度倍率
-		private int playerprefire;//预判攻击间隔
+		private int playerprefire = 120;//预判攻击间隔
 		private float downAcceleration;//死亡坠落加速度
 		private float timer1to2;//一转二开始计时
 		private float timer2to3;//二转三开始计时
@@ -772,12 +783,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float endtimer;
 		private float movetimer;
 		private float endexplodespeed;
-		private int stage3atkloop;
-        private int stage3dashtime;
-        private int stage3explodetime;
-        private int stage3targettime;
-		private int IACTtage3timer;
-		private bool NormalMove = false;
 		private float diffX;
 		private float diffY;
 		private bool stg1to2movementsafe = false;
@@ -787,50 +792,107 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private bool stgendmovementsafe = false;
 		private float stgendsafetimer = -1f;
 
-		public static int MinionType()
-        {
-            return ModContent.NPCType<IACTStage3target>();
-        }
-
         public override void AI()
 		{
 			//动态转角
-			NPC.rotation = 0.01f*(float)NPC.velocity.X;
+			NPC.rotation = 0.01f*NPC.velocity.X;
 
-			if (Main.masterMode)//自定义血条
-			{
-				NPC.BossBar = ModContent.GetInstance<IACTBossBarMT>();//大师模式血条,16200|32400/36000
+			movetimer++;
+			timer1++;
+			timer2++;
+
+			//攻击机制
+			if (Main.masterMode) {
+				if (stage == 1) {
+					normalatkcooldown = 150;
+				}
+				else if (stage == 2) {
+					normalatkcooldown = 150;
+				}
+				else if (stage == 3) {
+					normalatkcooldown = 120;
+				}
+				playerprefire = 120;//攻击频率
+				prefire = 72;//72倍预判单位，等于准星
 			}
 			else if (Main.expertMode) {
-				NPC.BossBar = ModContent.GetInstance<IACTBossBarEX>();//专家模式血条,10800|21600/24000
+				if (stage == 1) {
+					normalatkcooldown = 180;
+				}
+				else if (stage == 2) {
+					normalatkcooldown = 150;
+				}
+				else if (stage == 3) {
+					normalatkcooldown = 150;
+				}
+				playerprefire = 150;
+				prefire = 60;
 			}
 			else {
-				NPC.BossBar = ModContent.GetInstance<IACTBossBarNM>();//普通模式血条,06000|12000/16000
+				if (stage == 1) {
+					normalatkcooldown = 210;
+				}
+				else if (stage == 2) {
+					normalatkcooldown = 180;
+				}
+				else if (stage == 3) {
+					normalatkcooldown = 150;
+				}
+				playerprefire = 180;
+				prefire = 54;
+			}
+			//绘制参数
+			if (Main.gamePaused != true) {
+				bartimer++;
+			}
+			//属性框的大小和位置
+			if (NPC.life > 1) {
+				barscale = bartimer / 60f;
+				bardistance = bartimer;
+			}
+			else {
+				if (Main.gamePaused != true) {
+					crashtimer++;
+				}
+				barscale = 1 - crashtimer / 60f;
+				bardistance = 60 - crashtimer;
 			}
 
-			if (stage <= 1)
-			{
-            	Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss1");//音乐一
+			if (barscale > 1f) {
+				barscale = 1f;
 			}
-			else if(timer1to2 > 0 && timer1to2 <= 120)
-			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/ImperialArtilleyCoreTargeteer/null");//一转二阶段
+			else if (barscale < 0f) {
+				barscale = 0f;
 			}
-			else if(timer2to3 > 0 && timer2to3 <= 240)
-			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/ImperialArtilleyCoreTargeteer/null");//二转三阶段
+
+			if (bardistance > 60f) {
+				bardistance = 60f;
 			}
-			else if(stage == 2)
-			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss2");//音乐二
+			else if (bardistance < 0f) {
+				bardistance = 0f;
 			}
-			else if(stage >= 3)
-			{
-				Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss3");//音乐三
+
+			if (stage != 2) {
+				atkscale = timer2 / (float)normalatkcooldown;
+				if (atkscale > 1f) {
+					atkscale = 1f;
+				}
 			}
+			else {
+				atkscale = timer1 / (float)playerprefire;
+				if (atkscale > 1f) {
+					atkscale = 1f;
+				}
+			}
+
+			stage1healthscale = (NPC.life - NPC.lifeMax * expertHealthFrac) / (NPC.lifeMax * (1 - expertHealthFrac));
+			stage1to2healthscale = Math.Min((timer1to2 - 180) / 90f, 1);
+			stage2healthscale = (NPC.life - NPC.lifeMax * expertHealthFrac / 2) / (NPC.lifeMax * expertHealthFrac / 2);
+			stage2to3healthscale = Math.Min((timer2to3 - 240) / 90f, 1);
+			stage3healthscale = NPC.life / (NPC.lifeMax * expertHealthFrac / 2);
 
 			var newSource = NPC.GetSource_FromThis();
-			Lighting.AddLight((int)((NPC.position.X + (float)(NPC.width / 2)) / 16f), (int)((NPC.position.Y + (float)(NPC.height / 2)) / 16f), 0.5f, 0f, 0.25f);//发光
+			Lighting.AddLight((int)((NPC.position.X + (NPC.width / 2)) / 16f), (int)((NPC.position.Y + (NPC.height / 2)) / 16f), 0.5f, 0f, 0.25f);//发光
 
 			Player Player = Main.player[NPC.target];//仇恨判定和死亡判定
 			if (!Player.active || Player.dead)
@@ -855,19 +917,16 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			{
 				if(ontransform != true)//常态
 				{
-					Dust taildust2 = Terraria.Dust.NewDustPerfect(NPC.Center + new Vector2(0,12), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
+					Dust taildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(0,12), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
 					taildust2.noGravity = true;
 				}
 				else//转阶段
 				{
-					Dust taildust = Terraria.Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12), 130, new Vector2(0f, 0f), 0, new Color(255,255,255), 1.4f);//红色
+					Dust taildust = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12), 130, new Vector2(0f, 0f), 0, new Color(255,255,255), 1.4f);//红色
 					taildust.noGravity = true;
 				}
 			}
 
-			movetimer++;
-			timer1++;
-			timer2++;
 			//阶段判定区
 			if(stage == 0)
 			{
@@ -906,70 +965,22 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				NPC.damage = 72;
 			}
 
-			//攻击机制
-			if(Main.masterMode)
-			{
-				if(stage == 1) {	
-					normalatkcooldown = 150;
-				}
-				else if(stage == 2) {
-					normalatkcooldown = 150;
-				}
-				else if(stage == 3) {
-					normalatkcooldown = 120;
-				}
-				playerprefire = 120;//攻击频率
-				prefire = 72;//72倍预判单位，等于准星
-			}
-			else if(Main.expertMode)
-			{
-				if (stage == 1) {
-					normalatkcooldown = 180;
-				}
-				else if (stage == 2) {
-					normalatkcooldown = 150;
-				}
-				else if (stage == 3) {
-					normalatkcooldown = 150;
-				}
-				playerprefire = 150;
-				prefire = 60;
-			}
-			else
-			{
-				if (stage == 1) {
-					normalatkcooldown = 210;
-				}
-				else if (stage == 2) {
-					normalatkcooldown = 180;
-				}
-				else if (stage == 3) {
-					normalatkcooldown = 150;
-				}
-				playerprefire = 180;
-				prefire = 54;
-			}
 			//移动锚点
-			if (stage <= 2) {
-				if (Main.masterMode) {
-					aimX = 300 * (float)Math.Sin(Math.PI * movetimer / 180);
-					aimheight = 300;
-				}
-				else if (Main.expertMode) {
-					aimX = 240 * (float)Math.Sin(Math.PI * movetimer / 240);
-					aimheight = 330;
-				}
-                else {
-					aimX = 180 * (float)Math.Sin(Math.PI * movetimer / 360);
-					aimheight = 360;
-                }
-            }
-			else {
-				aimX = 0;
-				aimheight = 0;
+			if (Main.masterMode) {
+				aimX = 300 * (float)Math.Sin(Math.PI * movetimer / 180);
+				aimheight = 300;
 			}
+			else if (Main.expertMode) {
+				aimX = 240 * (float)Math.Sin(Math.PI * movetimer / 240);
+				aimheight = 330;
+			}
+            else {
+				aimX = 180 * (float)Math.Sin(Math.PI * movetimer / 360);
+				aimheight = 360;
+            }
+
 			//主体AI
-			if(NPC.life > 1 && NPC.dontTakeDamage != true)//一二阶段和三阶段的部分移动
+			if(NPC.life > 1 && NPC.dontTakeDamage != true)//移动方式
 			{
 				//2阶段之后的玩家判定区
 				if(truestage2 == 1 && timer1 >= playerprefire)
@@ -980,21 +991,25 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 
 				//固定判定区，数秒一个
-				if (timer2 >= normalatkcooldown)
+				if (timer2 >= normalatkcooldown && stage != 2)
 				{
 					timer2 = 0;
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
-					//if (NPC.life < NPC.lifeMax * expertHealthFrac)//第二阶段
-					//{
-					//	//Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuraredPro>(), (int)(NPC.damage * 0.33), 0f, 0, 0);
-					//	Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
-					//}
-					//else//第一阶段
-					//{
-					//	//Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<AuragreenPro>(), (int)(NPC.damage * 0.1), 0f, 0, 0);
-					//	Projectile.NewProjectile(newSource, NPC.position.X + 82, NPC.position.Y + 43, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
-					//}
 					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
+				}
+
+				//灯光判定
+				if (timer2 >= 0 && timer2 <= 10) {
+					lightsOn = true;
+				}
+				else if (timer2 >= 20 && timer2 <= 30) {
+					lightsOn = true;
+				}
+				else if (timer2 >= 40 && timer2 <= 50) {
+					lightsOn = true;
+				}
+				else {
+					lightsOn = false;
 				}
 
 				//移动方式
@@ -1007,6 +1022,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				float haltPointY = NPC.Center.Y + haltDirectionY * (velDiff.Y * velDiff.Y) / (2 * ay) + aimheight;
                 diffX = Player.Center.X - NPC.Center.X;
                 diffY = Player.Center.Y - NPC.Center.Y;
+				basedistance = 2 * (float)Math.Sqrt(Math.Pow(diffX/16, 2) + Math.Pow(diffY/16, 2))+ 20f;//到玩家的距离（格数）+基准速度20f
+				if(basedistance > 40f) {
+					basedistance = 40f;
+				}
+				if (basedistance < 20f) {
+					basedistance = 20f;
+				}
 				if (Player.Center.X > haltPointX) {
 					NPC.velocity.X += ax;
 				}
@@ -1023,13 +1045,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 				NPC.velocity.Y = Math.Min(vy, Math.Max(-vy, NPC.velocity.Y));
 
-				if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) >= 75 * 16)//距离远于75格
+				if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) >= 60 * 16)//距离远于60格
 				{
 					ax = 0.6f;
 					ax = 0.4f;
                     if (Main.masterMode)
                     {
-                        if (stage == 3 && NormalMove == true)
+                        if (stage == 3)
                         {
                             vx = 20f;
                             vy = 20f;
@@ -1047,7 +1069,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
                     }
                     else if (Main.expertMode)
                     {
-                        if (stage == 3 && NormalMove == true)
+                        if (stage == 3)
                         {
                             vx = 18f;
                             vy = 16f;
@@ -1065,7 +1087,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
                     }
                     else
                     {
-                        if (stage == 3 && NormalMove == true)
+                        if (stage == 3)
                         {
                             vx = 16f;
                             vy = 14f;
@@ -1088,7 +1110,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					ax = 0.2f;
 					if (Main.masterMode)
 					{
-						if (stage == 3 && NormalMove == true)
+						if (stage == 3)
 						{
 							vx = 8f;
 							vy = 8f;
@@ -1106,7 +1128,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					}
 					else if (Main.expertMode)
 					{
-						if (stage == 3 && NormalMove == true)
+						if (stage == 3)
 						{
 							vx = 8f;
 							vy = 8f;
@@ -1124,7 +1146,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					}
 					else
 					{
-						if (stage == 3 && NormalMove == true)
+						if (stage == 3)
 						{
 							vx = 8f;
 							vy = 7f;
@@ -1188,17 +1210,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						NPC.life = (int)(NPC.lifeMax * expertHealthFrac - 1);
 						stage = 2;
 					}
-					else if (timer1to2 >= 180 && timer1to2 < 240)
+					else if (timer1to2 >= 180 && timer1to2 < 300)
 					{
 						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
-						Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
-					}
-					else if (timer1to2 >= 240 && timer1to2 < 300)
-					{
-						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
-						Vector2 targetv = 40f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+						Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
 					}
 					else if (timer1to2 >= 300)
 					{
@@ -1210,8 +1226,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						if (stg1to2movementsafe != true)//防跳变保护机制
 						{
 							Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
-							Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+							Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
 						}
 						else
 						{
@@ -1268,7 +1284,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 				else if(Main.expertMode)
 				{
-					stage2to3locktime = 660;
+					stage2to3locktime = 600;
 					stage2to3r = 400;
 					//stage2to3atkspeed =(int)(Main.rand.NextFloat(20,30));
 					stage2to3atkspeed = 20;
@@ -1307,17 +1323,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						NPC.life = (int)(NPC.lifeMax * expertHealthFrac/2 - 1);
 						stage = 3;
 					}
-					else if(timer2to3 >= 360 && timer2to3 < 420)
+					else if(timer2to3 >= 360 && timer2to3 < 480)
 					{
 						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage2to3r);
-						Vector2 targetv = 20f*(targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity,targetv,0.05f);
-					}
-					else if(timer2to3 >= 420 && timer2to3 < 480)
-					{
-						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage2to3r);
-						Vector2 targetv = 40f*(targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity,targetv,0.05f);
+						Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+						NPC.velocity = Vector2.Lerp(NPC.velocity,targetv,0.03f);
 					}
 					else if(timer2to3 >= 480)
 					{
@@ -1329,8 +1339,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						if (stg2to3movementsafe != true)//防跳变保护机制
 						{
 							Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage2to3r);
-							Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+							Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
 						}
 						else
 						{
@@ -1356,58 +1366,17 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				{
 					Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Stage3"), 240, 0, 0);
 					truestage2to3 = 2;
-					truestage3 = 1;
 					NPC.dontTakeDamage = false;
 					ontransform = false;
 				}
 			}
 
-			if(stage == 3)//第三阶段
-			{
-                if (Main.masterMode)
-                {
-					stage3dashtime = 180;
-					stage3explodetime = 120;
-					stage3targettime = 120;
-                }
-                else if (Main.expertMode)
-                {
-                    stage3dashtime = 240;
-                    stage3explodetime = 150;
-                    stage3targettime = 150;
-                }
-                else
-                {
-                    stage3dashtime = 300;
-                    stage3explodetime = 180;
-                    stage3targettime = 180;
-                }
-                stage3atkloop = stage3dashtime + stage3explodetime + stage3targettime;//先这样写，不确定周期长度，回头再调
-                var entitySource = NPC.GetSource_FromAI();
-                
-                NPC.velocity = Vector2.Lerp(NPC.velocity,Vector2.Zero,0.01f);
-                if (truestage3 == 1)//开启定点系统
-				{
-                    NPC minionNPC = Main.npc[NPC.NewNPC(entitySource, (int)(2*Player.Center.X - NPC.Center.X), (int)(2 * Player.Center.Y - NPC.Center.Y), ModContent.NPCType<IACTStage3target>(), NPC.whoAmI)];
-                    if (minionNPC.ModNPC is IACTStage3target minion)
-                    {
-                        minion.ParentIndex = NPC.whoAmI;
-                    }
-					truestage3 = 2;
-                }
-                if (stage3timer - stage2to3locktime >= 0 && truestage3 == 2)
-				{
-                    IACTtage3timer++;
-					if(IACTtage3timer <= stage3targettime)//定位区段：IACT像第1阶段和第2阶段一样移动，但速度更快；目标平滑出现，保持高亮并解锁状态
-                    {
-						NormalMove = true;
-					}
-				}
-                stage3timer++;
-
+			if (stage == 3)//第三阶段
+			{ 
+				stage3timer++;
 			}
 
-			if(NPC.life <= 1)//坠毁及其保护机制
+			if (NPC.life <= 1)//坠毁及其保护机制
 			{
 				if(deathcheck == 1)//触发checkdead之后
 				{
@@ -1419,7 +1388,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.05f);
 
 						}
-						else if(endtimer >= 180 && endtimer < 240)
+						else if(endtimer >= 180 && endtimer < 360)
 						{
 							if (stage == 3)
 							{
@@ -1428,18 +1397,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 								stage += 1;
 							}
 							Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
-							Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
-						}
-						else if(endtimer >= 240 && endtimer < 360)
-						{
-							Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
-							Vector2 targetv = 30f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+							Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
 						}
 						else if (endtimer >= 360)
 						{
-							if ((int)(Player.Center.X - NPC.Center.X) >= -12 && (int)(Player.Center.X - NPC.Center.X) <= 12 && (int)(Player.Center.Y - NPC.Center.Y) >= 348 && (int)(Player.Center.Y - NPC.Center.Y) <= 372)
+							if ((int)(Player.Center.X - NPC.Center.X) >= -16 && (int)(Player.Center.X - NPC.Center.X) <= 16 && (int)(Player.Center.Y - NPC.Center.Y) >= 348 && (int)(Player.Center.Y - NPC.Center.Y) <= 372)
 							{
 								stgendmovementsafe = true;
 							}
@@ -1447,8 +1410,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							if (stgendmovementsafe != true)//防跳变保护机制
 							{
 								Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
-								Vector2 targetv = 20f * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-								NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.05f);
+								Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
+								NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
 							}
 							else
 							{
@@ -1537,7 +1500,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeAim : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeAim";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1615,7 +1577,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeAimPro : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeAimPro";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1692,7 +1653,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class HitboxRedCorner1 : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner1";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1750,7 +1710,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class HitboxRedCorner2 : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner2";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1808,7 +1767,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class HitboxRedCorner3 : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner3";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1866,7 +1824,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class HitboxRedCorner4 : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedCorner4";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1924,7 +1881,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class HitboxRedFrame : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxRedFrame";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1953,7 +1909,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeRingBig : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeRingBig";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1982,7 +1937,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeRingSmall : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeRingSmall";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2011,7 +1965,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeArea : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeArea";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2040,10 +1993,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			dust2.noGravity = true;
 			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
 			for (int i = 0; i < 2; i++) {
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, Scale: 1.5f)].noGravity = true;
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Pixie, Scale: 1.5f)].noGravity = true;
 			}
 			for (int j = 0; j < 4; j++) {
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 4f)].noGravity = true;
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Scale: 4f)].noGravity = true;
 			}
 		}
 
@@ -2051,7 +2004,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeAreaPro : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ExplodeAreaPro";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2081,17 +2033,16 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
 
 			for (int i = 0; i < 3; i++) {
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 55, Scale: 1.5f)].noGravity = true;
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Pixie, Scale: 1.5f)].noGravity = true;
 			}
 			for (int j = 0; j < 6; j++) {
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, Scale: 4f)].noGravity = true;
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Scale: 4f)].noGravity = true;
 			}
 		}
 	}
 
 	public class Deathdust : ModProjectile//死亡粒子效果触发器
 	{
-		private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Deathdust";
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2125,508 +2076,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		}
 	}
 
-	public class IACTStage3target : ModNPC
-	{
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTStage3target";
-        public override void SetStaticDefaults()
-        {
-            Main.npcFrameCount[NPC.type] = 1;//贴图帧数
-        }
-
-        public override void SetDefaults()
-        {
-            NPC.lifeMax = 1;
-            NPC.damage = 0;
-            NPC.defense = 0;
-            NPC.knockBackResist = 0f;//击退抗性，0f为最高，1f为最低
-            NPC.width = 1;
-            NPC.height = 1;
-            NPC.noGravity = true;//无引力
-            NPC.noTileCollide = true;//不与物块相撞
-            NPC.lavaImmune = true;//免疫岩浆
-            NPC.aiStyle = -1;
-            NPC.HitSound = SoundID.NPCHit4;//金属声
-            NPC.DeathSound = SoundID.NPCDeath14;//爆炸声
-        }
-
-        public int ParentIndex
-        {
-            get => (int)NPC.ai[0] - 1;
-            set => NPC.ai[0] = value + 1;
-        }
-
-        public static int BodyType()
-        {
-            return ModContent.NPCType<IACT>();
-        }
-
-		private int timer;
-		private int stage3atkloop;
-
-        public override void AI()
-        {
-            var newSource = NPC.GetSource_FromThis();
-            
-			if(Main.masterMode)
-			{
-				stage3atkloop = 420;
-			}
-            else if (Main.expertMode)
-            {
-                stage3atkloop = 540;
-            }
-            else
-            {
-                stage3atkloop = 660;
-            }
-            if (timer % stage3atkloop == 0)
-			{
-                Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3InCore>(), 0, 0f, 0, NPC.whoAmI);
-                Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3InRing>(), 0, 0f, 0, NPC.whoAmI);
-                Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3OutPrism>(), 0, 0f, 0, NPC.whoAmI);
-                Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3OutRing>(), 0, 0f, 0, NPC.whoAmI);
-            }
-			timer++;
-            Player Player = Main.player[Main.myPlayer];
-            NPC parentNPC = Main.npc[ParentIndex];
-            NPC.dontTakeDamage = true;
-			NPC.Center = 2 * Player.Center - parentNPC.Center;
-			if(parentNPC.life == 1 || parentNPC.active == false)
-			{
-				die();
-			}
-        }
-
-		private int killtimer;
-
-        private void die()
-        {
-			killtimer++;
-			NPC.alpha = 4 * killtimer;
-			if(NPC.alpha > 255)
-			{
-				NPC.alpha = 255;
-			}
-			NPC.scale = 1 - killtimer / 60;
-			if(NPC.scale < 0)
-			{
-				NPC.scale = 0;
-			}
-			if(killtimer >= 120)
-			{
-				NPC.dontTakeDamage = false;
-				NPC.life = 0;
-			}
-        }
-    }
-
-	public class ISTG3InCore : ModProjectile
-	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3InCore";
-		public override void SetStaticDefaults()
-		{
-		}
-
-		public override void SetDefaults()
-		{
-			Projectile.width = 16;
-			Projectile.height = 16;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			if (Main.masterMode)
-			{
-				Projectile.timeLeft = 360;
-			}
-			else if (Main.expertMode)
-			{
-				Projectile.timeLeft = 450;
-			}
-			else
-			{
-				Projectile.timeLeft = 540;
-			}
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private int timer;
-
-        public int ParentIndex
-        {
-            get => (int)Projectile.ai[0] - 1;
-            set => Projectile.ai[0] = value + 1;
-        }
-
-        public override void AI()
-		{
-			timer++;
-            Player Player = Main.player[Main.myPlayer];
-            NPC parentNPC = Main.npc[ParentIndex];
-			Projectile.Center = 2 * Player.Center - parentNPC.Center;
-            if (Main.masterMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer,2)/60 - timer*6 +255);
-				if((timer >=0 && timer <=60)||(timer >= 300 && timer <= 360))
-				{
-                    Projectile.scale = (float)Math.Sin(timer*Math.PI / 120);
-                }
-				else
-				{
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 60 - Math.PI / 2) + 0.9f;
-                }
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else if (timer >= 60 && timer <= 390)
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 0.9f;
-                }
-				else 
-				{
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2);
-                }
-            }
-            else
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else if (timer >= 60 && timer <= 480)
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 0.9f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4);
-                }
-            }
-			if(Projectile.alpha < 0)
-			{
-				Projectile.alpha = 0;
-			}
-        }
-	}
-
-    public class ISTG3InRing : ModProjectile
-    {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3InRing";
-        public override void SetStaticDefaults()
-        {
-        }
-
-        public override void SetDefaults()
-        {
-            Projectile.width = 52;
-            Projectile.height = 52;
-            Projectile.aiStyle = 0;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            if (Main.masterMode)
-            {
-                Projectile.timeLeft = 360;
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.timeLeft = 450;
-            }
-            else
-            {
-                Projectile.timeLeft = 540;
-            }
-            Projectile.alpha = 10;
-            Projectile.damage = 0;
-            Projectile.light = 0.6f;
-            Projectile.friendly = false;
-            Projectile.hostile = false;
-            Projectile.scale = 1f;
-        }
-
-        private int timer;
-
-        public int ParentIndex
-        {
-            get => (int)Projectile.ai[0] - 1;
-            set => Projectile.ai[0] = value + 1;
-        }
-
-        public override void AI()
-        {
-            timer++;
-            Player Player = Main.player[Main.myPlayer];
-            NPC parentNPC = Main.npc[ParentIndex];
-            Projectile.Center = 2 * Player.Center - parentNPC.Center;
-            Projectile.rotation = -0.05f*timer;
-            if (Main.masterMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
-                if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360))
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 60 - Math.PI / 2) + 0.9f;
-                }
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else if (timer >= 60 && timer <= 390)
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 1f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2);
-                }
-            }
-            else
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else if (timer >= 60 && timer <= 480)
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 0.9f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4);
-                }
-            }
-            if (Projectile.alpha < 0)
-            {
-                Projectile.alpha = 0;
-            }
-        }
-    }
-
-    public class ISTG3OutRing : ModProjectile
-    {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3OutRing";
-        public override void SetStaticDefaults()
-        {
-        }
-
-        public override void SetDefaults()
-        {
-            Projectile.width = 166;
-            Projectile.height = 166;
-            Projectile.aiStyle = 0;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            if (Main.masterMode)
-            {
-                Projectile.timeLeft = 360;
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.timeLeft = 450;
-            }
-            else
-            {
-                Projectile.timeLeft = 540;
-            }
-            Projectile.alpha = 10;
-            Projectile.damage = 0;
-            Projectile.light = 0.6f;
-            Projectile.friendly = false;
-            Projectile.hostile = false;
-            Projectile.scale = 1f;
-        }
-
-        private int timer;
-
-        public int ParentIndex
-        {
-            get => (int)Projectile.ai[0] - 1;
-            set => Projectile.ai[0] = value + 1;
-        }
-
-        public override void AI()
-        {
-            timer++;
-			Player Player = Main.player[Main.myPlayer];
-            NPC parentNPC = Main.npc[ParentIndex];
-
-            Projectile.Center = 2 * Player.Center - parentNPC.Center;
-            Projectile.rotation = 0.05f * timer;
-            if (Main.masterMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
-                if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360))
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else
-                {
-                    Projectile.scale = 1f;
-                }
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else if (timer >= 60 && timer <= 390)
-                {
-                    Projectile.scale = 1f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2);
-                }
-            }
-            else
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
-                }
-                else if (timer >= 60 && timer <= 480)
-                {
-                    Projectile.scale = 1f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4);
-                }
-            }
-            if (Projectile.alpha < 0)
-            {
-                Projectile.alpha = 0;
-            }
-        }
-    }
-
-    public class ISTG3OutPrism : ModProjectile
-    {
-        private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3OutPrism";
-        public override void SetStaticDefaults()
-        {
-        }
-
-        public override void SetDefaults()
-        {
-            Projectile.width = 132;
-            Projectile.height = 132;
-            Projectile.aiStyle = 0;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            if (Main.masterMode)
-            {
-                Projectile.timeLeft = 360;
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.timeLeft = 450;
-            }
-            else
-            {
-                Projectile.timeLeft = 540;
-            }
-            Projectile.alpha = 10;
-            Projectile.damage = 0;
-            Projectile.light = 0.6f;
-            Projectile.friendly = false;
-            Projectile.hostile = false;
-            Projectile.scale = 1f;
-        }
-
-        private int timer;
-
-        public int ParentIndex
-        {
-            get => (int)Projectile.ai[0] - 1;
-            set => Projectile.ai[0] = value + 1;
-        }
-
-        public override void AI()
-        {
-            timer++;
-            Player Player = Main.player[Main.myPlayer];
-            NPC parentNPC = Main.npc[ParentIndex];
-            Projectile.Center = 2 * Player.Center - parentNPC.Center;
-            Projectile.rotation = 0.05f * timer;
-            if (Main.masterMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
-                if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360))
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120) + 0.2f;
-                }
-                else
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 60 - Math.PI / 2) + 1.1f;
-                }
-            }
-            else if (Main.expertMode)
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120) + 0.2f;
-                }
-                else if (timer >= 60 && timer <= 390)
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 1.1f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2) + 0.2f;
-                }
-            }
-            else
-            {
-                Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
-                if (timer >= 0 && timer <= 60)
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120) + 0.2f;
-                }
-                else if (timer >= 60 && timer <= 480)
-                {
-                    Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 1.1f;
-                }
-                else
-                {
-                    Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4) + 0.2f;
-                }
-            }
-            if (Projectile.alpha < 0)
-            {
-                Projectile.alpha = 0;
-            }
-        }
-    }
-
 	public class HitboxblueCore : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueCore";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2684,7 +2135,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class HitboxblueFrame : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxblueFrame";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2754,7 +2204,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class IACTScreenWave : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/null";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2814,7 +2263,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class missle : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2842,17 +2290,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			speedy = 20f + Projectile.ai[0] / 3f;
 			Projectile.velocity.Y = speedy;
 		}
-
-		//public override void Kill(int timeLeft)//途中撞上人或者到时间就爆炸
-		//{
-		//    var newSource = Projectile.GetSource_FromThis();
-		//    Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10 , 0f, 0, 0);
-		//}
 	}
 
 	public class misslepro : ModProjectile
 	{
-		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/missle";
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2881,484 +2322,5 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Dust dust = Terraria.Dust.NewDustPerfect(Projectile.Center + new Vector2(0, -10), 204, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 2.5f);
 
 		}
-
-		//public override void Kill(int timeLeft)//途中撞上人或者到时间就爆炸
-		//{
-		//    var newSource = Projectile.GetSource_FromThis();
-		//    Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
-		//}
 	}
-
-	//   public class AuragreenPro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuragreenPro";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 200;
-	//		Projectile.height = 200;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 180;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 15;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=true;
-	//	}
-
-	//	public override void AI()
-	//	{
-	//		Projectile.alpha = (int)(0.032 * Projectile.timeLeft * Projectile.timeLeft - 5.76 * Projectile.timeLeft + 259.2);
-	//		Projectile.scale = (float)(- 0.000125 * Projectile.timeLeft * Projectile.timeLeft + 0.0225 * Projectile.timeLeft - 0.0125);
-	//	}
-	//}
-
-	//public class AuraredPro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AuraredPro";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 200;
-	//		Projectile.height = 200;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 180;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=true;
-	//	}
-
-	//	public override void AI()
-	//	{
-	//		Projectile.alpha = (int)(0.032 * Projectile.timeLeft * Projectile.timeLeft - 5.76 * Projectile.timeLeft + 259.2);
-	//		Projectile.scale = (float)(- 0.000125 * Projectile.timeLeft * Projectile.timeLeft + 0.0225 * Projectile.timeLeft - 0.0125);
-	//	}
-	//}
-
-	//public class Hitboxgreen : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 250;
-	//		Projectile.height = 250;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 60;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=false;
-	//	}
-
-	//	public override void AI()
-	//	{
-	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
-	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤普通橘色判定箱和普通绿色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Alert") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitboxorange>(),Projectile.damage, 0f,  0, 0);
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockgreen>(),Projectile.damage, 0f,  0, 0);
-	//	}
-	//}
-
-	//public class HitboxgreenPro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxgreen";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 250;
-	//		Projectile.height = 250;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 60;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=false;
-	//	}
-
-	//	public override void AI()
-	//	{
-	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
-	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤高阶橘色判定箱和普通绿色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitboxorangePro>(),Projectile.damage, 0f,  0, 0);
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitblockgreenPro>(),Projectile.damage, 0f,  0, 0);
-	//	}
-	//}
-
-	//public class Hitboxorange : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 270;
-	//		Projectile.height = 270;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 240;
-	//		Projectile.alpha = 10;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=false;
-	//	}
-
-	//	private float scalesize;
-
-	//	public override void AI()
-	//	{
-	//		scalesize = (float)(0.015*Projectile.timeLeft-1.6);
-	//		if(scalesize <= 1)
-	//		{
-	//			scalesize = 1;
-	//		}
-	//		Projectile.scale = scalesize;
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Hitboxred>(),(int)(Projectile.damage), 0f,  0, 0);
-	//	}
-	//}
-
-	//public class HitboxorangePro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxorange";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 270;
-	//		Projectile.height = 270;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 180;
-	//		Projectile.alpha = 10;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=false;
-	//	}
-
-	//	private float scalesize;
-
-	//	public override void AI()//ai
-	//	{
-	//		scalesize = (float)(0.015*Projectile.timeLeft-0.7);
-	//		if(scalesize <= 1)
-	//		{
-	//			scalesize = 1;
-	//		}
-	//		Projectile.scale = scalesize;
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤高伤红色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<HitboxredPro>(),(int)(Projectile.damage), 0f,  0, 0);
-	//	}
-	//}
-
-	//public class Hitboxred : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitboxred";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 500;
-	//		Projectile.height = 500;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 60;
-	//		Projectile.alpha = 10;
-	//		Projectile.damage = 60;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly = false;
-	//           Projectile.hostile = false;
-	//		Projectile.scale = 1f;
-	//	}
-
-	//	private int alphasize;
-	//	private float randomx;
-	//	private bool missled = false;
-
-	//       public override void AI()
-	//	{
-	//           var newSource = Projectile.GetSource_FromThis();
-	//           if(missled != true)
-	//		{
-	//			randomx = Main.rand.NextFloat(-300, 300);
-
-	//               Projectile.NewProjectile(newSource, Projectile.Center.X+randomx, Projectile.Center.Y - 1800, -randomx/60 , 0 , ModContent.ProjectileType<missle>(), 15, 0f, 0, 0);
-	//			missled = true;
-	//		}
-	//           alphasize = (int)(95*Math.Sin(0.4*Projectile.timeLeft-1)+127.5);
-	//		if(alphasize <= 0)
-	//		{
-	//			alphasize = 0;
-	//		}
-	//		Projectile.alpha = alphasize;
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤普通红色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//           SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-	//           Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10, 0f, 0, 0);
-	//	}
-	//}
-
-	//public class HitboxredPro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/HitboxredPro";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 500;
-	//		Projectile.height = 500;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 60;
-	//		Projectile.alpha = 10;
-	//		Projectile.damage = 120;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly = false;
-	//           Projectile.hostile = false;
-	//		Projectile.scale = 1f;
-	//	}
-
-	//	private int alphasize;
-	//       private float randomx;
-	//       private bool missled = false;
-
-	//       public override void AI()
-	//       {
-	//           var newSource = Projectile.GetSource_FromThis();
-	//           if (missled != true)
-	//           {
-	//               randomx = Main.rand.NextFloat(-300, 300);
-
-	//               Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<misslepro>(), 30, 0f, 0, 0);
-	//               missled = true;
-	//           }
-	//           alphasize = (int)(95*Math.Sin(0.4*Projectile.timeLeft-1)+127.5);
-	//		if(alphasize <= 0)
-	//		{
-	//			alphasize = 0;
-	//		}
-	//		Projectile.alpha = alphasize;
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤II阶爆炸
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//           SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-	//           Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 20, 0f, 0, 0);
-	//	}
-	//}
-
-	//public class Hitblockgreen : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 250;
-	//		Projectile.height = 250;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 240;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=false;
-	//	}
-	//	public override void AI()//ai
-	//	{
-	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
-	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤橘色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<Hitblockorange>(),(int)(Projectile.damage*0.3), 0f,  0, 0);
-	//	}
-	//}
-
-	//public class HitblockgreenPro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockgreen";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 250;
-	//		Projectile.height = 250;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 240;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 0;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=false;
-	//	}
-	//	public override void AI()//ai
-	//	{
-	//		Projectile.alpha = (int)(4 * Projectile.timeLeft);
-	//		Projectile.scale = (float)(1 - Projectile.timeLeft * 0.01666666666666666);
-	//	}
-
-	//	public override void Kill(int timeLeft)//下一阶段：召唤橘色伤害箱
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		Projectile.NewProjectile(newSource,Projectile.Center.X , Projectile.Center.Y , 0, 0, ModContent.ProjectileType<HitblockorangePro>(),(int)(Projectile.damage*0.3), 0,  0, 0);
-	//	}
-	//}
-
-	//public class Hitblockorange : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 270;
-	//		Projectile.height = 270;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 240;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 20;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=true;
-	//	}
-
-	//	private int alphasize;
-	//	private float scalesize;
-
-	//	public override void AI()//ai
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		scalesize = (float)(-0.00003*Projectile.timeLeft*Projectile.timeLeft+1.8);
-	//		if(scalesize >= 1)
-	//		{
-	//			scalesize = 1;
-	//		}
-	//		alphasize = (int)(-0.025*Projectile.timeLeft*Projectile.timeLeft-6*Projectile.timeLeft+255);
-	//		if(alphasize <= 0)
-	//		{
-	//			alphasize = 0;
-	//		}
-	//		Projectile.alpha = alphasize;
-	//		Projectile.scale = scalesize;
-	//	}
-	//}
-
-	//public class HitblockorangePro : ModProjectile
-	//{
-	//	private const string ChainTextPath="ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/Hitblockorange";
-	//	public override void SetStaticDefaults()
-	//	{
-	//	}
-	//	public override void SetDefaults()
-	//	{
-	//		Projectile.width = 270;
-	//		Projectile.height = 270;
-	//		Projectile.aiStyle = 0;
-	//		Projectile.penetrate = -1;
-	//		Projectile.tileCollide = false;
-	//		Projectile.ignoreWater = true;
-	//		Projectile.timeLeft = 240;
-	//		Projectile.alpha = 50;
-	//		Projectile.damage = 40;
-	//		Projectile.light = 0.6f;
-	//		Projectile.friendly=false;
-	//           Projectile.hostile=true;
-	//	}
-
-	//	private int alphasize;
-	//	private float scalesize;
-
-	//	public override void AI()//ai
-	//	{
-	//		var newSource = Projectile.GetSource_FromThis();
-	//		scalesize = (float)(-0.00003*Projectile.timeLeft*Projectile.timeLeft+1.8);
-	//		if(scalesize >= 1)
-	//		{
-	//			scalesize = 1;
-	//		}
-	//		alphasize = (int)(-0.025*Projectile.timeLeft*Projectile.timeLeft-6*Projectile.timeLeft+255);
-	//		if(alphasize <= 0)
-	//		{
-	//			alphasize = 0;
-	//		}
-	//		Projectile.alpha = alphasize;
-	//		Projectile.scale = scalesize;
-	//	}
-	//}
 }

@@ -329,6 +329,7 @@ Mods: {
 			# Enemy
 			Soldier.DisplayName: 士兵
 			OriginiumSlug.DisplayName: 源石虫
+			OriginiumSlugAlpha.DisplayName: 源石虫·α
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 		}
@@ -387,8 +388,6 @@ Mods: {
 			DurinWandProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.DurinWand}"
 			ShinginzanProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.Shinginzan}"
 			ThornsSwordProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.ThornsSword}"
-			//AuragreenPro.DisplayName: Green Aura
-			//AuraredPro.DisplayName: Red Aura
 			Deathdust.DisplayName: 死亡粒子效果触发器
 			ExplodeArea.DisplayName: 爆炸
 			ExplodeAreaPro.DisplayName: 二阶爆炸

@@ -99,7 +99,7 @@ Mods: {
 
 			Aketon: {
 				DisplayName: Aketon
-				Tooltip: "A modest amount of industrial organic compound. "
+				Tooltip: A modest amount of industrial organic compound.
 			}
 
 			KetonColloid: {
@@ -329,6 +329,7 @@ Mods: {
 			# Enemy
 			Soldier.DisplayName: Soldier
 			OriginiumSlug.DisplayName: Originium Slug
+			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 		}
