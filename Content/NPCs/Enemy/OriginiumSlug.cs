@@ -75,14 +75,14 @@ namespace ArknightsMod.Content.NPCs.Enemy
 			NPC.spriteDirection = NPC.direction;
 
 			// This NPC animates with a simple "go from start frame to final frame, and loop back to start frame" rule
-			// In this case: 0-1-2-0-1-2
+			// In this case: 0-1-2-3-0-1-2-3
 			int startFrame = 0;
-			int finalFrame = 2;
+			int finalFrame = 3;
 			int frameSpeed = 6;
 
 			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
 				NPC.frameCounter += 0.5f;
-				NPC.frameCounter += NPC.velocity.Length() / 10f; // Make the counter go faster with more movement speed
+				NPC.frameCounter += NPC.velocity.Length() / 8f; // Make the counter go faster with more movement speed
 			}
 
 			if (NPC.frameCounter > frameSpeed) {
@@ -125,7 +125,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 					NPC.velocity.X = 0.6f * NPC.direction;
 					break;
 				case 2:
-					NPC.position.X = preposition;
+					NPC.velocity.X *= 0;
 					break;
 				case 3:
 					NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
