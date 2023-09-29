@@ -40,7 +40,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.UseSound = SoundID.Item69; // The sound when the weapon is being used.
 
 			// The sound that this item plays when used. Need "using Terraria.Audio;"
-			//Item.UseSound = new SoundStyle("ArknightsMod/Assets/Sounds/Items/Weapons/Shinginzan")
+			//Item.UseSound = new SoundStyle("ArknightsMod/Assets/Sound/Items/Weapons/Shinginzan")
 			//{
 			//    Volume = 0.2f,
 			//    MaxInstances = 3, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
