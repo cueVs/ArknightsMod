@@ -20,11 +20,11 @@ namespace ArknightsMod.VisualEffects
 
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Music/arkopen");
 
-		public override string DisplayName => "泰拉方舟 Terra Arknights";
+		public override string DisplayName => "泰拉方舟 TerrariArknights";
 
-		public override void OnSelected()
-		{
-			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/AmiyaArknights"));
-		}
+		//public override void OnSelected()
+		//{
+		//	SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/AmiyaArknights"));
+		//}
 	}
 }
