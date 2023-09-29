@@ -1236,7 +1236,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 						if ((int)stg1to2safetimer == 0)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 
 						if (stg1to2safetimer >= 0)
@@ -1348,7 +1348,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						}
 						if ((int)stg2to3safetimer == 0)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 						if ((int)stg2to3safetimer >= 0)
 						{
@@ -1419,7 +1419,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							}
 							if ((int)stgendsafetimer == 0)
 							{
-								SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+								SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
 							}
 							if ((int)stgendsafetimer >= 0)
 							{
@@ -1482,7 +1482,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
                     Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
                 }
-				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/ImperialArtilleyCoreTargeteer/IACTboom") with { Volume = 2f, Pitch = 0f }, Player.Center);//死亡音效
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/IACTboom") with { Volume = 2f, Pitch = 0f }, Player.Center);//死亡音效
 				Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Complete"), 138, 0, 18);
 				return true;
 			}
