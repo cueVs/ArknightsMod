@@ -16,8 +16,8 @@ Mods: {
 			}
 
 			DurinWand: {
-				DisplayName: Durin's wand
-				Tooltip: She looks quite sleepy.
+				DisplayName: 杜林的法杖
+				Tooltip: 她看上去很困。
 			}
 
 			KroosCrossbow: {
@@ -259,6 +259,17 @@ Mods: {
 				DisplayName: 晶体元件
 				Tooltip: 可以制作与合成更高级的源石电子元件。
 			}
+
+			#Summon
+			IACTSummon: {
+				DisplayName: 奇怪的信号发射器
+				Tooltip:
+					'''
+					似乎只要按下这个按钮，这个玩意就会发出[c/FF0000:奇怪]的信号
+					召唤[c/FF0000:遗落的军用打击系统]
+					[c/FF0000:只能在晚上使用]
+					'''
+			}
 		}
 
 		Buffs: {
@@ -318,7 +329,9 @@ Mods: {
 			# Enemy
 			Soldier.DisplayName: 士兵
 			OriginiumSlug.DisplayName: 源石虫
-			OriginiumSlugAlpha.DisplayName: 源石虫・Alpha
+			OriginiumSlugAlpha.DisplayName: 源石虫·Alpha
+			IACT.DisplayName: 帝国炮火中枢先兆者
+			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 		}
 
 		# Friendly
@@ -364,7 +377,7 @@ Mods: {
 
 		Bestiary: {
 			Soldier: 整合运动的基础近身作战人员。装备了被缴获或非法渠道获得到的武器和服装，使用统一的面具和服装掩盖自己身份参与行动。
-			OriginiumSlug: 野生的被感染生物。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻
+			OriginiumSlug: 野生的被感染生物。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
 		}
 
 		Projectiles: {
@@ -375,6 +388,27 @@ Mods: {
 			DurinWandProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.DurinWand}"
 			ShinginzanProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.Shinginzan}"
 			ThornsSwordProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.ThornsSword}"
+			Deathdust.DisplayName: 死亡粒子效果触发器
+			ExplodeArea.DisplayName: 爆炸
+			ExplodeAreaPro.DisplayName: 二阶爆炸
+			HitboxblueCore.DisplayName: 预判核心
+			HitboxblueFrame.DisplayName: 预判框架
+			IACTScreenWave.DisplayName: 地坪弧光
+			ISTG3InCore.DisplayName: IACT三阶段瞄准目标
+			ISTG3InRing.DisplayName: IACT三阶段瞄准目标
+			ISTG3OutPrism.DisplayName: IACT三阶段瞄准目标
+			ISTG3OutRing.DisplayName: IACT三阶段瞄准目标
+			missle.DisplayName: 导弹
+			misslepro.DisplayName: 高阶导弹
+			HitboxRedCorner4.DisplayName: 爆炸区域边框
+			HitboxRedCorner3.DisplayName: 爆炸区域边框
+			HitboxRedCorner2.DisplayName: 爆炸区域边框
+			HitboxRedCorner1.DisplayName: 爆炸区域边框
+			ExplodeAimPro.DisplayName: 准星
+			ExplodeAim.DisplayName: 准星
+			HitboxRedFrame.DisplayName: 爆炸区域边框
+			ExplodeRingSmall.DisplayName: 爆炸区域边框
+			ExplodeRingBig.DisplayName: 爆炸区域边框
 		}
 
 		ButtonName.button2: 剿灭作战
@@ -395,6 +429,19 @@ Mods: {
 			MnOrePassMessage: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			OrirockCubePassMessage: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			RMA12PassMessage: "{$Mods.ArknightsMod.ItemName.RMA12}"
+		}
+
+		StatusMessage: {
+			IACT: {
+				Summon: 你感受到了来自帝国的威胁...
+				Summon2: 发现可疑目标，予以抹除.
+				Stage1to2: 目标强度高于预测强度，调用高阶权限实施打击.
+				Stage2to3: 目标强度过高，调用最终权限实施打击.
+				Stage2: 估算目标运动趋势，实施精确打击.
+				Stage3: 已获得最高权限，启动多功能辅助系统.
+				End: 检测到主结构严重损毁，启动自毁模式...
+				Complete: 来自帝国的轰炸无人机已被击毁...
+			}
 		}
 	}
 }

@@ -259,6 +259,17 @@ Mods: {
 				DisplayName: Crystalline Component
 				Tooltip: Can be manufactured and assembled into more advanced Originium electric components.
 			}
+
+			#Summon
+			IACTSummon: {
+				DisplayName: Suspicious Remote Control
+				Tooltip:
+					'''
+					Maybe only need a tiny signal , it can call something [c/FF0000:dangerous].
+					Call [c/FF0000:the lost military nuke weapon]
+					[c/FF0000:Only during NIGHT]
+					'''
+			}
 		}
 
 		Buffs: {
@@ -319,6 +330,8 @@ Mods: {
 			Soldier.DisplayName: Soldier
 			OriginiumSlug.DisplayName: Originium Slug
 			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
+			IACT.DisplayName: Imperial Artillery Core Targeteer
+			IACTStage3target.DisplayName: IACT Stage3 target
 		}
 
 		# Friendly
@@ -375,6 +388,27 @@ Mods: {
 			DurinWandProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.DurinWand}"
 			ShinginzanProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.Shinginzan}"
 			ThornsSwordProjectile.DisplayName: "{$Mods.ArknightsMod.ItemName.ThornsSword}"
+			Deathdust.DisplayName: DeathDust
+			ExplodeArea.DisplayName: EXPLODE
+			ExplodeAreaPro.DisplayName: HUGE EXPLODE
+			HitboxblueCore.DisplayName: Pre-attack core
+			HitboxblueFrame.DisplayName: Pre-attack frame
+			IACTScreenWave.DisplayName: IACTScreenWave
+			ISTG3InCore.DisplayName: IACTSTG3TGT
+			ISTG3InRing.DisplayName: IACTSTG3TGT
+			ISTG3OutPrism.DisplayName: IACTSTG3TGT
+			ISTG3OutRing.DisplayName: IACTSTG3TGT
+			missle.DisplayName: Missle
+			misslepro.DisplayName: Missle II
+			HitboxRedCorner4.DisplayName: Hitbox
+			HitboxRedCorner3.DisplayName: Hitbox
+			HitboxRedCorner2.DisplayName: Hitbox
+			HitboxRedCorner1.DisplayName: Hitbox
+			ExplodeAimPro.DisplayName: Explode Aim
+			ExplodeAim.DisplayName: Explode Aim
+			HitboxRedFrame.DisplayName: Hitbox Red Frame
+			ExplodeRingSmall.DisplayName: Explode Ring Small
+			ExplodeRingBig.DisplayName: Explode Ring Big
 		}
 
 		ButtonName.button2: Annihilation operation
@@ -395,6 +429,19 @@ Mods: {
 			MnOrePassMessage: "{$Mods.ArknightsMod.ItemName.MnOre}"
 			OrirockCubePassMessage: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
 			RMA12PassMessage: "{$Mods.ArknightsMod.ItemName.RMA12}"
+		}
+
+		StatusMessage: {
+			IACT: {
+				Summon: You feel the threat from the empire...
+				Summon2: Detected the suspicious target. ERASE.
+				Stage1to2: Target strength is higher than prediction, import the advanced permission to implement the strike.
+				Stage2to3: Target strength is over limit, import the final permission to implement the strike.
+				Stage2: Estimate the target movement trend and implement precise strikes.
+				Stage3: Obtained the highest permission to start the multi-functional auxiliary system.
+				End: Detected severe damage to the main structure, initiating self destruct mode.
+				Complete: The bombing drone from the empire have been destroyed.
+			}
 		}
 	}
 }
