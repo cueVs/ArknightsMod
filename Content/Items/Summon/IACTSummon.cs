@@ -33,7 +33,7 @@ namespace ArknightsMod.Content.Items.Summon
 			Item.consumable = false;
             Item.noUseGraphic = true;
             Item.scale = 0.01f;
-            Item.UseSound = new SoundStyle($"{nameof(ArknightsMod)}/Assets/Sounds/ImperialArtilleyCoreTargeteer/airstrike");
+            Item.UseSound = new SoundStyle($"{nameof(ArknightsMod)}/Assets/Sound/ImperialArtilleyCoreTargeteer/airstrike");
 		}
 
         public override bool CanUseItem(Player player)

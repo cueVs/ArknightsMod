@@ -994,7 +994,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				if (timer2 >= normalatkcooldown && stage != 2)
 				{
 					timer2 = 0;
-					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
+					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
 					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 				}
 
@@ -1205,7 +1205,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					{
 						if ((int)timer1to2 == 120)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/IACTStageChangeTip") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/IACTStageChangeTip") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 						NPC.life = (int)(NPC.lifeMax * expertHealthFrac - 1);
 						stage = 2;
@@ -1318,7 +1318,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					{
 						if((int)timer2to3 == 240)
 						{
-							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/IACTStageChangeTremor") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/IACTStageChangeTremor") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 						NPC.life = (int)(NPC.lifeMax * expertHealthFrac/2 - 1);
 						stage = 3;
@@ -1569,7 +1569,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			if (timer == 60) {
-				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
 				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeArea>(), 10, 0f, 0, 0);
 			}
 		}
@@ -1645,7 +1645,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			if (timer == 60) {
-				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sounds/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
 				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 10, 0f, 0, 0);
 			}
 		}
