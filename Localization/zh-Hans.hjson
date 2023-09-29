@@ -358,7 +358,7 @@ Mods: {
 				Dialogue8: 这些东西博士不买的话，我就自己要了。
 				AO: 我想你去帮我打倒50个{0}。结束后记得把旗帜拿来当作凭据哦。
 				AOThanks: 谢啦～！
-				AOStatus: Finish!
+				// AOFin: All quests completed!
 			}
 		}
 

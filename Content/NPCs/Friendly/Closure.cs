@@ -108,8 +108,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 
 		public void AO() {
 			var System = Main.player[Main.myPlayer].GetModPlayer<AOSystem>();
-			// AOStatus: false=最初の受注時, true=クエスト中
-			// QuestType: 0:pre/unfinAll 1:pre/fin (2:HM/unfin 3:HM/fin)
+			// AOStatus: false=not have a quest, true=doing quest
+			// QuestType: 0:pre/unfin 1:pre/fin (2:HM/unfin 3:HM/fin)
+			if (System.QuestType == 1 && System.QuestNum != System.CountQuest) {
+				System.QuestType = 0;
+			}
 			if (!System.AOStatus) {
 				if (System.QuestType == 0) {
 					Main.npcChatText = System.GetCurrentQuest().ToString();
@@ -117,17 +120,15 @@ namespace ArknightsMod.Content.NPCs.Friendly
 					System.AOStatus = true;
 				}
 				else {
-					System.QuestNum = Main.rand.Next(System.CountQuest);
-					Main.npcChatText = System.GetCurrentQuest().ToString();
-					Main.npcChatCornerItem = System.GetCurrentQuest().QuestItem;
-					System.AOStatus = true;
+					Main.npcChatText = Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOFin");
 				}
 			}
 			else {
 				if (System.CheckQuest()) {
-					Main.npcChatText = System.GetCurrentQuest().Finish();
+					Main.npcChatText = System.GetCurrentQuest().THX();
 					Main.npcChatCornerItem = 0;
 					System.SpawnReward(NPC);
+					System.AOStatus = false;
 					System.QuestNum++;
 					if (System.QuestNum == System.CountQuest)
 						System.QuestType = 1;
@@ -139,7 +140,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				}
 			}
 		}
-
+		
 		public class AOSystem : ModPlayer
 		{
 			public static List<Quest> Quests = new();
@@ -156,7 +157,13 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			}
 
 			public Quest GetCurrentQuest() {
-				return Quests[QuestNum];
+				try {
+					return Quests[QuestNum];
+				}
+				catch {
+					QuestNum = 0;
+					return Quests[QuestNum];
+				}
 			}
 
 			public int Current {
@@ -165,18 +172,21 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			}
 
 			public bool CheckQuest() {
-				var quest = Quests[QuestNum];
-				foreach (var item in Player.inventory) {
-					if (item.type == quest.QuestItem) {
-						if (Player.CountItem(quest.QuestItem, quest.ItemAmount) >= quest.ItemAmount) {
-							item.stack -= quest.ItemAmount;
-							if (item.stack <= 0)
-								item.SetDefaults();
-							return true;
+				try {
+					var quest = Quests[QuestNum];
+					foreach (var item in Player.inventory) {
+						if (item.type == quest.QuestItem) {
+							if (Player.CountItem(quest.QuestItem, quest.ItemAmount) >= quest.ItemAmount) {
+								item.stack -= quest.ItemAmount;
+								if (item.stack <= 0)
+									item.SetDefaults();
+								return true;
+							}
 						}
 					}
+					return false;
 				}
-				return false;
+				catch { return false; }
 			}
 
 			public void SpawnReward(NPC npc) {
@@ -210,22 +220,22 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			public string QuestMessage;
 			public int ItemAmount;
 			public int QuestItem;
-			public string FinMessage;
+			public string ThxMessage;
 			public double Weight;
 
-			public Quest(string questMessage, int itemID, int itemAmount, string finMessage = null) {
+			public Quest(string questMessage, int itemID, int itemAmount, string thxMessage = null) {
 				QuestMessage = questMessage;
 				QuestItem = itemID;
 				ItemAmount = itemAmount;
-				FinMessage = finMessage;
+				ThxMessage = thxMessage;
 			}
 
 			public override string ToString() {
 				return Language.GetTextValue(QuestMessage, Main.LocalPlayer.name);
 			}
 
-			public string Finish() {
-				return Language.GetTextValue(FinMessage);
+			public string THX() {
+				return Language.GetTextValue(ThxMessage);
 			}
 		}
 
