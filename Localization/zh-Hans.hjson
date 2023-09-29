@@ -329,7 +329,7 @@ Mods: {
 			# Enemy
 			Soldier.DisplayName: 士兵
 			OriginiumSlug.DisplayName: 源石虫
-			OriginiumSlugAlpha.DisplayName: 源石虫·α
+			OriginiumSlugAlpha.DisplayName: 源石虫·Alpha
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 		}
