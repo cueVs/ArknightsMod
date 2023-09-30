@@ -16,8 +16,8 @@ namespace ArknightsMod.Content.Items.Material
 		}
 
 		public override void SetDefaults() {
-			Item.width = 20; // The item texture's width
-			Item.height = 24; // The item texture's height
+			Item.width = 34; // The item texture's width
+			Item.height = 46; // The item texture's height
 
 			Item.maxStack = 9999; // The item's max stack value
 			Item.value = Item.sellPrice(0, 0, 1, 60); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
