@@ -260,6 +260,26 @@ Mods: {
 				Tooltip: 可以制作与合成更高级的源石电子元件。
 			}
 
+			CompoundCF: {
+				DisplayName: Compound Cutting Fluid
+				Tooltip: "An industrial agent necessary for metal processing."
+			}
+
+			CrystallineCircuit: {
+				DisplayName: Crystalline Circuit
+				Tooltip: "A fundamental part of manufacturing Originium crystal assemblies."
+			}
+
+			PP: {
+				DisplayName: Polymerization Preparation
+				Tooltip: "A complicated liquid industrial product."
+			}
+
+			TSA: {
+				DisplayName: Transmuted Salt Agglomerate
+				Tooltip: "A compound crystal mass that has undergone high-tolerance refinement."
+			}
+
 			#Summon
 			IACTSummon: {
 				DisplayName: 奇怪的信号发射器
