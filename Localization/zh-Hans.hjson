@@ -332,6 +332,7 @@ Mods: {
 			OriginiumSlugAlpha.DisplayName: 源石虫·Alpha
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
+			IAT.DisplayName: 帝国炮火先兆者
 		}
 
 		# Friendly
@@ -409,6 +410,12 @@ Mods: {
 			HitboxRedFrame.DisplayName: 爆炸区域边框
 			ExplodeRingSmall.DisplayName: 爆炸区域边框
 			ExplodeRingBig.DisplayName: 爆炸区域边框
+			// ExplodeAimSmall.DisplayName: Explode Aim Small
+			// ExplodeAreaSmall.DisplayName: Explode Area Small
+			// HitboxRedCornerSmall1.DisplayName: Hitbox
+			// HitboxRedCornerSmall2.DisplayName: Hitbox
+			// HitboxRedCornerSmall3.DisplayName: Hitbox
+			// HitboxRedCornerSmall4.DisplayName: Hitbox
 		}
 
 		ButtonName.button2: 剿灭作战
