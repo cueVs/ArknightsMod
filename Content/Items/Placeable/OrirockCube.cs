@@ -18,8 +18,8 @@ namespace ArknightsMod.Content.Items.Placeable
 
 		public override void SetDefaults() {
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.OrirockCube>());
-			Item.width = 20;
-			Item.height = 20;
+			Item.width = 42;
+			Item.height = 42;
 			Item.value = Item.sellPrice(0, 0, 0, 30);
 		}
 	}

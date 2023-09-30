@@ -5,7 +5,7 @@ using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
 {
-	public class IncandescentAlloyBlock : ModItem
+	public class PP : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -16,8 +16,8 @@ namespace ArknightsMod.Content.Items.Material
 
 		public override void SetDefaults()
 		{
-			Item.width = 36; // The item texture's width
-			Item.height = 40; // The item texture's height
+			Item.width = 38; // The item texture's width
+			Item.height = 42; // The item texture's height
 
 			Item.maxStack = 9999; // The item's max stack value
 			Item.value = Item.sellPrice(0, 0, 6, 00); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
@@ -27,9 +27,9 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient<IntegratedDevice>(1)
-				.AddIngredient<Placeable.Grind>(1)
-				.AddIngredient<IncandescentAlloy>(1)
+				.AddIngredient<OrirockConcentration>(1)
+				.AddIngredient<OrironBlock>(1)
+				.AddIngredient<KetonColloid>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

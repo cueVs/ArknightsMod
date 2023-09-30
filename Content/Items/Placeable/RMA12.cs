@@ -18,8 +18,8 @@ namespace ArknightsMod.Content.Items.Placeable
 
 		public override void SetDefaults() {
 			Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.MnOre>());
-			Item.width = 26;
-			Item.height = 26;
+			Item.width = 38;
+			Item.height = 38;
 			Item.value = Item.sellPrice(0, 0, 0, 30);
 		}
 	}

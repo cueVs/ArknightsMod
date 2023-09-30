@@ -260,6 +260,26 @@ Mods: {
 				Tooltip: Can be manufactured and assembled into more advanced Originium electric components.
 			}
 
+			CompoundCF: {
+				DisplayName: Compound Cutting Fluid
+				Tooltip: "An industrial agent necessary for metal processing."
+			}
+
+			CrystallineCircuit: {
+				DisplayName: Crystalline Circuit
+				Tooltip: "A fundamental part of manufacturing Originium crystal assemblies."
+			}
+
+			PP: {
+				DisplayName: Polymerization Preparation
+				Tooltip: "A complicated liquid industrial product."
+			}
+
+			TSA: {
+				DisplayName: Transmuted Salt Agglomerate
+				Tooltip: "A compound crystal mass that has undergone high-tolerance refinement."
+			}
+
 			#Summon
 			IACTSummon: {
 				DisplayName: Suspicious Remote Control
@@ -372,7 +392,7 @@ Mods: {
 				Dialogue8: I'll take them if you don't.
 				AO: I want you to take down 50 {0}. Bring me the banner to prove it.
 				AOThanks: Thank you!
-				AOStatus: Finish!
+				AOFin: All quests completed!
 			}
 		}
 
