@@ -293,7 +293,7 @@ Mods: {
 
 			IATSummon: {
 				DisplayName: 奇怪的信号发射器·低配版
-				Tooltip: 
+				Tooltip:
 					'''
 					似乎只要按下这个按钮，这个玩意就会发出[c/FF0000:奇怪]的信号
 					召唤[c/FF0000:遗落的军用打击系统]
