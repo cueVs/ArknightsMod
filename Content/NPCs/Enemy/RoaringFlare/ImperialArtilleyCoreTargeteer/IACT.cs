@@ -8,6 +8,9 @@ using Terraria.Graphics.Effects;
 using Terraria.Audio;
 using System;
 using ArknightsMod.Common.Players;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using ArknightsMod.Content.Items.Material;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
@@ -32,21 +35,29 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			NPC.aiStyle = -1;
 			NPC.HitSound = SoundID.NPCHit4;//金属声
 			NPC.DeathSound = SoundID.NPCDeath14;//爆炸声
-			NPC.buffImmune[BuffID.Confused] = true;//免疫混乱
-			NPC.buffImmune[BuffID.Poisoned] = true;//免疫中毒
-			NPC.buffImmune[BuffID.OnFire] = true;//免疫着火
-			NPC.buffImmune[BuffID.Venom] = true;//免疫剧毒
-			NPC.buffImmune[BuffID.Frostburn] = true;//免疫霜火
-			NPC.buffImmune[BuffID.Frozen] = true;//免疫冰冻
-			NPC.buffImmune[BuffID.Electrified] = true;//免疫带电
-			NPC.buffImmune[BuffID.ShadowFlame] = true;//免疫暗影炎
-			NPC.buffImmune[BuffID.Daybreak] = true;//免疫破晓
-			NPC.buffImmune[BuffID.Ichor] = true;//免疫灵液
-			NPC.buffImmune[BuffID.CursedInferno] = true;//免疫诅咒火
+			NPCID.Sets.ImmuneToAllBuffs[Type] = true;//免疫所有debuff
+		}
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneOverworldHeight && NPC.downedPlantBoss == true && Main.raining && !Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<IAT>()) && !NPC.AnyNPCs(ModContent.NPCType<IACT>()) ? 0.01f : 0f;
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Visuals.Blizzard,
+
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.IACT")),
+			});
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) {
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IncandescentAlloyBlock>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CrystallineCircuit>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OptimizedDevice>(), 3, 3, 5));
 		}
 
 		//NPC专家模式|大师模式血量倍率（普通模式血量*倍率*2|血量*倍率*3）
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);//16000|24000|36000
 			NPC.damage = (int)(NPC.damage * 0.8f);//40|64|96
@@ -1605,7 +1616,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			if (missled != true) {
 				randomx = Main.rand.NextFloat(-300, 300);
 
-				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<missle>(), 15, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<missle>(), 20, 0f, 0, 0);
 				missled = true;
 			}
 
@@ -1646,7 +1657,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 			if (timer == 60) {
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 10, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 15, 0f, 0, 0);
 			}
 		}
 	}
@@ -2242,21 +2253,21 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			if (shadertimer <= 60) {
 				if (Projectile.ai[0] == 0) {
 					Projectile.ai[0] = 1;
-					if (Main.netMode != NetmodeID.Server && !Filters.Scene["IACTSW"].IsActive()) {
-						Filters.Scene.Activate("IACTSW", Projectile.Center).GetShader().UseColor(ammount, scalesize, wavevelocity).UseTargetPosition(Projectile.Center);
+					if (Main.netMode != NetmodeID.Server && !Terraria.Graphics.Effects.Filters.Scene["IACTSW"].IsActive()) {
+						Terraria.Graphics.Effects.Filters.Scene.Activate("IACTSW", Projectile.Center).GetShader().UseColor(ammount, scalesize, wavevelocity).UseTargetPosition(Projectile.Center);
 					}
 				}
 
-				if (Main.netMode != NetmodeID.Server && Filters.Scene["IACTSW"].IsActive()) {
+				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["IACTSW"].IsActive()) {
 					float progress = (shadertimer) / 60f;
-					Filters.Scene["IACTSW"].GetShader().UseProgress(3 * progress).UseOpacity(distortStrength * (1 - progress / 1f));
+					Terraria.Graphics.Effects.Filters.Scene["IACTSW"].GetShader().UseProgress(3 * progress).UseOpacity(distortStrength * (1 - progress / 1f));
 				}
 			}
 		}
 
 		public override void Kill(int timeLeft) {
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["IACTSW"].IsActive()) {
-				Filters.Scene["IACTSW"].Deactivate();
+			if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["IACTSW"].IsActive()) {
+				Terraria.Graphics.Effects.Filters.Scene["IACTSW"].Deactivate();
 			}
 		}
 	}

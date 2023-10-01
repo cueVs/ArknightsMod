@@ -261,29 +261,39 @@ Mods: {
 			}
 
 			CompoundCF: {
-				DisplayName: Compound Cutting Fluid
-				Tooltip: "An industrial agent necessary for metal processing."
+				DisplayName: 化合切削液
+				Tooltip: 一种金属加工时必备的工业试剂。
 			}
 
 			CrystallineCircuit: {
-				DisplayName: Crystalline Circuit
-				Tooltip: "A fundamental part of manufacturing Originium crystal assemblies."
+				DisplayName: 晶体电路
+				Tooltip: 重要的源石工业材料，是制作源石晶体单元的基础元件。
 			}
 
 			PP: {
-				DisplayName: Polymerization Preparation
-				Tooltip: "A complicated liquid industrial product."
+				DisplayName: 聚合剂
+				Tooltip: 复杂的液态工业产物。
 			}
 
 			TSA: {
-				DisplayName: Transmuted Salt Agglomerate
-				Tooltip: "A compound crystal mass that has undergone high-tolerance refinement."
+				DisplayName: 转质盐聚块
+				Tooltip: 经过精炼处理的化合物结晶块。
 			}
 
 			#Summon
 			IACTSummon: {
 				DisplayName: 奇怪的信号发射器
 				Tooltip:
+					'''
+					似乎只要按下这个按钮，这个玩意就会发出[c/FF0000:奇怪]的信号
+					召唤[c/FF0000:遗落的军用打击系统]
+					[c/FF0000:只能在晚上使用]
+					'''
+			}
+
+			IATSummon: {
+				DisplayName: 奇怪的信号发射器·低配版
+				Tooltip: 
 					'''
 					似乎只要按下这个按钮，这个玩意就会发出[c/FF0000:奇怪]的信号
 					召唤[c/FF0000:遗落的军用打击系统]
@@ -352,6 +362,7 @@ Mods: {
 			OriginiumSlugAlpha.DisplayName: 源石虫·Alpha
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
+			IAT.DisplayName: 帝国炮火先兆者
 		}
 
 		# Friendly
@@ -391,13 +402,16 @@ Mods: {
 				Dialogue8: 这些东西博士不买的话，我就自己要了。
 				AO: 我想你去帮我打倒50个{0}。结束后记得把旗帜拿来当作凭据哦。
 				AOThanks: 谢啦～！
-				// AOFin: All quests completed!
+				AOFin: 所有任务均已完成！
 			}
 		}
 
 		Bestiary: {
 			Soldier: 整合运动的基础近身作战人员。装备了被缴获或非法渠道获得到的武器和服装，使用统一的面具和服装掩盖自己身份参与行动。
 			OriginiumSlug: 野生的被感染生物。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
+			OriginiumSlugAlpha: 野生的被感染生物，比一般源石虫更具有威胁。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
+			IACT: 乌萨斯军炮兵术师操作的无人机中枢，装甲厚重，材质坚实。正是他们引导了乌萨斯炮兵猛烈的炮火袭击。乌萨斯的炮兵是深入城市的火力队伍，相对舰炮火力较弱，但也足以撕碎装甲与建筑。
+			IAT: 乌萨斯军炮兵术师操作的无人机，装甲厚重，材质坚实。正是他们引导了乌萨斯炮兵猛烈的炮火袭击。
 		}
 
 		Projectiles: {
@@ -429,6 +443,12 @@ Mods: {
 			HitboxRedFrame.DisplayName: 爆炸区域边框
 			ExplodeRingSmall.DisplayName: 爆炸区域边框
 			ExplodeRingBig.DisplayName: 爆炸区域边框
+			// ExplodeAimSmall.DisplayName: Explode Aim Small
+			// ExplodeAreaSmall.DisplayName: Explode Area Small
+			// HitboxRedCornerSmall1.DisplayName: Hitbox
+			// HitboxRedCornerSmall2.DisplayName: Hitbox
+			// HitboxRedCornerSmall3.DisplayName: Hitbox
+			// HitboxRedCornerSmall4.DisplayName: Hitbox
 		}
 
 		ButtonName.button2: 剿灭作战

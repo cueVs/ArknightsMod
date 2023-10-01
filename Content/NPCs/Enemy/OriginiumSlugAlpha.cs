@@ -6,6 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader.Utilities;
 using Terraria.DataStructures;
 using ArknightsMod.Content.Items;
+using Terraria.Localization;
 
 
 namespace ArknightsMod.Content.NPCs.Enemy
@@ -65,7 +66,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement($"Mods.ArknightsMod.Bestiary.{Name}"),
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.OriginiumSlugAlpha")),
 
 			});
 		}

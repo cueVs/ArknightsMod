@@ -14,7 +14,7 @@ using Terraria.Localization;
 
 namespace ArknightsMod.Content.Items.Summon
 {
-	public class IACTSummon : ModItem
+	public class IATSummon : ModItem
 	{
 		public override void SetStaticDefaults() 
         {
@@ -50,7 +50,7 @@ namespace ArknightsMod.Content.Items.Summon
 
         public override bool? UseItem(Player player) 
         {
-            int IACTboss = NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(),(int)player.Center.X, (int)player.Center.Y - 800, NPCType<Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer.IACT> ());
+            int IACTboss = NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(),(int)player.Center.X, (int)player.Center.Y - 800, NPCType<Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer.IAT> ());
             Main.npc[IACTboss].netUpdate = true;
             Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Summon"), 138, 0, 18);
 			return true;
@@ -59,10 +59,10 @@ namespace ArknightsMod.Content.Items.Summon
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Content.Items.Material.IncandescentAlloyBlock>(), 3);
-			recipe.AddIngredient(ModContent.ItemType<Content.Items.Material.CrystallineCircuit>(), 3);
-			recipe.AddIngredient(ModContent.ItemType<Content.Items.Material.OptimizedDevice>(), 3);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ModContent.ItemType<Content.Items.Material.IncandescentAlloy>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<Content.Items.Material.CrystallineComponent>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<Content.Items.Material.IntegratedDevice>(), 3);
+			recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
 	}

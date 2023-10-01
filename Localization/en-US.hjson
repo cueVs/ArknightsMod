@@ -262,28 +262,38 @@ Mods: {
 
 			CompoundCF: {
 				DisplayName: Compound Cutting Fluid
-				Tooltip: "An industrial agent necessary for metal processing."
+				Tooltip: An industrial agent necessary for metal processing.
 			}
 
 			CrystallineCircuit: {
 				DisplayName: Crystalline Circuit
-				Tooltip: "A fundamental part of manufacturing Originium crystal assemblies."
+				Tooltip: A fundamental part of manufacturing Originium crystal assemblies.
 			}
 
 			PP: {
 				DisplayName: Polymerization Preparation
-				Tooltip: "A complicated liquid industrial product."
+				Tooltip: A complicated liquid industrial product.
 			}
 
 			TSA: {
 				DisplayName: Transmuted Salt Agglomerate
-				Tooltip: "A compound crystal mass that has undergone high-tolerance refinement."
+				Tooltip: A compound crystal mass that has undergone high-tolerance refinement.
 			}
 
 			#Summon
 			IACTSummon: {
 				DisplayName: Suspicious Remote Control
 				Tooltip:
+					'''
+					Maybe only need a tiny signal , it can call something [c/FF0000:dangerous].
+					Call [c/FF0000:the lost military nuke weapon]
+					[c/FF0000:Only during NIGHT]
+					'''
+			}
+
+			IATSummon: {
+				DisplayName: Suspicious Remote Control
+				Tooltip: 
 					'''
 					Maybe only need a tiny signal , it can call something [c/FF0000:dangerous].
 					Call [c/FF0000:the lost military nuke weapon]
@@ -352,6 +362,7 @@ Mods: {
 			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
+			IAT.DisplayName: Imperial Artillery Targeteer
 		}
 
 		# Friendly
@@ -398,6 +409,9 @@ Mods: {
 		Bestiary: {
 			Soldier: One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation.
 			OriginiumSlug: An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
+			OriginiumSlugAlpha: An infected wild creature that is more dangerous than an Acid Originium Slug. Secretes corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
+			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
+			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
 		}
 
 		Projectiles: {
@@ -429,6 +443,12 @@ Mods: {
 			HitboxRedFrame.DisplayName: Hitbox Red Frame
 			ExplodeRingSmall.DisplayName: Explode Ring Small
 			ExplodeRingBig.DisplayName: Explode Ring Big
+			ExplodeAimSmall.DisplayName: Explode Aim Small
+			ExplodeAreaSmall.DisplayName: Explode Area Small
+			HitboxRedCornerSmall1.DisplayName: Hitbox
+			HitboxRedCornerSmall2.DisplayName: Hitbox
+			HitboxRedCornerSmall3.DisplayName: Hitbox
+			HitboxRedCornerSmall4.DisplayName: Hitbox
 		}
 
 		ButtonName.button2: Annihilation operation

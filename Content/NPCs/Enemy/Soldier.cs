@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader.Utilities;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using ArknightsMod.Content.Items;
 
@@ -61,7 +62,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement($"Mods.ArknightsMod.Bestiary.{Name}"),
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.Soldier")),
 
 			});
 		}
