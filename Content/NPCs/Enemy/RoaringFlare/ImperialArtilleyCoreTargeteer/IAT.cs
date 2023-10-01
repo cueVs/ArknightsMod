@@ -8,6 +8,10 @@ using Terraria.Graphics.Effects;
 using Terraria.Audio;
 using System;
 using ArknightsMod.Common.Players;
+using Terraria.GameContent.Bestiary;
+using ArknightsMod.Content.Items.Material;
+using Terraria.GameContent.ItemDropRules;
+using log4net.Util;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
@@ -32,21 +36,30 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			NPC.aiStyle = -1;
 			NPC.HitSound = SoundID.NPCHit4;//金属声
 			NPC.DeathSound = SoundID.NPCDeath14;//爆炸声
-			NPC.buffImmune[BuffID.Confused] = true;//免疫混乱
-			NPC.buffImmune[BuffID.Poisoned] = true;//免疫中毒
-			NPC.buffImmune[BuffID.OnFire] = true;//免疫着火
-			NPC.buffImmune[BuffID.Venom] = true;//免疫剧毒
-			NPC.buffImmune[BuffID.Frostburn] = true;//免疫霜火
-			NPC.buffImmune[BuffID.Frozen] = true;//免疫冰冻
-			NPC.buffImmune[BuffID.Electrified] = true;//免疫带电
-			NPC.buffImmune[BuffID.ShadowFlame] = true;//免疫暗影炎
-			NPC.buffImmune[BuffID.Daybreak] = true;//免疫破晓
-			NPC.buffImmune[BuffID.Ichor] = true;//免疫灵液
-			NPC.buffImmune[BuffID.CursedInferno] = true;//免疫诅咒火
+			NPCID.Sets.ImmuneToAllBuffs[Type] = true;//免疫所有debuff
+		}
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode && Main.raining && !Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<IAT>()) && !NPC.AnyNPCs(ModContent.NPCType<IACT>()) ? 0.05f : 0f;
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Visuals.Blizzard,
+
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.IAT")),
+			});
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot) {
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IncandescentAlloy>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CrystallineComponent>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IntegratedDevice>(), 3, 3, 5));
 		}
 
 		//NPC专家模式|大师模式血量倍率（普通模式血量*倍率*2|血量*倍率*3）
-        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
 		{
 			NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * balance);//8000|12000|18000
 			NPC.damage = (int)(NPC.damage * 0.8f);//40|64|96
@@ -686,7 +699,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					IATcrashed = true;
 					NPC.noTileCollide = false;//与物块相撞	
 					deathtimer++;
-					if(deathtimer >= 180)//下坠3秒后爆炸并触发爆炸粒子
+					if (stage == 2)
+					{
+						Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.End"), 240, 0, 0);
+						stage += 1;
+					}
+					if (deathtimer >= 180)//下坠3秒后爆炸并触发爆炸粒子
 					{
 						deathcheck = 2;
 						Projectile.NewProjectile(newSource,NPC.Center.X, NPC.Center.Y,0,0,ModContent.ProjectileType<Deathdust>(),0,0f,0,0);//爆炸粒子
