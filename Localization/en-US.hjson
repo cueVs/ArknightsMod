@@ -293,7 +293,7 @@ Mods: {
 
 			IATSummon: {
 				DisplayName: Suspicious Remote Control
-				Tooltip: 
+				Tooltip:
 					'''
 					Maybe only need a tiny signal , it can call something [c/FF0000:dangerous].
 					Call [c/FF0000:the lost military nuke weapon]
