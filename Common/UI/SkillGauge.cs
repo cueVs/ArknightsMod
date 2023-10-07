@@ -26,10 +26,12 @@ namespace ArknightsMod.Common.UI
 			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
-			area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
-			area.Top.Set(500, 0f); // Placing it just a bit below the top of the screen.
-			area.Width.Set(182, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
+			//area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
+			area.Top.Set(55, 0f); // Placing it just a bit below the top of the screen.
+			area.Width.Set(139, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
 			area.Height.Set(60, 0f);
+			area.VAlign = 0.5f;
+			area.HAlign = 0.5f;
 
 			barFrame = new UIImage(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillGaugeFrame")); // Frame of our resource bar
 			barFrame.Left.Set(10, 0f);
