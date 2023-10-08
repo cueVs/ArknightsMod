@@ -27,7 +27,7 @@ namespace ArknightsMod.Common.UI
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
 			//area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
-			area.Top.Set(55, 0f); // Placing it just a bit below the top of the screen.
+			area.Top.Set(70, 0f); // Placing it just a bit below the top of the screen.
 			area.Width.Set(139, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
 			area.Height.Set(60, 0f);
 			area.VAlign = 0.5f;
@@ -85,8 +85,8 @@ namespace ArknightsMod.Common.UI
 			// Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
 			Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
 			hitbox.X += 2;
-			hitbox.Width -= 4;
-			hitbox.Y += 2;
+			hitbox.Width -= 2;
+			hitbox.Y += 3;
 			hitbox.Height -= 4;
 
 			var aboveHead = new Rectangle((int)Main.screenWidth / 2 - 12, (int)Main.screenHeight / 2 - 65, 22, 22);
