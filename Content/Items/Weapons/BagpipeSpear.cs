@@ -18,9 +18,6 @@ namespace ArknightsMod.Content.Items.Weapons
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
-		//you should use local variable for batch change.
-		private const int defaultDamage = 76;
-
 		public override void SetDefaults() {
 			// Common Properties
 			Item.rare = ItemRarityID.Yellow; // Assign this item a rarity level of Yellow
@@ -34,7 +31,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.autoReuse = false; // Allows the player to hold click to automatically use the item again. Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
 			// Weapon Properties
-			Item.damage = defaultDamage;
+			Item.damage = 76;
 			Item.knockBack = 2.5f;
 			Item.noUseGraphic = true; // When true, the item's sprite will not be visible while the item is in use. This is true because the spear projectile is what's shown so we do not want to show the spear sprite as well.
 			Item.DamageType = DamageClass.Melee;
@@ -118,7 +115,6 @@ namespace ArknightsMod.Content.Items.Weapons
 				else {
 					Item.useAnimation = 30;
 					Item.useTime = 30; // If you want to attack triple hit, useTime = useAnimation/3
-					Item.damage = defaultDamage;
 					Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
 						Volume = 0.4f,
 						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
@@ -126,7 +122,6 @@ namespace ArknightsMod.Content.Items.Weapons
 
 					// S1
 					if (modPlayer.Skill == 0 && modPlayer.SkillActive) {
-						Item.damage = (int)Math.Round(defaultDamage * 1.45);
 						Item.useAnimation = 22;
 						Item.useTime = 22;
 						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
@@ -137,16 +132,16 @@ namespace ArknightsMod.Content.Items.Weapons
 					// S2
 					if (modPlayer.Skill == 1 && modPlayer.StockCount > 0) {
 						Item.useTime = 15;
-						Item.damage = defaultDamage * 2;
 						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS2") {
 							Volume = 0.4f,
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
+						modPlayer.SkillActive = true;
+							modPlayer.SkillTimer = 0;
 						modPlayer.DelStockCount();
 					}
 					// S3
 					if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
-						Item.damage = (int)Math.Round(defaultDamage * 2.2);
 						Item.useAnimation = 48;
 						Item.useTime = 16;
 						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS3") {
@@ -158,6 +153,24 @@ namespace ArknightsMod.Content.Items.Weapons
 			}
 			// Ensures no more than one spear can be thrown out, use this when using autoReuse
 			return player.ownedProjectileCounts[Item.shoot] < 1;
+		}
+
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage) {
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (Main.myPlayer == player.whoAmI) {
+				// S1
+				if (modPlayer.Skill == 0 && modPlayer.SkillActive) {
+					damage *= 1.45f;
+				}
+				// S2
+				if (modPlayer.Skill == 1 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+					damage *= 200f;
+				}
+				// S3
+				if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
+					damage *= 2.2f;
+				}
+			}
 		}
 
 		public override void HoldItem(Player player) {
@@ -178,7 +191,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S2
 				if (modPlayer.Skill == 1) {
-					modPlayer.SetSkillData(0, 4, 60, 3, 0, true);
+					modPlayer.SetSkillData(0, 4, 60, 3, 0.5f, true);
+					modPlayer.SkillActiveTimer();
 					modPlayer.AutoCharge();
 					player.AddBuff(ModContent.BuffType<BagpipeSpearS2>(), 10);
 				}
