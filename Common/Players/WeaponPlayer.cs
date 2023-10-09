@@ -7,12 +7,14 @@ namespace ArknightsMod.Common.Players
 {
 	public class WeaponPlayer : ModPlayer
 	{
+		protected override bool CloneNewInstances => true;
+
 		// Here we create a custom resource, similar to mana or health.
 		// Creating some variables to define the current value of our example resource as well as the current maximum value. We also include a temporary max value, as well as some variables to handle the natural regeneration of this resource.
 		public int SkillCharge = 0;
 		public int SkillChargeMax = 0;
 		public bool SkillActive = false;
-		public int SkillActiveTime = 0;
+		public float SkillActiveTime = 0;
 		public int SkillTimer = 0;
 		public int SP = 0;
 		public int InitialSP = 0;
@@ -44,7 +46,7 @@ namespace ArknightsMod.Common.Players
 		// - Resouce replenishment item: Use GlobalNPC.NPCLoot to drop the item. ModItem.OnPickup and ModItem.ItemSpace will allow it to behave like Mana Star or Heart. Use code similar to Player.HealEffect to spawn (and sync) a colored number suitable to your resource.
 
 		// InitialSP, MaxSP, Auto?(yes:60, no:1), stock, SlillActiveTime(/s)(if the skill doesn't have active time, any number), StockSkill?
-		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, int skillactivetime, bool stockskill) {
+		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, float skillactivetime, bool stockskill) {
 			if (SkillInitialize) {
 				// initialize
 				InitialSP = initialsp;
@@ -120,6 +122,15 @@ namespace ArknightsMod.Common.Players
 			if (SkillActive) {
 				SkillTimer++;
 				if (SkillTimer == SkillActiveTime * 60) {
+					SkillActive = false;
+				}
+			}
+		}
+
+		public void StrikeSkill() {
+			if (SkillActive) {
+				SkillTimer++;
+				if (SkillTimer == 10) {
 					SkillActive = false;
 				}
 			}

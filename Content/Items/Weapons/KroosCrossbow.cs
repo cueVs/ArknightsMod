@@ -8,6 +8,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using ArknightsMod.Common.UI;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
@@ -18,12 +19,9 @@ namespace ArknightsMod.Content.Items.Weapons
 			// Tooltip.SetDefault("Yato has joined the team.");
 		}
 
-		//you should use local variable for batch change.
-		private const int defaultDamage = 12;
-
 		public override void SetDefaults()
         {
-            Item.damage = defaultDamage;
+            Item.damage = 12;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 120;
             Item.height = 60;
@@ -50,57 +48,63 @@ namespace ArknightsMod.Content.Items.Weapons
 
 		public override bool CanUseItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (Main.myPlayer == player.whoAmI) {
+				if (player.altFunctionUse != 2) {
+					Item.useTime = 8;
+					Item.reuseDelay = 10;
 
-			if (player.altFunctionUse != 2) {
-				Item.damage = defaultDamage;
-				Item.useTime = 8;
-				Item.reuseDelay = 10;
-
-				// S1
-				if (modPlayer.Skill == 0 && modPlayer.StockCount == 0) {
-					modPlayer.OffensiveRecovery();
+					// S1
+					if (modPlayer.Skill == 0) {
+						if(modPlayer.StockCount == 0) {
+							modPlayer.OffensiveRecovery();
+						}
+						else if(modPlayer.StockCount > 0) {
+							Item.useTime = 4;
+							modPlayer.SkillActive = true;
+							modPlayer.SkillTimer = 0;
+							modPlayer.DelStockCount();
+						}
+					}
+					Item.UseSound = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
+						Volume = 0.8f,
+						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+					};
 				}
-				else if (modPlayer.Skill == 0 && modPlayer.StockCount > 0) {
-					Item.useTime = 4;
-					modPlayer.DelStockCount();
-				}
-				Item.UseSound = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
-					Volume = 0.8f,
-					MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-				};
 			}
-
 			return true;
 		}
 
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-
-			if (modPlayer.Skill == 0 && modPlayer.SP == 0) {
-				int newdamage = (int)Math.Round(defaultDamage * 1.4);
-				Projectile.NewProjectile(source, position, velocity, type, newdamage, knockback, player.whoAmI);
+			if (Main.myPlayer == player.whoAmI) {
+				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+					damage *= 1.4f;
+				}
 			}
-			else {
-				Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-			}
+		}
 
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
 			return false;
 		}
 
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (!modPlayer.HoldKroosCrossbow) {
-				modPlayer.SkillInitialize = true;
-				modPlayer.Skill = 0;
-			}
+			if (Main.myPlayer == player.whoAmI) {
+				if (!modPlayer.HoldKroosCrossbow) {
+					modPlayer.SkillInitialize = true;
+					modPlayer.Skill = 0;
+				}
 
-			// S1
-			if (modPlayer.Skill == 0) {
-				modPlayer.SetSkillData(0, 4, 1, 1, 0, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
-				player.AddBuff(ModContent.BuffType<KroosCrossbowS1>(), 10);
-			}
+				// S1
+				if (modPlayer.Skill == 0) {
+					modPlayer.SetSkillData(0, 4, 1, 1, 0.2f, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
+					modPlayer.SkillActiveTimer();
+					player.AddBuff(ModContent.BuffType<KroosCrossbowS1>(), 10);
+				}
 
-			modPlayer.HoldKroosCrossbow = true; // you have to write this line HERE!
+				modPlayer.HoldKroosCrossbow = true; // you have to write this line HERE!
+			}
 			base.HoldItem(player);
 		}
 
