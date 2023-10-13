@@ -7,7 +7,7 @@ using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
 {
-	public class TSA : ModItem
+	public class SSS : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Polyketon"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
@@ -16,7 +16,7 @@ namespace ArknightsMod.Content.Items.Material
 		}
 
 		public override void SetDefaults() {
-			Item.width = 34; // The item texture's width
+			Item.width = 38; // The item texture's width
 			Item.height = 30; // The item texture's height
 
 			Item.maxStack = 9999; // The item's max stack value
@@ -24,13 +24,11 @@ namespace ArknightsMod.Content.Items.Material
 		}
 
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-		public override void AddRecipes() {
-			CreateRecipe()
-				.AddIngredient<TransmutedSalt>(1)
-				.AddIngredient<SSS>(1)
-				.AddIngredient<Sugar>(1)
-				.AddTile(TileID.WorkBenches)
-				.Register();
-		}
+		//public override void AddRecipes() {
+		//	CreateRecipe()
+		//		.AddIngredient<Placeable.OrirockCube>(5)
+		//		.AddTile(TileID.WorkBenches)
+		//		.Register();
+		//}
 	}
 }

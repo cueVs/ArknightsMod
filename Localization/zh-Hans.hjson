@@ -280,6 +280,46 @@ Mods: {
 				Tooltip: 经过精炼处理的化合物结晶块。
 			}
 
+			SSS: {
+				DisplayName: 半自然溶剂
+				Tooltip: 一种物理性能优异，耐酸碱性良好的活性溶剂。
+			}
+
+			CEU: {
+				DisplayName: 晶体电子单元
+				Tooltip: 昂贵的源石工业产品。
+			}
+
+			RefinedSolvent: {
+				DisplayName: 精炼溶剂
+				Tooltip: 经特殊工艺制作而成特殊涂料。
+			}
+
+			D32Steel: {
+				DisplayName: D32钢
+				Tooltip: 自然界中不应存在的人造金属材料，呈固态。
+			}
+
+			NucleicCrystalSinter: {
+				DisplayName: 烧结核凝晶
+				Tooltip: 对工艺要求极高的现代科技产物。
+			}
+
+			CFSolution: {
+				DisplayName: Cutting Fluid Solution
+				Tooltip: A stock solution prepared from a variety of active solvents.
+			}
+
+			BipolarNanoflake: {
+				DisplayName: 双极纳米片
+				Tooltip: 现代工业的创造力结晶。
+			}
+
+			TransmutedSalt: {
+				DisplayName: 转质盐组
+				Tooltip: 经过粗炼处理的化合物结晶。
+			}
+
 			#Summon
 			IACTSummon: {
 				DisplayName: 奇怪的信号发射器

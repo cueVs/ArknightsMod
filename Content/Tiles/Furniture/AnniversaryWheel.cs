@@ -77,6 +77,8 @@ namespace ArknightsMod.Content.Tiles.Furniture
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.IncandescentAlloy>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CrystallineComponent>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CompoundCF>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.SSS>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.TransmutedSalt>(), 100);
 			}
 
 			return true;

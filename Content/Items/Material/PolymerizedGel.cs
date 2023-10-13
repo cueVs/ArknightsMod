@@ -27,7 +27,7 @@ namespace ArknightsMod.Content.Items.Material
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient<OrirockCluster>(1)
+				.AddIngredient<OrironCluster>(1)
 				.AddIngredient<CoagulatingGel>(1)
 				.AddIngredient<IncandescentAlloy>(1)
 				.AddTile(TileID.WorkBenches)
