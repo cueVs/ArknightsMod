@@ -7,7 +7,7 @@ using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Material
 {
-	public class TSA : ModItem
+	public class TransmutedSalt : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Polyketon"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
@@ -17,20 +17,18 @@ namespace ArknightsMod.Content.Items.Material
 
 		public override void SetDefaults() {
 			Item.width = 34; // The item texture's width
-			Item.height = 30; // The item texture's height
+			Item.height = 24; // The item texture's height
 
 			Item.maxStack = 9999; // The item's max stack value
 			Item.value = Item.sellPrice(0, 0, 1, 50); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
 		}
 
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-		public override void AddRecipes() {
-			CreateRecipe()
-				.AddIngredient<TransmutedSalt>(1)
-				.AddIngredient<SSS>(1)
-				.AddIngredient<Sugar>(1)
-				.AddTile(TileID.WorkBenches)
-				.Register();
-		}
+		//public override void AddRecipes() {
+		//	CreateRecipe()
+		//		.AddIngredient<Sugar>(2)
+		//		.AddTile(TileID.WorkBenches)
+		//		.Register();
+		//}
 	}
 }

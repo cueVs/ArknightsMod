@@ -282,6 +282,14 @@ namespace ArknightsMod.Content.NPCs.Friendly
 					shopCustomPrice = 1,
 					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
 				})
+				.Add(new Item(ModContent.ItemType<Items.Material.SSS>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Material.TransmutedSalt>()) {
+					shopCustomPrice = 1,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
 				.Add(new Item(ModContent.ItemType<Items.Placeable.Furniture.DareUsa>()) {
 					shopCustomPrice = 1,
 					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId

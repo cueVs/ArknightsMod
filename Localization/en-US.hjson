@@ -280,6 +280,46 @@ Mods: {
 				Tooltip: A compound crystal mass that has undergone high-tolerance refinement.
 			}
 
+			SSS: {
+				DisplayName: Semi-Synthetic Solvent
+				Tooltip: An active solvent with excellent physical characteristics, and good resistance to acids and bases.
+			}
+
+			CEU: {
+				DisplayName: Crystalline Electronic Unit
+				Tooltip: An expensive Originium industry product.
+			}
+
+			RefinedSolvent: {
+				DisplayName: Refined Solvent
+				Tooltip: A special coating made from a specific formulation process.
+			}
+
+			D32Steel: {
+				DisplayName: D32 Steel
+				Tooltip: An artificial metal that doesn't exist in nature.
+			}
+
+			NucleicCrystalSinter: {
+				DisplayName: Nucleic Crystal Sinter
+				Tooltip: A product of modern technology that requires the ultimate in industrial craft.
+			}
+
+			CFSolution: {
+				DisplayName: Cutting Fluid Solution
+				Tooltip: A stock solution prepared from a variety of active solvents.
+			}
+
+			BipolarNanoflake: {
+				DisplayName: Bipolar Nanoflake
+				Tooltip: The brainchild of modern science and industry.
+			}
+
+			TransmutedSalt: {
+				DisplayName: Transmuted Salt
+				Tooltip: A compound crystallization that has undergone low-tolerance refinement.
+			}
+
 			#Summon
 			IACTSummon: {
 				DisplayName: Suspicious Remote Control

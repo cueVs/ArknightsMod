@@ -26,9 +26,9 @@ namespace ArknightsMod.Content.Items.Material
 		// Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient<Placeable.MnOre>(1)
+				.AddIngredient<SugarPack>(2)
 				.AddIngredient<OrironCluster>(1)
-				.AddIngredient<SugarPack>(1)
+				.AddIngredient<Placeable.MnOre>(1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}
