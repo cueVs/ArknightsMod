@@ -24,6 +24,7 @@ namespace ArknightsMod.Common.Players
 		public int Div = 1;
 		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
 		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
+		public bool AutoTrigger = false;
 		public bool SkillInitialize = true;
 		public float mousePositionX = 0;
 		public float mousePositionY = 0;
@@ -33,6 +34,7 @@ namespace ArknightsMod.Common.Players
 		public bool HoldBagpipeSpear = false;
 		public bool HoldChenSword = false;
 		public bool HoldKroosCrossbow = false;
+		public bool HoldPozemkaCrossbow = false;
 
 		//public int exampleResourceMax2; // Maximum amount of our example resource. We will change that variable to increase maximum amount of our resource
 		//public float RegenRate = 1f; // By changing that variable we can increase/decrease regeneration rate of our resource
@@ -46,7 +48,7 @@ namespace ArknightsMod.Common.Players
 		// - Resouce replenishment item: Use GlobalNPC.NPCLoot to drop the item. ModItem.OnPickup and ModItem.ItemSpace will allow it to behave like Mana Star or Heart. Use code similar to Player.HealEffect to spawn (and sync) a colored number suitable to your resource.
 
 		// InitialSP, MaxSP, Auto?(yes:60, no:1), stock, SlillActiveTime(/s)(if the skill doesn't have active time, any number), StockSkill?
-		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, float skillactivetime, bool stockskill) {
+		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, float skillactivetime, bool stockskill, bool autotrigger) {
 			if (SkillInitialize) {
 				// initialize
 				InitialSP = initialsp;
@@ -56,12 +58,22 @@ namespace ArknightsMod.Common.Players
 				StockMax = stockmax;
 				SkillActiveTime = skillactivetime;
 				StockSkill = stockskill;
+				AutoTrigger = autotrigger;
 				SkillCharge = initialsp * div;
 				SkillTimer = 0;
 				StockCount = 0;
 				SP = InitialSP;
 				SkillTimer = 0;
 				SkillActive = false;
+				if (InitialSP == MaxSP) {
+					SkillCharge = 0;
+					StockCount++;
+					if (StockCount == StockMax) {
+						SP = MaxSP;
+					}
+					else
+						SP = 0;
+				}
 
 				SkillInitialize = false;
 			}
@@ -76,6 +88,9 @@ namespace ArknightsMod.Common.Players
 			}
 			if (Main.LocalPlayer.HeldItem.ModItem is not ChenSword) {
 				HoldChenSword = false;
+			}
+			if (Main.LocalPlayer.HeldItem.ModItem is not PozemkaCrossbow) {
+				HoldPozemkaCrossbow = false;
 			}
 		}
 

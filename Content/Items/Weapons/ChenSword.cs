@@ -39,7 +39,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			// Item.noUseGraphic = true; // When true, the item's sprite will not be visible while the item is in use. This is true because the spear projectile is what's shown so we do not want to show the spear sprite as well.
 			Item.DamageType = DamageClass.Melee;
 			// Item.noMelee = true; // Allows the item's animation to do damage. This is important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
-			Item.crit = 21; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
+			Item.crit = -4; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 
 			// Projectile Properties
 			Item.shootSpeed = 1f; // The speed of the projectile measured in pixels per frame.
@@ -135,7 +135,7 @@ namespace ArknightsMod.Content.Items.Weapons
 				if (Main.myPlayer == player.whoAmI) {
 					// S3 (but now it sets S1)
 					if (modPlayer.Skill == 0) {
-						modPlayer.SetSkillData(20, 30, 1, 1, 1, false);
+						modPlayer.SetSkillData(20, 30, 1, 1, 1, false, false);
 						player.AddBuff(BuffType<ChenSwordS3>(), 10);
 
 						if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {

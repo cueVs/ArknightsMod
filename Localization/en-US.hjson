@@ -340,6 +340,11 @@ Mods: {
 					[c/FF0000:Only during NIGHT]
 					'''
 			}
+
+			PozemkaCrossbow: {
+				DisplayName: Pozemka Crossbow
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {

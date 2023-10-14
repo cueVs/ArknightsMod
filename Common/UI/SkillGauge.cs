@@ -66,6 +66,9 @@ namespace ArknightsMod.Common.UI
 			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
 				base.Draw(spriteBatch);
 			}
+			if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
+				base.Draw(spriteBatch);
+			}
 		}
 
 		// Here we draw our UI
@@ -116,7 +119,7 @@ namespace ArknightsMod.Common.UI
 				}
 			}
 
-			if (modPlayer.StockSkill && modPlayer.StockMax > 1) {
+			if (modPlayer.StockSkill && modPlayer.StockMax > 1 && !modPlayer.AutoTrigger) {
 				if (modPlayer.StockCount == 1) {
 					spriteBatch.Draw(skillStock1, aboveHead, Color.White);
 				}
@@ -127,7 +130,7 @@ namespace ArknightsMod.Common.UI
 					spriteBatch.Draw(skillStock3, aboveHead, Color.White);
 				}
 			}
-			else if (!modPlayer.StockSkill) {
+			else if (!modPlayer.StockSkill && !modPlayer.AutoTrigger) {
 				if (modPlayer.StockCount == 1) {
 					spriteBatch.Draw(skill, aboveHead, Color.White);
 				}

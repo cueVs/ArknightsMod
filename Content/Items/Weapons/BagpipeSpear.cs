@@ -36,6 +36,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.noUseGraphic = true; // When true, the item's sprite will not be visible while the item is in use. This is true because the spear projectile is what's shown so we do not want to show the spear sprite as well.
 			Item.DamageType = DamageClass.Melee;
 			Item.noMelee = true; // Allows the item's animation to do damage. This is important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
+			Item.channel = true; //Channel so that you can held the weapon [Important]
 			Item.crit = 21; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 
 			// Projectile Properties
@@ -137,7 +138,7 @@ namespace ArknightsMod.Content.Items.Weapons
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
 						modPlayer.SkillActive = true;
-							modPlayer.SkillTimer = 0;
+						modPlayer.SkillTimer = 0;
 						modPlayer.DelStockCount();
 					}
 					// S3
@@ -183,7 +184,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkillData(15, 35, 60, 1, 35, false);
+					modPlayer.SetSkillData(15, 35, 60, 1, 35, false, false);
 					modPlayer.AutoCharge();
 					player.AddBuff(ModContent.BuffType<BagpipeSpearS1>(), 10);
 					modPlayer.SkillActiveTimer();
@@ -191,7 +192,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S2
 				if (modPlayer.Skill == 1) {
-					modPlayer.SetSkillData(0, 4, 60, 3, 0.5f, true);
+					modPlayer.SetSkillData(0, 4, 60, 3, 0.5f, true, false);
 					modPlayer.SkillActiveTimer();
 					modPlayer.AutoCharge();
 					player.AddBuff(ModContent.BuffType<BagpipeSpearS2>(), 10);
@@ -199,7 +200,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S3
 				if (modPlayer.Skill == 2) {
-					modPlayer.SetSkillData(25, 40, 60, 1, 20, false);
+					modPlayer.SetSkillData(25, 40, 60, 1, 20, false, false);
 					modPlayer.AutoCharge();
 					player.AddBuff(ModContent.BuffType<BagpipeSpearS3>(), 10);
 					modPlayer.SkillActiveTimer();
