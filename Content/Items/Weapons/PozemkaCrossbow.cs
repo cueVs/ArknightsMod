@@ -79,10 +79,9 @@ namespace ArknightsMod.Content.Items.Weapons
 				if (player.altFunctionUse == 2) {
 					// S2
 					if (modPlayer.Skill == 1 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
-						Item.useAnimation = 30;
-						Item.useTime = 10;
 						modPlayer.SkillActive = true;
 						modPlayer.SkillTimer = 0;
+						Item.useTime = 10;
 
 						modPlayer.DelStockCount();
 
@@ -91,6 +90,7 @@ namespace ArknightsMod.Content.Items.Weapons
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
 						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+						return true;
 					}
 					// S3
 					if (modPlayer.Skill == 2 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
@@ -148,7 +148,7 @@ namespace ArknightsMod.Content.Items.Weapons
 					}
 				}
 			}
-			return true;
+			return base.CanUseItem(player);
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage) {
@@ -158,10 +158,6 @@ namespace ArknightsMod.Content.Items.Weapons
 				if (modPlayer.Skill == 0 && modPlayer.SkillActive == true) {
 					damage *= 1.6f;
 				}
-				//S2
-				if (modPlayer.Skill == 1 && modPlayer.SkillActive == true) {
-					damage *= 2.3f;
-				}
 				//S3
 				if (modPlayer.Skill == 2 && modPlayer.SkillActive == true) {
 					damage *= 2.0f;
@@ -170,6 +166,12 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (player.altFunctionUse == 2) {
+				if(modPlayer.Skill == 1) {
+					damage = (int)Math.Round(damage*2.3f);
+				}
+			}
 			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
 			return false;
 		}
