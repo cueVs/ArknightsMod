@@ -176,6 +176,10 @@ namespace ArknightsMod.Content.Items.Weapons
 			return false;
 		}
 
+		public override Vector2? HoldoutOffset() {
+			return new Vector2(-21f, -3f);
+		}
+
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {

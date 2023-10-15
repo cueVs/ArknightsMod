@@ -49,6 +49,11 @@ Mods: {
 				Tooltip: "'看仔细，这才是伊比利亚的至高之术！'"
 			}
 
+			PozemkaCrossbow: {
+				DisplayName: 鸿雪的弩
+				Tooltip: 只要在地上生活，就一定会有拿起武器的那一天，我知道。
+			}
+
 			# Accessories
 			ExusiaiWings: {
 				DisplayName: Exusiai's wings
@@ -339,11 +344,6 @@ Mods: {
 					召唤[c/FF0000:遗落的军用打击系统]
 					[c/FF0000:只能在晚上使用]
 					'''
-			}
-
-			PozemkaCrossbow: {
-				// DisplayName: Pozemka Crossbow
-				// Tooltip: ""
 			}
 		}
 

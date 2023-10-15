@@ -49,6 +49,11 @@ Mods: {
 				Tooltip: "'Watch carefully, this is the Destreza of Iberia!'"
 			}
 
+			PozemkaCrossbow: {
+				DisplayName: Pozemka's Crossbow
+				Tooltip: To live on the surface inevitably means to raise a weapon at some point. So I'm well aware.
+			}
+
 			# Accessories
 			ExusiaiWings: {
 				DisplayName: Exusiai's wings
@@ -339,11 +344,6 @@ Mods: {
 					Call [c/FF0000:the lost military nuke weapon]
 					[c/FF0000:Only during NIGHT]
 					'''
-			}
-
-			PozemkaCrossbow: {
-				DisplayName: Pozemka Crossbow
-				Tooltip: ""
 			}
 		}
 
