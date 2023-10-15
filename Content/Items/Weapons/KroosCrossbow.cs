@@ -98,7 +98,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkillData(0, 4, 1, 1, 0.2f, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
+					modPlayer.SetSkillData(0, 4, 1, 1, 0.2f, true, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 					modPlayer.SkillActiveTimer();
 					player.AddBuff(ModContent.BuffType<KroosCrossbowS1>(), 10);
 				}
