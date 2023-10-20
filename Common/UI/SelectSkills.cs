@@ -10,6 +10,9 @@ using Terraria.GameContent;
 using System.Collections.Generic;
 using Terraria.GameContent.Events;
 using Microsoft.Xna.Framework.Input;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.GameInput;
 
 namespace ArknightsMod.Common.UI
 {
@@ -118,20 +121,29 @@ namespace ArknightsMod.Common.UI
 
 		private void ChangeS1(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			modPlayer.Skill = 0;
-			modPlayer.SkillInitialize = true;
+			if (modPlayer.HowManySkills > 0) {
+				modPlayer.Skill = 0;
+				modPlayer.SkillInitialize = true;
+				SoundEngine.PlaySound(SoundID.MenuTick);
+			}
 		}
 
 		private void ChangeS2(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			modPlayer.Skill = 1;
-			modPlayer.SkillInitialize = true;
+			if (modPlayer.HowManySkills > 1) {
+				modPlayer.Skill = 1;
+				modPlayer.SkillInitialize = true;
+				SoundEngine.PlaySound(SoundID.MenuTick);
+			}
 		}
 
 		private void ChangeS3(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			modPlayer.Skill = 2;
-			modPlayer.SkillInitialize = true;
+			if (modPlayer.HowManySkills > 2) {
+				modPlayer.Skill = 2;
+				modPlayer.SkillInitialize = true;
+				SoundEngine.PlaySound(SoundID.MenuTick);
+			}
 		}
 
 		public override void Draw(SpriteBatch spriteBatch) {
@@ -252,19 +264,34 @@ namespace ArknightsMod.Common.UI
 	{
 		private UserInterface SelectSkillsUserInterface;
 
-		internal SelectSkills SelectSkills;
+		internal SelectSkills SelectSkillsUI;
+
+		public void ShowMyUI() {
+			SelectSkillsUserInterface?.SetState(SelectSkillsUI);
+		}
+		public void HideMyUI() {
+			SelectSkillsUserInterface?.SetState(null);
+		}
 
 		public override void Load() {
 			// All code below runs only if we're not loading on a server
 			if (!Main.dedServ) {
-				SelectSkills = new();
+				SelectSkillsUI = new();
 				SelectSkillsUserInterface = new();
-				SelectSkillsUserInterface.SetState(SelectSkills);
+				SelectSkillsUserInterface.SetState(SelectSkillsUI);
 			}
 		}
 
 		public override void UpdateUI(GameTime gameTime) {
 			SelectSkillsUserInterface?.Update(gameTime);
+			if (PlayerInput.Triggers.JustPressed.Inventory) {
+				if (SelectSkillsUserInterface?.CurrentState != null) {
+					HideMyUI();
+				}
+				else {
+					ShowMyUI();
+				}
+			}
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {

@@ -49,29 +49,29 @@ namespace ArknightsMod.Content.Items.Weapons
 		// Right Click in world
 		public override bool AltFunctionUse(Player player) => true;
 		// Right Click in inventory
-		public override bool ConsumeItem(Player player) => false;
-		public override bool CanRightClick() => true;
+		//public override bool ConsumeItem(Player player) => false;
+		//public override bool CanRightClick() => true;
 
-		public override void RightClick(Player player) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			modPlayer.Skill++;
-			modPlayer.Skill = modPlayer.Skill % 3;
+		//public override void RightClick(Player player) {
+		//	var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+		//	modPlayer.Skill++;
+		//	modPlayer.Skill = modPlayer.Skill % 3;
 
-			// S1
-			if (modPlayer.Skill == 0) {
-				modPlayer.SkillInitialize = true;
-			}
+		//	// S1
+		//	if (modPlayer.Skill == 0) {
+		//		modPlayer.SkillInitialize = true;
+		//	}
 
-			// S2
-			if (modPlayer.Skill == 1) {
-				modPlayer.SkillInitialize = true;
-			}
+		//	// S2
+		//	if (modPlayer.Skill == 1) {
+		//		modPlayer.SkillInitialize = true;
+		//	}
 
-			// S3
-			if (modPlayer.Skill == 2) {
-				modPlayer.SkillInitialize = true;
-			}
-		}
+		//	// S3
+		//	if (modPlayer.Skill == 2) {
+		//		modPlayer.SkillInitialize = true;
+		//	}
+		//}
 
 		public override bool CanUseItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
@@ -192,20 +192,17 @@ namespace ArknightsMod.Content.Items.Weapons
 				// S1
 				if (modPlayer.Skill == 0) {
 					modPlayer.SetSkillData(0, 20, 1, 1, 30f, false, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS3>(), 10);
 				}
 				// S2
 				if (modPlayer.Skill == 1) {
 					modPlayer.SetSkillData(9, 9, 60, 2, 0.4f, true, false); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 					modPlayer.AutoCharge();
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS3>(), 10);
 					modPlayer.SkillActiveTimer();
 				}
 				// S3
 				if (modPlayer.Skill == 2) {
 					modPlayer.SetSkillData(23, 35, 60, 1, 30f, false, false); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 					modPlayer.AutoCharge();
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS3>(), 10);
 					modPlayer.SkillActiveTimer();
 				}
 
