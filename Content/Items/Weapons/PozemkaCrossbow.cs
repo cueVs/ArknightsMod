@@ -183,10 +183,12 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
+				modPlayer.SetAllSkillsData(3, 7, 0, 20, 3, 9, 9, 3, 23, 35, 3, "SampleIcon");
 				if (!modPlayer.HoldPozemkaCrossbow) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
 				}
+
 				// S1
 				if (modPlayer.Skill == 0) {
 					modPlayer.SetSkillData(0, 20, 1, 1, 30f, false, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
