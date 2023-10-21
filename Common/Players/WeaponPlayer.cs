@@ -31,6 +31,20 @@ namespace ArknightsMod.Common.Players
 		public float playerPositionX = 0;
 		public float playerPositionY = 0;
 
+		// SkillSekect
+		public int HowManySkills = 0;
+		public int? SkillLevel = 0;
+		public int? InitialSPs1 = 0;
+		public int? InitialSPs2 = 0;
+		public int? InitialSPs3 = 0;
+		public int? MaxSPs1 = 0;
+		public int? MaxSPs2 = 0;
+		public int? MaxSPs3 = 0;
+		public int? MasteryLevelS1 = 0;
+		public int? MasteryLevelS2 = 0;
+		public int? MasteryLevelS3 = 0;
+		public string SkillName = "";
+
 		public bool HoldBagpipeSpear = false;
 		public bool HoldChenSword = false;
 		public bool HoldKroosCrossbow = false;
@@ -77,6 +91,21 @@ namespace ArknightsMod.Common.Players
 
 				SkillInitialize = false;
 			}
+		}
+
+		public void SetAllSkillsData(int howmanyskills, int? skilllevel, int? initialsps1, int? maxsps1, int? masterylevels1, int? initialsps2, int? maxsps2, int? masterylevels2, int? initialsps3, int? maxsps3, int? masterylevels3, string skillname) {
+			HowManySkills = howmanyskills;
+			SkillLevel = skilllevel;
+			InitialSPs1 = initialsps1;
+			MaxSPs1 = maxsps1;
+			MasteryLevelS1 = masterylevels1;
+			InitialSPs2 = initialsps2;
+			MaxSPs2 = maxsps2;
+			MasteryLevelS2 = masterylevels2;
+			InitialSPs3 = initialsps3;
+			MaxSPs3 = maxsps3;
+			MasteryLevelS3 = masterylevels3;
+			SkillName = skillname;
 		}
 
 		public override void ResetEffects() {

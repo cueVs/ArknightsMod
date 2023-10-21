@@ -127,79 +127,80 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
+
+				modPlayer.SetAllSkillsData(1, 7, 20, 30, 3, null, null, null, null, null, null, "SampleIcon");
+
 				if (!modPlayer.HoldChenSword) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
 				}
 
-				if (Main.myPlayer == player.whoAmI) {
-					// S3 (but now it sets S1)
-					if (modPlayer.Skill == 0) {
-						modPlayer.SetSkillData(20, 30, 1, 1, 1, false, false);
-						player.AddBuff(BuffType<ChenSwordS3>(), 10);
+				// S3 (but now S1)
+				if (modPlayer.Skill == 0) {
+					modPlayer.SetSkillData(20, 30, 1, 1, 1, false, false);
+					player.AddBuff(BuffType<ChenSwordS3>(), 10);
 
-						if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
-							for (int i = 0; i < 30; i++) {//Circle
-								Vector2 offset = new Vector2();
-								double angle = Main.rand.NextDouble() * 2d * Math.PI;
-								offset.X += (float)(Math.Sin(angle) * (500));
-								offset.Y += (float)(Math.Cos(angle) * (500));
+					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
+						for (int i = 0; i < 30; i++) {//Circle
+							Vector2 offset = new Vector2();
+							double angle = Main.rand.NextDouble() * 2d * Math.PI;
+							offset.X += (float)(Math.Sin(angle) * (500));
+							offset.Y += (float)(Math.Cos(angle) * (500));
 
-								Dust circle_dust = Dust.NewDustPerfect(player.MountedCenter + offset, 235, player.velocity, 200, default(Color), 0.5f);
-								circle_dust.fadeIn = 0.1f;
-								circle_dust.noGravity = true;
-							}
+							Dust circle_dust = Dust.NewDustPerfect(player.MountedCenter + offset, 235, player.velocity, 200, default(Color), 0.5f);
+							circle_dust.fadeIn = 0.1f;
+							circle_dust.noGravity = true;
 						}
-
-						if (modPlayer.SkillActive) {
-							modPlayer.SkillTimer++;
-							player.immune = true;
-							player.immuneTime = 5;
-							player.immuneAlpha = 255;
-							if (modPlayer.SkillTimer == 1) {
-								Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X - 50, player.Center.Y - 100, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
-							}
-							if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60) {
-								player.velocity = Vector2.Zero;
-							}
-							if (modPlayer.SkillTimer == 10) {
-								player.Teleport(new Vector2(modPlayer.mousePositionX, modPlayer.mousePositionY), -1, 0);
-								NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
-							}
-
-							if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60 && modPlayer.SkillTimer % 5 == 0) {
-								Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), player.GetWeaponDamage(Item) * 3, 2.5f, player.whoAmI, 0f);
-								player.immuneAlpha = 0;
-								if (modPlayer.SkillTimer == 60) {
-									SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
-										Volume = 0.7f,
-										MaxInstances = 1,
-									};
-									SoundEngine.PlaySound(projSound);
-								}
-								else {
-									SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
-										Volume = 0.7f,
-										MaxInstances = 4,
-									};
-									SoundEngine.PlaySound(projSound);
-								}
-
-							}
-
-							if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60 + 10) {
-								player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), -1, 0);
-								NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
-
-								modPlayer.SkillActive = false;
-								modPlayer.SkillTimer = 0;
-							}
-						}
-						else {
-							player.immune = false;
-						}
-
 					}
+
+					if (modPlayer.SkillActive) {
+						modPlayer.SkillTimer++;
+						player.immune = true;
+						player.immuneTime = 5;
+						player.immuneAlpha = 255;
+						if (modPlayer.SkillTimer == 1) {
+							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X - 50, player.Center.Y - 100, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
+						}
+						if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60) {
+							player.velocity = Vector2.Zero;
+						}
+						if (modPlayer.SkillTimer == 10) {
+							player.Teleport(new Vector2(modPlayer.mousePositionX, modPlayer.mousePositionY), -1, 0);
+							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
+						}
+
+						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60 && modPlayer.SkillTimer % 5 == 0) {
+							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), player.GetWeaponDamage(Item) * 3, 2.5f, player.whoAmI, 0f);
+							player.immuneAlpha = 0;
+							if (modPlayer.SkillTimer == 60) {
+								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
+									Volume = 0.7f,
+									MaxInstances = 1,
+								};
+								SoundEngine.PlaySound(projSound);
+							}
+							else {
+								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
+									Volume = 0.7f,
+									MaxInstances = 4,
+								};
+								SoundEngine.PlaySound(projSound);
+							}
+
+						}
+
+						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60 + 10) {
+							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), -1, 0);
+							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
+
+							modPlayer.SkillActive = false;
+							modPlayer.SkillTimer = 0;
+						}
+					}
+					else {
+						player.immune = false;
+					}
+
 				}
 
 

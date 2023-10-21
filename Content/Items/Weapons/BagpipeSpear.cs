@@ -53,31 +53,31 @@ namespace ArknightsMod.Content.Items.Weapons
 
 		public override bool AltFunctionUse(Player player) => true;
 
-		public override bool ConsumeItem(Player player) => false;
-		public override bool CanRightClick() => true;
+		//public override bool ConsumeItem(Player player) => false;
+		//public override bool CanRightClick() => true;
 
-		public override void RightClick(Player player) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.Skill++;
-				modPlayer.Skill = modPlayer.Skill % 3;
+		//public override void RightClick(Player player) {
+		//	var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+		//	if (Main.myPlayer == player.whoAmI) {
+		//		modPlayer.Skill++;
+		//		modPlayer.Skill = modPlayer.Skill % 3;
 
-				// S1
-				if (modPlayer.Skill == 0) {
-					modPlayer.SkillInitialize = true;
-				}
+		//		// S1
+		//		if (modPlayer.Skill == 0) {
+		//			modPlayer.SkillInitialize = true;
+		//		}
 
-				// S2
-				if (modPlayer.Skill == 1) {
-					modPlayer.SkillInitialize = true;
-				}
+		//		// S2
+		//		if (modPlayer.Skill == 1) {
+		//			modPlayer.SkillInitialize = true;
+		//		}
 
-				// S3
-				if (modPlayer.Skill == 2) {
-					modPlayer.SkillInitialize = true;
-				}
-			}
-		}
+		//		// S3
+		//		if (modPlayer.Skill == 2) {
+		//			modPlayer.SkillInitialize = true;
+		//		}
+		//	}
+		//}
 
 		public override bool CanUseItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
@@ -177,6 +177,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
+				modPlayer.SetAllSkillsData(3, 7, 15, 35, 3, 0, 4, 3, 25, 40, 3, "SampleIcon");
 				if (!modPlayer.HoldBagpipeSpear) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
@@ -224,9 +225,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 		public override void AddRecipes() {
 			CreateRecipe()
+				.AddIngredient<Material.PP>(4)
 				.AddIngredient<Material.OrirockConcentration>(9)
-				.AddIngredient<Material.KetonColloid>(4)
-				.AddIngredient<Material.OrironBlock>(4)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

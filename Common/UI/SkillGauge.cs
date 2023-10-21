@@ -29,7 +29,7 @@ namespace ArknightsMod.Common.UI
 			//area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
 			area.Top.Set(70, 0f); // Placing it just a bit below the top of the screen.
 			area.Width.Set(139, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
-			area.Height.Set(60, 0f);
+			area.Height.Set(20, 0f);
 			area.VAlign = 0.5f;
 			area.HAlign = 0.5f;
 
@@ -89,8 +89,8 @@ namespace ArknightsMod.Common.UI
 			Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
 			hitbox.X += 2;
 			hitbox.Width -= 2;
-			hitbox.Y += 3;
-			hitbox.Height -= 4;
+			hitbox.Y += 2;
+			hitbox.Height -= 2;
 
 			var aboveHead = new Rectangle((int)Main.screenWidth / 2 - 12, (int)Main.screenHeight / 2 - 65, 22, 22);
 			Texture2D skillStock1 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock1").Value;
@@ -104,16 +104,16 @@ namespace ArknightsMod.Common.UI
 			int steps1 = (int)((right - left) * quotient1);
 			int steps2 = (int)((right - left) * quotient2);
 
-			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 114, hitbox.Height), gradientB);
+			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientB);
 			for (int i = 0; i < steps1; i += 1) {
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
 			}
 			if (modPlayer.StockCount == modPlayer.StockMax) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 114, hitbox.Height), gradientA);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientA);
 			}
 
 			if (modPlayer.SkillActive) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 114, hitbox.Height), skillColor);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), skillColor);
 				for (int i = 0; i < steps2; i += 1) {
 					spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
 				}
