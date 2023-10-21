@@ -191,6 +191,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
+					modPlayer.ShowSummonUI("PozemkaCrossbow");
 					modPlayer.SetSkillData(0, 20, 1, 1, 30f, false, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 				}
 				// S2

@@ -173,7 +173,7 @@ namespace ArknightsMod.Common.UI
 
 			// S1
 			if (modPlayer.HowManySkills > 0) {
-				Texture2D s1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillName + "1");
+				Texture2D s1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "1");
 				spriteBatch.Draw(s1, new Vector2(26, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
 				spriteBatch.Draw(baseOfSPs1, new Vector2(32, 168), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
@@ -197,7 +197,7 @@ namespace ArknightsMod.Common.UI
 
 			// S2
 			if (modPlayer.HowManySkills > 1) {
-				Texture2D s2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillName + "2");
+				Texture2D s2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "2");
 				spriteBatch.Draw(s2, new Vector2(96, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
 				spriteBatch.Draw(baseOfSPs2, new Vector2(102, 168), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
@@ -221,7 +221,7 @@ namespace ArknightsMod.Common.UI
 
 			// S3
 			if (modPlayer.HowManySkills > 2) {
-				Texture2D s3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillName + "3");
+				Texture2D s3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "3");
 				spriteBatch.Draw(s3, new Vector2(166, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
 				spriteBatch.Draw(baseOfSPs3, new Vector2(172, 168), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);

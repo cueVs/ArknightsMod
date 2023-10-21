@@ -187,7 +187,6 @@ namespace ArknightsMod.Content.Items.Weapons
 				if (modPlayer.Skill == 0) {
 					modPlayer.SetSkillData(15, 35, 60, 1, 35, false, false);
 					modPlayer.AutoCharge();
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS1>(), 10);
 					modPlayer.SkillActiveTimer();
 				}
 
@@ -196,14 +195,12 @@ namespace ArknightsMod.Content.Items.Weapons
 					modPlayer.SetSkillData(0, 4, 60, 3, 0.5f, true, false);
 					modPlayer.SkillActiveTimer();
 					modPlayer.AutoCharge();
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS2>(), 10);
 				}
 
 				// S3
 				if (modPlayer.Skill == 2) {
 					modPlayer.SetSkillData(25, 40, 60, 1, 20, false, false);
 					modPlayer.AutoCharge();
-					player.AddBuff(ModContent.BuffType<BagpipeSpearS3>(), 10);
 					modPlayer.SkillActiveTimer();
 				}
 
