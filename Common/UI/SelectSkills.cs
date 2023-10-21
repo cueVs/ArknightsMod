@@ -257,6 +257,10 @@ namespace ArknightsMod.Common.UI
 			maxSP2.SetText($"{modPlayer.MaxSPs2}");
 			maxSP3.SetText($"{modPlayer.MaxSPs3}");
 			skillLevel.SetText($"{modPlayer.SkillLevel}");
+
+			if(Main.mouseX > 26 && Main.mouseX < 230 && Main.mouseY > 116 && Main.mouseY < 180) {
+				Main.LocalPlayer.mouseInterface = true;
+			}
 		}
 	}
 
@@ -285,7 +289,7 @@ namespace ArknightsMod.Common.UI
 		public override void UpdateUI(GameTime gameTime) {
 			SelectSkillsUserInterface?.Update(gameTime);
 			if (PlayerInput.Triggers.JustPressed.Inventory) {
-				if (SelectSkillsUserInterface?.CurrentState != null) {
+				if (Main.playerInventory) {
 					HideMyUI();
 				}
 				else {

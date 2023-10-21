@@ -28,7 +28,7 @@ namespace ArknightsMod.Common.UI
 
 			button = new UIElement();
 			button.Left.Set(330, 0f);
-			button.Top.Set(130, 0f);
+			button.Top.Set(140, 0f);
 			button.Width.Set(50, 0f);
 			button.Height.Set(50, 0f);
 			button.OnLeftClick += SummonMode;
@@ -60,13 +60,17 @@ namespace ArknightsMod.Common.UI
 
 			if (modPlayer.ShowSummonIcon) {
 				Texture2D skillBase = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SummonIcon/" + modPlayer.SummonIconName);
-				spriteBatch.Draw(skillBase, new Vector2(330, 130), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(skillBase, new Vector2(330, 140), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
 
 		}
 
 		public override void Update(GameTime gameTime) {
 			base.Update(gameTime);
+
+			if (Main.mouseX > 330 && Main.mouseX < 380 && Main.mouseY > 140 && Main.mouseY < 190) {
+				Main.LocalPlayer.mouseInterface = true;
+			}
 		}
 	}
 
@@ -95,7 +99,7 @@ namespace ArknightsMod.Common.UI
 		public override void UpdateUI(GameTime gameTime) {
 			SummonUserInterface?.Update(gameTime);
 			if (PlayerInput.Triggers.JustPressed.Inventory) {
-				if (SummonUserInterface?.CurrentState != null) {
+				if (Main.playerInventory) {
 					HideMyUI();
 				}
 				else {

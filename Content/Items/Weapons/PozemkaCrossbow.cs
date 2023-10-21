@@ -77,68 +77,85 @@ namespace ArknightsMod.Content.Items.Weapons
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
 				if (player.altFunctionUse == 2) {
-					// S2
-					if (modPlayer.Skill == 1 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
-						modPlayer.SkillActive = true;
-						modPlayer.SkillTimer = 0;
-						Item.useTime = 10;
+					if (!modPlayer.SummonMode) {
+						// S2
+						if (modPlayer.Skill == 1 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
+							modPlayer.SkillActive = true;
+							modPlayer.SkillTimer = 0;
+							Item.useTime = 10;
 
-						modPlayer.DelStockCount();
+							modPlayer.DelStockCount();
 
-						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS2") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
-						return true;
+							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS2") {
+								Volume = 0.4f,
+								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+							};
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+							return true;
+						}
+						// S3
+						if (modPlayer.Skill == 2 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
+							modPlayer.SkillActive = true;
+							modPlayer.SkillTimer = 0;
+
+							modPlayer.DelStockCount();
+
+							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
+								Volume = 0.4f,
+								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+							};
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+						}
+						else
+							return false;
 					}
-					// S3
-					if (modPlayer.Skill == 2 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
-						modPlayer.SkillActive = true;
-						modPlayer.SkillTimer = 0;
-
-						modPlayer.DelStockCount();
-
-						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
-					}
-					else
+					else {
+						modPlayer.SummonMode = false;
 						return false;
+					}
 				}
 				else {
-					Item.useAnimation = 30;
-					Item.useTime = 30;
-					Item.crit = 0;
-					Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
-						Volume = 0.4f,
-						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};
-					SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
-					// S1
-					if (modPlayer.Skill == 0) {
-						if (!modPlayer.SkillActive) {
-							modPlayer.OffensiveRecovery();
-							if (modPlayer.StockCount == 1) {
-								modPlayer.SkillActive = true;
+					if (!modPlayer.SummonMode) {
+						Item.useAnimation = 30;
+						Item.useTime = 30;
+						Item.crit = 0;
+						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
+							Volume = 0.4f,
+							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+						};
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+						// S1
+						if (modPlayer.Skill == 0) {
+							if (!modPlayer.SkillActive) {
+								modPlayer.OffensiveRecovery();
+								if (modPlayer.StockCount == 1) {
+									modPlayer.SkillActive = true;
+								}
+							}
+							else {
+								Item.crit = 36;
+								Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS1") {
+									Volume = 0.4f,
+									MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+								};
+								SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 							}
 						}
-						else {
-							Item.crit = 36;
-							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS1") {
+
+						// S3
+						if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
+							Item.useAnimation = 20;
+							Item.useTime = 20;
+
+							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
 								Volume = 0.4f,
 								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 							};
 							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 						}
 					}
-
-					// S3
-					if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
-						Item.useAnimation = 20;
-						Item.useTime = 20;
+					else {
+						modPlayer.SummonMode = false;
 
 						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
 							Volume = 0.4f,
@@ -184,6 +201,8 @@ namespace ArknightsMod.Content.Items.Weapons
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
 				modPlayer.SetAllSkillsData(3, 7, 0, 20, 3, 9, 9, 3, 23, 35, 3, "SampleIcon");
+				modPlayer.ShowSummonUI("PozemkaCrossbow");
+
 				if (!modPlayer.HoldPozemkaCrossbow) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
@@ -191,7 +210,6 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.ShowSummonUI("PozemkaCrossbow");
 					modPlayer.SetSkillData(0, 20, 1, 1, 30f, false, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 				}
 				// S2

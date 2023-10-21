@@ -93,7 +93,6 @@ namespace ArknightsMod.Common.Players
 					else
 						SP = 0;
 				}
-				ShowSummonIcon = false;
 				SummonMode = false;
 
 				SkillInitialize = false;
@@ -118,6 +117,10 @@ namespace ArknightsMod.Common.Players
 		public void ShowSummonUI(string summoniconname) {
 			ShowSummonIcon = true;
 			SummonIconName = summoniconname;
+		}
+
+		public void HideSummonUI() {
+			ShowSummonIcon = false;
 		}
 
 		public override void ResetEffects() {
