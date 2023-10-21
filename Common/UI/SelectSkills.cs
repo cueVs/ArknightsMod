@@ -121,28 +121,28 @@ namespace ArknightsMod.Common.UI
 
 		private void ChangeS1(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (modPlayer.HowManySkills > 0) {
+			if (modPlayer.HowManySkills > 0 && modPlayer.Skill != 0) {
 				modPlayer.Skill = 0;
 				modPlayer.SkillInitialize = true;
-				SoundEngine.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/UIButton"));
 			}
 		}
 
 		private void ChangeS2(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (modPlayer.HowManySkills > 1) {
+			if (modPlayer.HowManySkills > 1 && modPlayer.Skill != 1) {
 				modPlayer.Skill = 1;
 				modPlayer.SkillInitialize = true;
-				SoundEngine.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/UIButton"));
 			}
 		}
 
 		private void ChangeS3(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (modPlayer.HowManySkills > 2) {
+			if (modPlayer.HowManySkills > 2 && modPlayer.Skill != 2) {
 				modPlayer.Skill = 2;
 				modPlayer.SkillInitialize = true;
-				SoundEngine.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/UIButton"));
 			}
 		}
 
