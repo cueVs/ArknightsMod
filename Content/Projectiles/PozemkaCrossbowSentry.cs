@@ -15,9 +15,6 @@ namespace ArknightsMod.Content.Projectiles
 {
 	public class PozemkaCrossbowSentry : ModProjectile
 	{
-		private NPC target;
-		private const int Cooldown = 30;
-
 
 		public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 8;
@@ -47,7 +44,7 @@ namespace ArknightsMod.Content.Projectiles
 		}
 
 		public override void AI() {
-			Player player = Main.player[Projectile.owner];
+			int Cooldown = 60;
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 
 			Projectile.velocity.Y++; // gravity
@@ -55,30 +52,45 @@ namespace ArknightsMod.Content.Projectiles
 				Projectile.Kill();
 			}
 
-			//if (player.HasMinionAttackTargetNPC) {
-			//	target = Main.npc[player.MinionAttackTargetNPC];
-			//}
-			//Projectile.direction = target.direction;
-			//Projectile.spriteDirection = Projectile.direction;
+			NPC target = Projectile.FindTargetWithinRange(800, false);
 
+			if (target != null) {
+				// Projectile.rotation = (target.Center - Projectile.Center).ToRotation();
+				float x = target.Center.X - Projectile.Center.X;
+				float y = target.Center.Y - Projectile.Center.Y - 20;
 
-			//if (Projectile.ai[0] > 0) {
-			//	Projectile.ai[0]--;
-			//	Projectile.spriteDirection = target.direction;
-			//	Projectile.frame++;
-			//	if (Projectile.frame == 3) {
-			//		Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<PozemkaCrossbowSentryProjectile>(), Projectile.damage, 5f, Projectile.owner);
-			//	}
-			//	if (Projectile.frame == 9) {
-			//		Projectile.frame = 0;
-			//	}
-			//}
-			//else if (target != null && Projectile.velocity.Y == 0) {
-			//	// SoundEngine.PlaySound(Sounds.Rattle, Projectile.Center);
-			//	Projectile.ai[0] = Cooldown;
-			//	Projectile.frame = 0; //this frame is skipped because we always add 1 to it after, but we want this to happen
-			//	Projectile.spriteDirection = target.direction;
-			//}
+				float theta = (new Vector2(x, y)).ToRotation();
+
+				Projectile.rotation = theta;
+
+				if (Projectile.ai[0] > 0) {
+					Projectile.ai[0]--;
+					if (Projectile.ai[0] < Cooldown - 16) {
+						Projectile.frame = 0;
+					}
+					else if (Projectile.ai[0] % 2 == 0){
+						Projectile.frame++;
+					}
+
+					if (Projectile.frame == 3) {
+						int damage = (int)Math.Round(Projectile.damage * 0.95);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 15 * (new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta))), ModContent.ProjectileType<PozemkaCrossbowSentryProjectile>(), damage, 5f, Projectile.owner);
+						if(modPlayer.Skill == 2 && modPlayer.SkillActive) {
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentryProjectileS3"));
+						}
+						else {
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentryProjectileS0"));
+						}
+					}
+				}
+				else {
+					Projectile.ai[0] = Cooldown;
+					Projectile.frame = 0;
+				}
+			}
+			else {
+				Projectile.frame = 0;
+			}
 
 
 		}
