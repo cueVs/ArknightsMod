@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using ArknightsMod.Common.UI;
+using ArknightsMod.Content.Projectiles;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
@@ -35,7 +36,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.noMelee = true;
 			Item.channel = true; //Channel so that you can held the weapon [Important]
 			Item.knockBack = 5;
-			Item.shoot = ProjectileID.PurificationPowder;
+			Item.shoot = ModContent.ProjectileType<PozemkaCrossbowProjectile>();
 			Item.shootSpeed = 20f;
 			Item.useAmmo = AmmoID.Arrow;
 			Item.crit = 0; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
@@ -119,6 +120,7 @@ namespace ArknightsMod.Content.Items.Weapons
 						Item.useAnimation = 30;
 						Item.useTime = 30;
 						Item.crit = 0;
+						Item.sentry = false;
 						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
 							Volume = 0.4f,
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
@@ -155,9 +157,10 @@ namespace ArknightsMod.Content.Items.Weapons
 						}
 					}
 					else {
-						modPlayer.SummonMode = false;
+						Item.sentry = true;
+						Item.useTime = 30;
 
-						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
+						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentry") {
 							Volume = 0.4f,
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
@@ -182,11 +185,24 @@ namespace ArknightsMod.Content.Items.Weapons
 			}
 		}
 
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (!modPlayer.SummonMode) {
+				type = ModContent.ProjectileType<PozemkaCrossbowProjectile>();
+			}
+			else {
+				type = ModContent.ProjectileType<PozemkaCrossbowSentry>();
+				position = Main.MouseWorld;
+				velocity *= 0;
+				modPlayer.SummonMode = false;
+			}
+		}
+
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (player.altFunctionUse == 2) {
-				if(modPlayer.Skill == 1) {
-					damage = (int)Math.Round(damage*2.3f);
+				if (modPlayer.Skill == 1) {
+					damage = (int)Math.Round(damage * 2.3f);
 				}
 			}
 			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
