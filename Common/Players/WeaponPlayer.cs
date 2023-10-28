@@ -43,7 +43,12 @@ namespace ArknightsMod.Common.Players
 		public int? MasteryLevelS1 = 0;
 		public int? MasteryLevelS2 = 0;
 		public int? MasteryLevelS3 = 0;
-		public string SkillName = "";
+		public string SkillIconName = "";
+
+		//SummonMode
+		public bool ShowSummonIcon = false;
+		public string SummonIconName = "";
+		public bool SummonMode = false;
 
 		public bool HoldBagpipeSpear = false;
 		public bool HoldChenSword = false;
@@ -88,12 +93,13 @@ namespace ArknightsMod.Common.Players
 					else
 						SP = 0;
 				}
+				SummonMode = false;
 
 				SkillInitialize = false;
 			}
 		}
 
-		public void SetAllSkillsData(int howmanyskills, int? skilllevel, int? initialsps1, int? maxsps1, int? masterylevels1, int? initialsps2, int? maxsps2, int? masterylevels2, int? initialsps3, int? maxsps3, int? masterylevels3, string skillname) {
+		public void SetAllSkillsData(int howmanyskills, int? skilllevel, int? initialsps1, int? maxsps1, int? masterylevels1, int? initialsps2, int? maxsps2, int? masterylevels2, int? initialsps3, int? maxsps3, int? masterylevels3, string skilliconname) {
 			HowManySkills = howmanyskills;
 			SkillLevel = skilllevel;
 			InitialSPs1 = initialsps1;
@@ -105,7 +111,16 @@ namespace ArknightsMod.Common.Players
 			InitialSPs3 = initialsps3;
 			MaxSPs3 = maxsps3;
 			MasteryLevelS3 = masterylevels3;
-			SkillName = skillname;
+			SkillIconName = skilliconname;
+		}
+
+		public void ShowSummonUI(string summoniconname) {
+			ShowSummonIcon = true;
+			SummonIconName = summoniconname;
+		}
+
+		public void HideSummonUI() {
+			ShowSummonIcon = false;
 		}
 
 		public override void ResetEffects() {

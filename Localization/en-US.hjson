@@ -494,6 +494,9 @@ Mods: {
 			HitboxRedCornerSmall2.DisplayName: Hitbox
 			HitboxRedCornerSmall3.DisplayName: Hitbox
 			HitboxRedCornerSmall4.DisplayName: Hitbox
+			PozemkaCrossbowSentry.DisplayName: Pozemka Crossbow Sentry
+			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
+			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 		}
 
 		ButtonName.button2: Annihilation operation

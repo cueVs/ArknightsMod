@@ -138,7 +138,6 @@ namespace ArknightsMod.Content.Items.Weapons
 				// S3 (but now S1)
 				if (modPlayer.Skill == 0) {
 					modPlayer.SetSkillData(20, 30, 1, 1, 1, false, false);
-					player.AddBuff(BuffType<ChenSwordS3>(), 10);
 
 					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
 						for (int i = 0; i < 30; i++) {//Circle
