@@ -37,5 +37,5 @@ There is too many work to be done in Terraria. We look forward to meet you.
 - If you have any questions regarding the use of this mod, please contact our Discord server (below).
 
 ## Contact
-[Dicord server](https://discord.gg/XKM2jeS9hY)<br>
+[Discord server](https://discord.gg/XKM2jeS9hY)<br>
 [Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)
