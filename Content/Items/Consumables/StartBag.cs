@@ -19,10 +19,10 @@ namespace ArknightsMod.Content.Items.Consumables
 		}
 
 		public override void SetDefaults() {
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.consumable = true;
 			Item.width = 38;
-			Item.height = 30;
+			Item.height = 32;
 			Item.rare = ItemRarityID.White;
 		}
 
@@ -35,5 +35,12 @@ namespace ArknightsMod.Content.Items.Consumables
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorJacket>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.DoctorPants>()));
 		}
+
+		//public override void AddRecipes() {
+		//	Recipe recipe = CreateRecipe();
+		//	recipe.AddRecipeGroup(RecipeGroupID.Wood, 1);
+		//	recipe.AddTile(TileID.WorkBenches);
+		//	recipe.Register();
+		//}
 	}
 }

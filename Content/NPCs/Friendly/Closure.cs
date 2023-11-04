@@ -293,7 +293,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				.Add(new Item(ModContent.ItemType<Items.Placeable.Furniture.DareUsa>()) {
 					shopCustomPrice = 1,
 					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
-				});
+				})
+				.Add(new Item(ModContent.ItemType<Items.Consumables.GachaBag>()) {
+					 shopCustomPrice = 10,
+					 shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				 });
 			npcShop.Register(); // Name of this shop tab
 		}
 

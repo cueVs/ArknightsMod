@@ -345,6 +345,26 @@ Mods: {
 					[c/FF0000:只能在晚上使用]
 					'''
 			}
+
+			ChenBody: {
+				// DisplayName: Chen Body
+				// Tooltip: ""
+			}
+
+			ChenHead: {
+				// DisplayName: Chen Head
+				// Tooltip: ""
+			}
+
+			ChenLegs: {
+				// DisplayName: Chen Legs
+				// Tooltip: ""
+			}
+
+			GachaBag: {
+				// DisplayName: Gacha Bag
+				// Tooltip: ""
+			}
 		}
 
 		Buffs: {
