@@ -128,7 +128,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
 
-				modPlayer.SetAllSkillsData(1, 7, 20, 30, 3, null, null, null, null, null, null, "SampleIcon");
+				modPlayer.SetAllSkillsData(1, 7, 20, 30, 3, null, null, null, null, null, null, "ChenSword");
 
 				if (!modPlayer.HoldChenSword) {
 					modPlayer.SkillInitialize = true;
