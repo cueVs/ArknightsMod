@@ -216,7 +216,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData(3, 7, 0, 20, 3, 9, 9, 3, 23, 35, 3, "SampleIcon");
+				modPlayer.SetAllSkillsData(3, 7, 0, 20, 3, 9, 9, 3, 23, 35, 3, "PozemkaCrossbow");
 				modPlayer.ShowSummonUI("PozemkaCrossbow");
 
 				if (!modPlayer.HoldPozemkaCrossbow) {

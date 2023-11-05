@@ -91,7 +91,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData(1, 7, 0, 4, 0, null, null, null, null, null, null, "SampleIcon");
+				modPlayer.SetAllSkillsData(1, 7, 0, 4, 0, null, null, null, null, null, null, "KroosCrossbow");
 				if (!modPlayer.HoldKroosCrossbow) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
