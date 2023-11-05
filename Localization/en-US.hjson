@@ -76,6 +76,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			ChenHead: {
+				DisplayName: Chen's outfit (Head)
+				Tooltip: ""
+			}
+
+			ChenBody: {
+				DisplayName: Chen's outfit (Body)
+				Tooltip: ""
+			}
+
+			ChenLegs: {
+				DisplayName: Chen's outfit (Legs)
+				Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: Arknights Doctor's outfit
@@ -84,6 +99,11 @@ Mods: {
 					{$CommonItemTooltip.RightClickToOpen}
 					All equipment for operators is provided by Rhodes Island. And of course, yours.
 					'''
+			}
+
+			GachaBag: {
+				DisplayName: Gacha Bag
+				Tooltip: ""
 			}
 
 			# Material
@@ -344,26 +364,6 @@ Mods: {
 					Call [c/FF0000:the lost military nuke weapon]
 					[c/FF0000:Only during NIGHT]
 					'''
-			}
-
-			ChenBody: {
-				DisplayName: Chen Body
-				Tooltip: ""
-			}
-
-			ChenHead: {
-				DisplayName: Chen Head
-				Tooltip: ""
-			}
-
-			ChenLegs: {
-				DisplayName: Chen Legs
-				Tooltip: ""
-			}
-
-			GachaBag: {
-				DisplayName: Gacha Bag
-				Tooltip: ""
 			}
 		}
 
