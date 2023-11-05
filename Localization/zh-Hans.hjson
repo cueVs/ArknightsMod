@@ -77,17 +77,17 @@ Mods: {
 			}
 
 			ChenHead: {
-				// DisplayName: Chen's outfit (Head)
+				DisplayName: 陈的头套
 				// Tooltip: ""
 			}
 
 			ChenBody: {
-				// DisplayName: Chen's outfit (Body)
+				DisplayName: 陈的上衣
 				// Tooltip: ""
 			}
 
 			ChenLegs: {
-				// DisplayName: Chen's outfit (Legs)
+				DisplayName: 陈的下装
 				// Tooltip: ""
 			}
 
@@ -102,7 +102,7 @@ Mods: {
 			}
 
 			GachaBag: {
-				// DisplayName: Gacha Bag
+				DisplayName: 朝陇山时装快递
 				// Tooltip: ""
 			}
 
