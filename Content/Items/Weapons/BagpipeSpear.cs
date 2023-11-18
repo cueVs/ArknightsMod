@@ -165,7 +165,7 @@ namespace ArknightsMod.Content.Items.Weapons
 				}
 				// S2
 				if (modPlayer.Skill == 1 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
-					damage *= 200f;
+					damage *= 2f;
 				}
 				// S3
 				if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
