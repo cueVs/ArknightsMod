@@ -5,10 +5,11 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader.Utilities;
 using Terraria.DataStructures;
-using ArknightsMod.Content.Items;
+using ArknightsMod.Content.Items.Placeable.Banners;
 using Terraria.Localization;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using static Terraria.ModLoader.ModContent;
 
 namespace ArknightsMod.Content.NPCs.Enemy
 {
@@ -41,7 +42,10 @@ namespace ArknightsMod.Content.NPCs.Enemy
 
 			NPC.value = 3f;
 			NPC.knockBackResist = 0.5f;
-			NPC.aiStyle = NPCAIStyleID.Snail; 
+			NPC.aiStyle = NPCAIStyleID.Snail;
+
+			Banner = NPC.type;
+			BannerItem = ItemType<OriginiumSlugAlphaBanner>();
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {

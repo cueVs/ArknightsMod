@@ -365,6 +365,16 @@ Mods: {
 					[c/FF0000:Only during NIGHT]
 					'''
 			}
+
+			OriginiumSlugAlphaBanner: {
+				DisplayName: Originium Slug Alpha Banner
+				Tooltip: ""
+			}
+
+			OriginiumSlugBanner: {
+				DisplayName: Originium Slug Banner
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -528,6 +538,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			BannerTile.MapEntry: Banner Tile
 		}
 
 		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"

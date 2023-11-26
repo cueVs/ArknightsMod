@@ -5,11 +5,10 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader.Utilities;
 using Terraria.DataStructures;
-using ArknightsMod.Content.Items;
+using ArknightsMod.Content.Items.Placeable.Banners;
 using Terraria.Localization;
 using Terraria.UI;
-
-
+using static Terraria.ModLoader.ModContent;
 namespace ArknightsMod.Content.NPCs.Enemy
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
@@ -42,6 +41,9 @@ namespace ArknightsMod.Content.NPCs.Enemy
 			NPC.value = 3f;
 			NPC.knockBackResist = 0.5f;
 			NPC.aiStyle = NPCAIStyleID.Snail; // Passive Worm AI
+
+			Banner = NPC.type;
+			BannerItem = ItemType<OriginiumSlugBanner>();
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
