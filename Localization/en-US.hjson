@@ -541,7 +541,7 @@ Mods: {
 			BannerTile.MapEntry: Banner Tile
 		}
 
-		Currencies.OrundumCurrency: "{$Mods.ArknightsMod.ItemName.Orundum}"
+		Currencies.OrundumCurrency: Orundum
 
 		WorldGen: {
 			GrindPassMessage: "{$Mods.ArknightsMod.ItemName.Grind}"
