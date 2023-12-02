@@ -120,7 +120,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 					System.AOStatus = true;
 				}
 				else {
-					Main.npcChatText = Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOFin");
+					System.QuestNum = Main.rand.Next(System.CountQuest);
+					Main.npcChatText = System.GetCurrentQuest().ToString();
+					Main.npcChatCornerItem = System.GetCurrentQuest().QuestItem;
+					System.AOStatus = true;
+					//Main.npcChatText = Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOFin");
 				}
 			}
 			else {
@@ -153,6 +157,8 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				Quests.Clear();
 				Quests.Add(new Quest(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AO", "Green Slimes"), ItemID.GreenSlimeBanner, 1, Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOThanks")));
 				Quests.Add(new Quest(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AO", "Blue Slimes"), ItemID.SlimeBanner, 1, Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOThanks")));
+				Quests.Add(new Quest(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AO", "Originium Slugs"), ModContent.ItemType<Items.Placeable.Banners.OriginiumSlugBanner>(), 1, Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOThanks")));
+				Quests.Add(new Quest(Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AO", "Originium Slugs (Alpha)"), ModContent.ItemType<Items.Placeable.Banners.OriginiumSlugAlphaBanner>(), 1, Language.GetTextValue("Mods.ArknightsMod.Dialogue.Closure.AOThanks")));
 				CountQuest = Quests.Count;
 			}
 
