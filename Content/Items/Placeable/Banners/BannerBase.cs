@@ -155,6 +155,6 @@ namespace ArknightsMod.Content.Items.Placeable.Banners
         }
     }
 
-    public class OriginiumSlugBanner : BannerBase { public override int BannerIndex => 0; public override int NPCType => NPCType<NPCs.Enemy.OriginiumSlug>(); }
-	public class OriginiumSlugAlphaBanner : BannerBase { public override int BannerIndex => 1; public override int NPCType => NPCType<NPCs.Enemy.OriginiumSlugAlpha>(); }
+    public class OriginiumSlugBanner : BannerBase { public override int BannerIndex => 0; public override int NPCType => NPCType<NPCs.Enemy.ThroughChapter4.OriginiumSlug>(); }
+	public class OriginiumSlugAlphaBanner : BannerBase { public override int BannerIndex => 1; public override int NPCType => NPCType<NPCs.Enemy.ThroughChapter4.OriginiumSlugAlpha>(); }
 }
