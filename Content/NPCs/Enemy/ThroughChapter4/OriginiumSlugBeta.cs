@@ -11,10 +11,10 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 
-namespace ArknightsMod.Content.NPCs.Enemy
+namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
-	public class OriginiumSlugAlpha : ModNPC
+	public class OriginiumSlugBeta : ModNPC
 	{
 		private int status;
 		private float preposition;
@@ -22,40 +22,40 @@ namespace ArknightsMod.Content.NPCs.Enemy
 
 
 		public override void SetStaticDefaults() {
-			Main.npcFrameCount[Type] = 4;
+			Main.npcFrameCount[Type] = 5;
 
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { // Influences how the NPC looks in the Bestiary
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { // Influences how the NPC looks in the Bestiary
 				Velocity = 1f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 30;
-			NPC.height = 20;
-			NPC.damage = 7;
-			NPC.defense = 2;
-			NPC.lifeMax = 25;
+			NPC.width = 42;
+			NPC.height = 30;
+			NPC.damage = 12;
+			NPC.defense = 4;
+			NPC.lifeMax = 35;
 
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 
-			NPC.value = 3f;
+			NPC.value = 25f;
 			NPC.knockBackResist = 0.5f;
 			NPC.aiStyle = NPCAIStyleID.Snail;
 
 			Banner = NPC.type;
-			BannerItem = ItemType<OriginiumSlugAlphaBanner>();
+			BannerItem = ItemType<OriginiumSlugBetaBanner>();
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeable.OrirockCube>(), 7, 1, 3));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.IntegratedDevice>(), 6, 1, 3));
 
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-			return SpawnCondition.OverworldDaySlime.Chance * 1f; // Spawn with 1/1st the chance of a regular slime.
+			return SpawnCondition.Underground.Chance * 0.5f; // Spawn with 1/5th the chance of a regular enemies.
 			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 
@@ -76,10 +76,8 @@ namespace ArknightsMod.Content.NPCs.Enemy
 		public override void FindFrame(int frameHeight) {
 			NPC.spriteDirection = NPC.direction;
 
-			// This NPC animates with a simple "go from start frame to final frame, and loop back to start frame" rule
-			// In this case: 0-1-2-3-0-1-2-3
 			int startFrame = 0;
-			int finalFrame = 3;
+			int finalFrame = 4;
 			int frameSpeed = 6;
 
 			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
@@ -106,8 +104,7 @@ namespace ArknightsMod.Content.NPCs.Enemy
 				NPC.ai[3] = 0;
 				status = Main.rand.Next(5);
 				if(status == 1 || status == 3) {
-					direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
-					NPC.direction = direction;
+					NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
 				}
 				if(status == 4) {
 					NPC.direction *= -1;
