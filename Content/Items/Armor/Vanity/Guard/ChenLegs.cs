@@ -3,20 +3,20 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace ArknightsMod.Content.Items.Armor.Vanity
+namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 {
 	// See also: ExampleCostume
-	[AutoloadEquip(EquipType.Body)]
-	public class ChenBody : ModItem
+	[AutoloadEquip(EquipType.Legs)]
+	public class ChenLegs : ModItem
 	{
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Arknights Doctor's Jacket");
+			// DisplayName.SetDefault("Arknights Doctor's Pants");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() {
-			Item.width = 26;
-			Item.height = 16;
+			Item.width = 18;
+			Item.height = 8;
 			Item.rare = ItemRarityID.Blue;
 			Item.vanity = true;
 		}

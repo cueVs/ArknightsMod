@@ -32,9 +32,9 @@ namespace ArknightsMod.Content.Items.Consumables
 
 		public override void ModifyItemLoot(ItemLoot itemLoot) {
 
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.ChenHead>()));
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.ChenBody>()));
-			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.ChenLegs>()));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Guard.ChenHead>()));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Guard.ChenBody>()));
+			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Guard.ChenLegs>()));
 
 			//  int num = Main.rand.Next(4))
 			//  switch (num)
