@@ -31,8 +31,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 30;
-			NPC.height = 20;
+			NPC.width = 56;
+			NPC.height = 24;
 			NPC.damage = 7;
 			NPC.defense = 2;
 			NPC.lifeMax = 25;
@@ -40,7 +40,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 
-			NPC.value = 3f;
+			NPC.value = 10f;
 			NPC.knockBackResist = 0.5f;
 			NPC.aiStyle = NPCAIStyleID.Snail;
 
@@ -55,7 +55,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-			return SpawnCondition.OverworldDaySlime.Chance * 1f; // Spawn with 1/1st the chance of a regular slime.
+			return SpawnCondition.OverworldDaySlime.Chance * 0.8f; // Spawn with 1/1st the chance of a regular slime.
 			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 

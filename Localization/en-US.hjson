@@ -375,6 +375,11 @@ Mods: {
 				DisplayName: Originium Slug Banner
 				Tooltip: ""
 			}
+
+			OriginiumSlugBetaBanner: {
+				DisplayName: Originium Slug Beta Banner
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -438,6 +443,7 @@ Mods: {
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
+			OriginiumSlugBeta.DisplayName: Originium Slug Beta
 		}
 
 		# Friendly

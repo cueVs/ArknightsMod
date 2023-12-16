@@ -7,12 +7,14 @@ using Terraria.ModLoader.Utilities;
 using Terraria.DataStructures;
 using ArknightsMod.Content.Items.Placeable.Banners;
 using Terraria.Localization;
-using Terraria.UI;
+using System;
+using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
+
 namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
-	public class OriginiumSlug : ModNPC
+	public class OriginiumSlugBeta : ModNPC
 	{
 		private int status;
 		private float preposition;
@@ -20,7 +22,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 
 		public override void SetStaticDefaults() {
-			Main.npcFrameCount[Type] = 4;
+			Main.npcFrameCount[Type] = 5;
 
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { // Influences how the NPC looks in the Bestiary
 				Velocity = 1f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
@@ -29,31 +31,31 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 56;
-			NPC.height = 24;
-			NPC.damage = 6;
-			NPC.defense = 0;
-			NPC.lifeMax = 14;
+			NPC.width = 62;
+			NPC.height = 30;
+			NPC.damage = 12;
+			NPC.defense = 4;
+			NPC.lifeMax = 35;
 
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 
-			NPC.value = 3f;
+			NPC.value = 25f;
 			NPC.knockBackResist = 0.5f;
-			NPC.aiStyle = NPCAIStyleID.Snail; // Passive Worm AI
+			NPC.aiStyle = NPCAIStyleID.Snail;
 
 			Banner = NPC.type;
-			BannerItem = ItemType<OriginiumSlugBanner>();
+			BannerItem = ItemType<OriginiumSlugBetaBanner>();
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Placeable.OrirockCube>(), 8, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.IntegratedDevice>(), 6, 1, 3));
 
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-			return SpawnCondition.OverworldDaySlime.Chance * 0.8f; // Spawn with 1/1st the chance of a regular slime.
+			return SpawnCondition.Underground.Chance * 0.5f; // Spawn with 1/5th the chance of a regular enemies.
 			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 
@@ -66,7 +68,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.OriginiumSlug")),
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.OriginiumSlugAlpha")),
 
 			});
 		}
@@ -74,15 +76,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		public override void FindFrame(int frameHeight) {
 			NPC.spriteDirection = NPC.direction;
 
-			// This NPC animates with a simple "go from start frame to final frame, and loop back to start frame" rule
-			// In this case: 0-1-2-3-0-1-2-3
 			int startFrame = 0;
-			int finalFrame = 3;
+			int finalFrame = 4;
 			int frameSpeed = 6;
 
 			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
 				NPC.frameCounter += 0.6f;
-				NPC.frameCounter += NPC.velocity.Length() / 4f; // Make the counter go faster with more movement speed
+				NPC.frameCounter += NPC.velocity.Length() / 3f; // Make the counter go faster with more movement speed
 			}
 
 			if (NPC.frameCounter > frameSpeed) {
@@ -96,7 +96,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				}
 			}
 		}
-
 		public override void AI() {
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active) {
 				NPC.TargetClosest();
@@ -104,35 +103,33 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			if (NPC.ai[3] % 180 == 0) {
 				NPC.ai[3] = 0;
 				status = Main.rand.Next(5);
-				if (status == 1 || status == 3) {
-					direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
-					NPC.direction = direction;
+				if(status == 1 || status == 3) {
+					NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
 				}
-				if (status == 4) {
+				if(status == 4) {
 					NPC.direction *= -1;
 				}
 			}
 			switch (status) {
 				case 0:
-					NPC.velocity.X = 1f * NPC.direction;
+					NPC.velocity.X = 1.1f * NPC.direction;
 					break;
 				case 1:
-					NPC.velocity.X = 0.9f * NPC.direction;
+					NPC.velocity.X = 1f * NPC.direction;
 					break;
 				case 2:
 					NPC.velocity.X *= 0;
 					break;
 				case 3:
-					NPC.velocity.X = 1.3f * NPC.direction;
+					NPC.velocity.X = 1.5f * NPC.direction;
 					break;
 				case 4:
-					NPC.velocity.X = 0.7f * NPC.direction;
+					NPC.velocity.X = 0.8f * NPC.direction;
 					break;
 			}
 			NPC.velocity.Y = 1.2f * NPC.directionY;
 			NPC.ai[3]++;
 
-			base.AI();
 		}
 
 		public override void HitEffect(NPC.HitInfo hit) {
