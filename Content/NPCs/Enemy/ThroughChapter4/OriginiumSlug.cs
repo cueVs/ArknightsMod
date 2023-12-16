@@ -29,8 +29,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 56;
-			NPC.height = 24;
+			NPC.width = 36;
+			NPC.height = 26;
 			NPC.damage = 6;
 			NPC.defense = 0;
 			NPC.lifeMax = 14;

@@ -366,13 +366,13 @@ Mods: {
 					'''
 			}
 
-			OriginiumSlugAlphaBanner: {
-				DisplayName: Originium Slug Alpha Banner
+			OriginiumSlugBanner: {
+				DisplayName: Originium Slug Banner
 				Tooltip: ""
 			}
 
-			OriginiumSlugBanner: {
-				DisplayName: Originium Slug Banner
+			OriginiumSlugAlphaBanner: {
+				DisplayName: Originium Slug Alpha Banner
 				Tooltip: ""
 			}
 
@@ -440,10 +440,10 @@ Mods: {
 			Soldier.DisplayName: Soldier
 			OriginiumSlug.DisplayName: Originium Slug
 			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
+			OriginiumSlugBeta.DisplayName: Originium Slug Beta
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
-			OriginiumSlugBeta.DisplayName: Originium Slug Beta
 		}
 
 		# Friendly
@@ -491,6 +491,7 @@ Mods: {
 			Soldier: One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation.
 			OriginiumSlug: An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			OriginiumSlugAlpha: An infected wild creature that is more dangerous than an Acid Originium Slug. Secretes corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
+			OriginiumSlugBeta: An infected wild creature that is more dangerous than an Originium Slug Alpha. Due to their low intelligence, they are easily controlled by enemy caster for use as cannon fodder during invasions.
 			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
 			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
 		}
@@ -544,7 +545,7 @@ Mods: {
 			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
 			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
 			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
-			BannerTile.MapEntry: Banner Tile
+			BannerTile.MapEntry: Banner
 		}
 
 		Currencies.OrundumCurrency: Orundum
