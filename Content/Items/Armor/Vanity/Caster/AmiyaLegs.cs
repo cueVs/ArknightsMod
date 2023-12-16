@@ -17,7 +17,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Caster
 		public override void SetDefaults() {
 			Item.width = 18;
 			Item.height = 8;
-			Item.rare = ItemRarityID.Pink;
+			Item.rare = ItemRarityID.Pink; // Same rarity as Arknights
 			Item.vanity = true;
 		}
 

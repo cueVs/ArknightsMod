@@ -17,7 +17,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 		public override void SetDefaults() {
 			Item.width = 18;
 			Item.height = 8;
-			Item.rare = ItemRarityID.Blue;
+			Item.rare = ItemRarityID.LightPurple; // Same rarity as Arknights
 			Item.vanity = true;
 		}
 
