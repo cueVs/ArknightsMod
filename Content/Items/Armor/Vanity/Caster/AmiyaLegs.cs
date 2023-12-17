@@ -7,7 +7,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Caster
 {
 	// See also: ExampleCostume
 	[AutoloadEquip(EquipType.Legs)]
-	public class ChenLegs : ModItem
+	public class AmiyaLegs : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Pants");

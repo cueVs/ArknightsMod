@@ -7,7 +7,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Caster
 {
 	// See also: ExampleCostume
 	[AutoloadEquip(EquipType.Head)]
-	public class ChenHead : ModItem
+	public class AmiyaHead : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Hood");
