@@ -32,7 +32,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 		public override void SetDefaults() {
 			NPC.width = 42;
-			NPC.height = 30;
+			NPC.height = 28;
 			NPC.damage = 12;
 			NPC.defense = 4;
 			NPC.lifeMax = 35;
@@ -43,6 +43,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			NPC.value = 25f;
 			NPC.knockBackResist = 0.5f;
 			NPC.aiStyle = NPCAIStyleID.Snail;
+
+			NPC.scale = 0.85f;
 
 			Banner = NPC.type;
 			BannerItem = ItemType<OriginiumSlugBetaBanner>();
