@@ -91,6 +91,21 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			AmiyaBody: {
+				DisplayName: 阿米娅的上衣
+				// Tooltip: ""
+			}
+
+			AmiyaHead: {
+				DisplayName: 阿米娅的头套
+				// Tooltip: ""
+			}
+
+			AmiyaLegs: {
+				// DisplayName: Amiya's outfit (Legs)
+				// Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: 明日方舟博士的衣服

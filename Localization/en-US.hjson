@@ -91,6 +91,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			AmiyaBody: {
+				DisplayName: Amiya's outfit (Body)
+				Tooltip: ""
+			}
+
+			AmiyaHead: {
+				DisplayName: Amiya's outfit (Head)
+				Tooltip: ""
+			}
+
+			AmiyaLegs: {
+				DisplayName: Amiya's outfit (Legs)
+				Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: Arknights Doctor's outfit

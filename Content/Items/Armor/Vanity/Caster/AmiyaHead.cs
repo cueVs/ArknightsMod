@@ -3,21 +3,25 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace ArknightsMod.Content.Items.Armor.Vanity
+namespace ArknightsMod.Content.Items.Armor.Vanity.Caster
 {
 	// See also: ExampleCostume
-	[AutoloadEquip(EquipType.Body)]
-	public class ChenBody : ModItem
+	[AutoloadEquip(EquipType.Head)]
+	public class AmiyaHead : ModItem
 	{
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Arknights Doctor's Jacket");
+			// DisplayName.SetDefault("Arknights Doctor's Hood");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			if (Main.netMode == NetmodeID.Server)
+				return;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
+			ArmorIDs.Head.Sets.IsTallHat[Item.headSlot] = true;
 		}
 
 		public override void SetDefaults() {
-			Item.width = 26;
-			Item.height = 16;
-			Item.rare = ItemRarityID.Blue;
+			Item.width = 20;
+			Item.height = 12;
+			Item.rare = ItemRarityID.Pink; // Same rarity as Arknights
 			Item.vanity = true;
 		}
 
