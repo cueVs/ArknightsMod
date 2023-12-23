@@ -15,8 +15,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 
 			if (Main.netMode == NetmodeID.Server)
 				return;
-			int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);
-			ArmorIDs.Legs.Sets.HidesBottomSkin[equipSlotLegs] = true;
+			ArmorIDs.Legs.Sets.HidesBottomSkin[Item.legSlot] = true;
 		}
 
 		public override void SetDefaults() {

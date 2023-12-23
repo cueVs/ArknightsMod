@@ -14,9 +14,8 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
-			int equipSlotBody = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
-			ArmorIDs.Body.Sets.HidesTopSkin[equipSlotBody] = true;
-			ArmorIDs.Body.Sets.HidesArms[equipSlotBody] = true;
+			ArmorIDs.Body.Sets.HidesTopSkin[Item.bodySlot] = true;
+			ArmorIDs.Body.Sets.HidesArms[Item.bodySlot] = true;
 		}
 
 		public override void SetDefaults() {

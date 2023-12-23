@@ -14,8 +14,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
-			int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
-			ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = false;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
 		}
 
 		public override void SetDefaults() {
