@@ -12,6 +12,11 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Jacket");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			if (Main.netMode == NetmodeID.Server)
+				return;
+			int equipSlotBody = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
+			ArmorIDs.Body.Sets.HidesTopSkin[equipSlotBody] = true;
+			ArmorIDs.Body.Sets.HidesArms[equipSlotBody] = true;
 		}
 
 		public override void SetDefaults() {
