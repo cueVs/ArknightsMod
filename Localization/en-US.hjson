@@ -459,6 +459,7 @@ Mods: {
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
+			AcidOgSlug.DisplayName: Acid Og Slug
 		}
 
 		# Friendly

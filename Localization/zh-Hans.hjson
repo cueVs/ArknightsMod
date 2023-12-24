@@ -459,6 +459,7 @@ Mods: {
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 			IAT.DisplayName: 帝国炮火先兆者
+			// AcidOgSlug.DisplayName: Acid Og Slug
 		}
 
 		# Friendly

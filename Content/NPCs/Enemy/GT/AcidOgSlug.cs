@@ -9,10 +9,10 @@ using ArknightsMod.Content.Items.Placeable.Banners;
 using Terraria.Localization;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
+namespace ArknightsMod.Content.NPCs.Enemy.GT
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
-	public class OriginiumSlug : ModNPC
+	public class AcidOgSlug : ModNPC
 	{
 		private int status;
 		private float preposition;
@@ -20,7 +20,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 
 		public override void SetStaticDefaults() {
-			Main.npcFrameCount[Type] = 4;
+			Main.npcFrameCount[Type] = 15;
 
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { // Influences how the NPC looks in the Bestiary
 				Velocity = 1f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
@@ -29,28 +29,28 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		}
 
 		public override void SetDefaults() {
-			NPC.width = 34;
-			NPC.height = 26;
-			NPC.damage = 6;
-			NPC.defense = 0;
-			NPC.lifeMax = 14;
+			NPC.width = 40;
+			NPC.height = 34;
+			NPC.damage = 12;
+			NPC.defense = 8;
+			NPC.lifeMax = 40;
 
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 
-			NPC.value = 3f;
+			NPC.value = 30f;
 			NPC.knockBackResist = 0.5f;
 			NPC.aiStyle = NPCAIStyleID.Snail; // Passive Worm AI
 
 			NPC.scale = 0.85f;
 
-			Banner = NPC.type;
-			BannerItem = ItemType<OriginiumSlugBanner>();
+			//Banner = NPC.type;
+			//BannerItem = ItemType<OriginiumSlugBanner>();
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Placeable.OrirockCube>(), 8, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.Oriron>(), 8, 1, 2));
 
 		}
 
@@ -63,12 +63,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
 
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.OriginiumSlug")),
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.AcidOgSlug")),
 
 			});
 		}
@@ -79,7 +79,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			// This NPC animates with a simple "go from start frame to final frame, and loop back to start frame" rule
 			// In this case: 0-1-2-3-0-1-2-3
 			int startFrame = 0;
-			int finalFrame = 3;
+			int finalFrame = 4;
 			int frameSpeed = 6;
 
 			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
