@@ -28,7 +28,7 @@ Once it is up and running, select Workshop from the menu and open the Mod Browse
 Recruitment tag: [Program] [Sprite] [Terraria] [Discussion] [Player]<br>
 If you are interested in one of them, please contact our Discord server (below).<br>
 🐰"There's still lots of work that needs to be done, Doctor. You can't rest now!"<br>
-There is too many work to be done in Terraria. We look forward to meet you.
+There is also much work to be done in Terraria. We look forward to your coming.
 
 ## Disclaimer
 - Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines).
