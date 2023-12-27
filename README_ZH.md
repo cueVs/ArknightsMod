@@ -24,12 +24,12 @@
 是的，泰拉瑞亚也有许多事情要处理，欢迎各位博士来参加。<br>
 
 ## 免责申明
-- 此MOD依据 "[TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines)" 所记载的事项进行开发。
-- 我们无法补偿您在使用此MOD时发生的任何损害。（因此，我们推荐您对游戏数据进行[备份](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups)。）
-- 禁止利用此MOD的程序以及图片数据进行再创作。
-- 如果有任何关于此MOD的疑问，请通过以下Discord来联系我们。
+- 此MOD依据 悠星(香港)有限公司"[TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines)" 所记载的事项进行开发。
+- 我们无法补偿您在使用此MOD时导致的任何损失。（因此，我们推荐您对已有游戏数据进行[备份](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups)。）
+- 禁止就此MOD的程序以及图片数据进行搬运或再创作。
+- 如果有任何关于此MOD的疑问，请通过下面的Discord来联系我们。
 
-## Contact
+## 联系我们
 QQ群: 891522802<br>
 WeChat: CueTheViolins (加我拉你进群)<br>
 [Discord server](https://discord.gg/XKM2jeS9hY)<br>
