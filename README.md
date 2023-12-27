@@ -31,7 +31,7 @@ If you are interested in one of them, please contact our Discord server (below).
 There is too many work to be done in Terraria. We look forward to meet you.
 
 ## Disclaimer
-- Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines).
+- Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines) from YOSTAR (HONG KONG) LIMITED.
 - I do not take any responsibility or liability for any damage or loss caused through this mod. (So, you should [back up the game data](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups) periodically.)
 - You are NOT allowed to use or to reproduce the code and the images of this mod.
 - If you have any questions regarding the use of this mod, please contact our Discord server (below).
