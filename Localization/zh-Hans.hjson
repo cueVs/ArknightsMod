@@ -27,7 +27,7 @@ Mods: {
 
 			Shinginzan: {
 				DisplayName: Shinginzan
-				Tooltip: "'银灰，你的盟友，前来助力。'"
+				Tooltip: "'银灰，你的盟友，前来助力。'"(未完成)
 			}
 
 			BagpipeSpear: {
@@ -56,7 +56,7 @@ Mods: {
 
 			# Accessories
 			ExusiaiWings: {
-				DisplayName: Exusiai's wings
+				DisplayName: 能天使的光翼
 				Tooltip: "'苹果派！'"
 			}
 
