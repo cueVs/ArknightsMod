@@ -550,6 +550,7 @@ Mods: {
 			// PozemkaCrossbowSentry.DisplayName: Pozemka Crossbow Sentry
 			// PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			// PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
+			// AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
 		}
 
 		ButtonName.button2: 剿灭作战

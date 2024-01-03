@@ -110,7 +110,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			else if(Frame_State == (int)ActionState.Attack) {
 				int startFrame = 5;
 				int finalFrame = 14;
-				int frameSpeed = 3;
+				int frameSpeed = 5;
 				if(NPC.frame.Y < startFrame * frameHeight) {
 					NPC.frame.Y = startFrame * frameHeight;
 				}
@@ -134,7 +134,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 				NPC.TargetClosest();
 			}
 			if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) {
-				if (Main.player[NPC.target].Center.X - NPC.Center.X < -200 || Main.player[NPC.target].Center.X - NPC.Center.X > 200) {
+				if (Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) > 280 || Math.Abs(Main.player[NPC.target].Center.Y - NPC.Center.Y) > 180) {
 					RandomWalk();
 				}
 				else {
@@ -205,17 +205,20 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			NPC.velocity.X *= 0;
 			NPC.velocity.Y *= 0;
 			NPC.ai[3]++;
-			if (NPC.ai[3] == 4) {
+			if (NPC.ai[3] == 25) {
 				Vector2 position = NPC.Center;
-				Vector2 targetPosition = Main.player[NPC.target].Center;
-				Vector2 direction = targetPosition - position;
-				direction.Normalize();
-				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, direction * 2f, ProjectileType<PozemkaCrossbowSentryProjectile>(), 10, 0f, Main.myPlayer);
+
+				float x = Main.player[NPC.target].Center.X - NPC.Center.X;
+				float y = Main.player[NPC.target].Center.Y - NPC.Center.Y - 20;
+
+				float theta = (new Vector2(x, y)).ToRotation();
+
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, 8f * (new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta))), ProjectileType<AcidOgSlugProjectile>(), 10, 0f, Main.myPlayer);
 			}
 		}
 
 		private void Approach() {
-			if(Main.player[NPC.target].Center.X != NPC.Center.X) {
+			if(Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) > 2) {
 				NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
 				NPC.velocity.X = 1f * NPC.direction;
 			}
@@ -225,7 +228,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			NPC.velocity.Y = 1.2f * NPC.directionY;
 			NPC.ai[3]++;
 
-			if (NPC.ai[3] % 60 == 0) {
+			if (NPC.ai[3] % 120 == 0 && NPC.collideY) {
 				Frame_State = (int)ActionState.Attack;
 				NPC.ai[3] = 0;
 			}
