@@ -205,7 +205,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			NPC.velocity.X *= 0;
 			NPC.velocity.Y *= 0;
 			NPC.ai[3]++;
-			if (NPC.ai[3] == 25) {
+			if (NPC.ai[3] == 35) {
 				Vector2 position = NPC.Center;
 
 				float x = Main.player[NPC.target].Center.X - NPC.Center.X;
@@ -228,7 +228,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			NPC.velocity.Y = 1.2f * NPC.directionY;
 			NPC.ai[3]++;
 
-			if (NPC.ai[3] % 120 == 0 && NPC.collideY) {
+			if (NPC.ai[3] % 100 == 0 && NPC.collideY) {
 				Frame_State = (int)ActionState.Attack;
 				NPC.ai[3] = 0;
 			}
