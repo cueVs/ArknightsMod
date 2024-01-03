@@ -9,14 +9,23 @@ using ArknightsMod.Content.Items.Placeable.Banners;
 using Terraria.Localization;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ArknightsMod.Content.Projectiles;
+using System;
+using Microsoft.Xna.Framework;
+
+
 namespace ArknightsMod.Content.NPCs.Enemy.GT
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
 	public class AcidOgSlug : ModNPC
 	{
 		private int status;
-		private float preposition;
-		private int direction;
+		private int Frame_State;
+
+		private enum ActionState {
+			Walk,
+			Attack
+		}
 
 
 		public override void SetStaticDefaults() {
@@ -76,25 +85,46 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 		public override void FindFrame(int frameHeight) {
 			NPC.spriteDirection = NPC.direction;
 
-			// This NPC animates with a simple "go from start frame to final frame, and loop back to start frame" rule
-			// In this case: 0-1-2-3-0-1-2-3
-			int startFrame = 0;
-			int finalFrame = 4;
-			int frameSpeed = 6;
 
-			if (NPC.velocity.Length() != 0 && NPC.position.X != preposition) {
-				NPC.frameCounter += 0.6f;
-				NPC.frameCounter += NPC.velocity.Length() / 4f; // Make the counter go faster with more movement speed
-			}
+			if(Frame_State == (int)ActionState.Walk) {
+				int startFrame = 0;
+				int finalFrame = 4;
+				int frameSpeed = 6;
 
-			if (NPC.frameCounter > frameSpeed) {
-				NPC.frameCounter = 0;
-				if (NPC.velocity.Length() != 0 && status != 2) {
-					NPC.frame.Y += frameHeight;
+				if (NPC.velocity.Length() != 0) {
+					NPC.frameCounter += 0.6f;
+					NPC.frameCounter += NPC.velocity.Length() / 4f; // Make the counter go faster with more movement speed
 				}
 
-				if (NPC.frame.Y > finalFrame * frameHeight) {
+				if (NPC.frameCounter > frameSpeed) {
+					NPC.frameCounter = 0;
+					if (NPC.velocity.Length() != 0 && status != 2) {
+						NPC.frame.Y += frameHeight;
+					}
+
+					if (NPC.frame.Y > finalFrame * frameHeight) {
+						NPC.frame.Y = startFrame * frameHeight;
+					}
+				}
+			}
+			else if(Frame_State == (int)ActionState.Attack) {
+				int startFrame = 5;
+				int finalFrame = 14;
+				int frameSpeed = 3;
+				if(NPC.frame.Y < startFrame * frameHeight) {
 					NPC.frame.Y = startFrame * frameHeight;
+				}
+
+				NPC.frameCounter += 1f;
+
+				if (NPC.frameCounter > frameSpeed) {
+					NPC.frameCounter = 0;
+					NPC.frame.Y += frameHeight;
+
+					if (NPC.frame.Y > finalFrame * frameHeight) {
+						NPC.frame.Y = 0 * frameHeight;
+						Frame_State = (int)ActionState.Walk;
+					}
 				}
 			}
 		}
@@ -103,12 +133,47 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active) {
 				NPC.TargetClosest();
 			}
+			if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) {
+				if (Main.player[NPC.target].Center.X - NPC.Center.X < -200 || Main.player[NPC.target].Center.X - NPC.Center.X > 200) {
+					RandomWalk();
+				}
+				else {
+					if (Frame_State == (int)ActionState.Walk) {
+						Approach();
+					}
+					else if (Frame_State == (int)ActionState.Attack) {
+						Attack();
+					}
+					else {
+						Frame_State = (int)ActionState.Walk;
+					}
+				}
+			}
+
+			base.AI();
+		}
+
+		public override void HitEffect(NPC.HitInfo hit) {
+			// Spawn confetti when this zombie is hit.
+
+			for (int i = 0; i < 10; i++) {
+				int dustType = DustID.RedMoss;
+				var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, dustType);
+
+				dust.velocity.X += Main.rand.NextFloat(-0.05f, 0.05f);
+				dust.velocity.Y += Main.rand.NextFloat(-0.05f, 0.05f);
+
+				dust.scale *= 1f + Main.rand.NextFloat(-0.03f, 0.03f);
+			}
+		}
+
+		private void RandomWalk() {
+			Frame_State = (int)ActionState.Walk;
 			if (NPC.ai[3] % 180 == 0) {
 				NPC.ai[3] = 0;
 				status = Main.rand.Next(5);
 				if (status == 1 || status == 3) {
-					direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
-					NPC.direction = direction;
+					NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
 				}
 				if (status == 4) {
 					NPC.direction *= -1;
@@ -133,21 +198,36 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			}
 			NPC.velocity.Y = 1.2f * NPC.directionY;
 			NPC.ai[3]++;
-
-			base.AI();
 		}
 
-		public override void HitEffect(NPC.HitInfo hit) {
-			// Spawn confetti when this zombie is hit.
+		private void Attack() {
+			NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
+			NPC.velocity.X *= 0;
+			NPC.velocity.Y *= 0;
+			NPC.ai[3]++;
+			if (NPC.ai[3] == 4) {
+				Vector2 position = NPC.Center;
+				Vector2 targetPosition = Main.player[NPC.target].Center;
+				Vector2 direction = targetPosition - position;
+				direction.Normalize();
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, direction * 2f, ProjectileType<PozemkaCrossbowSentryProjectile>(), 10, 0f, Main.myPlayer);
+			}
+		}
 
-			for (int i = 0; i < 10; i++) {
-				int dustType = DustID.RedMoss;
-				var dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, dustType);
+		private void Approach() {
+			if(Main.player[NPC.target].Center.X != NPC.Center.X) {
+				NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
+				NPC.velocity.X = 1f * NPC.direction;
+			}
+			else {
+				NPC.velocity.X *= 0;
+			}
+			NPC.velocity.Y = 1.2f * NPC.directionY;
+			NPC.ai[3]++;
 
-				dust.velocity.X += Main.rand.NextFloat(-0.05f, 0.05f);
-				dust.velocity.Y += Main.rand.NextFloat(-0.05f, 0.05f);
-
-				dust.scale *= 1f + Main.rand.NextFloat(-0.03f, 0.03f);
+			if (NPC.ai[3] % 60 == 0) {
+				Frame_State = (int)ActionState.Attack;
+				NPC.ai[3] = 0;
 			}
 		}
 	}
