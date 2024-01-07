@@ -395,6 +395,11 @@ Mods: {
 				DisplayName: Originium Slug Beta Banner
 				Tooltip: ""
 			}
+
+			AcidOgSlugBanner: {
+				DisplayName: Acid Originium Slug Banner
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -456,10 +461,10 @@ Mods: {
 			OriginiumSlug.DisplayName: Originium Slug
 			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
 			OriginiumSlugBeta.DisplayName: Originium Slug Beta
+			AcidOgSlug.DisplayName: Acid Originium Slug
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
-			AcidOgSlug.DisplayName: Acid Og Slug
 		}
 
 		# Friendly
@@ -506,8 +511,9 @@ Mods: {
 		Bestiary: {
 			Soldier: One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation.
 			OriginiumSlug: An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
-			OriginiumSlugAlpha: An infected wild creature that is more dangerous than an Acid Originium Slug. Secretes corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
+			OriginiumSlugAlpha: An infected wild creature that is more dangerous than a normal Originium Slug. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			OriginiumSlugBeta: An infected wild creature that is more dangerous than an Originium Slug Alpha. Due to their low intelligence, they are easily controlled by enemy caster for use as cannon fodder during invasions.
+			AcidOgSlug: An infected wild creature that can secrete corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
 			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
 		}

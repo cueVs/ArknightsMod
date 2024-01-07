@@ -395,6 +395,11 @@ Mods: {
 				DisplayName: 源石虫Beta旗
 				// Tooltip: ""
 			}
+
+			AcidOgSlugBanner: {
+				DisplayName: 酸液源石虫旗
+				// Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -456,10 +461,10 @@ Mods: {
 			OriginiumSlug.DisplayName: 源石虫
 			OriginiumSlugAlpha.DisplayName: 源石虫Alpha
 			OriginiumSlugBeta.DisplayName: 源石虫Beta
+			AcidOgSlug.DisplayName: 酸液源石虫
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 			IAT.DisplayName: 帝国炮火先兆者
-			// AcidOgSlug.DisplayName: Acid Og Slug
 		}
 
 		# Friendly
@@ -508,6 +513,7 @@ Mods: {
 			OriginiumSlug: 野生的被感染生物。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
 			OriginiumSlugAlpha: 野生的被感染生物，比一般源石虫更具有威胁。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
 			OriginiumSlugBeta: 野生的被感染生物，比源石虫Alpha更具有威胁。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击
+			AcidOgSlug: 野生的被感染生物，且会使用分泌物腐蚀作战人员防护设备。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
 			IACT: 乌萨斯军炮兵术师操作的无人机中枢，装甲厚重，材质坚实。正是他们引导了乌萨斯炮兵猛烈的炮火袭击。乌萨斯的炮兵是深入城市的火力队伍，相对舰炮火力较弱，但也足以撕碎装甲与建筑。
 			IAT: 乌萨斯军炮兵术师操作的无人机，装甲厚重，材质坚实。正是他们引导了乌萨斯炮兵猛烈的炮火袭击。
 		}

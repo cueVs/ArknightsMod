@@ -53,8 +53,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 
 			NPC.scale = 0.85f;
 
-			//Banner = NPC.type;
-			//BannerItem = ItemType<OriginiumSlugBanner>();
+			Banner = NPC.type;
+			BannerItem = ItemType<AcidOgSlugBanner>();
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
@@ -64,7 +64,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-			return SpawnCondition.OverworldDaySlime.Chance * 0.8f; // Spawn with 1/1st the chance of a regular slime.
+			return SpawnCondition.Underground.Chance * 0.4f; 
 			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 
@@ -72,8 +72,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
 
 
 				// Sets the description of this NPC that is listed in the bestiary.
