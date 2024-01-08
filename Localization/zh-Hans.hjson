@@ -26,15 +26,18 @@ Mods: {
 			}
 
 			Shinginzan: {
-				DisplayName: Shinginzan
-				Tooltip: "'银灰，你的盟友，前来助力。'"
+				DisplayName: 真银斩
+				Tooltip: '''
+                                         [c/FF00000:(未完成的物品)]
+                                         '银灰，你的盟友，前来助力。'
+                                         '''
 			}
 
 			BagpipeSpear: {
 				DisplayName: 破城矛
 				Tooltip:
 					'''
-					左键点击物品栏下方技能图标以切换技能
+				        左键点击物品栏下方技能图标以切换技能
 					'我和我的破城矛，来自维多利亚！'
 					'''
 			}
