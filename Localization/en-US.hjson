@@ -27,7 +27,10 @@ Mods: {
 
 			Shinginzan: {
 				DisplayName: Shinginzan
-				Tooltip: "'I, SilverAsh, have joined your cause as a sworn ally.'"
+				Tooltip: '''
+                                         [c/FF0000:(unfinished item!)]
+                                         'I, SilverAsh, have joined your cause as a sworn ally.'
+                                         '''
 			}
 
 			BagpipeSpear: {
