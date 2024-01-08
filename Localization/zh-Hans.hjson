@@ -17,7 +17,7 @@ Mods: {
 
 			DurinWand: {
 				DisplayName: 杜林的法杖
-				Tooltip: 她看上去很困。
+				Tooltip: 她看起来十分困乏。
 			}
 
 			KroosCrossbow: {
@@ -26,15 +26,18 @@ Mods: {
 			}
 
 			Shinginzan: {
-				DisplayName: Shinginzan
-				Tooltip: SilverAsh
+				DisplayName: 真银斩
+				Tooltip: '''
+                                         [c/FF00000:(未完成的物品)]
+                                         '银灰，你的盟友，前来助力。'
+                                         '''
 			}
 
 			BagpipeSpear: {
 				DisplayName: 破城矛
 				Tooltip:
 					'''
-					右键点击物品栏内武器以切换技能
+				        左键点击物品栏下方技能图标以切换技能
 					'我和我的破城矛，来自维多利亚！'
 					'''
 			}
@@ -51,7 +54,7 @@ Mods: {
 
 			PozemkaCrossbow: {
 				DisplayName: 鸿雪的弩
-				Tooltip: 只要在地上生活，就一定会有拿起武器的那一天，我知道。
+				Tooltip: "'只要在地上生活，就一定会有拿起武器的那一天，我知道。'"
 			}
 
 			# Accessories
@@ -174,7 +177,7 @@ Mods: {
 
 			Device: {
 				DisplayName: 装置
-				Tooltip: 收缴来的常规机械装置。
+				Tooltip: 一套相对完整的装置。
 			}
 
 			IntegratedDevice: {
@@ -274,8 +277,8 @@ Mods: {
 				DisplayName: 周年庆典转盘
 				Tooltip:
 					'''
-					这个轮盘是为了素材刷取懒人准备的。
-					右击转动轮盘，通过公正的抽奖获取素材。
+					这个轮盘是准备给懒人刷取材料用的。
+					右击转动轮盘，通过公平的抽奖获取素材。
 					??? “绝对没有暗箱操作”
 					'''
 			}
@@ -346,8 +349,8 @@ Mods: {
 			}
 
 			CFSolution: {
-				DisplayName: Cutting Fluid Solution
-				Tooltip: A stock solution prepared from a variety of active solvents.
+				DisplayName: 切削原液
+				Tooltip: 由多种活性溶剂配置而成的原液。
 			}
 
 			BipolarNanoflake: {

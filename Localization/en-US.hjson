@@ -27,14 +27,17 @@ Mods: {
 
 			Shinginzan: {
 				DisplayName: Shinginzan
-				Tooltip: SilverAsh
+				Tooltip: '''
+                                         [c/FF0000:(unfinished item!)]
+                                         'I, SilverAsh, have joined your cause as a sworn ally.'
+                                         '''
 			}
 
 			BagpipeSpear: {
 				DisplayName: Piledriver Spear
 				Tooltip:
 					'''
-					Right Click in inventory to change skills
+					Click the skill icon under the inventory to swich
 					'My spear and I hail from Victoria!'
 					'''
 			}
@@ -51,13 +54,13 @@ Mods: {
 
 			PozemkaCrossbow: {
 				DisplayName: Pozemka's Crossbow
-				Tooltip: To live on the surface inevitably means to raise a weapon at some point. So I'm well aware.
+				Tooltip: "'To live on the surface inevitably means to raise a weapon at some point. So I'm well aware.'"
 			}
 
 			# Accessories
 			ExusiaiWings: {
 				DisplayName: Exusiai's wings
-				Tooltip: Apple pie!
+				Tooltip: "'Apple pie!'"
 			}
 
 			DoctorHood: {
@@ -174,7 +177,7 @@ Mods: {
 
 			Device: {
 				DisplayName: Device
-				Tooltip: An ordinary mechanical device captured from Reunion.
+				Tooltip: A set of devices that are relatively complete.
 			}
 
 			IntegratedDevice: {
