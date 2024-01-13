@@ -37,7 +37,7 @@ namespace ArknightsMod.Common.UI
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
 			area.Left.Set(10, 0f); // Place the resource bar to the left of the hearts.
-			area.Top.Set(100, 0f); // Placing it just a bit below the top of the screen.
+			area.Top.Set(110, 0f); // Placing it just a bit below the top of the screen.
 			area.Width.Set(300, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
 			area.Height.Set(100, 0f);
 			//area.VAlign = 0.5f;
@@ -169,78 +169,78 @@ namespace ArknightsMod.Common.UI
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 
 			Texture2D skillBase = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillBase");
-			spriteBatch.Draw(skillBase, new Vector2(20, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+			spriteBatch.Draw(skillBase, new Vector2(20, 136), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 
 			// S1
 			if (modPlayer.HowManySkills > 0) {
 				Texture2D s1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "1");
-				spriteBatch.Draw(s1, new Vector2(26, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(s1, new Vector2(26, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
-				spriteBatch.Draw(baseOfSPs1, new Vector2(32, 168), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(baseOfSPs1, new Vector2(32, 178), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				if (modPlayer.MasteryLevelS1 == 1) {
 					Texture2D masteryLevelS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M1");
-					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 				else if (modPlayer.MasteryLevelS1 == 2) {
 					Texture2D masteryLevelS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M2");
-					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 				else if (modPlayer.MasteryLevelS1 == 3) {
 					Texture2D masteryLevelS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M3");
-					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 			}
 			else {
 				Texture2D noS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/NoSkill");
-				spriteBatch.Draw(noS1, new Vector2(26, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(noS1, new Vector2(26, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
 
 			// S2
 			if (modPlayer.HowManySkills > 1) {
 				Texture2D s2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "2");
-				spriteBatch.Draw(s2, new Vector2(96, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(s2, new Vector2(96, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
-				spriteBatch.Draw(baseOfSPs2, new Vector2(102, 168), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(baseOfSPs2, new Vector2(102, 178), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				if (modPlayer.MasteryLevelS2 == 1) {
 					Texture2D masteryLevelS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M1");
-					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 				else if (modPlayer.MasteryLevelS2 == 2) {
 					Texture2D masteryLevelS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M2");
-					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 				else if (modPlayer.MasteryLevelS2 == 3) {
 					Texture2D masteryLevelS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M3");
-					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 			}
 			else {
 				Texture2D noS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/NoSkill");
-				spriteBatch.Draw(noS2, new Vector2(96, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(noS2, new Vector2(96, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
 
 			// S3
 			if (modPlayer.HowManySkills > 2) {
 				Texture2D s3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "3");
-				spriteBatch.Draw(s3, new Vector2(166, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(s3, new Vector2(166, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
-				spriteBatch.Draw(baseOfSPs3, new Vector2(172, 168), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(baseOfSPs3, new Vector2(172, 178), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				if (modPlayer.MasteryLevelS3 == 1) {
 					Texture2D masteryLevelS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M1");
-					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 				else if (modPlayer.MasteryLevelS3 == 2) {
 					Texture2D masteryLevelS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M2");
-					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 				else if (modPlayer.MasteryLevelS3 == 3) {
 					Texture2D masteryLevelS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M3");
-					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 110), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
 			}
 			else {
 				Texture2D noS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/NoSkill");
-				spriteBatch.Draw(noS3, new Vector2(164, 116), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(noS3, new Vector2(164, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
 
 		}
@@ -258,7 +258,7 @@ namespace ArknightsMod.Common.UI
 			maxSP3.SetText($"{modPlayer.MaxSPs3}");
 			skillLevel.SetText($"{modPlayer.SkillLevel}");
 
-			if(Main.mouseX > 26 && Main.mouseX < 230 && Main.mouseY > 116 && Main.mouseY < 180) {
+			if(Main.mouseX > 26 && Main.mouseX < 230 && Main.mouseY > 126 && Main.mouseY < 190) {
 				Main.LocalPlayer.mouseInterface = true;
 			}
 		}

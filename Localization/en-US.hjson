@@ -27,10 +27,11 @@ Mods: {
 
 			Shinginzan: {
 				DisplayName: Shinginzan
-				Tooltip: '''
-                                         [c/FF0000:(unfinished item!)]
-                                         'I, SilverAsh, have joined your cause as a sworn ally.'
-                                         '''
+				Tooltip:
+					'''
+					[c/FF0000:(unfinished item!)]
+					'I, SilverAsh, have joined your cause as a sworn ally.'                            
+					'''
 			}
 
 			BagpipeSpear: {
@@ -398,6 +399,11 @@ Mods: {
 				DisplayName: Originium Slug Beta Banner
 				Tooltip: ""
 			}
+
+			AcidOgSlugBanner: {
+				DisplayName: Acid Originium Slug Banner
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -429,6 +435,11 @@ Mods: {
 				DisplayName: Double Tap - Auto
 				Description: The next attack shoots 2 in a row, dealing 140% of ATK in physical damage with each shot
 			}
+
+			AcidOgSlugDebuff: {
+				DisplayName: Corrosive fluids
+				Description: Every attack reduces the target's DEF 2
+			}
 		}
 
 		NPCs: {
@@ -459,6 +470,7 @@ Mods: {
 			OriginiumSlug.DisplayName: Originium Slug
 			OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
 			OriginiumSlugBeta.DisplayName: Originium Slug Beta
+			AcidOgSlug.DisplayName: Acid Originium Slug
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
@@ -508,8 +520,9 @@ Mods: {
 		Bestiary: {
 			Soldier: One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation.
 			OriginiumSlug: An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
-			OriginiumSlugAlpha: An infected wild creature that is more dangerous than an Acid Originium Slug. Secretes corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
+			OriginiumSlugAlpha: An infected wild creature that is more dangerous than a normal Originium Slug. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			OriginiumSlugBeta: An infected wild creature that is more dangerous than an Originium Slug Alpha. Due to their low intelligence, they are easily controlled by enemy caster for use as cannon fodder during invasions.
+			AcidOgSlug: An infected wild creature that can secrete corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
 			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
 		}
@@ -552,6 +565,7 @@ Mods: {
 			PozemkaCrossbowSentry.DisplayName: Pozemka Crossbow Sentry
 			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
+			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
 		}
 
 		ButtonName.button2: Annihilation operation

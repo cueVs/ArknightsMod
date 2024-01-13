@@ -72,7 +72,7 @@ namespace ArknightsMod.Content.Projectiles
 						Projectile.frame++;
 					}
 
-					if (Projectile.frame == 3) {
+					if (Projectile.frame == 3 && Main.myPlayer == Projectile.owner) {
 						int damage = (int)Math.Round(Projectile.damage * 0.95);
 						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 15 * (new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta))), ModContent.ProjectileType<PozemkaCrossbowSentryProjectile>(), damage, 5f, Projectile.owner);
 						if(modPlayer.Skill == 2 && modPlayer.SkillActive) {
