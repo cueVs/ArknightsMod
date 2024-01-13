@@ -27,17 +27,18 @@ Mods: {
 
 			Shinginzan: {
 				DisplayName: 真银斩
-				Tooltip: '''
-                                         [c/FF00000:(未完成的物品)]
-                                         '银灰，你的盟友，前来助力。'
-                                         '''
+				Tooltip:
+					'''
+					[c/FF00000:(未完成的物品)]
+					'银灰，你的盟友，前来助力。'
+					'''
 			}
 
 			BagpipeSpear: {
 				DisplayName: 破城矛
 				Tooltip:
 					'''
-				        左键点击物品栏下方技能图标以切换技能
+					左键点击物品栏下方技能图标以切换技能
 					'我和我的破城矛，来自维多利亚！'
 					'''
 			}
@@ -433,6 +434,11 @@ Mods: {
 			KroosCrossbowS1: {
 				DisplayName: 二连射·自动
 				Description: 下次攻击时连续射击2次，每次射击造成相当于攻击力140%的物理伤害
+			}
+
+			AcidOgSlugDebuff: {
+				DisplayName: 分泌物腐蚀
+				Description: 击中目标后使其防御力减少2。
 			}
 		}
 

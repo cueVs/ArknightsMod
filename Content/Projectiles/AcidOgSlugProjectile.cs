@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using static Terraria.ModLoader.ModContent;
 
 
 namespace ArknightsMod.Content.Projectiles
@@ -113,9 +114,9 @@ namespace ArknightsMod.Content.Projectiles
 			//}
 		}
 
-		//public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
-		//	target.AddBuff(BuffID.Poisoned, 180);
-		//}
+		public override void OnHitPlayer(Player target, Player.HurtInfo info) {
+			target.AddBuff(BuffType<Buffs.AcidOgSlugDebuff>(), 30 * 60);
+		}
 	}
 
 }

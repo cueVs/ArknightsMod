@@ -27,10 +27,11 @@ Mods: {
 
 			Shinginzan: {
 				DisplayName: Shinginzan
-				Tooltip: '''
-                                         [c/FF0000:(unfinished item!)]
-                                         'I, SilverAsh, have joined your cause as a sworn ally.'
-                                         '''
+				Tooltip:
+					'''
+					[c/FF0000:(unfinished item!)]
+					'I, SilverAsh, have joined your cause as a sworn ally.'                            
+					'''
 			}
 
 			BagpipeSpear: {
@@ -433,6 +434,11 @@ Mods: {
 			KroosCrossbowS1: {
 				DisplayName: Double Tap - Auto
 				Description: The next attack shoots 2 in a row, dealing 140% of ATK in physical damage with each shot
+			}
+
+			AcidOgSlugDebuff: {
+				DisplayName: Corrosive fluids
+				Description: Every attack reduces the target's DEF 2
 			}
 		}
 
