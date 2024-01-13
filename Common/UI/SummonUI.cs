@@ -28,7 +28,7 @@ namespace ArknightsMod.Common.UI
 
 			button = new UIElement();
 			button.Left.Set(330, 0f);
-			button.Top.Set(140, 0f);
+			button.Top.Set(150, 0f);
 			button.Width.Set(50, 0f);
 			button.Height.Set(50, 0f);
 			button.OnLeftClick += SummonMode;
@@ -60,7 +60,7 @@ namespace ArknightsMod.Common.UI
 
 			if (modPlayer.ShowSummonIcon) {
 				Texture2D skillBase = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SummonIcon/" + modPlayer.SummonIconName);
-				spriteBatch.Draw(skillBase, new Vector2(330, 140), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
+				spriteBatch.Draw(skillBase, new Vector2(330, 150), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
 
 		}
