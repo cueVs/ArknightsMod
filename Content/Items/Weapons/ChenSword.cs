@@ -86,8 +86,8 @@ namespace ArknightsMod.Content.Items.Weapons
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
 				if (player.altFunctionUse == 2) {
-					// S3 (but now it sets S1)
-					if (modPlayer.Skill == 0 && modPlayer.StockCount > 0 && !modPlayer.SkillActive && Vector2.Distance(Main.MouseWorld, player.Center) <= 600f) {
+					// S3 (but now it sets S2)
+					if (modPlayer.Skill == 1 && modPlayer.StockCount > 0 && !modPlayer.SkillActive && Vector2.Distance(Main.MouseWorld, player.Center) <= 600f) {
 						modPlayer.SkillActive = true;
 						modPlayer.SkillTimer = 0;
 						modPlayer.mousePositionX = Main.MouseWorld.X;
@@ -115,8 +115,20 @@ namespace ArknightsMod.Content.Items.Weapons
 						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 					};
 
-					// S3 (but now it sets S1)
-					if (modPlayer.Skill == 0 && modPlayer.StockCount == 0) {
+					//S1
+					if (modPlayer.Skill == 0) {
+						if (modPlayer.StockCount == 0) {
+							modPlayer.OffensiveRecovery();
+						}
+						else if(modPlayer.StockCount > 0) {
+							modPlayer.SkillActive = true;
+							modPlayer.SkillTimer = 0;
+							modPlayer.DelStockCount();
+						}
+					}
+
+					// S3 (but now it sets S2)
+					if (modPlayer.Skill == 1 && modPlayer.StockCount == 0) {
 						modPlayer.OffensiveRecovery();
 					}
 
@@ -126,19 +138,39 @@ namespace ArknightsMod.Content.Items.Weapons
 			return player.ownedProjectileCounts[Item.shoot] < 3;
 		}
 
+
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage) {
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (Main.myPlayer == player.whoAmI) {
+				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+					damage *= 3.2f;
+				}
+			}
+		}
+
+
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
 
-				modPlayer.SetAllSkillsData(1, 7, 20, 30, 3, null, null, null, null, null, null, "ChenSword");
+				modPlayer.SetAllSkillsData(2, 7, 0, 4, 3, 20, 30, 3, null, null, null, "ChenSword");
 
 				if (!modPlayer.HoldChenSword) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
 				}
 
-				// S3 (but now S1)
+
+				//S1
 				if (modPlayer.Skill == 0) {
+					modPlayer.SetSkillData(0, 4, 1, 1, 0.5f, true, false);
+					modPlayer.SkillActiveTimer();
+				}
+
+
+
+				// S3 (but now S2)
+				if (modPlayer.Skill == 1) {
 					modPlayer.SetSkillData(20, 30, 1, 1, 1, false, false);
 
 					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
