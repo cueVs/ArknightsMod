@@ -440,6 +440,11 @@ Mods: {
 				DisplayName: 分泌物腐蚀
 				Description: 击中目标后使其防御力减少2。
 			}
+
+			StunDebuff: {
+				// DisplayName: Stun Debuff
+				// Description: Mods.ArknightsMod.Buffs.StunDebuff.Description
+			}
 		}
 
 		NPCs: {

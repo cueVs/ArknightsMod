@@ -440,6 +440,11 @@ Mods: {
 				DisplayName: Corrosive fluids
 				Description: Every attack reduces the target's DEF 2
 			}
+
+			StunDebuff: {
+				DisplayName: Stun Debuff
+				Description: Mods.ArknightsMod.Buffs.StunDebuff.Description
+			}
 		}
 
 		NPCs: {
