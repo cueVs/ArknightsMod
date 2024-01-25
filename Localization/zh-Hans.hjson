@@ -601,5 +601,31 @@ Mods: {
 				Complete: 来自帝国的轰炸无人机已被击毁...
 			}
 		}
+
+		Configs: {
+			MusicConfig: {
+				DisplayName: 音乐配置文件
+
+				EnableArknightsDaytime: {
+					Label: 启用明日方舟白天背景音乐
+					// Tooltip: ""
+				}
+
+				EnableArknightsNighttime: {
+					Label: 启用明日方舟晚上背景音乐
+					// Tooltip: ""
+				}
+
+				EnableArknightsOceanDaytime: {
+					// Label: Enable ArknightsOceanDaytime Music
+					// Tooltip: ""
+				}
+
+				EnableArknightsOceanNighttimeScene: {
+					// Label: Enable ArknightsOceanNighttime Music
+					// Tooltip: ""
+				}
+			}
+		}
 	}
 }

@@ -7,6 +7,11 @@ namespace ArknightsMod.Assets.SceneEffects
 	{
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Music/lifeglow");
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeLow;
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<MusicConfig>().EnableArknightsDaytime;
+		}
+
 		public override bool IsSceneEffectActive(Player player) => Main.player[Main.myPlayer].active && Main.player[Main.myPlayer].ZoneOverworldHeight && Main.dayTime && !Main.player[Main.myPlayer].ZoneDesert && !Main.player[Main.myPlayer].ZoneBeach;
 	}
 }

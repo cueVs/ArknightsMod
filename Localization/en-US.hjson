@@ -601,5 +601,31 @@ Mods: {
 				Complete: The bombing drone from the empire have been destroyed.
 			}
 		}
+
+		Configs: {
+			MusicConfig: {
+				DisplayName: Music Config
+
+				EnableArknightsDaytime: {
+					Label: Enable ArknightsDaytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsNighttime: {
+					Label: Enable ArknightsNighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsOceanDaytime: {
+					Label: Enable ArknightsOceanDaytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsOceanNighttimeScene: {
+					Label: Enable ArknightsOceanNighttime Music
+					Tooltip: ""
+				}
+			}
+		}
 	}
 }
