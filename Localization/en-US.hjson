@@ -120,9 +120,14 @@ Mods: {
 					'''
 			}
 
-			GachaBag: {
-				DisplayName: Gacha Bag
-				Tooltip: ""
+			AmiyaDefault: {
+				DisplayName: Amiya's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			ChenDefault: {
+				DisplayName: Chen's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			# Material

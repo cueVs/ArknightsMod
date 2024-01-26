@@ -120,9 +120,14 @@ Mods: {
 					'''
 			}
 
-			GachaBag: {
-				DisplayName: 朝陇山时装快递
-				// Tooltip: ""
+			AmiyaDefault: {
+				DisplayName: 阿米娅的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			ChenDefault: {
+				DisplayName: 陈的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			# Material
