@@ -15,8 +15,8 @@ namespace ArknightsMod.Content.Projectiles
 	{
 
 		// Define the range of the Spear Projectile. These are overrideable properties, in case you'll want to make a class inheriting from this one.
-		protected virtual float HoldoutRangeMin => 30f;
-		protected virtual float HoldoutRangeMax => 96f;
+		protected virtual float HoldoutRangeMin => 70f;
+		protected virtual float HoldoutRangeMax => 120f;
 
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Spear");
@@ -24,7 +24,7 @@ namespace ArknightsMod.Content.Projectiles
 
 		public override void SetDefaults() {
 			Projectile.CloneDefaults(ProjectileID.Spear); // Clone the default values for a vanilla spear. Spear specific values set for width, height, aiStyle, friendly, penetrate, tileCollide, scale, hide, ownerHitCheck, and melee.
-			Projectile.scale = 0.3f;
+			Projectile.scale = 0.35f;
 		}
 
 		public override bool PreAI() {
