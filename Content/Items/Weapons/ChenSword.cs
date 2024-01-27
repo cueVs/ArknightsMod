@@ -149,6 +149,33 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 
+
+
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone) {
+
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (Main.myPlayer == player.whoAmI) {
+
+				//S1
+				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+					target.AddBuff(ModContent.BuffType<StunDebuff>(), 90);
+				}
+			}
+		}
+
+
+		public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo) {
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			if (Main.myPlayer == player.whoAmI) {
+
+				//S1
+				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+					target.AddBuff(ModContent.BuffType<StunDebuff>(), 90);
+				}
+			}
+		}
+
+
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
