@@ -110,6 +110,21 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			WBody: {
+				DisplayName: W的上衣
+				// Tooltip: ""
+			}
+
+			WHead: {
+				DisplayName: W的头套
+				// Tooltip: ""
+			}
+
+			WLegs: {
+				DisplayName: W的下装
+				// Tooltip: ""
+			}
+
 			TexalterBody: {
 				DisplayName: 缄默德克萨斯的上衣
 				// Tooltip: ""
@@ -143,6 +158,11 @@ Mods: {
 			ChenDefault: {
 				DisplayName: 陈的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			WDefault: {
+				DisplayName: W的服饰（常规）
+				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			TexalterDefault: {
