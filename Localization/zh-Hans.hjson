@@ -80,21 +80,6 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			ChenHead: {
-				DisplayName: 陈的头套
-				// Tooltip: ""
-			}
-
-			ChenBody: {
-				DisplayName: 陈的上衣
-				// Tooltip: ""
-			}
-
-			ChenLegs: {
-				DisplayName: 陈的下装
-				// Tooltip: ""
-			}
-
 			AmiyaBody: {
 				DisplayName: 阿米娅的上衣
 				// Tooltip: ""
@@ -107,6 +92,36 @@ Mods: {
 
 			AmiyaLegs: {
 				DisplayName: 阿米娅的下装
+				// Tooltip: ""
+			}
+
+			MatoimaruBody: {
+				DisplayName: 缠丸的上衣
+				// Tooltip: ""
+			}
+
+			MatoimaruHead: {
+				DisplayName: 缠丸的头套
+				// Tooltip: ""
+			}
+
+			MatoimaruLegs: {
+				DisplayName: 缠丸的下装
+				// Tooltip: ""
+			}
+
+			ChenHead: {
+				DisplayName: 陈的头套
+				// Tooltip: ""
+			}
+
+			ChenBody: {
+				DisplayName: 陈的上衣
+				// Tooltip: ""
+			}
+
+			ChenLegs: {
+				DisplayName: 陈的下装
 				// Tooltip: ""
 			}
 
@@ -152,6 +167,11 @@ Mods: {
 
 			AmiyaDefault: {
 				DisplayName: 阿米娅的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MatoimaruDefault: {
+				DisplayName: 缠丸的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
