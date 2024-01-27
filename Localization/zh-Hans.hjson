@@ -110,6 +110,21 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			TexalterBody: {
+				DisplayName: 缄默德克萨斯的上衣
+				// Tooltip: ""
+			}
+
+			TexalterHead: {
+				DisplayName: 缄默德克萨斯的头套
+				// Tooltip: ""
+			}
+
+			TexalterLegs: {
+				DisplayName: 缄默德克萨斯的下装
+				// Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: 明日方舟博士的衣服
@@ -127,6 +142,11 @@ Mods: {
 
 			ChenDefault: {
 				DisplayName: 陈的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			TexalterDefault: {
+				DisplayName: 缄默德克萨斯的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
@@ -622,12 +642,12 @@ Mods: {
 				}
 
 				EnableArknightsOceanDaytime: {
-					// Label: Enable ArknightsOceanDaytime Music
+					Label: 启用明日方舟海洋白天音乐
 					// Tooltip: ""
 				}
 
 				EnableArknightsOceanNighttimeScene: {
-					// Label: Enable ArknightsOceanNighttime Music
+					Label: 启用明日方舟海洋夜晚音乐
 					// Tooltip: ""
 				}
 			}

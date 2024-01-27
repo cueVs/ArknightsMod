@@ -310,7 +310,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				.Add(new Item(ModContent.ItemType<Items.Consumables.ChenDefault>()) {
 					 shopCustomPrice = 10,
 					 shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
-				 });
+				 })
+				.Add(new Item(ModContent.ItemType<Items.Consumables.TexalterDefault>()) {
+					shopCustomPrice = 10,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				});
 			npcShop.Register(); // Name of this shop tab
 		}
 

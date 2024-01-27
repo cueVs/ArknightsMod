@@ -9,13 +9,26 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Specialist
 	[AutoloadEquip(EquipType.Body)]
 	public class TexalterBody : ModItem
 	{
+		public override void Load() {
+			// The code below runs only if we're not loading on a server
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
+			// Add equip textures
+			EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Back}", EquipType.Back, this);
+		}
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Jacket");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
+
+			int cape = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Back);
+
 			ArmorIDs.Body.Sets.HidesTopSkin[Item.bodySlot] = true;
 			ArmorIDs.Body.Sets.HidesArms[Item.bodySlot] = true;
+			ArmorIDs.Body.Sets.IncludedCapeBack[Item.bodySlot] = cape;
+			ArmorIDs.Body.Sets.IncludedCapeBackFemale[Item.bodySlot] = cape;
 		}
 
 		public override void SetDefaults() {

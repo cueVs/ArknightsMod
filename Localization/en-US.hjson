@@ -110,6 +110,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			TexalterBody: {
+				DisplayName: Texas the Omertosa's outfit (Body)
+				Tooltip: ""
+			}
+
+			TexalterHead: {
+				DisplayName: Texas the Omertosa's outfit (Head)
+				Tooltip: ""
+			}
+
+			TexalterLegs: {
+				DisplayName: Texas the Omertosa's outfit (Legs)
+				Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: Arknights Doctor's outfit
@@ -127,6 +142,11 @@ Mods: {
 
 			ChenDefault: {
 				DisplayName: Chen's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			TexalterDefault: {
+				DisplayName: Texas the Omertosa's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
