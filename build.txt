@@ -1,6 +1,6 @@
 displayName = Arknights Mod
 author = cueV
-version = 0.2.3
+version = 0.2.4
 homepage = https://discord.gg/XKM2jeS9hY
 hideCode = true
 hideResources = true
