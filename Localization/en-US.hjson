@@ -110,6 +110,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			WBody: {
+				DisplayName: W's outfit (Body)
+				Tooltip: ""
+			}
+
+			WHead: {
+				DisplayName: W's outfit (Head)
+				Tooltip: ""
+			}
+
+			WLegs: {
+				DisplayName: W's outfit (Legs)
+				Tooltip: ""
+			}
+
 			TexalterBody: {
 				DisplayName: Texas the Omertosa's outfit (Body)
 				Tooltip: ""
@@ -142,6 +157,11 @@ Mods: {
 
 			ChenDefault: {
 				DisplayName: Chen's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			WDefault: {
+				DisplayName: W's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
