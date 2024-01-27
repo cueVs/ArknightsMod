@@ -80,21 +80,6 @@ Mods: {
 				Tooltip: ""
 			}
 
-			ChenHead: {
-				DisplayName: Chen's outfit (Head)
-				Tooltip: ""
-			}
-
-			ChenBody: {
-				DisplayName: Chen's outfit (Body)
-				Tooltip: ""
-			}
-
-			ChenLegs: {
-				DisplayName: Chen's outfit (Legs)
-				Tooltip: ""
-			}
-
 			AmiyaBody: {
 				DisplayName: Amiya's outfit (Body)
 				Tooltip: ""
@@ -107,6 +92,36 @@ Mods: {
 
 			AmiyaLegs: {
 				DisplayName: Amiya's outfit (Legs)
+				Tooltip: ""
+			}
+
+			MatoimaruBody: {
+				DisplayName: Matoimaru's outfit (Body)
+				Tooltip: ""
+			}
+
+			MatoimaruHead: {
+				DisplayName: Matoimaru's outfit (Head)
+				Tooltip: ""
+			}
+
+			MatoimaruLegs: {
+				DisplayName: Matoimaru's outfit (Legs)
+				Tooltip: ""
+			}
+
+			ChenHead: {
+				DisplayName: Chen's outfit (Head)
+				Tooltip: ""
+			}
+
+			ChenBody: {
+				DisplayName: Chen's outfit (Body)
+				Tooltip: ""
+			}
+
+			ChenLegs: {
+				DisplayName: Chen's outfit (Legs)
 				Tooltip: ""
 			}
 
@@ -152,6 +167,11 @@ Mods: {
 
 			AmiyaDefault: {
 				DisplayName: Amiya's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MatoimaruDefault: {
+				DisplayName: Matoimaru's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
