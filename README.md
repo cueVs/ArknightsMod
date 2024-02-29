@@ -39,3 +39,6 @@ There is also much work to be done in Terraria. We look forward to your coming.
 ## Contact
 [Discord server](https://discord.gg/XKM2jeS9hY)<br>
 [Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)
+
+## Special Thanks
+- [The Stars Above](https://github.com/ThePaperLuigi/The-Stars-Above/tree/main)

@@ -41,3 +41,6 @@ QQ群: 891522802<br>
 WeChat: CueTheViolins (加我拉你进群)<br>
 [Discord server](https://discord.gg/XKM2jeS9hY)<br>（需要魔法）
 [Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (Terraria的海外论坛)
+
+## Special Thanks
+- [The Stars Above](https://github.com/ThePaperLuigi/The-Stars-Above/tree/main)

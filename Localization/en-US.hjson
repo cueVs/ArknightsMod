@@ -469,6 +469,11 @@ Mods: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
 			}
+
+			Spicycandy: {
+				DisplayName: Spicycandy
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -539,6 +544,7 @@ Mods: {
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
+			FrostNova.DisplayName: Frost Nova
 		}
 
 		# Friendly

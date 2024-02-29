@@ -35,8 +35,11 @@
 - 本MODは[TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines)に則って作成しています。
 - 本MODを利用して発生した如何なる損害も補償出来ません。(そのため、ゲームデータは[バックアップ](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups)を取っておくことをお勧めします。)
 - 本MODのプログラム、および画像データの二次利用は禁止しております。
-- 本MODの利用に関して不明な点があれば下記のスレッドまでお気軽にお問い合わせください。
+- 本MODの利用に関して不明な点があれば下記のディスコードまでお気軽にお問い合わせください。
 
 ## Contact
 [ディスコード](https://discord.gg/XKM2jeS9hY)<br>
 [本MODのスレッド](https://forums.terraria.org/index.php?threads/arknights-mod.117651/)(テラリアのフォーラム内)
+
+## Special Thanks
+- [The Stars Above](https://github.com/ThePaperLuigi/The-Stars-Above/tree/main)
