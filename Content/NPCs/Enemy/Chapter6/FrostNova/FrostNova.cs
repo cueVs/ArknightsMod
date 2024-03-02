@@ -91,7 +91,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			NPC.lavaImmune = true;
 			NPC.noGravity = false;
 			NPC.noTileCollide = false;
-			DrawOffsetY = -1;
 			NPC.value = Item.buyPrice(gold: 5);
 			NPC.SpawnWithHigherTime(30);
 			NPC.boss = true;
