@@ -12,11 +12,11 @@ namespace ArknightsMod.VisualEffects
 	{
 		private const string menuAssetPath = "ArknightsMod/Assets/Menu";
 
-		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{menuAssetPath}/TerraArk");
+		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{menuAssetPath}/TerrariArknights");
 
         public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/mrfz");
 
-		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/Sami2");
+		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/Sami");
 
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Music/arkopen");
 
