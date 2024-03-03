@@ -131,7 +131,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 					NPC.velocity.X = 0.7f * NPC.direction;
 					break;
 			}
-			NPC.velocity.Y = 1.2f * NPC.directionY;
+			if (NPC.collideX) {
+				NPC.velocity.Y = 1.2f * NPC.directionY;
+			}
 			NPC.ai[3]++;
 
 			base.AI();
