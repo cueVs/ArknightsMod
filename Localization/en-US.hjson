@@ -642,22 +642,22 @@ Mods: {
 		ButtonName.button2: Annihilation operation
 
 		Tiles: {
-			OrirockCube.MapEntry: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			MnOre.MapEntry: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			Grind.MapEntry: "{$Mods.ArknightsMod.ItemName.Grind}"
-			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
-			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
-			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			OrirockCube.MapEntry: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+			MnOre.MapEntry: "{$Mods.ArknightsMod.Items.MnOre.DisplayName}"
+			Grind.MapEntry: "{$Mods.ArknightsMod.Items.Grind.DisplayName}"
+			RMA12.MapEntry: "{$Mods.ArknightsMod.Items.RMA12.DisplayName}"
+			DareUsa.MapEntry: "{$Mods.ArknightsMod.Items.DareUsa.DisplayName}"
+			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.Items.AnniversaryWheel.DisplayName}"
 			BannerTile.MapEntry: Banner
 		}
 
 		Currencies.OrundumCurrency: Orundum
 
 		WorldGen: {
-			GrindPassMessage: "{$Mods.ArknightsMod.ItemName.Grind}"
-			MnOrePassMessage: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			OrirockCubePassMessage: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			RMA12PassMessage: "{$Mods.ArknightsMod.ItemName.RMA12}"
+			GrindPassMessage: "{$Mods.ArknightsMod.Items.Grind.DisplayName}"
+			MnOrePassMessage: "{$Mods.ArknightsMod.Items.MnOre.DisplayName}"
+			OrirockCubePassMessage: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+			RMA12PassMessage: "{$Mods.ArknightsMod.Items.RMA12.DisplayName}"
 		}
 
 		StatusMessage: {
