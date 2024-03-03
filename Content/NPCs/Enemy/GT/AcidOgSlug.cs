@@ -195,7 +195,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 					NPC.velocity.X = 0.7f * NPC.direction;
 					break;
 			}
-			NPC.velocity.Y = 1.2f * NPC.directionY;
+			if (NPC.collideX) {
+				NPC.velocity.Y = 1.2f * NPC.directionY;
+			}
 			NPC.ai[3]++;
 		}
 
@@ -233,7 +235,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			else {
 				NPC.velocity.X *= 0;
 			}
-			NPC.velocity.Y = 1.2f * NPC.directionY;
+			if (NPC.collideX) {
+				NPC.velocity.Y = 1.2f * NPC.directionY;
+			}
 			NPC.ai[3]++;
 
 			if (NPC.ai[3] % 100 == 0 && NPC.collideY) {
