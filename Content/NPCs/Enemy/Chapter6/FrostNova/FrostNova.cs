@@ -11,7 +11,9 @@ using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 using ArknightsMod.Content.Dusts;
+using ArknightsMod.Content.Projectiles.Bosses.FrostNova;
 
 namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 {
@@ -21,7 +23,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 	{
 		// This code here is called a property: It acts like a variable, but can modify other things. In this case it uses the NPC.ai[] array that has four entries.
 		// We use properties because it makes code more readable ("if (SecondStage)" vs "if (NPC.ai[0] == 1f)").
-		// We use NPC.ai[] because in combination with NPC.netUpdate we can make it multiplayer compatible. Otherwise (making our own fields) we would have to write extra code to make it work (not covered here)
+		// We use NPC.ai[] because in combination with NPC.netUpdate we can make it multiNPC compatible. Otherwise (making our own fields) we would have to write extra code to make it work (not covered here)
 		public bool SecondStage {
 			get => NPC.ai[0] == 1f;
 			set => NPC.ai[0] = value ? 1f : 0f;
@@ -200,7 +202,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 			if (State == ActionState.Dying) {
 				startFrame = 33;
-				finalFrame = 41;
+				finalFrame = 37;
 				if (NPC.frame.Y < startFrame * frameHeight) {
 					// If we were animating the first stage frames and then switch to second stage, immediately change to the start frame of the second stage
 					NPC.frame.Y = startFrame * frameHeight;
@@ -318,24 +320,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 		private void Dying() {
 			Death_Timer ++;
-			int probability = Math.Max(38 - (int)Math.Round(Death_Timer / 10), 1);
-			if (Main.rand.NextBool(probability) && 250 < Death_Timer && Death_Timer < 490f) {
-				for (int d = 0; d < 3; d++) {
-					Dust dust = Main.dust[Dust.NewDust(NPC.Left, NPC.width, NPC.height / 2, DustID.SilverFlame, 0f, 0f, 0, default(Color), 1f)];
-					dust.position = NPC.Bottom + Vector2.UnitX * Main.rand.Next(-20, 20);
-					dust.velocity.X = 0f;
-					dust.velocity.Y = 0f + Main.rand.Next(-3, 0);
-					dust.noGravity = false;
-				}
-			}
-			if (Death_Timer >= 260f) {
 
-				NPC.alpha += 1;
-				if (NPC.alpha > 255) {
-					NPC.alpha = 255;
+			if (Death_Timer >= 120f) {
+				if (Main.netMode != NetmodeID.MultiplayerClient) {
+					Vector2 position = NPC.Center;
+					Projectile.NewProjectile(null, position, new Vector2(0, 0), ProjectileType<FrostNovaSmoke>(), 0, 0f);
 				}
 			}
-			if (Death_Timer >= 470f) {
+
+			if (Death_Timer >= 180f) {
 				NPC.life = 0;
 				NPC.HitEffect(0, 0);
 				NPC.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
