@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using ReLogic.Content;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
@@ -53,18 +54,18 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
 		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] <= 50f) {
-				// Fade in
-				Projectile.alpha -= 2;
-				Projectile.scale += 0.2f;
-				// Cap alpha before timer reaches 50 ticks
-				if (Projectile.alpha < 0)
-					Projectile.alpha = 0;
-				if (Projectile.scale > 1.5f) {
-					Projectile.scale = 1.5f;
-				}
-				return;
-			}
+			//if (Projectile.ai[0] <= 50f) {
+			//	// Fade in
+			//	Projectile.alpha -= 2;
+			//	Projectile.scale += 0.2f;
+			//	// Cap alpha before timer reaches 50 ticks
+			//	if (Projectile.alpha < 0)
+			//		Projectile.alpha = 0;
+			//	if (Projectile.scale > 1.5f) {
+			//		Projectile.scale = 1.5f;
+			//	}
+			//	return;
+			//}
 
 			// Fade out
 			//Projectile.alpha += 10;
@@ -78,8 +79,8 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
 
-			Texture2D texture = (Texture2D)Request<Texture2D>("Assets/Effects/Smoke");
-			Main.EntitySpriteDraw(texture, Projectile.Center, null, Color.White, 0f, Vector2.Zero, 1, 0, 0);
+			Texture2D texture = (Texture2D) Request<Texture2D>("ArknightsMod/Assets/Effects/Smoke", AssetRequestMode.ImmediateLoad);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 1, 0, 0);
 
 			return false;
 		}
