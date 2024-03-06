@@ -38,7 +38,7 @@ namespace ArknightsMod.Common.UI
 
 		private void SummonMode(UIMouseEvent evt, UIElement listeningElement) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (modPlayer.ShowSummonIcon) {
+			if (modPlayer.ShowSummonIconBySkills[modPlayer.Skill]) {
 				modPlayer.SummonMode = true;
 				SoundEngine.PlaySound(SoundID.MenuTick);
 			}
@@ -57,9 +57,10 @@ namespace ArknightsMod.Common.UI
 			base.DrawSelf(spriteBatch);
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			int skill = modPlayer.Skill + 1;
 
-			if (modPlayer.ShowSummonIcon) {
-				Texture2D skillBase = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SummonIcon/" + modPlayer.SummonIconName);
+			if (modPlayer.ShowSummonIconBySkills[modPlayer.Skill]) {
+				Texture2D skillBase = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SummonIcon/" + modPlayer.IconName + skill);
 				spriteBatch.Draw(skillBase, new Vector2(330, 150), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
 

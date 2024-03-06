@@ -177,7 +177,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData(3, 7, 15, 35, 3, 0, 4, 3, 25, 40, 3, "BagpipeSpear");
+				modPlayer.SetAllSkillsData();
 				if (!modPlayer.HoldBagpipeSpear) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
@@ -185,21 +185,21 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkillData(15, 35, 60, 1, 35, false, false);
+					modPlayer.SetSkill(0);
 					modPlayer.AutoCharge();
 					modPlayer.SkillActiveTimer();
 				}
 
 				// S2
 				if (modPlayer.Skill == 1) {
-					modPlayer.SetSkillData(0, 4, 60, 3, 0.5f, true, false);
+					modPlayer.SetSkill(1);
 					modPlayer.SkillActiveTimer();
 					modPlayer.AutoCharge();
 				}
 
 				// S3
 				if (modPlayer.Skill == 2) {
-					modPlayer.SetSkillData(25, 40, 60, 1, 20, false, false);
+					modPlayer.SetSkill(2);
 					modPlayer.AutoCharge();
 					modPlayer.SkillActiveTimer();
 				}

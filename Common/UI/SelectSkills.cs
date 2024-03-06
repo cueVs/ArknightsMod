@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.GameInput;
+using log4net.Core;
 
 namespace ArknightsMod.Common.UI
 {
@@ -173,19 +174,19 @@ namespace ArknightsMod.Common.UI
 
 			// S1
 			if (modPlayer.HowManySkills > 0) {
-				Texture2D s1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "1");
+				Texture2D s1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.IconName + "1");
 				spriteBatch.Draw(s1, new Vector2(26, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
 				spriteBatch.Draw(baseOfSPs1, new Vector2(32, 178), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
-				if (modPlayer.MasteryLevelS1 == 1) {
+				if (modPlayer.SkillLevel[0] == 8) {
 					Texture2D masteryLevelS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M1");
 					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
-				else if (modPlayer.MasteryLevelS1 == 2) {
+				else if (modPlayer.SkillLevel[0] == 9) {
 					Texture2D masteryLevelS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M2");
 					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
-				else if (modPlayer.MasteryLevelS1 == 3) {
+				else if (modPlayer.SkillLevel[0] == 10) {
 					Texture2D masteryLevelS1 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M3");
 					spriteBatch.Draw(masteryLevelS1, new Vector2(22, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
@@ -197,19 +198,19 @@ namespace ArknightsMod.Common.UI
 
 			// S2
 			if (modPlayer.HowManySkills > 1) {
-				Texture2D s2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "2");
+				Texture2D s2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.IconName + "2");
 				spriteBatch.Draw(s2, new Vector2(96, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
 				spriteBatch.Draw(baseOfSPs2, new Vector2(102, 178), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
-				if (modPlayer.MasteryLevelS2 == 1) {
+				if (modPlayer.SkillLevel[1] == 8) {
 					Texture2D masteryLevelS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M1");
 					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
-				else if (modPlayer.MasteryLevelS2 == 2) {
+				else if (modPlayer.SkillLevel[1] == 9) {
 					Texture2D masteryLevelS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M2");
 					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
-				else if (modPlayer.MasteryLevelS2 == 3) {
+				else if (modPlayer.SkillLevel[1] == 10) {
 					Texture2D masteryLevelS2 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M3");
 					spriteBatch.Draw(masteryLevelS2, new Vector2(92, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
@@ -221,19 +222,19 @@ namespace ArknightsMod.Common.UI
 
 			// S3
 			if (modPlayer.HowManySkills > 2) {
-				Texture2D s3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.SkillIconName + "3");
+				Texture2D s3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/" + modPlayer.IconName + "3");
 				spriteBatch.Draw(s3, new Vector2(166, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				Texture2D baseOfSPs3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP");
 				spriteBatch.Draw(baseOfSPs3, new Vector2(172, 178), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
-				if (modPlayer.MasteryLevelS3 == 1) {
+				if (modPlayer.SkillLevel[2] == 8) {
 					Texture2D masteryLevelS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M1");
 					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
-				else if (modPlayer.MasteryLevelS3 == 2) {
+				else if (modPlayer.SkillLevel[2] == 9) {
 					Texture2D masteryLevelS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M2");
 					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
-				else if (modPlayer.MasteryLevelS3 == 3) {
+				else if (modPlayer.SkillLevel[2] == 10) {
 					Texture2D masteryLevelS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/M3");
 					spriteBatch.Draw(masteryLevelS3, new Vector2(162, 120), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 				}
@@ -249,14 +250,21 @@ namespace ArknightsMod.Common.UI
 			base.Update(gameTime);
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			int level;
 			// Setting the text per tick to update and show our resource values.
-			initialSP1.SetText($"{modPlayer.InitialSPs1}");
-			initialSP2.SetText($"{modPlayer.InitialSPs2}");
-			initialSP3.SetText($"{modPlayer.InitialSPs3}");
-			maxSP1.SetText($"{modPlayer.MaxSPs1}");
-			maxSP2.SetText($"{modPlayer.MaxSPs2}");
-			maxSP3.SetText($"{modPlayer.MaxSPs3}");
-			skillLevel.SetText($"{modPlayer.SkillLevel}");
+			initialSP1.SetText($"{modPlayer.InitialSP[0]}");
+			initialSP2.SetText($"{modPlayer.InitialSP[1]}");
+			initialSP3.SetText($"{modPlayer.InitialSP[2]}");
+			maxSP1.SetText($"{modPlayer.MaxSP[0]}");
+			maxSP2.SetText($"{modPlayer.MaxSP[1]}");
+			maxSP3.SetText($"{modPlayer.MaxSP[2]}");
+			if (modPlayer.SkillLevel[0] > 7) {
+				level = 7;
+			}
+			else {
+				level = modPlayer.SkillLevel[0];
+			}
+			skillLevel.SetText($"{level}");
 
 			if(Main.mouseX > 26 && Main.mouseX < 230 && Main.mouseY > 126 && Main.mouseY < 190) {
 				Main.LocalPlayer.mouseInterface = true;
