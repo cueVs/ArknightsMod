@@ -91,7 +91,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData(1, 7, 0, 4, 0, null, null, null, null, null, null, "KroosCrossbow");
+				modPlayer.SetAllSkillsData();
 				if (!modPlayer.HoldKroosCrossbow) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
@@ -99,7 +99,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkillData(0, 4, 1, 1, 0.2f, true, true); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
+					modPlayer.SetSkill(0); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 					modPlayer.SkillActiveTimer();
 				}
 
