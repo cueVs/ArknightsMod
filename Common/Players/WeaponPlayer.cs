@@ -2,6 +2,8 @@
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ArknightsMod.Content.Items.Weapons;
+using System.Collections.Generic;
+using log4net.Core;
 
 namespace ArknightsMod.Common.Players
 {
@@ -14,41 +16,44 @@ namespace ArknightsMod.Common.Players
 		public int SkillCharge = 0;
 		public int SkillChargeMax = 0;
 		public bool SkillActive = false;
-		public float SkillActiveTime = 0;
 		public int SkillTimer = 0;
 		public int SP = 0;
-		public int InitialSP = 0;
-		public int MaxSP = 0;
-		public int StockMax = 0; //How many charges can the Operator store up to?
 		public int StockCount = 0;
 		public int Div = 1;
 		public int Skill = 0;// S1 = 0, S2 = 1, S3 = 2
-		public bool StockSkill = false; //If the skill is normal skill or overcharge skill, this is false.
-		public bool AutoTrigger = false;
 		public bool SkillInitialize = true;
+
+		// SkillSekect
+		public int HowManySkills = 0;
+		public List<int?> InitialSP = new() { null, null, null};
+		public List<int?> InitialSPs1List = new() { null, null, null, null, null, null, null, null, null, null };
+		public List<int?> InitialSPs2List = new() { null, null, null, null, null, null, null, null, null, null };
+		public List<int?> InitialSPs3List = new() { null, null, null, null, null, null, null, null, null, null };
+		public List<int?> MaxSP = new() { null, null, null };
+		public List<int?> MaxSPs1List = new() { null, null, null, null, null, null, null, null, null, null };
+		public List<int?> MaxSPs2List = new() { null, null, null, null, null, null, null, null, null, null };
+		public List<int?> MaxSPs3List = new() { null, null, null, null, null, null, null, null, null, null };
+		public List<float> SkillActiveTime = new() { 0, 0, 0 };
+		public List<float> SkillActiveTimeS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public List<float> SkillActiveTimeS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public List<float> SkillActiveTimeS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public List<int> SkillLevel = new() { 0, 0, 0 };
+		public List<int> StockMax = new() { 0, 0, 0 };
+		public List<int> StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public List<int> StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public List<int> StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public List<bool> AutoTrigger = new() { false, false, false };
+		public List<bool> ChargeTypeIsPerSecond = new() { false, false, false };
+		public string IconName = "";
+
+		//SummonMode
+		public bool SummonMode = false;
+		public List<bool> ShowSummonIconBySkills = new() { false, false, false };
+
 		public float mousePositionX = 0;
 		public float mousePositionY = 0;
 		public float playerPositionX = 0;
 		public float playerPositionY = 0;
-
-		// SkillSekect
-		public int HowManySkills = 0;
-		public int? SkillLevel = 0;
-		public int? InitialSPs1 = 0;
-		public int? InitialSPs2 = 0;
-		public int? InitialSPs3 = 0;
-		public int? MaxSPs1 = 0;
-		public int? MaxSPs2 = 0;
-		public int? MaxSPs3 = 0;
-		public int? MasteryLevelS1 = 0;
-		public int? MasteryLevelS2 = 0;
-		public int? MasteryLevelS3 = 0;
-		public string SkillIconName = "";
-
-		//SummonMode
-		public bool ShowSummonIcon = false;
-		public string SummonIconName = "";
-		public bool SummonMode = false;
 
 		public bool HoldBagpipeSpear = false;
 		public bool HoldChenSword = false;
@@ -67,28 +72,39 @@ namespace ArknightsMod.Common.Players
 		// - Resouce replenishment item: Use GlobalNPC.NPCLoot to drop the item. ModItem.OnPickup and ModItem.ItemSpace will allow it to behave like Mana Star or Heart. Use code similar to Player.HealEffect to spawn (and sync) a colored number suitable to your resource.
 
 		// InitialSP, MaxSP, Auto?(yes:60, no:1), stock, SlillActiveTime(/s)(if the skill doesn't have active time, any number), StockSkill?
-		public void SetSkillData(int initialsp, int maxsp, int div, int stockmax, float skillactivetime, bool stockskill, bool autotrigger) {
+		public void SetSkill(int skill) {
 			if (SkillInitialize) {
 				// initialize
-				InitialSP = initialsp;
-				MaxSP = maxsp;
-				Div = div;
-				SkillChargeMax = maxsp * div;
-				StockMax = stockmax;
-				SkillActiveTime = skillactivetime;
-				StockSkill = stockskill;
-				AutoTrigger = autotrigger;
-				SkillCharge = initialsp * div;
+				Skill = skill;
+				if (ChargeTypeIsPerSecond[Skill]) {
+					Div = 60;
+				}
+				else {
+					Div = 1;
+				}
+				if(InitialSP is not null) {
+					SkillCharge = (int)InitialSP[Skill] * Div;
+					SP = (int)InitialSP[Skill];
+				}
+				else {
+					SkillCharge = 0;
+					SP = 0;
+				}
+				if (InitialSP is not null) {
+					SkillChargeMax = (int)MaxSP[Skill] * Div;
+				}
+				else {
+					SkillChargeMax = 0;
+				}
 				SkillTimer = 0;
 				StockCount = 0;
-				SP = InitialSP;
 				SkillTimer = 0;
 				SkillActive = false;
-				if (InitialSP == MaxSP) {
+				if (InitialSP[Skill] == MaxSP[Skill]) {
 					SkillCharge = 0;
 					StockCount++;
-					if (StockCount == StockMax) {
-						SP = MaxSP;
+					if (StockCount == StockMax[Skill]) {
+						SP = (int)MaxSP[Skill];
 					}
 					else
 						SP = 0;
@@ -97,30 +113,6 @@ namespace ArknightsMod.Common.Players
 
 				SkillInitialize = false;
 			}
-		}
-
-		public void SetAllSkillsData(int howmanyskills, int? skilllevel, int? initialsps1, int? maxsps1, int? masterylevels1, int? initialsps2, int? maxsps2, int? masterylevels2, int? initialsps3, int? maxsps3, int? masterylevels3, string skilliconname) {
-			HowManySkills = howmanyskills;
-			SkillLevel = skilllevel;
-			InitialSPs1 = initialsps1;
-			MaxSPs1 = maxsps1;
-			MasteryLevelS1 = masterylevels1;
-			InitialSPs2 = initialsps2;
-			MaxSPs2 = maxsps2;
-			MasteryLevelS2 = masterylevels2;
-			InitialSPs3 = initialsps3;
-			MaxSPs3 = maxsps3;
-			MasteryLevelS3 = masterylevels3;
-			SkillIconName = skilliconname;
-		}
-
-		public void ShowSummonUI(string summoniconname) {
-			ShowSummonIcon = true;
-			SummonIconName = summoniconname;
-		}
-
-		public void HideSummonUI() {
-			ShowSummonIcon = false;
 		}
 
 		public override void ResetEffects() {
@@ -139,7 +131,7 @@ namespace ArknightsMod.Common.Players
 		}
 
 		public void AutoCharge() {
-			if (!SkillActive && StockCount < StockMax) {
+			if (!SkillActive && StockCount < StockMax[Skill]) {
 				SkillCharge += 1;
 
 				if (SkillCharge != 0 && SkillCharge % 60 == 0) {
@@ -149,8 +141,8 @@ namespace ArknightsMod.Common.Players
 				if (SkillCharge == SkillChargeMax) {
 					SkillCharge = 0;
 					StockCount += 1;
-					if (StockCount == StockMax) {
-						SP = MaxSP;
+					if (StockCount == StockMax[Skill]) {
+						SP = (int)MaxSP[Skill];
 					}
 					else
 						SP = 0;
@@ -160,7 +152,7 @@ namespace ArknightsMod.Common.Players
 		}
 
 		public void OffensiveRecovery() {
-			if (!SkillActive && StockCount < StockMax) {
+			if (!SkillActive && StockCount < StockMax[Skill]) {
 				SkillCharge += 1;
 				if (SkillCharge != 0) {
 					SP += 1;
@@ -169,8 +161,8 @@ namespace ArknightsMod.Common.Players
 			if (SkillCharge == SkillChargeMax) {
 				SkillCharge = 0;
 				StockCount += 1;
-				if (StockCount == StockMax) {
-					SP = MaxSP;
+				if (StockCount == StockMax[Skill]) {
+					SP = (int)MaxSP[Skill];
 				}
 				else
 					SP = 0;
@@ -180,7 +172,7 @@ namespace ArknightsMod.Common.Players
 		public void SkillActiveTimer() {
 			if (SkillActive) {
 				SkillTimer++;
-				if (SkillTimer == SkillActiveTime * 60) {
+				if (SkillTimer == SkillActiveTime[Skill] * 60) {
 					SkillActive = false;
 				}
 			}
@@ -196,44 +188,121 @@ namespace ArknightsMod.Common.Players
 		}
 
 		public void DelStockCount() {
-			if (StockCount == StockMax) {
+			if (StockCount == StockMax[Skill]) {
 				SP = 0;
 			}
 
 			StockCount -= 1;
 		}
 
-		//public override void ResetEffects() {
-		//	ResetVariables();
-		//}
+		public void SetSkillData() {
+			if (HowManySkills < 1) {
+				InitialSPs1List = new() { null, null, null, null, null, null, null, null, null, null };
+				MaxSPs1List = new() { null, null, null, null, null, null, null, null, null, null };
+			}
+			if (HowManySkills < 2) {
+				InitialSPs2List = new() { null, null, null, null, null, null, null, null, null, null };
+				MaxSPs2List = new() { null, null, null, null, null, null, null, null, null, null };
+			}
+			if (HowManySkills < 3) {
+				InitialSPs3List = new() { null, null, null, null, null, null, null, null, null, null };
+				MaxSPs3List = new() { null, null, null, null, null, null, null, null, null, null };
+			}
+			InitialSP = new() { InitialSPs1List[SkillLevel[0] - 1], InitialSPs2List[SkillLevel[1] - 1], InitialSPs3List[SkillLevel[2] - 1] };
+			MaxSP = new() { MaxSPs1List[SkillLevel[0] - 1], MaxSPs2List[SkillLevel[1] - 1], MaxSPs3List[SkillLevel[2] - 1] };
+			SkillActiveTime = new() { SkillActiveTimeS1List[SkillLevel[0] - 1], SkillActiveTimeS2List[SkillLevel[1] - 1], SkillActiveTimeS3List[SkillLevel[2] - 1] };
+			StockMax = new() { StockMaxS1List[SkillLevel[0] - 1], StockMaxS2List[SkillLevel[1] - 1], StockMaxS3List[SkillLevel[2] - 1] };
+		}
 
-		//public override void UpdateDead() {
-		//	ResetVariables();
-		//}
+		public void SetAllSkillsData() {
+			if (Main.LocalPlayer.HeldItem.ModItem is BagpipeSpear) {
+				IconName = "BagpipeSpear";
+				HowManySkills = 3;
+				SkillLevel = new() { 10, 10, 10 }; // per Skills
+				ChargeTypeIsPerSecond = new() { true, true, true }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
+				AutoTrigger = new() { false, true, false };
+				ShowSummonIconBySkills = new() { false, false, false };
 
-		// We need this to ensure that regeneration rate and maximum amount are reset to default values after increasing when conditions are no longer satisfied (e.g. we unequip an accessory that increaces our recource)
-		//private void ResetVariables() {
-		//	exampleResourceRegenRate = 1f;
-		//	exampleResourceMax2 = exampleResourceMax;
-		//}
+				// Skilll Data
+				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 15 }; // per Skill Level
+				InitialSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+				InitialSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 25 };
+				MaxSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 33 };
+				MaxSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 4 };
+				MaxSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 40 };
+				SkillActiveTimeS1List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 35f };
+				SkillActiveTimeS2List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0.5f };
+				SkillActiveTimeS3List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 20f };
+				StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 3 };
+				StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				SetSkillData(); // Don't forget!
+			}
 
-		//public override void PostUpdateMiscEffects() {
-		//	UpdateResource();
-		//}
+			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
+				IconName = "ChenSword";
+				HowManySkills = 1;
+				SkillLevel = new() { 10, 10, 10 }; // per Skills
+				ChargeTypeIsPerSecond = new() { false, true, false }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
+				AutoTrigger = new() { false, false, false };
+				ShowSummonIconBySkills = new() { false, false, false };
 
-		// Lets do all our logic for the custom resource here, such as limiting it, increasing it and so on.
-		//private void UpdateResource() {
-		//	// For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
-		//	Timer++; // Increase it by 60 per second, or 1 per tick.
+				// Skilll Data
+				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 20 }; // per Skill Level
+				//InitialSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				//InitialSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				MaxSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
+				//MaxSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				//MaxSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				SkillActiveTimeS1List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f };
+				//SkillActiveTimeS2List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0};
+				//SkillActiveTimeS3List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0};
+				StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				//StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+				//StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+				SetSkillData(); // Don't forget!
+			}
 
-		//	// A simple timer that goes up to 3 seconds, increases the exampleResourceCurrent by 1 and then resets back to 0.
-		//	if (Timer > 180 / RegenRate) {
-		//		SkillCharge += 1;
-		//		Timer = 0;
-		//	}
+			if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
+				IconName = "KroosCrossbow";
+				HowManySkills = 1;
+				SkillLevel = new() { 7, 7, 7 }; // per Skills
+				ChargeTypeIsPerSecond = new() { false, true, false }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
+				AutoTrigger = new() { true, false, false };
+				ShowSummonIconBySkills = new() { false, false, false };
 
-		//	// Limit exampleResourceCurrent from going over the limit imposed by exampleResourceMax.
-		//	SkillCharge = Utils.Clamp(SkillCharge, 0, Percentage);
-		//}
+				// Skilll Data
+				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // per Skill Level
+				MaxSPs1List = new() { 0, 0, 0, 0, 0, 0, 4, 0, 0, 0 };
+				SkillActiveTimeS1List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0.2f, 0f, 0f, 0f };
+				StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 };
+				SetSkillData(); // Don't forget!
+			}
+
+			if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
+				IconName = "PozemkaCrossbow";
+				HowManySkills = 3;
+				SkillLevel = new() { 10, 10, 10 }; // per Skills
+				ChargeTypeIsPerSecond = new() { false, true, true }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
+				AutoTrigger = new() { true, false, false };
+				ShowSummonIconBySkills = new() { true, true, true };
+
+				// Skilll Data
+				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // per Skill Level
+				InitialSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 9 };
+				InitialSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 23 };
+				MaxSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 20 };
+				MaxSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 9 };
+				MaxSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 35 };
+				SkillActiveTimeS1List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 30f };
+				SkillActiveTimeS2List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0.4f };
+				SkillActiveTimeS3List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 30f };
+				StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 };
+				StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				SetSkillData(); // Don't forget!
+			}
+		}
+
 	}
 }
