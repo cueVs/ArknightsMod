@@ -124,6 +124,12 @@ namespace ArknightsMod.Content.Items.Weapons
 							modPlayer.SkillActive = true;
 							modPlayer.SkillTimer = 0;
 							modPlayer.DelStockCount();
+
+							//S1 sound change(but now S3Last sound)
+							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
+								Volume = 0.4f,
+								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
+							};
 						}
 					}
 
