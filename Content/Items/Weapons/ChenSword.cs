@@ -180,7 +180,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
 
-				modPlayer.SetAllSkillsData(2, 7, 0, 4, 3, 20, 30, 3, null, null, null, "ChenSword");
+				modPlayer.SetAllSkillsData();
 
 				if (!modPlayer.HoldChenSword) {
 					modPlayer.SkillInitialize = true;
@@ -190,7 +190,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				//S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkillData(0, 4, 1, 1, 0.5f, true, false);
+					modPlayer.SetSkill(0);
 					modPlayer.SkillActiveTimer();
 				}
 
@@ -198,7 +198,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S3 (but now S2)
 				if (modPlayer.Skill == 1) {
-					modPlayer.SetSkillData(20, 30, 1, 1, 1, false, false);
+					modPlayer.SetSkill(1);
 
 					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
 						for (int i = 0; i < 30; i++) {//Circle
@@ -221,7 +221,7 @@ namespace ArknightsMod.Content.Items.Weapons
 						if (modPlayer.SkillTimer == 1) {
 							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X - 50, player.Center.Y - 100, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
 						}
-						if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60) {
+						if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime[modPlayer.Skill] * 60) {
 							player.velocity = Vector2.Zero;
 						}
 						if (modPlayer.SkillTimer == 10) {
@@ -229,7 +229,7 @@ namespace ArknightsMod.Content.Items.Weapons
 							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 						}
 
-						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime * 60 && modPlayer.SkillTimer % 5 == 0) {
+						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime[modPlayer.Skill] * 60 && modPlayer.SkillTimer % 5 == 0) {
 							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), player.GetWeaponDamage(Item) * 3, 2.5f, player.whoAmI, 0f);
 							player.immuneAlpha = 0;
 							if (modPlayer.SkillTimer == 60) {
@@ -249,7 +249,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 						}
 
-						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime * 60 + 10) {
+						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime[modPlayer.Skill] * 60 + 10) {
 							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), -1, 0);
 							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
 

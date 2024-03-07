@@ -80,21 +80,6 @@ Mods: {
 				Tooltip: ""
 			}
 
-			ChenHead: {
-				DisplayName: Chen's outfit (Head)
-				Tooltip: ""
-			}
-
-			ChenBody: {
-				DisplayName: Chen's outfit (Body)
-				Tooltip: ""
-			}
-
-			ChenLegs: {
-				DisplayName: Chen's outfit (Legs)
-				Tooltip: ""
-			}
-
 			AmiyaBody: {
 				DisplayName: Amiya's outfit (Body)
 				Tooltip: ""
@@ -110,6 +95,66 @@ Mods: {
 				Tooltip: ""
 			}
 
+			MatoimaruBody: {
+				DisplayName: Matoimaru's outfit (Body)
+				Tooltip: ""
+			}
+
+			MatoimaruHead: {
+				DisplayName: Matoimaru's outfit (Head)
+				Tooltip: ""
+			}
+
+			MatoimaruLegs: {
+				DisplayName: Matoimaru's outfit (Legs)
+				Tooltip: ""
+			}
+
+			ChenHead: {
+				DisplayName: Chen's outfit (Head)
+				Tooltip: ""
+			}
+
+			ChenBody: {
+				DisplayName: Chen's outfit (Body)
+				Tooltip: ""
+			}
+
+			ChenLegs: {
+				DisplayName: Chen's outfit (Legs)
+				Tooltip: ""
+			}
+
+			WBody: {
+				DisplayName: W's outfit (Body)
+				Tooltip: ""
+			}
+
+			WHead: {
+				DisplayName: W's outfit (Head)
+				Tooltip: ""
+			}
+
+			WLegs: {
+				DisplayName: W's outfit (Legs)
+				Tooltip: ""
+			}
+
+			TexalterBody: {
+				DisplayName: Texas the Omertosa's outfit (Body)
+				Tooltip: ""
+			}
+
+			TexalterHead: {
+				DisplayName: Texas the Omertosa's outfit (Head)
+				Tooltip: ""
+			}
+
+			TexalterLegs: {
+				DisplayName: Texas the Omertosa's outfit (Legs)
+				Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: Arknights Doctor's outfit
@@ -120,9 +165,29 @@ Mods: {
 					'''
 			}
 
-			GachaBag: {
-				DisplayName: Gacha Bag
-				Tooltip: ""
+			AmiyaDefault: {
+				DisplayName: Amiya's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MatoimaruDefault: {
+				DisplayName: Matoimaru's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			ChenDefault: {
+				DisplayName: Chen's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			WDefault: {
+				DisplayName: W's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			TexalterDefault: {
+				DisplayName: Texas the Omertosa's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			# Material
@@ -576,22 +641,22 @@ Mods: {
 		ButtonName.button2: Annihilation operation
 
 		Tiles: {
-			OrirockCube.MapEntry: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			MnOre.MapEntry: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			Grind.MapEntry: "{$Mods.ArknightsMod.ItemName.Grind}"
-			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
-			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.DareUsa}"
-			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			OrirockCube.MapEntry: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+			MnOre.MapEntry: "{$Mods.ArknightsMod.Items.MnOre.DisplayName}"
+			Grind.MapEntry: "{$Mods.ArknightsMod.Items.Grind.DisplayName}"
+			RMA12.MapEntry: "{$Mods.ArknightsMod.Items.RMA12.DisplayName}"
+			DareUsa.MapEntry: "{$Mods.ArknightsMod.Items.DareUsa.DisplayName}"
+			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.Items.AnniversaryWheel.DisplayName}"
 			BannerTile.MapEntry: Banner
 		}
 
 		Currencies.OrundumCurrency: Orundum
 
 		WorldGen: {
-			GrindPassMessage: "{$Mods.ArknightsMod.ItemName.Grind}"
-			MnOrePassMessage: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			OrirockCubePassMessage: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			RMA12PassMessage: "{$Mods.ArknightsMod.ItemName.RMA12}"
+			GrindPassMessage: "{$Mods.ArknightsMod.Items.Grind.DisplayName}"
+			MnOrePassMessage: "{$Mods.ArknightsMod.Items.MnOre.DisplayName}"
+			OrirockCubePassMessage: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+			RMA12PassMessage: "{$Mods.ArknightsMod.Items.RMA12.DisplayName}"
 		}
 
 		StatusMessage: {
@@ -604,6 +669,32 @@ Mods: {
 				Stage3: Obtained the highest permission to start the multi-functional auxiliary system.
 				End: Detected severe damage to the main structure, initiating self destruct mode.
 				Complete: The bombing drone from the empire have been destroyed.
+			}
+		}
+
+		Configs: {
+			MusicConfig: {
+				DisplayName: Music Config
+
+				EnableArknightsDaytime: {
+					Label: Enable ArknightsDaytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsNighttime: {
+					Label: Enable ArknightsNighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsOceanDaytime: {
+					Label: Enable ArknightsOceanDaytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsOceanNighttimeScene: {
+					Label: Enable ArknightsOceanNighttime Music
+					Tooltip: ""
+				}
 			}
 		}
 	}
