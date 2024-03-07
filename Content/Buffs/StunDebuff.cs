@@ -20,12 +20,26 @@ namespace ArknightsMod.Content.Buffs
 			player.GetModPlayer<StunDebuffPlayer>().stunDebuff = true;
 
 			//stun parameters
+			player.velocity.X = 0;
+			if (player.velocity.Y < 0) player.velocity.Y = 0;
 		}
 
 		public override void Update(NPC npc, ref int buffIndex) {
-			npc.GetGlobalNPC<StunDebuffGlobalNPC>().stunDebuff = true;
+			var sdgNPC = npc.GetGlobalNPC<StunDebuffGlobalNPC>();
+			sdgNPC.stunDebuff = true;
+
+			if(!sdgNPC.defaultSettings.isAlreadySet) {
+				sdgNPC.defaultSettings = (true, npc.noGravity, npc.noTileCollide, npc.damage);
+			}
+
 
 			//stun parameters
+			npc.velocity.X = 0;
+			if(npc.velocity.Y < 0) npc.velocity.Y = 0;
+
+			npc.damage = 0;
+			npc.noGravity = false;
+			npc.noTileCollide = false;
 		}
 	}
 
@@ -43,28 +57,38 @@ namespace ArknightsMod.Content.Buffs
 			ref float r, ref float g, ref float b, ref float a,
 			ref bool fullBright
 			)
-			{
-			r *= 0.5f;
-			g *= 0.5f;
-			b *= 0.5f;
+		{
+			r *= 0.8f;
+			g *= 0.8f;
+			b *= 0.8f;
 		}
 	}
 
 	public class StunDebuffGlobalNPC : GlobalNPC
 	{
 		public bool stunDebuff;
+		public (bool isAlreadySet, bool noGravity, bool noTileCollide, int damage)
+				defaultSettings = (false, false, false, 0);
 
 		public override bool InstancePerEntity => true;
 
 		public override void ResetEffects(NPC npc) {
 			stunDebuff = false;
+
+			if (defaultSettings.isAlreadySet)
+			{
+				npc.noGravity = defaultSettings.noGravity;
+				npc.noTileCollide = defaultSettings.noTileCollide;
+				npc.damage = defaultSettings.damage;
+				defaultSettings.isAlreadySet = false;
+			}
 		}
 
 		public override void DrawEffects(NPC npc, ref Color drawColor) {
 			if (stunDebuff) {
-				drawColor.R *= (byte)0.5;
-				drawColor.G *= (byte)0.5;
-				drawColor.B *= (byte)0.5;
+				drawColor.R *= (byte)0.8;
+				drawColor.G *= (byte)0.8;
+				drawColor.B *= (byte)0.8;
 			}
 		}
 	}
