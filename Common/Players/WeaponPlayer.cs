@@ -241,24 +241,24 @@ namespace ArknightsMod.Common.Players
 
 			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
 				IconName = "ChenSword";
-				HowManySkills = 1;
+				HowManySkills = 2;
 				SkillLevel = new() { 10, 10, 10 }; // per Skills
-				ChargeTypeIsPerSecond = new() { false, true, false }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
+				ChargeTypeIsPerSecond = new() { false, false, false }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
 				AutoTrigger = new() { false, false, false };
 				ShowSummonIconBySkills = new() { false, false, false };
 
 				// Skilll Data
-				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 20 }; // per Skill Level
-				//InitialSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // per Skill Level
+				InitialSPs2List = new() { 10, 10, 10, 10, 10, 10, 10, 13, 16, 20 };
 				//InitialSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-				MaxSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
-				//MaxSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+				MaxSPs1List = new() { 7, 7, 7, 6, 6, 6, 5, 5, 5, 4 };
+				MaxSPs2List = new() { 40, 40, 40, 38, 38, 38, 36, 34, 32, 30 };
 				//MaxSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-				SkillActiveTimeS1List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f };
-				//SkillActiveTimeS2List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0};
+				SkillActiveTimeS1List = new() { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
+				SkillActiveTimeS2List = new() { 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
 				//SkillActiveTimeS3List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0};
-				StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-				//StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+				StockMaxS1List = new() { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+				StockMaxS2List = new() { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 				//StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 				SetSkillData(); // Don't forget!
 			}
