@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using ReLogic.Content;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
+using System;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
+using ArknightsMod.Content.Items.Material;
+
 namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 {
 	// Shortsword projectiles are handled in a special way with how they draw and damage things
@@ -14,16 +16,15 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 	// Values chosen mostly correspond to Iron Shortword
 	public class FrostNovaSmoke : ModProjectile
 	{
-
 		public override void SetDefaults() {
-			Projectile.width = 42;
-			Projectile.height = 12;
+			Projectile.width = 80;
+			Projectile.height = 80;
 			Projectile.aiStyle = 0;
-			Projectile.timeLeft = 480;
+			Projectile.timeLeft = 250;
 			Projectile.penetrate = -1;
-			Projectile.scale = 0.9f;
-			Projectile.alpha = 255;
-			Projectile.hide = true;
+			Projectile.scale = 0.01f;
+			Projectile.Opacity = 0f;
+			Projectile.hide = false;
 			Projectile.hostile = false;
 			Projectile.friendly = false;
 			Projectile.ignoreWater = true;
@@ -41,11 +42,32 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 
 		public override void AI() {
 			Projectile.ai[0] += 1;
-			if(Projectile.velocity.X > 0f) {
-				Projectile.spriteDirection = Projectile.direction = -1;
+			if (Projectile.localAI[0] == 0f) {
+				Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+				Projectile.localAI[0] = Main.rand.Next(2) * 2 -1; // 1 or -1
+				Projectile.localAI[1] = Main.rand.NextFloat(Projectile.ai[1], Projectile.ai[1] + 40);
+				Projectile.localAI[2] = Main.rand.Next(1, 5);
 			}
+			//NPC npc = Main.npc[Projectile.owner];
+			//float positionX = npc.position.X - 10;
+			//float positionY = npc.position.Y;
+			//if (Projectile.ai[1] > 0f) {
+			//	Projectile.velocity.X = Math.Max(Projectile.velocity.X - 0.1f, 0f);
+			//}
+			//else {
+			//	Projectile.velocity.X = Math.Min(Projectile.velocity.X + 0.1f, 0f);
+			//}
+			//if (Projectile.ai[2] > 0f) {
+			//	Projectile.velocity.Y = Math.Max(Projectile.velocity.Y - 0.1f, 0f);
+			//}
+			//else {
+			//	Projectile.velocity.Y = Math.Min(Projectile.velocity.Y + 0.1f, 0f);
+			//}
 
-			if (Projectile.ai[0] >= 200f)
+			//Projectile.velocity.X = GetSPV(Projectile.ai[1], Projectile.ai[1] + 20, Projectile.velocity.X, 2);
+			//Projectile.velocity.Y = GetSPV(Projectile.ai[2], Projectile.ai[2] + 20, Projectile.velocity.Y, 2);
+
+			if (Projectile.ai[0] >= 250)
 				Projectile.Kill();
 
 			FadeInAndOut();
@@ -54,38 +76,53 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
 		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			//if (Projectile.ai[0] <= 50f) {
-			//	// Fade in
-			//	Projectile.alpha -= 2;
-			//	Projectile.scale += 0.2f;
-			//	// Cap alpha before timer reaches 50 ticks
-			//	if (Projectile.alpha < 0)
-			//		Projectile.alpha = 0;
-			//	if (Projectile.scale > 1.5f) {
-			//		Projectile.scale = 1.5f;
-			//	}
-			//	return;
-			//}
+			if (Projectile.ai[0] <= Projectile.localAI[1]) {
+				// Fade in
+				Projectile.Opacity += 0.1f;
+				Projectile.scale += 0.1f;
+				Projectile.rotation += 0.003f * Projectile.ai[2];
+				Projectile.velocity *= 0.95f;
+				// Cap
+				if (Projectile.Opacity > 1f)
+					Projectile.Opacity = 1f;
+				if (Projectile.scale > 1f) {
+					Projectile.scale = 1f;
+				}
+				return;
+			}
 
 			// Fade out
-			//Projectile.alpha += 10;
-			//// Cal alpha to the maximum 255(complete transparent)
-			//if (Projectile.alpha > 255)
-			//	Projectile.alpha = 255;
+			Projectile.Opacity -= 0.01f;
+			Projectile.velocity *= 0;
+			Projectile.rotation += 0.005f * Projectile.ai[2];
+			if (Projectile.Opacity < 0)
+				Projectile.Opacity = 0;
+			if (Projectile.localAI[1] <= Projectile.ai[0] && Projectile.ai[0] <= (Projectile.localAI[1] + 60f) && Projectile.ai[0] % 10 == 0 && Projectile.localAI[0] == 1) {
+				Dust dust = Main.dust[Dust.NewDust(Projectile.Left + new Vector2(-35, -25), 50, Projectile.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, -2f)];
+				dust.noGravity = true;
+				dust.fadeIn = 0f;
+				dust.scale = 1.5f;
+			}
 		}
 
 		public override bool PreDraw(ref Color lightColor) {
 			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
 
-			Texture2D texture = (Texture2D) Request<Texture2D>("ArknightsMod/Assets/Effects/Smoke", AssetRequestMode.ImmediateLoad);
-			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White, 0f, Vector2.Zero, 1, 0, 0);
+			Texture2D texture = Request<Texture2D>("ArknightsMod/Assets/GrayScaleTexture/Smoke" + (int)Projectile.localAI[2], AssetRequestMode.ImmediateLoad).Value;
+			float opacity = Projectile.Opacity * 0.6f;
+			Color color = Color.White * opacity;
+			float scale = Projectile.scale;
+			Vector2 origin = texture.Size() * 0.5f;
+			//float rotation = 2f * (float)Math.PI * Main.rand.NextFloat();
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, origin, scale, SpriteEffects.None, 0);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 			return false;
 		}
 
 	}
-
-
 }

@@ -544,7 +544,7 @@ Mods: {
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 			IAT.DisplayName: 帝国炮火先兆者
-			// FrostNova.DisplayName: Frost Nova
+			FrostNova.DisplayName: 霜星
 		}
 
 		# Friendly
@@ -637,7 +637,7 @@ Mods: {
 			// PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			// PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 			// AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
-			// FrostNovaSmoke.DisplayName: Frost Nova Smoke
+			// FrostNovaSmoke.DisplayName: FrostNova Smoke
 		}
 
 		ButtonName.button2: 剿灭作战

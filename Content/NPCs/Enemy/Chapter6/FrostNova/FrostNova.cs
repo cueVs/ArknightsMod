@@ -14,6 +14,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using ArknightsMod.Content.Dusts;
 using ArknightsMod.Content.Projectiles.Bosses.FrostNova;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 {
@@ -60,7 +61,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		// If you choose to go the route of "wrapping properties" for NPC.ai[], make sure they don't overlap (two properties using the same variable in different ways), and that you don't accidently use NPC.ai[] directly
 
 		public override void SetStaticDefaults() {
-			Main.npcFrameCount[Type] = 75;
+			Main.npcFrameCount[Type] = 76;
 
 			// Add this in for bosses that have a summon item, requires corresponding code in the item (See MinionBossSummonItem.cs)
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -88,7 +89,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			NPC.defense = 10;
 			NPC.lifeMax = 200;
 			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.DeathSound = SoundID.DoubleJump;
 			NPC.knockBackResist = 0f;
 			NPC.lavaImmune = true;
 			NPC.noGravity = false;
@@ -123,9 +124,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IncandescentAlloyBlock>(), 3, 3, 5));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CrystallineCircuit>(), 3, 3, 5));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OptimizedDevice>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ItemType<IncandescentAlloyBlock>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ItemType<CrystallineCircuit>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ItemType<OptimizedDevice>(), 3, 3, 5));
 		}
 
 		public override void OnKill() {
@@ -186,7 +187,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 			if (State == ActionState.Walk) {
 				startFrame = 0;
-				finalFrame = 3;
+				finalFrame = 4;
 
 				int frameSpeed = 5;
 				NPC.frameCounter += 0.5f;
@@ -201,8 +202,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			}
 
 			if (State == ActionState.Dying) {
-				startFrame = 33;
-				finalFrame = 37;
+				startFrame = 34;
+				finalFrame = 38;
 				if (NPC.frame.Y < startFrame * frameHeight) {
 					// If we were animating the first stage frames and then switch to second stage, immediately change to the start frame of the second stage
 					NPC.frame.Y = startFrame * frameHeight;
@@ -221,8 +222,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			}
 
 			if (State == ActionState.Revival) {
-				startFrame = 33;
-				finalFrame = 53;
+				startFrame = 34;
+				finalFrame = 54;
 				if (NPC.frame.Y < startFrame * frameHeight) {
 					// If we were animating the first stage frames and then switch to second stage, immediately change to the start frame of the second stage
 					NPC.frame.Y = startFrame * frameHeight;
@@ -321,14 +322,38 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		private void Dying() {
 			Death_Timer ++;
 
-			if (Death_Timer >= 120f) {
+			if (Death_Timer == 130f) {
 				if (Main.netMode != NetmodeID.MultiplayerClient) {
-					Vector2 position = NPC.Center;
-					Projectile.NewProjectile(null, position, new Vector2(0, 0), ProjectileType<FrostNovaSmoke>(), 0, 0f);
+					//Vector2 po = NPC.Center + new Vector2(Main.rand.Next(-60, 0), Main.rand.Next(-30, 10));
+					//float positionX = NPC.Center.X - 10;
+					//float positionY = NPC.Center.Y + 0;
+					for (int i = 0; i < 3; i++) {
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-20, 23) * NPC.direction;
+						float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 45);
+						Vector2 position = new Vector2(positionX, positionY);
+						Projectile.NewProjectile(null, position, new Vector2(-0.5f, -0.3f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 90, 0);
+					}
+					for (int i = 0; i < 4; i++) {
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-34, 16) * NPC.direction;
+						float positionY = NPC.Center.Y + Main.rand.NextFloat(-10, 34);
+						Vector2 position = new Vector2(positionX, positionY);
+						Projectile.NewProjectile(null, position, new Vector2(-1.5f, -0.5f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 80, -1);
+					}
+					for (int i = 0; i < 4; i++) {
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-20, 23) * NPC.direction;
+						float positionY = NPC.Center.Y + Main.rand.NextFloat(-29, 16);
+						Vector2 position = new Vector2(positionX, positionY);
+						Projectile.NewProjectile(null, position, new Vector2(2f, 0.7f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 85, 1);
+					}
+					//for (int i = 0; i < 5; i++) {
+					//	float velocityX = Main.rand.NextFloat();
+					//	float velocityY = Main.rand.NextFloat();
+					//	Projectile.NewProjectile(null, position, new Vector2(-velocityX, -velocityY), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, -1, -1);
+					//}
 				}
 			}
 
-			if (Death_Timer >= 180f) {
+			if (Death_Timer >= 135f) {
 				NPC.life = 0;
 				NPC.HitEffect(0, 0);
 				NPC.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.

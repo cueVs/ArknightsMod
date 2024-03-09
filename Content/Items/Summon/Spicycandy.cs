@@ -22,7 +22,7 @@ namespace ArknightsMod.Content.Items.Summon
 			Item.useAnimation = 5;
 			Item.useTime = 5;
 			Item.maxStack = 1;
-			Item.consumable = true;
+			Item.consumable = false;
 			Item.value = Item.buyPrice(0, 1);
 			Item.width = 11;
 			Item.height = 11;
