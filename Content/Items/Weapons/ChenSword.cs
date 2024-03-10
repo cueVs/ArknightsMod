@@ -148,7 +148,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+				if (modPlayer.Skill == 0 && modPlayer.SkillActive) {
 					damage *= 3.2f;
 				}
 			}
@@ -163,7 +163,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			if (Main.myPlayer == player.whoAmI) {
 
 				//S1
-				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+				if (modPlayer.Skill == 0 && modPlayer.SkillActive) {
 					target.AddBuff(ModContent.BuffType<StunDebuff>(), 90);
 				}
 			}
@@ -175,7 +175,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			if (Main.myPlayer == player.whoAmI) {
 
 				//S1
-				if (modPlayer.Skill == 0 && (modPlayer.StockCount > 0 || modPlayer.SkillActive == true)) {
+				if (modPlayer.Skill == 0 && modPlayer.SkillActive) {
 					target.AddBuff(ModContent.BuffType<StunDebuff>(), 90);
 				}
 			}
