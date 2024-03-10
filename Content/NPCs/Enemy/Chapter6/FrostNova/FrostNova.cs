@@ -15,6 +15,8 @@ using static Terraria.ModLoader.ModContent;
 using ArknightsMod.Content.Dusts;
 using ArknightsMod.Content.Projectiles.Bosses.FrostNova;
 using Microsoft.CodeAnalysis.Operations;
+using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
+using Terraria.ModLoader.Utilities;
 
 namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 {
@@ -59,7 +61,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 		// Do NOT try to use NPC.ai[4]/NPC.localAI[4] or higher indexes, it only accepts 0, 1, 2 and 3!
 		// If you choose to go the route of "wrapping properties" for NPC.ai[], make sure they don't overlap (two properties using the same variable in different ways), and that you don't accidently use NPC.ai[] directly
-
+		//public override float SpawnChance(NPCSpawnInfo spawnInfo) {
+		//	return SpawnCondition.Overworld.Chance;
+		//	// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
+		//}
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = 76;
 
@@ -155,7 +160,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		}
 
 		public override bool CheckDead() {
-			if (State != ActionState.Dying) //If the boss is defeated, but the death animation hasn't played yet, play the death animation.
+			if (State != ActionState.Dying && SecondStage) //If the boss is defeated, but the death animation hasn't played yet, play the death animation.
 			{
 				State = ActionState.Dying; //Flag boss as "dying"
 				Death_Timer = 0;
@@ -165,12 +170,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 				NPC.netUpdate = true; //Sync to clients
 				return false; //Boss isn't dead yet!
 			}
-			if (!SecondStage) {
-				NPC.life = NPC.lifeMax;
+			if (State != ActionState.Revival && !SecondStage) {
+				Death_Timer = 0;
+				NPC.life = 1;
 				State = ActionState.Revival;
 				SecondStage = true;
+				NPC.dontTakeDamage = true;
 				NPC.netUpdate = true;
-				return true;
+				return false;
 			}
 			return true;
 		}
@@ -182,14 +189,16 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		public override void FindFrame(int frameHeight) {
 			// This NPC animates with a simple "go from start frame to final frame, and loop back to start frame" rule
 			// In this case: First stage: 0-1-2-0-1-2, Second stage: 3-4-5-3-4-5, 5 being "total frame count - 1"
-			int startFrame = 0;
-			int finalFrame = 3;
+			int startFrame;
+			int finalFrame;
+			int frameSpeed;
+			NPC.spriteDirection = NPC.direction;
 
 			if (State == ActionState.Walk) {
 				startFrame = 0;
 				finalFrame = 4;
 
-				int frameSpeed = 5;
+				frameSpeed = 5;
 				NPC.frameCounter += 0.5f;
 				if (NPC.frameCounter > frameSpeed) {
 					NPC.frameCounter = 0;
@@ -209,7 +218,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 					NPC.frame.Y = startFrame * frameHeight;
 				}
 
-				int frameSpeed = 10;
+				frameSpeed = 10;
 				NPC.frameCounter += 0.5f;
 				if (NPC.frameCounter > frameSpeed) {
 					NPC.frameCounter = 0;
@@ -229,8 +238,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 					NPC.frame.Y = startFrame * frameHeight;
 				}
 
-				int frameSpeed = 5;
-				NPC.frameCounter += 0.5f;
+				frameSpeed = 15;
+				NPC.frameCounter += 1f;
 				if (NPC.frameCounter > frameSpeed) {
 					NPC.frameCounter = 0;
 					NPC.frame.Y += frameHeight;
@@ -238,6 +247,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 					if (NPC.frame.Y > finalFrame * frameHeight) {
 						NPC.frame.Y = finalFrame * frameHeight;
 						SwitchTo(ActionState.Walk);
+						NPC.dontTakeDamage = true;
 					}
 				}
 			}
@@ -286,7 +296,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			}
 		}
 
-		
+
 
 		//private void CheckSecondStage() {
 		//	if (SecondStage) {
@@ -311,8 +321,26 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		}
 
 		private void DoSecondStage(Player player) {
-			if (State != ActionState.Revival) {
-				State = ActionState.Walk;
+			if (State == ActionState.Revival) {
+				Death_Timer++;
+				if (Death_Timer > 2 * 60) {
+					NPC.life++;
+					if (NPC.life > NPC.lifeMax) {
+						NPC.life = NPC.lifeMax;
+					}
+				}
+				return;
+			}
+			else if (State == ActionState.Walk){
+				if (Death_Timer > 0) {
+					NPC.life = NPC.lifeMax;
+					NPC.dontTakeDamage = true;
+					Death_Timer++;
+					if (Death_Timer > 25 * 60) {
+						NPC.dontTakeDamage = false;
+						Death_Timer = 0;
+					}
+				}
 			}
 
 
@@ -320,7 +348,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 
 		private void Dying() {
-			Death_Timer ++;
+			Death_Timer++;
 
 			if (Death_Timer == 130f) {
 				if (Main.netMode != NetmodeID.MultiplayerClient) {
@@ -337,19 +365,20 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 						float positionX = NPC.Center.X + Main.rand.NextFloat(-34, 16) * NPC.direction;
 						float positionY = NPC.Center.Y + Main.rand.NextFloat(-10, 34);
 						Vector2 position = new Vector2(positionX, positionY);
-						Projectile.NewProjectile(null, position, new Vector2(-1.5f, -0.5f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 80, -1);
+						Projectile.NewProjectile(null, position, new Vector2(-2.8f, -0.5f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 80, -1);
 					}
 					for (int i = 0; i < 4; i++) {
-						float positionX = NPC.Center.X + Main.rand.NextFloat(-20, 23) * NPC.direction;
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-18, 28) * NPC.direction;
 						float positionY = NPC.Center.Y + Main.rand.NextFloat(-29, 16);
 						Vector2 position = new Vector2(positionX, positionY);
-						Projectile.NewProjectile(null, position, new Vector2(2f, 0.7f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 85, 1);
+						Projectile.NewProjectile(null, position, new Vector2(3f, 0.7f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 85, 1);
 					}
-					//for (int i = 0; i < 5; i++) {
-					//	float velocityX = Main.rand.NextFloat();
-					//	float velocityY = Main.rand.NextFloat();
-					//	Projectile.NewProjectile(null, position, new Vector2(-velocityX, -velocityY), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, -1, -1);
-					//}
+					for (int i = 0; i < 3; i++) {
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-10, 33) * NPC.direction;
+						float positionY = NPC.Center.Y + Main.rand.NextFloat(10, 36);
+						Vector2 position = new Vector2(positionX, positionY);
+						Projectile.NewProjectile(null, position, new Vector2(0.2f, -0.4f), ProjectileType<FrostNovaSmoke>(), 0, 0f, -1, 0, 85, 1);
+					}
 				}
 			}
 

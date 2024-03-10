@@ -98,7 +98,7 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 			if (Projectile.Opacity < 0)
 				Projectile.Opacity = 0;
 			if (Projectile.localAI[1] <= Projectile.ai[0] && Projectile.ai[0] <= (Projectile.localAI[1] + 60f) && Projectile.ai[0] % 10 == 0 && Projectile.localAI[0] == 1) {
-				Dust dust = Main.dust[Dust.NewDust(Projectile.Left + new Vector2(-35, -25), 50, Projectile.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, -2f)];
+				Dust dust = Main.dust[Dust.NewDust(Projectile.Left + new Vector2(-30, -25), 50, Projectile.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, -2f)];
 				dust.noGravity = true;
 				dust.fadeIn = 0f;
 				dust.scale = 1.5f;
