@@ -73,7 +73,12 @@ namespace ArknightsMod.Content.Buffs
 		public override bool InstancePerEntity => true;
 
 		public override void ResetEffects(NPC npc) {
-			stunDebuff = false;
+
+			if (stunDebuff)
+			{
+				stunDebuff = false;
+				return;
+			}
 
 			if (defaultSettings.isAlreadySet)
 			{
@@ -81,6 +86,10 @@ namespace ArknightsMod.Content.Buffs
 				npc.noTileCollide = defaultSettings.noTileCollide;
 				npc.damage = defaultSettings.damage;
 				defaultSettings.isAlreadySet = false;
+
+				if (!npc.collideY && npc.velocity.Y > 0) {
+					npc.velocity.Y *= 0.2f;
+				}
 			}
 		}
 
