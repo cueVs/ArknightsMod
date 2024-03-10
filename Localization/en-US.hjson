@@ -404,6 +404,11 @@ Mods: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
 			}
+
+			Nianweapon: {
+				DisplayName: Nianweapon
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
