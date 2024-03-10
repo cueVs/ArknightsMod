@@ -244,7 +244,7 @@ namespace ArknightsMod.Common.Players
 				HowManySkills = 2;
 				SkillLevel = new() { 10, 10, 10 }; // per Skills
 				ChargeTypeIsPerSecond = new() { false, false, false }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
-				AutoTrigger = new() { false, false, false };
+				AutoTrigger = new() { true, false, false };
 				ShowSummonIconBySkills = new() { false, false, false };
 
 				// Skilll Data
