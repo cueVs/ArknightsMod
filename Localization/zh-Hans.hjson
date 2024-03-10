@@ -80,21 +80,6 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			ChenHead: {
-				DisplayName: 陈的头套
-				// Tooltip: ""
-			}
-
-			ChenBody: {
-				DisplayName: 陈的上衣
-				// Tooltip: ""
-			}
-
-			ChenLegs: {
-				DisplayName: 陈的下装
-				// Tooltip: ""
-			}
-
 			AmiyaBody: {
 				DisplayName: 阿米娅的上衣
 				// Tooltip: ""
@@ -110,6 +95,66 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			MatoimaruBody: {
+				DisplayName: 缠丸的上衣
+				// Tooltip: ""
+			}
+
+			MatoimaruHead: {
+				DisplayName: 缠丸的头套
+				// Tooltip: ""
+			}
+
+			MatoimaruLegs: {
+				DisplayName: 缠丸的下装
+				// Tooltip: ""
+			}
+
+			ChenHead: {
+				DisplayName: 陈的头套
+				// Tooltip: ""
+			}
+
+			ChenBody: {
+				DisplayName: 陈的上衣
+				// Tooltip: ""
+			}
+
+			ChenLegs: {
+				DisplayName: 陈的下装
+				// Tooltip: ""
+			}
+
+			WBody: {
+				DisplayName: W的上衣
+				// Tooltip: ""
+			}
+
+			WHead: {
+				DisplayName: W的头套
+				// Tooltip: ""
+			}
+
+			WLegs: {
+				DisplayName: W的下装
+				// Tooltip: ""
+			}
+
+			TexalterBody: {
+				DisplayName: 缄默德克萨斯的上衣
+				// Tooltip: ""
+			}
+
+			TexalterHead: {
+				DisplayName: 缄默德克萨斯的头套
+				// Tooltip: ""
+			}
+
+			TexalterLegs: {
+				DisplayName: 缄默德克萨斯的下装
+				// Tooltip: ""
+			}
+
 			# Consumables
 			StartBag: {
 				DisplayName: 明日方舟博士的衣服
@@ -120,9 +165,29 @@ Mods: {
 					'''
 			}
 
-			GachaBag: {
-				DisplayName: 朝陇山时装快递
-				// Tooltip: ""
+			AmiyaDefault: {
+				DisplayName: 阿米娅的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MatoimaruDefault: {
+				DisplayName: 缠丸的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			ChenDefault: {
+				DisplayName: 陈的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			WDefault: {
+				DisplayName: W的服饰（常规）
+				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			TexalterDefault: {
+				DisplayName: 缄默德克萨斯的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			# Material
@@ -576,22 +641,22 @@ Mods: {
 		ButtonName.button2: 剿灭作战
 
 		Tiles: {
-			OrirockCube.MapEntry: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			MnOre.MapEntry: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			Grind.MapEntry: "{$Mods.ArknightsMod.ItemName.Grind}"
-			RMA12.MapEntry: "{$Mods.ArknightsMod.ItemName.RMA12}"
-			DareUsa.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
-			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.ItemName.AnniversaryWheel}"
+			OrirockCube.MapEntry: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+			MnOre.MapEntry: "{$Mods.ArknightsMod.Items.MnOre.DisplayName}"
+			Grind.MapEntry: "{$Mods.ArknightsMod.Items.Grind.DisplayName}"
+			RMA12.MapEntry: "{$Mods.ArknightsMod.Items.RMA12.DisplayName}"
+			DareUsa.MapEntry: "{$Mods.ArknightsMod.Items.DareUsa.DisplayName}"
+			AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.Items.AnniversaryWheel.DisplayName}"
 			BannerTile.MapEntry: 敌怪旗
 		}
 
 		Currencies.OrundumCurrency: 合成玉
 
 		WorldGen: {
-			GrindPassMessage: "{$Mods.ArknightsMod.ItemName.Grind}"
-			MnOrePassMessage: "{$Mods.ArknightsMod.ItemName.MnOre}"
-			OrirockCubePassMessage: "{$Mods.ArknightsMod.ItemName.OrirockCube}"
-			RMA12PassMessage: "{$Mods.ArknightsMod.ItemName.RMA12}"
+			GrindPassMessage: "{$Mods.ArknightsMod.Items.Grind.DisplayName}"
+			MnOrePassMessage: "{$Mods.ArknightsMod.Items.MnOre.DisplayName}"
+			OrirockCubePassMessage: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+			RMA12PassMessage: "{$Mods.ArknightsMod.Items.RMA12.DisplayName}"
 		}
 
 		StatusMessage: {
@@ -604,6 +669,32 @@ Mods: {
 				Stage3: 已获得最高权限，启动多功能辅助系统.
 				End: 检测到主结构严重损毁，启动自毁模式...
 				Complete: 来自帝国的轰炸无人机已被击毁...
+			}
+		}
+
+		Configs: {
+			MusicConfig: {
+				DisplayName: 音乐配置文件
+
+				EnableArknightsDaytime: {
+					Label: 启用明日方舟白天背景音乐
+					// Tooltip: ""
+				}
+
+				EnableArknightsNighttime: {
+					Label: 启用明日方舟晚上背景音乐
+					// Tooltip: ""
+				}
+
+				EnableArknightsOceanDaytime: {
+					Label: 启用明日方舟海洋白天音乐
+					// Tooltip: ""
+				}
+
+				EnableArknightsOceanNighttimeScene: {
+					Label: 启用明日方舟海洋夜晚音乐
+					// Tooltip: ""
+				}
 			}
 		}
 	}

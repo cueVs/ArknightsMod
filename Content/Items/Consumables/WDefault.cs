@@ -11,7 +11,7 @@ using Terraria.Localization;
 
 namespace ArknightsMod.Content.Items.Consumables
 {
-	public class GachaBag : ModItem
+	public class WDefault : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Example CanStack Item: Gift Bag");
@@ -23,8 +23,8 @@ namespace ArknightsMod.Content.Items.Consumables
 		public override void SetDefaults() {
 			Item.maxStack = 9999;
 			Item.consumable = true;
-			Item.width = 38;
-			Item.height = 32;
+			Item.width = 28;
+			Item.height = 50;
 			Item.rare = ItemRarityID.White;
 		}
 
@@ -33,16 +33,10 @@ namespace ArknightsMod.Content.Items.Consumables
 		}
 
 		public override void ModifyItemLoot(ItemLoot itemLoot) {
-			IItemDropRule Chen = ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Guard.ChenHead>(), 2); //1 in 2 (= 50%)
-			Chen.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Guard.ChenBody>(), 1));
-			Chen.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Guard.ChenLegs>(), 1));
+			IItemDropRule rule = ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Sniper.WHead>(), 1);
+			rule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Sniper.WBody>(), 1));
+			rule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Sniper.WLegs>(), 1));
 
-			IItemDropRule Amiya = ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Caster.AmiyaHead>(), 1);
-			Amiya.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Caster.AmiyaBody>(), 1));
-			Amiya.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Armor.Vanity.Caster.AmiyaLegs>(), 1));
-
-			IItemDropRule rule = Chen;
-			rule.OnFailedRoll(Amiya); //Actual Chance of Amiya = (100% - Chen(50%))/Amiya(100%)
 			itemLoot.Add(rule);
 		}
 

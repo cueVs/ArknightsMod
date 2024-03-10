@@ -303,10 +303,26 @@ namespace ArknightsMod.Content.NPCs.Friendly
 					shopCustomPrice = 1,
 					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
 				})
-				.Add(new Item(ModContent.ItemType<Items.Consumables.GachaBag>()) {
+				.Add(new Item(ModContent.ItemType<Items.Consumables.AmiyaDefault>()) {
 					 shopCustomPrice = 10,
 					 shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
-				 });
+				 })
+				.Add(new Item(ModContent.ItemType<Items.Consumables.MatoimaruDefault>()) {
+					shopCustomPrice = 10,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Consumables.ChenDefault>()) {
+					 shopCustomPrice = 10,
+					 shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				 })
+				.Add(new Item(ModContent.ItemType<Items.Consumables.WDefault>()) {
+					shopCustomPrice = 10,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				})
+				.Add(new Item(ModContent.ItemType<Items.Consumables.TexalterDefault>()) {
+					shopCustomPrice = 10,
+					shopSpecialCurrency = ArknightsMod.OrundumCurrencyId
+				});
 			npcShop.Register(); // Name of this shop tab
 		}
 

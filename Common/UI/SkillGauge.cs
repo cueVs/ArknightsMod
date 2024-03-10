@@ -80,7 +80,7 @@ namespace ArknightsMod.Common.UI
 			// Calculate quotient
 			float quotient1 = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient1 = Utils.Clamp(quotient1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-			float quotient2 = (float)modPlayer.SkillTimer / (modPlayer.SkillActiveTime * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			float quotient2 = (float)modPlayer.SkillTimer / (modPlayer.SkillActiveTime[modPlayer.Skill] * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient2 = Utils.Clamp(quotient2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
 
@@ -108,7 +108,7 @@ namespace ArknightsMod.Common.UI
 			for (int i = 0; i < steps1; i += 1) {
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
 			}
-			if (modPlayer.StockCount == modPlayer.StockMax) {
+			if (modPlayer.StockCount == modPlayer.StockMax[modPlayer.Skill]) {
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientA);
 			}
 
@@ -119,7 +119,7 @@ namespace ArknightsMod.Common.UI
 				}
 			}
 
-			if (modPlayer.StockSkill && modPlayer.StockMax > 1 && !modPlayer.AutoTrigger) {
+			if (modPlayer.StockMax[modPlayer.Skill] > 1) {
 				if (modPlayer.StockCount == 1) {
 					spriteBatch.Draw(skillStock1, aboveHead, Color.White);
 				}
@@ -130,7 +130,7 @@ namespace ArknightsMod.Common.UI
 					spriteBatch.Draw(skillStock3, aboveHead, Color.White);
 				}
 			}
-			else if (!modPlayer.StockSkill && !modPlayer.AutoTrigger) {
+			else if (modPlayer.StockMax[modPlayer.Skill] == 1 && !modPlayer.AutoTrigger[modPlayer.Skill]) {
 				if (modPlayer.StockCount == 1) {
 					spriteBatch.Draw(skill, aboveHead, Color.White);
 				}
