@@ -185,21 +185,18 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkill(0);
 					modPlayer.AutoCharge();
 					modPlayer.SkillActiveTimer();
 				}
 
 				// S2
 				if (modPlayer.Skill == 1) {
-					modPlayer.SetSkill(1);
 					modPlayer.SkillActiveTimer();
 					modPlayer.AutoCharge();
 				}
 
 				// S3
 				if (modPlayer.Skill == 2) {
-					modPlayer.SetSkill(2);
 					modPlayer.AutoCharge();
 					modPlayer.SkillActiveTimer();
 				}

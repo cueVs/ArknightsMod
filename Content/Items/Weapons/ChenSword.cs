@@ -139,7 +139,6 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S3 (but now S1)
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkill(0);
 
 					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
 						for (int i = 0; i < 30; i++) {//Circle
