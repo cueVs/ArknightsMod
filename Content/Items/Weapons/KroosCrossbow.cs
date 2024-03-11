@@ -99,7 +99,6 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkill(0); // If you don't want to draw skill acitive icon (yellow one above operator's head), stockmax = 1 and stockskill = true.
 					modPlayer.SkillActiveTimer();
 				}
 

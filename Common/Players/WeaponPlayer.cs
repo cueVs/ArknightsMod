@@ -72,17 +72,16 @@ namespace ArknightsMod.Common.Players
 		// - Resouce replenishment item: Use GlobalNPC.NPCLoot to drop the item. ModItem.OnPickup and ModItem.ItemSpace will allow it to behave like Mana Star or Heart. Use code similar to Player.HealEffect to spawn (and sync) a colored number suitable to your resource.
 
 		// InitialSP, MaxSP, Auto?(yes:60, no:1), stock, SlillActiveTime(/s)(if the skill doesn't have active time, any number), StockSkill?
-		public void SetSkill(int skill) {
+		public void SetSkill() {
 			if (SkillInitialize) {
 				// initialize
-				Skill = skill;
 				if (ChargeTypeIsPerSecond[Skill]) {
 					Div = 60;
 				}
 				else {
 					Div = 1;
 				}
-				if(InitialSP is not null) {
+				if (InitialSP is not null) {
 					SkillCharge = (int)InitialSP[Skill] * Div;
 					SP = (int)InitialSP[Skill];
 				}
@@ -109,6 +108,7 @@ namespace ArknightsMod.Common.Players
 					else
 						SP = 0;
 				}
+				SkillActive = false;
 				SummonMode = false;
 
 				SkillInitialize = false;
@@ -239,7 +239,7 @@ namespace ArknightsMod.Common.Players
 				SetSkillData(); // Don't forget!
 			}
 
-			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
+			else if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
 				IconName = "ChenSword";
 				HowManySkills = 1;
 				SkillLevel = new() { 10, 10, 10 }; // per Skills
@@ -263,7 +263,7 @@ namespace ArknightsMod.Common.Players
 				SetSkillData(); // Don't forget!
 			}
 
-			if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
+			else if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
 				IconName = "KroosCrossbow";
 				HowManySkills = 1;
 				SkillLevel = new() { 7, 7, 7 }; // per Skills
@@ -279,7 +279,7 @@ namespace ArknightsMod.Common.Players
 				SetSkillData(); // Don't forget!
 			}
 
-			if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
+			else if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
 				IconName = "PozemkaCrossbow";
 				HowManySkills = 3;
 				SkillLevel = new() { 10, 10, 10 }; // per Skills
@@ -301,6 +301,10 @@ namespace ArknightsMod.Common.Players
 				StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 };
 				StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 				SetSkillData(); // Don't forget!
+			}
+
+			if (HowManySkills > 0) {
+				SetSkill();
 			}
 		}
 
