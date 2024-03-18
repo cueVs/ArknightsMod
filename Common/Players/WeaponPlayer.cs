@@ -302,6 +302,29 @@ namespace ArknightsMod.Common.Players
 				StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
 				SetSkillData(); // Don't forget!
 			}
+			if (Main.LocalPlayer.HeldItem.ModItem is NianWeapon) {
+				IconName = "NianWeapon";
+				HowManySkills = 3;
+				SkillLevel = new() { 10, 10, 10 }; // per Skills
+				ChargeTypeIsPerSecond = new() { false, true, true }; // Charge Type is Per Second? or other type (Attacking Enemy or Getting Hit)?
+				AutoTrigger = new() { true, false, false };
+				ShowSummonIconBySkills = new() { true, true, true };
+
+				// Skilll Data
+				InitialSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // per Skill Level
+				InitialSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 9 };
+				InitialSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 23 };
+				MaxSPs1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 20 };
+				MaxSPs2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 9 };
+				MaxSPs3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 35 };
+				SkillActiveTimeS1List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 30f };
+				SkillActiveTimeS2List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0.4f };
+				SkillActiveTimeS3List = new() { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 30f };
+				StockMaxS1List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				StockMaxS2List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 };
+				StockMaxS3List = new() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+				SetSkillData(); // Don't forget!
+			}
 		}
 
 	}

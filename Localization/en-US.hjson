@@ -474,6 +474,11 @@ Mods: {
 				DisplayName: Nianweapon
 				Tooltip: ""
 			}
+
+			NianWeapon: {
+				DisplayName: Nian Weapon
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -636,6 +641,7 @@ Mods: {
 			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+			NianSwordProjectile.DisplayName: Nian Sword Projectile
 		}
 
 		ButtonName.button2: Annihilation operation

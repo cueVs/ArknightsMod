@@ -10,7 +10,7 @@ using System;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-	public class Nianweapon : ModItem
+	public class NianWeapon : ModItem
 	{
 		public override void SetStaticDefaults() {
 			//ItemID.Sets.SkipsInitialUseSound[Item.type] = true; // This skips use animation-tied sound playback, so that we're able to make it be tied to use time instead in the UseItem() hook.
@@ -41,7 +41,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 			// Projectile Properties
 			Item.shootSpeed = 3.3f; // The speed of the projectile measured in pixels per frame.
-			Item.shoot = ModContent.ProjectileType<BagpipeSpearProjectileS0>(); // The projectile that is fired from this weapon
+			Item.shoot = ModContent.ProjectileType<NianSwordProjectile>(); // The projectile that is fired from this weapon
 
 			// The sound that this item plays when used. Need "using Terraria.Audio;"
 			//Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
@@ -177,7 +177,7 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override void HoldItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData(3, 7, 15, 35, 3, 0, 4, 3, 25, 40, 3, "BagpipeSpear");
+				modPlayer.SetAllSkillsData();
 				if (!modPlayer.HoldBagpipeSpear) {
 					modPlayer.SkillInitialize = true;
 					modPlayer.Skill = 0;
@@ -185,21 +185,21 @@ namespace ArknightsMod.Content.Items.Weapons
 
 				// S1
 				if (modPlayer.Skill == 0) {
-					modPlayer.SetSkillData(15, 35, 60, 1, 35, false, false);
+					modPlayer.SetSkill(0);
 					modPlayer.AutoCharge();
 					modPlayer.SkillActiveTimer();
 				}
 
 				// S2
 				if (modPlayer.Skill == 1) {
-					modPlayer.SetSkillData(0, 4, 60, 3, 0.5f, true, false);
+					modPlayer.SetSkill(1);
 					modPlayer.SkillActiveTimer();
 					modPlayer.AutoCharge();
 				}
 
 				// S3
 				if (modPlayer.Skill == 2) {
-					modPlayer.SetSkillData(25, 40, 60, 1, 20, false, false);
+					modPlayer.SetSkill(2);
 					modPlayer.AutoCharge();
 					modPlayer.SkillActiveTimer();
 				}
