@@ -638,6 +638,7 @@ Mods: {
 			// PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 			// AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
 			// FrostNovaSmoke.DisplayName: FrostNova Smoke
+			// FrostNovaJump.DisplayName: Frost Nova Jump
 		}
 
 		ButtonName.button2: 剿灭作战
