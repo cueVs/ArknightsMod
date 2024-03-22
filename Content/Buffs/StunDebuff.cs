@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using ArknightsMod.Content.Projectiles;
 
 namespace ArknightsMod.Content.Buffs
 {
@@ -26,12 +27,23 @@ namespace ArknightsMod.Content.Buffs
 
 		public override void Update(NPC npc, ref int buffIndex) {
 			var sdgNPC = npc.GetGlobalNPC<StunDebuffGlobalNPC>();
+
 			sdgNPC.stunDebuff = true;
 
 			if(!sdgNPC.defaultSettings.isAlreadySet) {
 				sdgNPC.defaultSettings = (true, npc.noGravity, npc.noTileCollide, npc.damage);
 			}
 
+			Projectile.NewProjectile(spawnSource: npc.GetSource_FromThis(),
+										position: npc.Top,
+										velocity: Vector2.Zero,
+											Type: ModContent.ProjectileType<StunDebuffProjectile>(),
+										  Damage: 0,
+									   KnockBack: 0,
+										   Owner: Main.myPlayer,
+											 ai0: ++sdgNPC.tick,
+											 ai1: 0.3f,
+											 ai2: npc.getRect().Width) ;
 
 			//stun parameters
 			npc.velocity.X = 0;
@@ -69,6 +81,8 @@ namespace ArknightsMod.Content.Buffs
 		public bool stunDebuff;
 		public (bool isAlreadySet, bool noGravity, bool noTileCollide, int damage)
 				defaultSettings = (false, false, false, 0);
+		public int tick;
+
 
 		public override bool InstancePerEntity => true;
 
@@ -79,6 +93,8 @@ namespace ArknightsMod.Content.Buffs
 				stunDebuff = false;
 				return;
 			}
+
+			tick = 0;
 
 			if (defaultSettings.isAlreadySet)
 			{
@@ -95,9 +111,9 @@ namespace ArknightsMod.Content.Buffs
 
 		public override void DrawEffects(NPC npc, ref Color drawColor) {
 			if (stunDebuff) {
-				drawColor.R *= (byte)0.8;
-				drawColor.G *= (byte)0.8;
-				drawColor.B *= (byte)0.8;
+				//drawColor.R *= (byte)0.8;
+				//drawColor.G *= (byte)0.8;
+				//drawColor.B *= (byte)0.8;
 			}
 		}
 	}
