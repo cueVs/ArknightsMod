@@ -7,7 +7,6 @@ namespace ArknightsMod.Content.Projectiles
     public class ChenSwordProjectileS3Dragon : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("The Only Thing I Know For Real");
 			Main.projFrames[Projectile.type] = 27;
 
 			//DrawOriginOffsetY = -40;

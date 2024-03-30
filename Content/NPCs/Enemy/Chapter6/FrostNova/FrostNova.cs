@@ -312,50 +312,67 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 
 		private void DoFirstStage(Player player) {
-			if (State == ActionState.Walk) {
-				Walk();
-			}
-			if (State == ActionState.FastWalk) {
-				FastWalk();
-			}
-			if (State == ActionState.Jump) {
-				Jump();
+			switch (State) {
+				case ActionState.Walk:
+					Walk();
+					break;
+				case ActionState.FastWalk:
+					FastWalk();
+					break;
+				case ActionState.Jump:
+					Jump();
+					break;
+				default:
+					Walk();
+					break;
 			}
 		}
 
 		private void DoSecondStage(Player player) {
 			if (State == ActionState.Revival) {
-				NPC.velocity.X = 0f;
-				DeathTimer++;
-				if (DeathTimer > 2 * 60) {
-					NPC.life++;
-					if (NPC.life > NPC.lifeMax) {
-						NPC.life = NPC.lifeMax;
-					}
-				}
+				Revival();
 				return;
 			}
-			else if (State == ActionState.Walk) {
-				Walk();
-
-				if (DeathTimer > 0) {
-					NPC.life = NPC.lifeMax;
-					NPC.dontTakeDamage = true;
-					DeathTimer++;
-					if (DeathTimer > 10 * 60) { // TODO
-						NPC.dontTakeDamage = false;
-						DeathTimer = 0;
-					}
+			if (DeathTimer > 0) {
+				NPC.life = NPC.lifeMax;
+				NPC.dontTakeDamage = true;
+				DeathTimer++;
+				if (DeathTimer > 10 * 60) { // TODO
+					NPC.dontTakeDamage = false;
+					DeathTimer = 0;
 				}
 			}
-			else if (State == ActionState.FastWalk) {
-				FastWalk();
+			switch (State) {
+				case ActionState.Walk:
+					Walk();
+					break;
+				case ActionState.FastWalk:
+					FastWalk();
+					break;
+				case ActionState.Jump:
+					Jump();
+					break;
+				default:
+					Walk();
+					break;
 			}
-			else if (State == ActionState.Jump) {
-				Jump();
+		}
+
+		private void Revival() {
+			NPC.velocity.X = 0f;
+			DeathTimer++;
+			if (DeathTimer > 2 * 60) {
+				NPC.life++;
+				if (NPC.life > NPC.lifeMax) {
+					NPC.life = NPC.lifeMax;
+				}
 			}
-
-
+			if (DeathTimer == 160) {
+				float positionX = NPC.Center.X - 4 * NPC.direction;
+				float positionY = NPC.Center.Y - 7;
+				Vector2 position = new Vector2(positionX, positionY);
+				Projectile.NewProjectile(null, position, Vector2.Zero, ProjectileType<FrostNovaRevival>(), 0, 0f, -1, NPC.direction);
+			}
 		}
 
 

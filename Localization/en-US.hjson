@@ -639,6 +639,7 @@ Mods: {
 			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
 			FrostNovaSmoke.DisplayName: FrostNova Smoke
 			FrostNovaJump.DisplayName: Frost Nova Jump
+			FrostNovaRevival.DisplayName: Frost Nova Revival
 		}
 
 		ButtonName.button2: Annihilation operation
