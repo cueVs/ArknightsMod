@@ -33,14 +33,14 @@
 ## 免责申明
 - 此MOD依据 悠星(香港)有限公司"[TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines)" 所记载的事项进行开发。
 - 我们无法补偿您在使用此MOD时导致的任何损失。（因此，我们推荐您对已有游戏数据进行[备份](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups)。）
-- 禁止就此MOD的程序以及图片数据进行搬运或再创作。
+- 未经我（即 cueV）作为主要开发者的许可，您禁止就此MOD的程序以及图片数据进行搬运或再创作。
 - 如果有任何关于此MOD的疑问，请通过下面的Discord来联系我们。
 
 ## 联系我们
 QQ群: 891522802<br>
-WeChat: CueTheViolins (加我拉你进群)<br>
-[Discord server](https://discord.gg/XKM2jeS9hY)<br>（需要魔法）
+[NGA](https://bbs.nga.cn/read.php?tid=37145011&_ff=805)<br>
+[Discord server](https://discord.gg/XKM2jeS9hY)（需要魔法）<br>
 [Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (Terraria的海外论坛)
 
-## Special Thanks
-- [The Stars Above](https://github.com/ThePaperLuigi/The-Stars-Above/tree/main)
+## Credits
+请参见英文版README

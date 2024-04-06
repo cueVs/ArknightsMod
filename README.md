@@ -18,7 +18,7 @@ Start by building basic shelter, then dig for ore and other resources. Discover 
 Arknights is a mobile tower defense (TD) game developed by Hypergryph.  I think you Terraria lovers will love it!
 
 ## What can you do with the Mod?
-You can play it as Arknights Doctor, and can use many items associated with many Operators.
+You can play it as Arknights Doctor, and can use many items associated with many Operators. You can see Discord for more details.
 
 ## How to play?
 First, please purchase [the Desktop version (Steam) of Terraria](https://store.steampowered.com/app/105600/), and download [tModLoader](https://store.steampowered.com/app/1281930/tModLoader/) (which is free). tModLoader will automatically launch Terraria and allow you to install mods.
@@ -28,17 +28,56 @@ Once it is up and running, select Workshop from the menu and open the Mod Browse
 Recruitment tag: [Program] [Sprite] [Terraria] [Discussion] [Player]<br>
 If you are interested in one of them, please contact our Discord server (below).<br>
 🐰"There's still lots of work that needs to be done, Doctor. You can't rest now!"<br>
-There is also much work to be done in Terraria. We look forward to your coming.
+Yeah, there is also much work to be done in Terraria. We look forward to your coming.
 
 ## Disclaimer
 - Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines) from YOSTAR (HONG KONG) LIMITED.
 - I do not take any responsibility or liability for any damage or loss caused through this mod. (So, you should [back up the game data](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups) periodically.)
-- You are NOT allowed to use or to reproduce the code and the images of this mod.
+- You are NOT allowed to use or to reproduce the code and the images of this mod without my (i.e. cueV) permission as the main developer.
 - If you have any questions regarding the use of this mod, please contact our Discord server (below).
 
 ## Contact
 [Discord server](https://discord.gg/XKM2jeS9hY)<br>
-[Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)
+[Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (in Terraria Forums)<br>
+QQ group: 891522802
 
-## Special Thanks
-- [The Stars Above](https://github.com/ThePaperLuigi/The-Stars-Above/tree/main)
+## Credits
+<details><summary>Main Developer</summary>
+
+- cueV
+</details>
+<details><summary>Spriters</summary>
+
+- CataStrophe
+- Chii
+- DarkAngle
+- Doggo
+- faroz
+- HYPER DARKNESS
+- reed
+- sigure
+- Skyhawk SMOG
+- Slacker
+- SRCat.nana
+- 呑某
+- 方诩
+</details>
+<details><summary>Programmers</summary>
+
+- Astral Prisma
+- Chez
+- Slacker
+- Wesker
+</details>
+<details><summary>Translators</summary>
+
+- KarlC
+- Moji
+</details>
+<details><summary>Special Thanks</summary>
+
+- [The Stars Above](https://github.com/ThePaperLuigi/The-Stars-Above)
+- [Calamity Mod](https://github.com/CalamityTeam/CalamityModPublic)
+</details>
+
+Also thank you to all who gave us so many ideas and feedback, and Doctors.
