@@ -39,7 +39,7 @@
 ## 联系我们
 QQ群: 891522802<br>
 [NGA](https://bbs.nga.cn/read.php?tid=37145011&_ff=805)<br>
-[Discord server](https://discord.gg/XKM2jeS9hY)<br>（需要魔法）
+[Discord server](https://discord.gg/XKM2jeS9hY)（需要魔法）<br>
 [Arknights Mod thread](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (Terraria的海外论坛)
 
 ## Credits
