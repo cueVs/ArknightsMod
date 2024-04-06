@@ -19,7 +19,7 @@
 記憶がないドクターは[こちら](https://www.arknights.jp)。
 
 ## このMODで何ができるの?
-テラリアの世界で目覚めたドクターとして、さまざまなオペレータに由来する武器や道具を使いながらプレイすることができます。2023年2月現在では一部の素材と片手で数えられるほどのアイテムしか実装されていませんが、開発が進めばモブやボスも実装される予定です。たぶん
+テラリアの世界で目覚めたドクターとして、さまざまなオペレータに由来する武器や道具を使いながらプレイすることができます。2024年2月現在では素材やそこから作れるいくつかのオペレーターの武器、townNPCや敵が実装されています。詳しくは下記スレッド内のChangeLogをご覧ください。
 
 ## どうやってプレイするの?
 まずは[PC(Steam)版テラリア](https://store.steampowered.com/app/105600/)を購入した上で、[tModLoader](https://store.steampowered.com/app/1281930/tModLoader/)(これは無料)をダウンロードしてください。tModLoaderを起動すると自動的にTerrariaが立ち上がり、MODを導入できるようになります。<br>
@@ -34,9 +34,12 @@
 ## 免責事項
 - 本MODは[TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines)に則って作成しています。
 - 本MODを利用して発生した如何なる損害も補償出来ません。(そのため、ゲームデータは[バックアップ](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups)を取っておくことをお勧めします。)
-- 本MODのプログラム、および画像データの二次利用は禁止しております。
-- 本MODの利用に関して不明な点があれば下記のスレッドまでお気軽にお問い合わせください。
+- 本MODのプログラムおよび画像データについて、代表者である私(cueV)の許可なしに二次利用を行うことは禁止しております。
+- 本MODの利用に関して不明な点があれば下記のDiscordまでお気軽にお問い合わせください。
 
-## Contact
-[ディスコード](https://discord.gg/XKM2jeS9hY)<br>
-[本MODのスレッド](https://forums.terraria.org/index.php?threads/arknights-mod.117651/)(テラリアのフォーラム内)
+## コミュニティ・連絡先
+[Discord](https://discord.gg/XKM2jeS9hY)<br>
+[本MODの掲示板](https://forums.terraria.org/index.php?threads/arknights-mod.117651/) (テラリアのフォーラム内)
+
+## クレジット
+英語版READMEをご覧ください。
