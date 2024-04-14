@@ -469,6 +469,26 @@ Mods: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
 			}
+
+			DrillBattleRecord: {
+				DisplayName: Drill Battle Record
+				Tooltip: ""
+			}
+
+			FrontlineBattleRecord: {
+				DisplayName: Frontline Battle Record
+				Tooltip: ""
+			}
+
+			StrategicBattleRecord: {
+				DisplayName: Strategic Battle Record
+				Tooltip: ""
+			}
+
+			TacticalBattleRecord: {
+				DisplayName: Tactical Battle Record
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -692,5 +712,8 @@ Mods: {
 				}
 			}
 		}
+
+		UI.UpgradeUI.Upgrade: Upgrade
+		UpgradeWeapon.LevelPreview.Damage: Damage
 	}
 }

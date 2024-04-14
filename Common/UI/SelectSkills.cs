@@ -22,6 +22,7 @@ namespace ArknightsMod.Common.UI
 		// For this bar we'll be using a frame texture and then a gradient inside bar, as it's one of the more simpler approaches while still looking decent.
 		// Once this is all set up make sure to go and do the required stuff for most UI's in the ModSystem class.
 		private UIText initialSP1;
+
 		private UIText initialSP2;
 		private UIText initialSP3;
 		private UIText maxSP1;
@@ -34,7 +35,7 @@ namespace ArknightsMod.Common.UI
 		private UIElement buttonS3;
 
 		public override void OnInitialize() {
-			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
+			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element.
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
 			area.Left.Set(10, 0f); // Place the resource bar to the left of the hearts.
@@ -152,13 +153,13 @@ namespace ArknightsMod.Common.UI
 			if (Main.LocalPlayer.HeldItem.ModItem is BagpipeSpear) {
 				base.Draw(spriteBatch);
 			}
-			if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
+			else if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
 				base.Draw(spriteBatch);
 			}
-			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
+			else if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
 				base.Draw(spriteBatch);
 			}
-			if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
+			else if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
 				base.Draw(spriteBatch);
 			}
 		}
@@ -243,7 +244,6 @@ namespace ArknightsMod.Common.UI
 				Texture2D noS3 = (Texture2D)ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/NoSkill");
 				spriteBatch.Draw(noS3, new Vector2(164, 126), null, Color.White, 0f, Vector2.Zero, 1, 0, 1f);
 			}
-
 		}
 
 		public override void Update(GameTime gameTime) {
@@ -266,13 +266,13 @@ namespace ArknightsMod.Common.UI
 			}
 			skillLevel.SetText($"{level}");
 
-			if(Main.mouseX > 26 && Main.mouseX < 230 && Main.mouseY > 126 && Main.mouseY < 190) {
+			if (Main.mouseX > 26 && Main.mouseX < 230 && Main.mouseY > 126 && Main.mouseY < 190) {
 				Main.LocalPlayer.mouseInterface = true;
 			}
 		}
 	}
 
-	class SelectSkillsSystem : ModSystem
+	internal class SelectSkillsSystem : ModSystem
 	{
 		private UserInterface SelectSkillsUserInterface;
 
@@ -281,6 +281,7 @@ namespace ArknightsMod.Common.UI
 		public void ShowMyUI() {
 			SelectSkillsUserInterface?.SetState(SelectSkillsUI);
 		}
+
 		public void HideMyUI() {
 			SelectSkillsUserInterface?.SetState(null);
 		}

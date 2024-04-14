@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArknightsMod.Common.Players;
+using ArknightsMod.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Items.Weapons;
-using Terraria.GameContent;
-using System.Collections.Generic;
 
 namespace ArknightsMod.Common.UI
 {
@@ -16,6 +16,7 @@ namespace ArknightsMod.Common.UI
 		// For this bar we'll be using a frame texture and then a gradient inside bar, as it's one of the more simpler approaches while still looking decent.
 		// Once this is all set up make sure to go and do the required stuff for most UI's in the ModSystem class.
 		private UIText text;
+
 		private UIElement area;
 		private UIImage barFrame;
 		private Color gradientA;
@@ -23,7 +24,7 @@ namespace ArknightsMod.Common.UI
 		private Color skillColor;
 
 		public override void OnInitialize() {
-			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
+			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element.
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
 			//area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
@@ -79,11 +80,9 @@ namespace ArknightsMod.Common.UI
 
 			// Calculate quotient
 			float quotient1 = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotient1 = Utils.Clamp(quotient1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
+			quotient1 = Terraria.Utils.Clamp(quotient1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 			float quotient2 = (float)modPlayer.SkillTimer / (modPlayer.SkillActiveTime[modPlayer.Skill] * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotient2 = Utils.Clamp(quotient2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-
-
+			quotient2 = Terraria.Utils.Clamp(quotient2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
 			// Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
 			Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
@@ -148,7 +147,7 @@ namespace ArknightsMod.Common.UI
 		//}
 	}
 
-	class SkillGaugeSystem : ModSystem
+	internal class SkillGaugeSystem : ModSystem
 	{
 		private UserInterface SkillGaugeUserInterface;
 
