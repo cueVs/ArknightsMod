@@ -640,6 +640,8 @@ Mods: {
 			// FrostNovaSmoke.DisplayName: FrostNova Smoke
 			// FrostNovaJump.DisplayName: Frost Nova Jump
 			// FrostNovaRevival.DisplayName: Frost Nova Revival
+			// FrostNovaWhiteRing.DisplayName: Frost Nova White Ring
+			// FrostNovaYellowAura.DisplayName: Frost Nova Yellow Aura
 		}
 
 		ButtonName.button2: 剿灭作战

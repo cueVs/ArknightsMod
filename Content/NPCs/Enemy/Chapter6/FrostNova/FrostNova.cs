@@ -62,7 +62,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		public ref float DeathTimer => ref NPC.localAI[0];
 		public ref float JumpTimer => ref NPC.localAI[1];
 
-		public ref float StateTimer => ref NPC.localAI[1];
+		public ref float StateTimer => ref NPC.localAI[2];
+
+		public bool Choice;
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneOverworldHeight && !NPC.AnyNPCs(NPCType<FrostNova>()) ? 0f : 0f;
 
 
@@ -182,6 +184,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			if (State != ActionState.Revival && !SecondStage) {
 				DeathTimer = 0;
 				NPC.life = 1;
+				Choice = true;
 				State = ActionState.Revival;
 				SecondStage = true;
 				NPC.dontTakeDamage = true;
@@ -334,10 +337,17 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 				return;
 			}
 			if (DeathTimer > 0) {
+				if (Choice == true) {
+					float positionX = NPC.Center.X - 4 * NPC.direction;
+					float positionY = NPC.Center.Y - 7;
+					Vector2 position = new Vector2(positionX, positionY);
+					Projectile.NewProjectile(null, position, Vector2.Zero, ProjectileType<FrostNovaYellowAura>(), 0, 0f, -1, NPC.direction);
+					Choice = false;
+				}
 				NPC.life = NPC.lifeMax;
 				NPC.dontTakeDamage = true;
 				DeathTimer++;
-				if (DeathTimer > 10 * 60) { // TODO
+				if (DeathTimer > 20 * 60) { // TODO
 					NPC.dontTakeDamage = false;
 					DeathTimer = 0;
 				}
@@ -372,6 +382,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 				float positionY = NPC.Center.Y - 7;
 				Vector2 position = new Vector2(positionX, positionY);
 				Projectile.NewProjectile(null, position, Vector2.Zero, ProjectileType<FrostNovaRevival>(), 0, 0f, -1, NPC.direction);
+			}
+			if (DeathTimer == 246) {
+				float positionX = NPC.Center.X - 4 * NPC.direction;
+				float positionY = NPC.Center.Y - 4;
+				Vector2 position = new Vector2(positionX, positionY);
+				Projectile.NewProjectile(null, position, Vector2.Zero, ProjectileType<FrostNovaWhiteRing>(), 0, 0f, -1, NPC.direction);
 			}
 		}
 
