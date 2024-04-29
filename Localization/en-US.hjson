@@ -127,12 +127,12 @@ Mods: {
 
 			MudrockBody: {
 				DisplayName: Mudrock's outfit (Body)
-				Tooltip: "Right-Click to change outfits"
+				Tooltip: Right-Click to change outfits
 			}
 
 			MudrockChestplate: {
 				DisplayName: Mudrock's Chestplate
-				Tooltip: "Right-Click to change outfits"
+				Tooltip: Right-Click to change outfits
 			}
 
 			MudrockGreaves: {
@@ -142,12 +142,12 @@ Mods: {
 
 			MudrockHead: {
 				DisplayName: Mudrock' outfit (Head)
-				Tooltip: "Right-Click to change outfits"
+				Tooltip: Right-Click to change outfits
 			}
 
 			MudrockHelmet: {
 				DisplayName: Mudrock's Helmet
-				Tooltip: "Right-Click to change outfits"
+				Tooltip: Right-Click to change outfits
 			}
 
 			WBody: {

@@ -126,28 +126,28 @@ Mods: {
 			}
 
 			MudrockBody: {
-				DisplayName: 泥岩的上衣
-				Tooltip: "右键单击更换服装"
+				// DisplayName: Mudrock's outfit (Body)
+				// Tooltip: Right-Click to change outfits
 			}
 
 			MudrockChestplate: {
-				DisplayName:泥岩的上衣
-				Tooltip: "右键单击更换服装"
+				// DisplayName: Mudrock's Chestplate
+				// Tooltip: Right-Click to change outfits
 			}
 
 			MudrockGreaves: {
-				DisplayName: 泥岩的下装
-				Tooltip: ""
+				// DisplayName: Mudrock's Greaves
+				// Tooltip: ""
 			}
 
 			MudrockHead: {
-				DisplayName: 泥岩头套
-				Tooltip: "右键单击更换服装"
+				// DisplayName: Mudrock' outfit (Head)
+				// Tooltip: Right-Click to change outfits
 			}
 
 			MudrockHelmet: {
-				DisplayName: 泥岩头套
-				Tooltip: "右键单击更换服装"
+				// DisplayName: Mudrock's Helmet
+				// Tooltip: Right-Click to change outfits
 			}
 
 			WBody: {
@@ -206,8 +206,8 @@ Mods: {
 			}
 
 			MudrockDefault: {
-				DisplayName: 泥岩的服饰（常规）
-				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				// DisplayName: Mudrock's costume (default)
+				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			WDefault: {
@@ -497,36 +497,6 @@ Mods: {
 
 			AcidOgSlugBanner: {
 				DisplayName: 酸液源石虫旗
-				// Tooltip: ""
-			}
-
-			MudrockBody: {
-				// DisplayName: Mudrock Body
-				// Tooltip: ""
-			}
-
-			MudrockChestplate: {
-				// DisplayName: Mudrock Chestplate
-				// Tooltip: ""
-			}
-
-			MudrockGreaves: {
-				// DisplayName: Mudrock Greaves
-				// Tooltip: ""
-			}
-
-			MudrockHead: {
-				// DisplayName: Mudrock Head
-				// Tooltip: ""
-			}
-
-			MudrockHelmet: {
-				// DisplayName: Mudrock Helmet
-				// Tooltip: ""
-			}
-
-			MudrockDefault: {
-				// DisplayName: Mudrock Default
 				// Tooltip: ""
 			}
 		}
