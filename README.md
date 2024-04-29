@@ -54,6 +54,7 @@ QQ group: 891522802
 - Doggo
 - faroz
 - HYPER DARKNESS
+- Kumochan
 - reed
 - sigure
 - Skyhawk SMOG
@@ -66,8 +67,10 @@ QQ group: 891522802
 
 - Astral Prisma
 - Chez
+- Surgesama
 - Slacker
 - Wesker
+- 呑某
 </details>
 <details><summary>Translators</summary>
 

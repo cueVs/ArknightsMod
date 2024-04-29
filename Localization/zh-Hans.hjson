@@ -125,6 +125,31 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			MudrockBody: {
+				DisplayName: 泥岩的上衣
+				Tooltip: "右键单击更换服装"
+			}
+
+			MudrockChestplate: {
+				DisplayName:泥岩的上衣
+				Tooltip: "右键单击更换服装"
+			}
+
+			MudrockGreaves: {
+				DisplayName: 泥岩的下装
+				Tooltip: ""
+			}
+
+			MudrockHead: {
+				DisplayName: 泥岩头套
+				Tooltip: "右键单击更换服装"
+			}
+
+			MudrockHelmet: {
+				DisplayName: 泥岩头套
+				Tooltip: "右键单击更换服装"
+			}
+
 			WBody: {
 				DisplayName: W的上衣
 				// Tooltip: ""
@@ -177,6 +202,11 @@ Mods: {
 
 			ChenDefault: {
 				DisplayName: 陈的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MudrockDefault: {
+				DisplayName: 泥岩的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
@@ -467,6 +497,36 @@ Mods: {
 
 			AcidOgSlugBanner: {
 				DisplayName: 酸液源石虫旗
+				// Tooltip: ""
+			}
+
+			MudrockBody: {
+				// DisplayName: Mudrock Body
+				// Tooltip: ""
+			}
+
+			MudrockChestplate: {
+				// DisplayName: Mudrock Chestplate
+				// Tooltip: ""
+			}
+
+			MudrockGreaves: {
+				// DisplayName: Mudrock Greaves
+				// Tooltip: ""
+			}
+
+			MudrockHead: {
+				// DisplayName: Mudrock Head
+				// Tooltip: ""
+			}
+
+			MudrockHelmet: {
+				// DisplayName: Mudrock Helmet
+				// Tooltip: ""
+			}
+
+			MudrockDefault: {
+				// DisplayName: Mudrock Default
 				// Tooltip: ""
 			}
 		}
