@@ -125,6 +125,31 @@ Mods: {
 				Tooltip: ""
 			}
 
+			MudrockBody: {
+				DisplayName: Mudrock's outfit (Body)
+				Tooltip: Right-Click to change outfits
+			}
+
+			MudrockChestplate: {
+				DisplayName: Mudrock's Chestplate
+				Tooltip: Right-Click to change outfits
+			}
+
+			MudrockGreaves: {
+				DisplayName: Mudrock's Greaves
+				Tooltip: ""
+			}
+
+			MudrockHead: {
+				DisplayName: Mudrock' outfit (Head)
+				Tooltip: Right-Click to change outfits
+			}
+
+			MudrockHelmet: {
+				DisplayName: Mudrock's Helmet
+				Tooltip: Right-Click to change outfits
+			}
+
 			WBody: {
 				DisplayName: W's outfit (Body)
 				Tooltip: ""
@@ -177,6 +202,11 @@ Mods: {
 
 			ChenDefault: {
 				DisplayName: Chen's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MudrockDefault: {
+				DisplayName: Mudrock's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
