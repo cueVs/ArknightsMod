@@ -126,28 +126,28 @@ Mods: {
 			}
 
 			MudrockBody: {
-				// DisplayName: Mudrock's outfit (Body)
-				// Tooltip: Right-Click to change outfits
+				DisplayName: 泥岩的上衣
+				Tooltip: 右键以切换样式
 			}
 
 			MudrockChestplate: {
-				// DisplayName: Mudrock's Chestplate
-				// Tooltip: Right-Click to change outfits
+				DisplayName: 泥岩的胸甲
+				Tooltip: 右键以切换样式
 			}
 
 			MudrockGreaves: {
-				// DisplayName: Mudrock's Greaves
-				// Tooltip: ""
+				DisplayName: 泥岩的下装
+				Tooltip: ""
 			}
 
 			MudrockHead: {
-				// DisplayName: Mudrock' outfit (Head)
-				// Tooltip: Right-Click to change outfits
+				DisplayName: 泥岩的头套
+				Tooltip: 右键以切换样式
 			}
 
 			MudrockHelmet: {
-				// DisplayName: Mudrock's Helmet
-				// Tooltip: Right-Click to change outfits
+				DisplayName: 泥岩的头盔
+				Tooltip: 右键以切换样式
 			}
 
 			WBody: {
@@ -206,13 +206,13 @@ Mods: {
 			}
 
 			MudrockDefault: {
-				// DisplayName: Mudrock's costume (default)
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				DisplayName:泥岩的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			WDefault: {
 				DisplayName: W的服饰（常规）
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			TexalterDefault: {
