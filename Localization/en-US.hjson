@@ -110,6 +110,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			IndigoBody: {
+				DisplayName: Indigo's outfit (Body)
+				Tooltip: ""
+			}
+
+			IndigoHead: {
+				DisplayName: Indigo's outfit (Head)
+				Tooltip: ""
+			}
+
+			IndigoLegs: {
+				DisplayName: Indigo's outfit (Legs)
+				Tooltip: ""
+			}
+
 			ChenHead: {
 				DisplayName: Chen's outfit (Head)
 				Tooltip: ""
@@ -197,6 +212,11 @@ Mods: {
 
 			MatoimaruDefault: {
 				DisplayName: Matoimaru's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			IndigoDefault: {
+				DisplayName: Indigo's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 

@@ -110,6 +110,21 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			IndigoBody: {
+				DisplayName: 深靛的上衣
+				// Tooltip: ""
+			}
+
+			IndigoHead: {
+				DisplayName: 深靛的头套
+				// Tooltip: ""
+			}
+
+			IndigoLegs: {
+				DisplayName: 深靛的下装
+				// Tooltip: ""
+			}
+
 			ChenHead: {
 				DisplayName: 陈的头套
 				// Tooltip: ""
@@ -200,13 +215,18 @@ Mods: {
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
+			IndigoDefault: {
+				DisplayName: 深靛的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
 			ChenDefault: {
 				DisplayName: 陈的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			MudrockDefault: {
-				DisplayName:泥岩的服饰（常规）
+				DisplayName: 泥岩的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
