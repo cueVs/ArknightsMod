@@ -110,6 +110,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			IndigoBody: {
+				DisplayName: Indigo's outfit (Body)
+				Tooltip: ""
+			}
+
+			IndigoHead: {
+				DisplayName: Indigo's outfit (Head)
+				Tooltip: ""
+			}
+
+			IndigoLegs: {
+				DisplayName: Indigo's outfit (Legs)
+				Tooltip: ""
+			}
+
 			ChenHead: {
 				DisplayName: Chen's outfit (Head)
 				Tooltip: ""
@@ -123,6 +138,31 @@ Mods: {
 			ChenLegs: {
 				DisplayName: Chen's outfit (Legs)
 				Tooltip: ""
+			}
+
+			MudrockBody: {
+				DisplayName: Mudrock's outfit (Body)
+				Tooltip: Right-Click to change outfits
+			}
+
+			MudrockChestplate: {
+				DisplayName: Mudrock's Chestplate
+				Tooltip: Right-Click to change outfits
+			}
+
+			MudrockGreaves: {
+				DisplayName: Mudrock's Greaves
+				Tooltip: ""
+			}
+
+			MudrockHead: {
+				DisplayName: Mudrock' outfit (Head)
+				Tooltip: Right-Click to change outfits
+			}
+
+			MudrockHelmet: {
+				DisplayName: Mudrock's Helmet
+				Tooltip: Right-Click to change outfits
 			}
 
 			WBody: {
@@ -175,8 +215,18 @@ Mods: {
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
+			IndigoDefault: {
+				DisplayName: Indigo's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
 			ChenDefault: {
 				DisplayName: Chen's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MudrockDefault: {
+				DisplayName: Mudrock's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 

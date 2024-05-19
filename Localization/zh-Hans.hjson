@@ -110,6 +110,21 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			IndigoBody: {
+				DisplayName: 深靛的上衣
+				// Tooltip: ""
+			}
+
+			IndigoHead: {
+				DisplayName: 深靛的头套
+				// Tooltip: ""
+			}
+
+			IndigoLegs: {
+				DisplayName: 深靛的下装
+				// Tooltip: ""
+			}
+
 			ChenHead: {
 				DisplayName: 陈的头套
 				// Tooltip: ""
@@ -123,6 +138,31 @@ Mods: {
 			ChenLegs: {
 				DisplayName: 陈的下装
 				// Tooltip: ""
+			}
+
+			MudrockBody: {
+				DisplayName: 泥岩的上衣
+				Tooltip: 右键以切换样式
+			}
+
+			MudrockChestplate: {
+				DisplayName: 泥岩的胸甲
+				Tooltip: 右键以切换样式
+			}
+
+			MudrockGreaves: {
+				DisplayName: 泥岩的下装
+				Tooltip: ""
+			}
+
+			MudrockHead: {
+				DisplayName: 泥岩的头套
+				Tooltip: 右键以切换样式
+			}
+
+			MudrockHelmet: {
+				DisplayName: 泥岩的头盔
+				Tooltip: 右键以切换样式
 			}
 
 			WBody: {
@@ -175,14 +215,24 @@ Mods: {
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
+			IndigoDefault: {
+				DisplayName: 深靛的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
 			ChenDefault: {
 				DisplayName: 陈的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
+			MudrockDefault: {
+				DisplayName: 泥岩的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
 			WDefault: {
 				DisplayName: W的服饰（常规）
-				// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			TexalterDefault: {
