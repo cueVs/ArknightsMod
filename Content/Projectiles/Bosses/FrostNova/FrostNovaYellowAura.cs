@@ -49,7 +49,7 @@ namespace ArknightsMod.Content.Projectiles.Bosses.FrostNova
 			Projectile.direction = (int)Projectile.ai[0];
 			Projectile.ai[1]++;
 			Projectile.spriteDirection = Projectile.direction;
-			Projectile.position = Projetile
+			//Projectile.position = Projetile
 
 			if (++Projectile.frameCounter >= 15) {
 				Projectile.frameCounter = 0;
