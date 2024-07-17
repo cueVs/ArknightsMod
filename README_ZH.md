@@ -34,7 +34,6 @@
 - 此MOD依据 悠星(香港)有限公司"[TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines)" 所记载的事项进行开发。
 - 我们无法补偿您在使用此MOD时导致的任何损失。（因此，我们推荐您对已有游戏数据进行[备份](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Usage-Guide#world-and-player-backups)。）
 - 未经我（即 cueV）作为主要开发者的许可，您禁止就此MOD的程序以及图片数据进行搬运或再创作。
-- 如果有任何关于此MOD的疑问，请通过下面的Discord来联系我们。
 
 ## 联系我们
 QQ群: 891522802<br>

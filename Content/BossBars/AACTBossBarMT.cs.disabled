@@ -1,0 +1,44 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+//using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.ModLoader;
+using Terraria.GameContent.UI.BigProgressBar;
+using System;
+
+namespace ArknightsMod.Content.BossBars
+{
+	public class AACTBossBarMT : ModBossBar
+	{
+		private int bossHeadIndex = -1;
+
+		public override Asset<Texture2D> GetIconTexture(ref Rectangle? iconFrame)
+		{
+			if (bossHeadIndex != -1)
+			{
+				return TextureAssets.NpcHeadBoss[bossHeadIndex];
+			}
+			return null;
+		}
+
+		private float timer = 0;
+
+		public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float life, ref float lifeMax, ref float shield, ref float shieldMax) {
+			timer++;
+			if (timer > 120) {
+				timer = 120;				
+			}
+			NPC npc = Main.npc[info.npcIndexToAimAt];
+			if (!npc.active)
+			{
+				return false;
+			}
+			bossHeadIndex = npc.GetBossHeadTextureIndex();
+			life = (float)Math.Sin(timer * Math.PI / 240) * (npc.life - npc.lifeMax * 0.9f);
+			lifeMax = npc.lifeMax * 0.1f;
+			return true;
+		}
+	}
+}

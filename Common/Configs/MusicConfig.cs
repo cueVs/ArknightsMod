@@ -7,6 +7,10 @@ public class MusicConfig : ModConfig
 
 	[DefaultValue(true)]
 	[ReloadRequired]
+	public bool EnableArknightsSpace { get; set; }
+
+	[DefaultValue(true)]
+	[ReloadRequired]
 	public bool EnableArknightsDaytime { get; set; }
 
     [DefaultValue(true)]

@@ -491,7 +491,7 @@ Mods: {
 			}
 
 			IATSummon: {
-				DisplayName: Suspicious Remote Control
+				DisplayName: Suspicious Remote Control·Lower Version
 				Tooltip:
 					'''
 					Maybe only need a tiny signal , it can call something [c/FF0000:dangerous].
@@ -518,6 +518,17 @@ Mods: {
 			AcidOgSlugBanner: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
+			}
+
+			AACTSummon: {
+				DisplayName: Suspicious Remote Control·Higher Version
+				Tooltip:
+					'''
+					Maybe only need a tiny signal , it can call something [c/FF0000:dangerous].
+					Call [c/FF0000:the polluted military nuke weapon]
+					[c/FF0000:Only during NIGHT]
+					[c/FF0000:"It also appears to have been polluted by ANDSKOTARNIR."]
+					'''
 			}
 		}
 
@@ -587,8 +598,13 @@ Mods: {
 			OriginiumSlugBeta.DisplayName: Originium Slug Beta
 			AcidOgSlug.DisplayName: Acid Originium Slug
 			IACT.DisplayName: Imperial Artillery Core Targeteer
-			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
+			AACT.DisplayName: Andskotarnir Artillery Core Targeteer
+			AACTIntro.DisplayName: AACT Intro
+			AACTStage3TrueHealth.DisplayName: AACT Stage3 True Health
+			IACTIntro.DisplayName: IACT Intro
+			IATIntro.DisplayName: IAT Intro
+			Crossbowman.DisplayName: Crossbowman
 		}
 
 		# Friendly
@@ -634,12 +650,14 @@ Mods: {
 
 		Bestiary: {
 			Soldier: One of Reunion's basic melee soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operation.
+			Crossbowman: One of Reunion's basic ranged soldiers. Equipped with illegally obtained weapons and armor, they wear masks to conceal their identities during operations.
 			OriginiumSlug: An infected wild creature. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			OriginiumSlugAlpha: An infected wild creature that is more dangerous than a normal Originium Slug. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			OriginiumSlugBeta: An infected wild creature that is more dangerous than an Originium Slug Alpha. Due to their low intelligence, they are easily controlled by enemy caster for use as cannon fodder during invasions.
 			AcidOgSlug: An infected wild creature that can secrete corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
 			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
+			AACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. It was highly infected by ANDSKOTARNIR due to staying in Sami for too long. It continuously emits attack signals and will eliminate all detected life.
 		}
 
 		Projectiles: {
@@ -662,10 +680,6 @@ Mods: {
 			ISTG3OutRing.DisplayName: IACTSTG3TGT
 			missle.DisplayName: Missle
 			misslepro.DisplayName: Missle II
-			HitboxRedCorner4.DisplayName: Hitbox
-			HitboxRedCorner3.DisplayName: Hitbox
-			HitboxRedCorner2.DisplayName: Hitbox
-			HitboxRedCorner1.DisplayName: Hitbox
 			ExplodeAimPro.DisplayName: Explode Aim
 			ExplodeAim.DisplayName: Explode Aim
 			HitboxRedFrame.DisplayName: Hitbox Red Frame
@@ -673,14 +687,17 @@ Mods: {
 			ExplodeRingBig.DisplayName: Explode Ring Big
 			ExplodeAimSmall.DisplayName: Explode Aim Small
 			ExplodeAreaSmall.DisplayName: Explode Area Small
-			HitboxRedCornerSmall1.DisplayName: Hitbox
-			HitboxRedCornerSmall2.DisplayName: Hitbox
-			HitboxRedCornerSmall3.DisplayName: Hitbox
-			HitboxRedCornerSmall4.DisplayName: Hitbox
-			PozemkaCrossbowSentry.DisplayName: Pozemka Crossbow Sentry
-			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
-			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
-			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+			HitboxRedCorner.DisplayName: Hitbox Red Corner
+			PozemkaCrossbowSentry.DisplayName: Typewritter
+			PozemkaCrossbowSentryProjectile.DisplayName: Typewritter Bolt
+			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Bolt
+			AcidOgSlugProjectile.DisplayName: Acid Drop
+			AACTDeathdust.DisplayName: AACTDeathdust
+			ExplodeWave.DisplayName: Explode Wave
+			Missle.DisplayName: Missle
+			MisslePro.DisplayName: Missle Pro
+			TestProjectile.DisplayName: Test Projectile
+			CrossbowmanBolt.DisplayName: Crossbowman Bolt
 		}
 
 		ButtonName.button2: Annihilation operation
@@ -706,6 +723,7 @@ Mods: {
 
 		StatusMessage: {
 			IACT: {
+				Intro: Detected entities that entered the restricted area without permission, marked as targets for attack.
 				Summon: You feel the threat from the empire...
 				Summon2: Detected the suspicious target. ERASE.
 				Stage1to2: Target strength is higher than prediction, import the advanced permission to implement the strike.
@@ -738,6 +756,11 @@ Mods: {
 
 				EnableArknightsOceanNighttimeScene: {
 					Label: Enable ArknightsOceanNighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsSpace: {
+					Label: Enable ArknightsSpace Music
 					Tooltip: ""
 				}
 			}

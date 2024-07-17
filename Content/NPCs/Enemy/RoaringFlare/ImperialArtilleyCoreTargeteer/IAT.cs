@@ -4,14 +4,13 @@ using Terraria.ModLoader;
 using Terraria.Localization;    
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.Graphics.Effects;
 using Terraria.Audio;
 using System;
-using ArknightsMod.Common.Players;
+using ArknightsMod.Common.VisualEffects;
 using Terraria.GameContent.Bestiary;
 using ArknightsMod.Content.Items.Material;
 using Terraria.GameContent.ItemDropRules;
-using log4net.Util;
+using static Terraria.ModLoader.ModContent;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
@@ -39,7 +38,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			NPCID.Sets.ImmuneToAllBuffs[Type] = true;//免疫所有debuff
 		}
 
-		public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode && Main.raining && !Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<IAT>()) && !NPC.AnyNPCs(ModContent.NPCType<IACT>()) ? 0.05f : 0f;
+		//public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode && Main.raining && !Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<IAT>()) && !NPC.AnyNPCs(ModContent.NPCType<IACT>()) ? 0.05f : 0f;
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
@@ -275,7 +274,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					}
 					else
 					{
-						return true;
+						return null;
 					}
 				}
 				else
@@ -322,6 +321,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float diffY;
 		private bool stg1to2movementsafe = false;
 		private float stg1to2safetimer = -1f;
+		private float redlightscale;
 
         public override void AI()
 		{
@@ -395,7 +395,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			var newSource = NPC.GetSource_FromThis();
-			Lighting.AddLight((int)((NPC.position.X + (NPC.width / 2)) / 16f), (int)((NPC.position.Y + (NPC.height / 2)) / 16f), 0.5f, 0f, 0.25f);//发光
 
 			Player Player = Main.player[NPC.target];//仇恨判定和死亡判定
 			if (!Player.active || Player.dead)
@@ -416,8 +415,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 			}
 
+			redlightscale = 0.4f*(float)Math.Sin(Math.PI * movetimer / 60) + 0.4f;
+
 			if (IATcrashed != true)//拖尾特效，坠毁时就没有了
 			{
+				Lighting.AddLight(NPC.Center, redlightscale, 0f, 0f);//发光
 				Dust taildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
 				taildust2.noGravity = true;
 			}
@@ -527,7 +529,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) >= 60 * 16)//距离远于60格
 				{
 					ax = 0.6f;
-					ax = 0.4f;
+					ay = 0.4f;
                     if (Main.masterMode)
                     {
                         if (stage == 2)
@@ -571,7 +573,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
                 else//基础移动速度设置
 				{
 					ax = 0.3f;
-					ax = 0.2f;
+					ay = 0.2f;
 					if (Main.masterMode)
 					{
 						if (stage == 2)
@@ -791,7 +793,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			if (missled != true) {
 				randomx = Main.rand.NextFloat(-300, 300);
 
-				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<missle>(), 10, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<Missle>(), 10, 0f, 0, 0);
 				missled = true;
 			}
 
@@ -819,242 +821,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			if (timer == 10) {
-				Projectile.NewProjectile(newSource, Projectile.Center.X-30, Projectile.Center.Y-30, 0, 0, ModContent.ProjectileType<HitboxRedCornerSmall1>(), 0, 0f, 0, 0);
-				Projectile.NewProjectile(newSource, Projectile.Center.X+30, Projectile.Center.Y-30, 0, 0, ModContent.ProjectileType<HitboxRedCornerSmall2>(), 0, 0f, 0, 0);
-				Projectile.NewProjectile(newSource, Projectile.Center.X-30, Projectile.Center.Y+30, 0, 0, ModContent.ProjectileType<HitboxRedCornerSmall3>(), 0, 0f, 0, 0);
-				Projectile.NewProjectile(newSource, Projectile.Center.X+30, Projectile.Center.Y+30, 0, 0, ModContent.ProjectileType<HitboxRedCornerSmall4>(), 0, 0f, 0, 0);
+				for (int i = 0; i < 4; i++) {
+					Projectile.NewProjectile(newSource, (float)(Projectile.Center.X - 30 * Math.Tan((1 + 2 * i) * MathHelper.PiOver4)), (float)(Projectile.Center.Y - 30 * Math.Sqrt(2) * Math.Sin((1 + 2 * i) * MathHelper.PiOver4)), 0, 0, ModContent.ProjectileType<HitboxRedCorner>(), 0, 0f, 0, i+4);
+				}
+			}
+
+			if (timer == 50) {
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeWave>(), 10, 0f, 0, 0);
+
 			}
 
 			if (timer == 60) {
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
 				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaSmall>(), 10, 0f, 0, 0);
-			}
-		}
-	}
-	public class HitboxRedCornerSmall1 : ModProjectile
-	{
-		public override void SetStaticDefaults() {
-		}
-		public override void SetDefaults() {
-			Projectile.width = 80;
-			Projectile.height = 80;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 80;
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private float timer;
-
-		public override void AI() {
-			timer++;
-
-			if (timer >= 0 && timer <= 10) {
-				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
-			}
-			else if (timer > 10 && timer <= 50) {
-				Projectile.scale = 1f;
-			}
-			else if (timer > 50 && timer <= 65) {
-				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
-			}
-
-			if (timer >= 0 && timer <= 20) {
-				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.alpha = 0;
-			}
-			else if (timer > 50 && timer <= 80) {
-				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30) + 120);
-			}
-
-			if (timer <= 20) {
-				Projectile.velocity = new Vector2(-5.5f, -5.5f);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.velocity = Vector2.Zero;
-			}
-			else if (timer > 50) {
-				Projectile.velocity = new Vector2(7.333f, 7.333f);
-			}
-		}
-	}
-
-	public class HitboxRedCornerSmall2 : ModProjectile
-	{
-		public override void SetStaticDefaults() {
-		}
-		public override void SetDefaults() {
-			Projectile.width = 80;
-			Projectile.height = 80;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 80;
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private float timer;
-
-		public override void AI() {
-			timer++;
-
-			if (timer >= 0 && timer <= 10) {
-				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
-			}
-			else if (timer > 10 && timer <= 50) {
-				Projectile.scale = 1f;
-			}
-			else if (timer > 50 && timer <= 65) {
-				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
-			}
-
-			if (timer >= 0 && timer <= 20) {
-				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.alpha = 0;
-			}
-			else if (timer > 50 && timer <= 80) {
-				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30) + 120);
-			}
-
-			if (timer <= 20) {
-				Projectile.velocity = new Vector2(5.5f, -5.5f);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.velocity = Vector2.Zero;
-			}
-			else if (timer > 50) {
-				Projectile.velocity = new Vector2(-7.333f, 7.333f);
-			}
-		}
-	}
-
-	public class HitboxRedCornerSmall3 : ModProjectile
-	{
-		public override void SetStaticDefaults() {
-		}
-		public override void SetDefaults() {
-			Projectile.width = 80;
-			Projectile.height = 80;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 80;
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private float timer;
-
-		public override void AI() {
-			timer++;
-
-			if (timer >= 0 && timer <= 10) {
-				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
-			}
-			else if (timer > 10 && timer <= 50) {
-				Projectile.scale = 1f;
-			}
-			else if (timer > 50 && timer <= 65) {
-				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
-			}
-
-			if (timer >= 0 && timer <= 20) {
-				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.alpha = 0;
-			}
-			else if (timer > 50 && timer <= 80) {
-				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30) + 120);
-			}
-
-			if (timer <= 20) {
-				Projectile.velocity = new Vector2(-5.5f, 5.5f);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.velocity = Vector2.Zero;
-			}
-			else if (timer > 50) {
-				Projectile.velocity = new Vector2(7.333f, -7.333f);
-			}
-		}
-	}
-
-	public class HitboxRedCornerSmall4 : ModProjectile
-	{
-		public override void SetStaticDefaults() {
-		}
-		public override void SetDefaults() {
-			Projectile.width = 80;
-			Projectile.height = 80;
-			Projectile.aiStyle = 0;
-			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
-			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 80;
-			Projectile.alpha = 10;
-			Projectile.damage = 0;
-			Projectile.light = 0.6f;
-			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.scale = 1f;
-		}
-
-		private float timer;
-
-		public override void AI() {
-			timer++;
-
-			if (timer >= 0 && timer <= 10) {
-				Projectile.scale = (float)Math.Sin(Math.PI * timer / 20f);
-			}
-			else if (timer > 10 && timer <= 50) {
-				Projectile.scale = 1f;
-			}
-			else if (timer > 50 && timer <= 65) {
-				Projectile.scale = (float)Math.Cos(Math.PI * (timer - 50) / 30f);
-			}
-
-			if (timer >= 0 && timer <= 20) {
-				Projectile.alpha = (int)(120 * Math.Cos(Math.PI * timer / 20f) + 120);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.alpha = 0;
-			}
-			else if (timer > 50 && timer <= 80) {
-				Projectile.alpha = (int)(-120 * Math.Cos(Math.PI * (timer - 50) / 30f) + 120);
-			}
-
-			if (timer <= 20) {
-				Projectile.velocity = new Vector2(5.5f, 5.5f);
-			}
-			else if (timer > 20 && timer <= 50) {
-				Projectile.velocity = Vector2.Zero;
-			}
-			else if (timer > 50) {
-				Projectile.velocity = new Vector2(-7.333f, -7.333f);
 			}
 		}
 	}
@@ -1096,5 +875,96 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 		}
 
+	}
+	public class IATIntro : ModNPC
+	{
+		public override void SetStaticDefaults() {
+			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
+		}
+
+		public override void SetDefaults() {
+			NPC.lifeMax = 1000;
+			NPC.damage = 0;
+			NPC.defense = 0;
+			NPC.knockBackResist = 0f;//击退抗性，0f为最高，1f为最低
+			NPC.width = 164;
+			NPC.height = 70;
+			NPC.noGravity = true;//无引力
+			NPC.noTileCollide = false;//不与物块相撞
+			NPC.lavaImmune = true;//免疫岩浆
+			NPC.aiStyle = -1;
+			NPC.HitSound = SoundID.NPCHit4;//金属声
+			NPC.DeathSound = new SoundStyle("ArknightsMod/Sounds/iactstage1to2");
+			NPCID.Sets.ImmuneToAllBuffs[Type] = true;//免疫所有debuff
+			NPC.friendly = false;
+		}
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneOverworldHeight && Main.raining && !Main.dayTime && !NPC.AnyNPCs(NPCType<IATIntro>()) && !NPC.AnyNPCs(NPCType<IAT>()) && !NPC.AnyNPCs(NPCType<IACTIntro>()) && !NPC.AnyNPCs(NPCType<IACT>()) ? 0.05f : 0f;
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.Rain,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Visuals.Blizzard,
+
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.IAT")),
+			});
+		}
+
+		private float timer = 0;
+		private float aimheight;
+
+		public override void AI() {
+			Player Player = Main.player[Main.myPlayer];
+			timer++;
+
+			//移动方式
+			if (Main.masterMode) {
+				aimheight = 300;
+			}
+			else if (Main.expertMode) {
+				aimheight = 330;
+			}
+			else {
+				aimheight = 360;
+			}
+
+			Vector2 velDiff = NPC.velocity - Player.velocity;
+			float ay = 0.2f;
+			float vy = 4f;
+			int haltDirectionY = velDiff.Y > 0 ? 1 : -1;
+			NPC.velocity.X = 2.5f * (float)Math.Sin(timer * Math.PI / 240);
+			float haltPointY = NPC.Center.Y + haltDirectionY * (velDiff.Y * velDiff.Y) / (2 * ay) + aimheight;
+
+			if(timer <= 360) {
+				if (Player.Center.Y > haltPointY) {
+					NPC.velocity.Y += ay;
+				}
+				else {
+					NPC.velocity.Y -= ay;
+				}
+				NPC.velocity.Y = Math.Min(vy, Math.Max(-vy, NPC.velocity.Y));
+			}
+			else {
+				NPC.velocity.Y = 2 * (float)Math.Cos(timer * Math.PI / 160);
+			}
+
+			if (Math.Pow(NPC.Center.X - Player.Center.X, 2) / 102400 + Math.Pow(NPC.Center.Y - Player.Center.Y, 2) / 57600 <= 1) {
+				Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Intro"), 138, 0, 18);
+				NPC.NewNPC(Terraria.Entity.GetSource_NaturalSpawn(), (int)NPC.Center.X, (int)(NPC.Center.Y + 19), NPCType<IAT>());
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, NPC.Center);
+				NPC.life = 0;
+			}
+			else if (NPC.life < 1) {
+				NPC.checkDead();
+			}
+
+		}
+		public override bool CheckDead()//锁血及锁血解除
+		{
+			Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Intro"), 138, 0, 18);
+			NPC.NewNPC(Terraria.Entity.GetSource_NaturalSpawn(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<IAT>());
+			return true;
+		}
 	}
 }
