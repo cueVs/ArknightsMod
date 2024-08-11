@@ -698,6 +698,9 @@ Mods: {
 			MisslePro.DisplayName: Missle Pro
 			TestProjectile.DisplayName: Test Projectile
 			CrossbowmanBolt.DisplayName: Crossbowman Bolt
+			CollapsedFrame.DisplayName: Collapsed Frame
+			CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
+			CollapsedHitboxblueCore.DisplayName: Collapsed Hitboxblue Core
 		}
 
 		ButtonName.button2: Annihilation operation

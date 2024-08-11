@@ -698,6 +698,9 @@ Mods: {
 			MisslePro.DisplayName: 二阶导弹
 			TestProjectile.DisplayName: Test Projectile
 			CrossbowmanBolt.DisplayName: 弩箭
+			// CollapsedFrame.DisplayName: Collapsed Frame
+			// CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
+			// CollapsedHitboxblueCore.DisplayName: Collapsed Hitboxblue Core
 		}
 
 		ButtonName.button2: 剿灭作战

@@ -46,7 +46,7 @@ float4 AACTTP(float2 coords : TEXCOORD0) : COLOR0
         * max = 球形放大
         / min = 球形隧道（外延为线性条带）
         / max = 球形缩小（中延为线性条带， 外延为隧道）*/
-    if (dis <= uColor.x)
+    if (dis <= uColor.x / uScreenResolution.x)
     {
         return tex2D(uImage0, pos + offset / max(uColor.y, dis));
     }

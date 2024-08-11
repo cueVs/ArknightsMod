@@ -79,7 +79,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			}
 		}
 
-
 		public override void HitEffect(NPC.HitInfo hit) {
 			for (int i = 0; i < 10; i++) {
 				int dustType = DustID.RedMoss;
@@ -374,6 +373,4 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			dust = Terraria.Dust.NewDustPerfect(position, 279, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
 		}
 	}
-
-
 }
