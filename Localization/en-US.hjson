@@ -519,6 +519,26 @@ Mods: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
 			}
+
+			MelanthaBody: {
+				DisplayName: Melantha Body
+				Tooltip: ""
+			}
+
+			MelanthaHead: {
+				DisplayName: Melantha Head
+				Tooltip: ""
+			}
+
+			MelanthaLegs: {
+				DisplayName: Melantha Legs
+				Tooltip: ""
+			}
+
+			MelanthaDefault: {
+				DisplayName: Melantha Default
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {

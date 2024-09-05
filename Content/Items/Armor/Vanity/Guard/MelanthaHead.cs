@@ -6,22 +6,29 @@ using Terraria.ID;
 namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 {
 	// See also: ExampleCostume
-	[AutoloadEquip(EquipType.Body)]
-	public class MatoimaruBody : ModItem
+	[AutoloadEquip(EquipType.Head)]
+	public class MelanthaHead : ModItem
 	{
+		public override void Load() {
+			// The code below runs only if we're not loading on a server
+			if (Main.netMode == NetmodeID.Server)
+				return;
+
+			// Add equip textures
+			EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Back}", EquipType.Back, this);
+		}
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Arknights Doctor's Jacket");
+			// DisplayName.SetDefault("Arknights Doctor's Hood");
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
-			ArmorIDs.Body.Sets.HidesTopSkin[Item.bodySlot] = true;
-			ArmorIDs.Body.Sets.HidesArms[Item.bodySlot] = true;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
 		}
 
 		public override void SetDefaults() {
-			Item.width = 28;
-			Item.height = 22;
-			Item.rare = ItemRarityID.LightRed; // Same rarity as Arknights
+			Item.width = 32;
+			Item.height = 52;
+			Item.rare = ItemRarityID.Orange; // Same rarity as Arknights
 			Item.vanity = true;
 		}
 

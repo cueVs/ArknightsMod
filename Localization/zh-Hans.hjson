@@ -519,6 +519,26 @@ Mods: {
 				DisplayName: 酸液源石虫旗
 				// Tooltip: ""
 			}
+
+			MelanthaBody: {
+				// DisplayName: Melantha Body
+				// Tooltip: ""
+			}
+
+			MelanthaHead: {
+				// DisplayName: Melantha Head
+				// Tooltip: ""
+			}
+
+			MelanthaLegs: {
+				// DisplayName: Melantha Legs
+				// Tooltip: ""
+			}
+
+			MelanthaDefault: {
+				// DisplayName: Melantha Default
+				// Tooltip: ""
+			}
 		}
 
 		Buffs: {
