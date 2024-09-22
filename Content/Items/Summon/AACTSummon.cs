@@ -11,6 +11,7 @@ using static Terraria.ModLoader.ModContent;
 //using System.IO;
 using Terraria.Localization;
 using System.Runtime.InteropServices;
+using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
 //using Terraria.DataStructures;
 
 namespace ArknightsMod.Content.Items.Summon
@@ -51,10 +52,8 @@ namespace ArknightsMod.Content.Items.Summon
 
 		private float timer;
 
-        public override bool? UseItem(Player player) 
-        {
-			int IACTboss = NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(), (int)player.Center.X, (int)player.Center.Y, NPCType<Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer.AACTIntro>());
-			Main.npc[IACTboss].netUpdate = true;
+		public override bool? UseItem(Player player) {
+			NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(), (int)player.Center.X, (int)player.Center.Y, NPCType<AACTIntro>());
 			return true;
 		}
 

@@ -530,6 +530,11 @@ Mods: {
 					[c/FF0000:"It also appears to have been polluted by ANDSKOTARNIR."]
 					'''
 			}
+
+			Spicycandy: {
+				Tooltip: ""
+				DisplayName: Spicycandy
+			}
 		}
 
 		Buffs: {
@@ -605,6 +610,8 @@ Mods: {
 			IACTIntro.DisplayName: IACT Intro
 			IATIntro.DisplayName: IAT Intro
 			Crossbowman.DisplayName: Crossbowman
+			IACTStage3target.DisplayName: AACT Stage3target
+			FrostNova.DisplayName: Frost Nova
 		}
 
 		# Friendly
@@ -695,12 +702,20 @@ Mods: {
 			AACTDeathdust.DisplayName: AACTDeathdust
 			ExplodeWave.DisplayName: Explode Wave
 			Missle.DisplayName: Missle
-			MisslePro.DisplayName: Missle Pro
-			TestProjectile.DisplayName: Test Projectile
-			CrossbowmanBolt.DisplayName: Crossbowman Bolt
+			MisslePro.DisplayName: Missle Mk.II
+			CrossbowmanBolt.DisplayName: Bolt
 			CollapsedFrame.DisplayName: Collapsed Frame
 			CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
-			CollapsedHitboxblueCore.DisplayName: Collapsed Hitboxblue Core
+			CollapsedHitboxblueCore.DisplayName: Collapsed PreHit Core
+			FrostNovaYellowAura.DisplayName: Frost Nova Yellow Aura
+			FrostNovaWhiteRing.DisplayName: Frost Nova White Ring
+			FrostNovaSmoke.DisplayName: Frost Nova Smoke
+			FrostNovaRevival.DisplayName: Frost Nova Revival
+			FrostNovaJump.DisplayName: Frost Nova Jump
+			TestProj1.DisplayName: Test Proj1
+			TestProj2.DisplayName: Test Proj2
+			TestProj3.DisplayName: Test Proj3
+			AACTEndShow.DisplayName: AACT End Show
 		}
 
 		ButtonName.button2: Annihilation operation
@@ -736,21 +751,13 @@ Mods: {
 				End: Detected severe damage to the main structure, initiating self destruct mode.
 				Complete: The bombing drone from the empire have been destroyed.
 			}
+
+			AACT.Collapsed: collapsed.
 		}
 
 		Configs: {
 			MusicConfig: {
 				DisplayName: Music Config
-
-				EnableArknightsDaytime: {
-					Label: Enable ArknightsDaytime Music
-					Tooltip: ""
-				}
-
-				EnableArknightsNighttime: {
-					Label: Enable ArknightsNighttime Music
-					Tooltip: ""
-				}
 
 				EnableArknightsOceanDaytime: {
 					Label: Enable ArknightsOceanDaytime Music
@@ -762,8 +769,63 @@ Mods: {
 					Tooltip: ""
 				}
 
-				EnableArknightsSpace: {
-					Label: Enable ArknightsSpace Music
+				EnableArknightsOceanNighttime: {
+					Label: Enable Arknights Ocean Nighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsHallowedOceanDaytime: {
+					Label: Enable Arknights Hallowed Ocean Daytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsHallowedOceanNighttime: {
+					Label: Enable Arknights Hallowed Ocean Nighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsSpaceDaytime: {
+					Label: Enable Arknights Space Daytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsSpaceNighttimeLow: {
+					Label: Enable Arknights Space Nighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsSpaceNighttimeHigh: {
+					Label: Enable Arknights Space Nighttime Special Music
+					Tooltip: ""
+				}
+
+				EnableArknightsForestDaytime: {
+					Label: Enable Arknights Forest Daytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsForestNighttime: {
+					Label: Enable Arknights Forest Nighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsCorruptedOceanDaytime: {
+					Label: Enable Arknights Corrupted Ocean Daytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsCorruptedOceanNighttime: {
+					Label: Enable Arknights Corrupted Ocean Nighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsCrimsonOceanDaytime: {
+					Label: Enable Arknights Crimson Ocean Daytime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsCrimsonOceanNighttime: {
+					Label: Enable Arknights Crimson Ocean Nighttime Music
 					Tooltip: ""
 				}
 			}

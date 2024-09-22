@@ -1,0 +1,22 @@
+using System;
+
+namespace ArknightsMod
+{
+	public class ArknightsModVertexTrailDrawType
+	{
+		/// <summary>
+		/// 绘制起始部分为椭球型的顶点绘制拖尾，第一个参数为分界点，第二个为顶点起点到终点（0-1）
+		/// </summary>
+		public static float CircleOrEllipseTrailGen(float CircleLineBorder, float x) {
+			if (x <= 0) {
+				return 0;
+			}
+			else if (x < 1 / CircleLineBorder) {
+				return (float)Math.Sqrt(1 - Math.Pow(CircleLineBorder * x - 1, 2));
+			}
+			else {
+				return 1;
+			}
+		}
+	}
+}

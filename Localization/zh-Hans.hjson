@@ -530,6 +530,11 @@ Mods: {
 					[c/FF0000:“似乎它本身也被邪魔污染了。”]
 					'''
 			}
+
+			Spicycandy: {
+				// Tooltip: ""
+				// DisplayName: Spicycandy
+			}
 		}
 
 		Buffs: {
@@ -601,10 +606,12 @@ Mods: {
 			IAT.DisplayName: 帝国炮火先兆者
 			AACT.DisplayName: 邪魔炮火中枢先兆者
 			AACTIntro.DisplayName: 邪魔炮火中枢先兆者（引物）
-			AACTStage3TrueHealth.DisplayName: 邪魔炮火中枢先兆者（代理NPC）
+			AACTStage3TrueHealth.DisplayName: 邪魔炮火中枢先兆者（三阶段代理NPC）
 			IACTIntro.DisplayName: 帝国炮火中枢先兆者（引物）
 			IATIntro.DisplayName: 帝国炮火先兆者（引物）
 			Crossbowman.DisplayName: 弩手
+			IACTStage3target.DisplayName: 邪魔炮火中枢先兆者（三阶段目标）
+			FrostNova.DisplayName: 霜星
 		}
 
 		# Friendly
@@ -696,11 +703,19 @@ Mods: {
 			ExplodeWave.DisplayName: 爆炸波纹
 			Missle.DisplayName: 导弹
 			MisslePro.DisplayName: 二阶导弹
-			TestProjectile.DisplayName: Test Projectile
 			CrossbowmanBolt.DisplayName: 弩箭
-			// CollapsedFrame.DisplayName: Collapsed Frame
-			// CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
-			// CollapsedHitboxblueCore.DisplayName: Collapsed Hitboxblue Core
+			CollapsedFrame.DisplayName: 坍缩框架
+			CollapsedExplodeAim.DisplayName: 坍缩爆炸核心
+			CollapsedHitboxblueCore.DisplayName: 坍缩预判核心
+			// FrostNovaYellowAura.DisplayName: Frost Nova Yellow Aura
+			// FrostNovaWhiteRing.DisplayName: Frost Nova White Ring
+			// FrostNovaSmoke.DisplayName: Frost Nova Smoke
+			// FrostNovaRevival.DisplayName: Frost Nova Revival
+			// FrostNovaJump.DisplayName: Frost Nova Jump
+			// TestProj1.DisplayName: Test Proj1
+			// TestProj2.DisplayName: Test Proj2
+			// TestProj3.DisplayName: Test Proj3
+			AACTEndShow.DisplayName: 邪魔炮火中枢先兆者尾杀演出
 		}
 
 		ButtonName.button2: 剿灭作战
@@ -736,35 +751,82 @@ Mods: {
 				End: 检测到主结构严重损毁，启动自毁模式...
 				Complete: 来自帝国的轰炸无人机已被击毁...
 			}
+
+			AACT.Collapsed: 坍缩了。
 		}
 
 		Configs: {
 			MusicConfig: {
 				DisplayName: 音乐配置文件
 
-				EnableArknightsDaytime: {
-					Label: 启用明日方舟白天背景音乐
-					// Tooltip: ""
-				}
-
-				EnableArknightsNighttime: {
-					Label: 启用明日方舟晚上背景音乐
-					// Tooltip: ""
-				}
-
 				EnableArknightsOceanDaytime: {
 					Label: 启用明日方舟海洋白天音乐
-					// Tooltip: ""
+					Tooltip: 使用音乐：Ready?
 				}
 
 				EnableArknightsOceanNighttimeScene: {
-					Label: 启用明日方舟海洋夜晚音乐
+					// Label: Enable ArknightsOceanNighttime Music
 					// Tooltip: ""
 				}
 
-				EnableArknightsSpace: {
-					Label: 启用明日方舟太空音乐
-					// Tooltip: ""
+				EnableArknightsOceanNighttime: {
+					Label: 启用明日方舟海洋夜晚音乐
+					Tooltip: 使用音乐：海愿
+				}
+
+				EnableArknightsHallowedOceanDaytime: {
+					Label: 启用明日方舟神圣海洋白天音乐
+					Tooltip: 使用音乐：生路主界面曲
+				}
+
+				EnableArknightsHallowedOceanNighttime: {
+					Label: 启用明日方舟神圣海洋夜晚音乐
+					Tooltip: 使用音乐：倒置树影
+				}
+
+				EnableArknightsSpaceDaytime: {
+					Label: 启用明日方舟太空白天音乐
+					Tooltip: 使用音乐：特里蒙的天空
+				}
+
+				EnableArknightsSpaceNighttimeLow: {
+					Label: 启用明日方舟太空夜晚音乐
+					Tooltip: 使用音乐：群星见我
+				}
+
+				EnableArknightsSpaceNighttimeHigh: {
+					Label: 启用明日方舟太空夜晚隐藏音乐
+					Tooltip: 使用音乐：Ad Astra
+				}
+
+				EnableArknightsForestDaytime: {
+					Label: 启用明日方舟森林白天音乐
+					Tooltip: 使用音乐：生命流
+				}
+
+				EnableArknightsForestNighttime: {
+					Label: 启用明日方舟森林夜晚音乐
+					Tooltip: 使用音乐：如我所见主界面曲
+				}
+
+				EnableArknightsCorruptedOceanDaytime: {
+					Label: 启用明日方舟腐化海洋白天音乐
+					Tooltip: 使用音乐：暗潮
+				}
+
+				EnableArknightsCorruptedOceanNighttime: {
+					Label: 启用明日方舟腐化海洋夜晚音乐
+					Tooltip: 使用音乐：蔓延
+				}
+
+				EnableArknightsCrimsonOceanDaytime: {
+					Label: 启用明日方舟猩红海洋白天音乐
+					Tooltip: 使用音乐：共振
+				}
+
+				EnableArknightsCrimsonOceanNighttime: {
+					Label: 启用明日方舟猩红海洋夜晚音乐
+					Tooltip: 使用音乐：礁石不朽
 				}
 			}
 		}

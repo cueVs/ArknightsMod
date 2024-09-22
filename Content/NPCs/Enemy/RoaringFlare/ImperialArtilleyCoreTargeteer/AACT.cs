@@ -16,6 +16,7 @@ using ArknightsMod.Assets.Effects;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.DataStructures;
+using SteelSeries.GameSense;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
@@ -24,6 +25,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 	{
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
+			NPCID.Sets.MPAllowedEnemies[Type] = true;
+			NPCID.Sets.BossBestiaryPriority.Add(Type);
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() {
+				CustomTexturePath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AACT",
+				PortraitScale = 1f,
+				PortraitPositionYOverride = 0f,
+			};
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 
 		public override void SetDefaults() {
@@ -42,6 +51,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			NPC.HitSound = SoundID.NPCHit4;//金属声
 			NPC.DeathSound = SoundID.NPCDeath14;//爆炸声
 			NPCID.Sets.ImmuneToAllBuffs[Type] = true;//免疫所有debuff
+			NPC.ai[2] = 2;//存储二阶段的伤害值
+			NPC.npcSlots = 10f;
 		}
 
 		//public override float SpawnChance(NPCSpawnInfo spawnInfo) => spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneOverworldHeight && NPC.downedPlantBoss == true && Main.raining && !Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<IAT>()) && !NPC.AnyNPCs(ModContent.NPCType<IACT>()) ? 0.01f : 0f;
@@ -73,12 +84,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float MISSChance = 0f;
 		private bool nodamage = false;
 		private float nodamagetimer = 0;
-		private float randtpX;
-		private float randtpY;
-		private float randXod;
-		private float randYod;
-		private int odX;
-		private int odY;
+		private float randtplength {
+			get {
+				if (Main.masterMode) {
+					return Main.rand.NextFloat(288f, 384f);
+				}
+				else if (Main.expertMode) {
+					return Main.rand.NextFloat(320f, 432f);
+				}
+				else {
+					return Main.rand.NextFloat(352f, 480f);
+				}
+			}
+		}
 		private float spinrotation;
 		private float originscale = 1f;
 
@@ -93,7 +111,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				//残影
 				for (int i = oldPos.Length - 1; i > 0; i--) {
 					if (oldPos[i] != Vector2.Zero && i % 3 == 0) {//1%3是为了增大残影绘制间隔；Color.White * 1 * (1 - m*f * i)是残影淡化； (oldPos[i - 1] - oldPos[i]).ToRotation() + (float)(0.5 * MathHelper.Pi)是速度变化角度（基准为0.5pi，前面随速度变化不需要），1 * (1 - n*f * i)是大小逐级递减（也不需要）
-						Main.EntitySpriteDraw(AACTitself, oldPos[i] - Main.screenPosition, null, Color.White * 1 * (1 - 0.025f * i), 0*(float)Math.PI, AACTitself.Size() * 0.5f, 1 * (1 - 0.00f * i) * originscale, SpriteEffects.None, 0);
+						Main.EntitySpriteDraw(AACTitself, oldPos[i] - Main.screenPosition, null, Color.White * (1 - 0.025f * i), 0/*旋转*/, AACTitself.Size() * 0.5f, 1 * (1 - 0.00f * i) * originscale, SpriteEffects.None, 0);
 					}
 				}
 			}
@@ -101,8 +119,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Main.EntitySpriteDraw(AACTitself, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, AACTitself.Width, AACTitself.Height), Color.White, NPC.rotation, new Vector2(AACTitself.Width / 2, AACTitself.Height / 2), originscale, SpriteEffects.None, 0);
 
 			if (AACTcrashed != true) {
-					if (nodamage == true && AACTstage < 3)//次数盾
-				{
+				if (nodamage == true && AACTstage < 3)//次数盾
+			{
 					Texture2D Glow1 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/AACTGlow").Value;
 					if (nodamagetimer <= 20) {
 						Main.EntitySpriteDraw(Glow1, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, Glow1.Width, Glow1.Height), Color.White, NPC.rotation, new Vector2(Glow1.Width / 2, Glow1.Height / 2), originscale, SpriteEffects.None, 0);
@@ -204,11 +222,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 
 			MISSChance = Main.rand.NextFloat(1);
-			randXod = Main.rand.NextFloat(1);
-			randYod = Main.rand.NextFloat(1);
-			randtpX = Main.rand.NextFloat(0, tprad);
-			randtpY = (float)(Math.Sqrt(tprad * tprad - randtpX * randtpX)) - 40f + Main.rand.NextFloat(0, 80);
-
 			if (MISSChance > 0.9f && nodamage == false && AACTstage == 2 && zoomtimer == 0) {
 				NPC.dontTakeDamage = true;
 				nodamage = true;
@@ -221,11 +234,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 
 			MISSChance = Main.rand.NextFloat(1);
-			randXod = Main.rand.NextFloat(1);
-			randYod = Main.rand.NextFloat(1);
-			randtpX = Main.rand.NextFloat(0, tprad);
-			randtpY = (float)(Math.Sqrt(tprad * tprad - randtpX * randtpX)) - 40f + Main.rand.NextFloat(0, 80);
-
 			if (MISSChance > 0.9f && nodamage == false && AACTstage == 2 && zoomtimer == 0) {
 				NPC.dontTakeDamage = true;
 				nodamage = true;
@@ -246,7 +254,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			index = slot;
 		}
 		public override void HitEffect(NPC.HitInfo hit)//击中效果
-		{	
+		{
 			hitdusttimer++;
 			if (stage3dusttimer >= 11) {
 				stage3dusttimer = 0;
@@ -279,7 +287,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private int timer1;//玩家位置发射计时器
 		private int timer2;//固定判定点发射计时器
 		private int stage2timer;//第二阶段开始计时
-		private int stage3timer;
+		private float stage3timer = 0;
 		private float AACTstage;//弹出文本计次器兼阶段标记
 		private int deathtimer;//伪死亡计时
 		private int deathcheck;//checkdead触发检测
@@ -299,7 +307,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float stage2to3atkspeed;
 		private float stage2to3locktime;
 		private bool AACTcrashed = false;//是否坠毁？
-		private float endtimer;
+		private float endtimer;//坠毁计时
 		private float movetimer;
 		private float endexplodespeed;
 		private float diffX;
@@ -333,27 +341,59 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float RingThick;
 		private float RingLight;
 		private float distance;
-		private float tprad;
-		private float finishChangeSTGLoop;
+		private float firstChangeSTGLoop;
+		private float secondChangeSTGLoop;
+		private float lastChangeSTGLoop;
 		private bool InitializedSTGChange1;
+		private bool InitializedSTGChange2;
+		private int stage3atkloop;
+		private int AACTStage3timer = 1;
+		private int truestage3;
+		private float killtimer;
+		private int random1in3;
+		private bool isPosLocked = false;
+		private Vector2 OldCenter;
 		#endregion
-
-		//public Vector2 AACTPos = Vector2.Zero;
-		//	get {
-		//		return NPC.Center;
-		//	}
-		//}
 
 		public static int SubNPCType() {
 			return ModContent.NPCType<AACTStage3TrueHealth>();
 		}
-
+		public static int SubProjType() {
+			return ModContent.ProjectileType<CollapsedExplodeAim>();
+		}
+		public static int MinionType() {
+			return ModContent.NPCType<IACTStage3target>();
+		}
+		public static int EndShowType() {
+			return ModContent.ProjectileType<AACTEndShow>();
+		}
+		//public int CollapsedProjHitTime = 0;
 
 		public override void AI() {
 			var newSource = NPC.GetSource_FromThis();
 			//AACTPos = NPC.Center;
 			Player Player = Main.player[NPC.target];//仇恨判定和死亡判定
 			if (!Player.active || Player.dead) {
+				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["LightRing"].IsActive()) {
+					Terraria.Graphics.Effects.Filters.Scene["LightRing"].Deactivate();
+				}
+				killtimer++;
+				if (killtimer <= 60) {
+					if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].IsActive()) {
+						Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBFence", Player.Center).GetShader().UseIntensity(Math.Max(1f - killtimer / 60, 0f));
+					}
+					if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].IsActive()) {
+						Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBNoise", Player.Center).GetShader().UseIntensity(Math.Max(1f - killtimer / 60, 0f));
+					}
+				}
+				else {
+					if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].IsActive()) {
+						Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].Deactivate();
+					}
+					if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].IsActive()) {
+						Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].Deactivate();
+					}
+				}
 				NPC.TargetClosest(false);
 				Player = Main.player[NPC.target];
 				if (Player.dead) {
@@ -385,14 +425,16 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 			NPC.BossBar = ModContent.GetInstance<AACTBossBar>();
 
-			if (AACTstage <= 1) {
-				Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss3");//音乐三
-			}
-			else if (timer1to2 > 0 && timer1to2 <= 120) {
-				Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/ImperialArtilleyCoreTargeteer/none");//一转二阶段
-			}
-			else if (AACTstage >= 2) {
-				Music = MusicLoader.GetMusicSlot(Mod, "Music/Andskotarnir");//邪魔
+			if (!Main.dedServ) {
+				if (AACTstage <= 1) {
+					Music = MusicLoader.GetMusicSlot(Mod, "Music/IACTBoss3");//音乐三
+				}
+				else if (timer1to2 > 0 && timer1to2 <= 120) {
+					Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/ImperialArtilleyCoreTargeteer/none");//一转二阶段
+				}
+				else if (AACTstage >= 2) {
+					Music = MusicLoader.GetMusicSlot(Mod, "Music/Andskotarnir");//邪魔
+				}
 			}
 
 			//动态转角
@@ -404,36 +446,30 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			lighttimer++;
 			frametime++;
 
-			if (Main.time % 24 == 0)//每几帧记录一次位置，这个数填5、10、32等一些特殊值好像就不会有残影了，不知道为什么，而且填完也不会导致残影间距改变
+			if (frametime % 1 == 0)//每几帧记录一次位置，这个数填5、10、32等一些特殊值好像就不会有残影了，不知道为什么，而且填完也不会导致残影间距改变
 			{
-				for (int i = oldPos.Length - 1; i > 0; i--)
-				{
+				for (int i = oldPos.Length - 1; i > 0; i--) {
 					oldPos[i] = oldPos[i - 1];
 				}
 				oldPos[0] = NPC.Center;
 			}
 
 			#region 二阶段特殊机制效果
-			//二阶段限制框，ucolor是光环颜色，uintensity是半径，uopacity是粗细，uprogress是亮度渐变（已禁用，不知道为什么会导致渲染变为白色）
+			//二阶段限制框，ucolor是光环颜色，uintensity是半径，uopacity是粗细，uprogress是亮度渐变
 			RingLight = 0.2f * (float)Math.Sin(movetimer * Math.PI / 180) + 0.8f;
 			if (AACTstage == 2) {
 				stage2timer++;
 
-				if(stage2timer <= 180) {
+				if (stage2timer <= 180) {
 					STG2RingRad = -512 * (float)Math.Cos(stage2timer * Math.PI / 180) + 512;
 					RingThick = -3 * (float)Math.Cos(stage2timer * Math.PI / 180) + 3;
 				}
 				else { //传送机制写在这里
 					STG2RingRad = 1024;
 					RingThick = 6;
-					if(distance > 66.67f) {
-						randXod = Main.rand.NextFloat(1);
-						randYod = Main.rand.NextFloat(1);
-						randtpX = Main.rand.NextFloat(0, tprad);
-						randtpY = (float)(Math.Sqrt(tprad * tprad - randtpX * randtpX)) - 40f + Main.rand.NextFloat(0, 80);
-						Player.Center = NPC.Center + new Vector2(2 * odX * randtpX,2 * odY * randtpY);
+					if (distance > 66.67f) {
+						Player.Center = NPC.Center + new Vector2(0, randtplength).RotateRandom(Math.PI * 2);//传送
 						SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Teleport") with { Volume = 1f, Pitch = 0f }, Player.Center);
-
 					}
 				}
 
@@ -457,7 +493,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 			}
 
-			//时间盾闪避持续以及恢复和传送
+			//时间盾闪避持续以及恢复和传送（也包括三阶段的周期传送）
 			if (nodamage == true) {
 				nodamagetimer++;
 				if (nodamagetimer >= 90) {
@@ -467,43 +503,53 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 			else {
 				nodamagetimer = 0;
+				isPosLocked = false;
+				if (endtimer == 0) {
+					OldCenter = Vector2.Zero;
+				}
 			}
 
-			if (randXod > 0.5f) {
-				odX = 1;
-			}
-			else {
-				odX = -1;
-			}
-
-			if (randYod > 0.5f) {
-				odY = 1;
-			}
-			else {
-				odY = -1;
-			}
-			//传送半径
-			if (Main.masterMode) {
-				tprad = 320f;
-			}
-			else if (Main.expertMode) {
-				tprad = 360f;
-			}
-			else {
-				tprad = 480f;
-			}
-			
 			if (nodamage == true && NPC.dontTakeDamage == true) {
 				teleportscalezoom = true;
 				if (nodamagetimer >= 88 && nodamagetimer < 90) {
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Teleport") with { Volume = 1f, Pitch = 0f }, Player.Center);
-					NPC.Center = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(odX * randtpX, odY * randtpY);//传送
+					if (AACTstage == 2) {
+						NPC.Center = Player.Center + new Vector2(0, randtplength).RotateRandom(Math.PI * 2);//传送
+					}
+					else if (AACTstage == 3) {
+						random1in3 = Main.rand.Next(4);
+						//NPC传送到玩家对称点
+						if (random1in3 == 0) {
+							NPC.Center = 2 * Player.Center - NPC.Center;
+						}
+						//玩家传送到玩家对称点
+						else if (random1in3 == 1) {
+							Player.Center = 2 * Player.Center - NPC.Center;
+						}
+						//NPC传送到玩家对称点，玩家传送到NPC原先位置
+						else if (random1in3 == 2) {
+							if (!isPosLocked) {
+								OldCenter = NPC.Center;
+								isPosLocked = true;
+							}
+							NPC.Center = 2 * Player.Center - NPC.Center;
+							Player.Center = OldCenter;
+						}
+						//玩家传送到NPC对称点，NPC传送到玩家原先位置
+						else {
+							if (!isPosLocked) {
+								OldCenter = Player.Center;
+								isPosLocked = true;
+							}
+							Player.Center = 2 * Player.Center - NPC.Center;
+							NPC.Center = OldCenter;
+						}
+					}
 				}
 			}
-
 			if (teleportscalezoom == true) {
 				zoomtimer++;
-				if(zoomtimer >= 30) {//60帧，从30到90，对应0到60
+				if (zoomtimer >= 30) {//60帧，从30到90，对应0到60
 					originscale = (float)Math.Cos(Math.PI * (zoomtimer - 30) / 120);
 					zoomframe = 536f * (float)Math.Sin(Math.PI * (zoomtimer - 30) / 120);//0到最大，同步游戏缩放
 					zoomscale = 0.5f - (zoomtimer - 30) / 120;//0.5到趋近0
@@ -528,7 +574,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 			else {
 				zoomtimer--;
-				if(zoomtimer >= 45) {//45帧,从90到45，对应45到0
+				if (zoomtimer >= 45) {//45帧,从90到45，对应45到0
 					originscale = (float)Math.Cos(Math.PI * (zoomtimer - 45) / 90);
 					zoomframe = 0.28f * (float)Math.Sin(Math.PI * (zoomtimer - 45) / 90);//0.28到0
 					zoomscale = 0.5f - (zoomtimer - 45) / 90;//趋近0到0.5
@@ -567,6 +613,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTOC2"].IsActive()) {
 					Terraria.Graphics.Effects.Filters.Scene.Activate("AACTOC2", NPC.Center).GetShader().UseIntensity(oppositetimer);
 				}
+				if (oppositetimer >= 30) {
+					if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTOC2"].IsActive()) {
+						Terraria.Graphics.Effects.Filters.Scene["AACTOC2"].Deactivate();
+					}
+				}
 				if (oppositetimer >= 60) {
 					oppositecolor = false;
 				}
@@ -574,9 +625,6 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			else {
 				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTOC"].IsActive()) {
 					Terraria.Graphics.Effects.Filters.Scene["AACTOC"].Deactivate();
-				}
-				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTOC2"].IsActive()) {
-					Terraria.Graphics.Effects.Filters.Scene["AACTOC2"].Deactivate();
 				}
 			}
 			#endregion
@@ -671,7 +719,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					//	Dust taildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(-2 * taildustX, -2 * taildustY), 21, new Vector2(NPC.velocity.X, NPC.velocity.Y), 0, new Color(255, 255, 255), 1.5f);//紫色
 					//	taildust2.noGravity = true;
 					//}
-					/*else*/ if (AACTstage >= 2) {
+					/*else*/
+					if (AACTstage >= 2) {
 						Dust taildust3 = Dust.NewDustPerfect(NPC.Center + new Vector2(taildustX, taildustY), 20, new Vector2(NPC.velocity.X, NPC.velocity.Y), 0, new Color(255, 255, 255), 1.2f);//蓝色
 						taildust3.noGravity = true;
 						Dust taildust4 = Dust.NewDustPerfect(NPC.Center + new Vector2(-taildustX, -taildustY), 21, new Vector2(NPC.velocity.X, NPC.velocity.Y), 0, new Color(255, 255, 255), 1.2f);//紫色
@@ -703,10 +752,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 				else//转阶段,叠加后是紫色
 				{
-					Dust traildust = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 3), 132, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);//蓝色
-					traildust.noGravity = true;
-					Dust traildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 3), 134, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);//梅红色
-					traildust2.noGravity = true;
+					if (stgendsafetimer < 0) {
+						Dust traildust = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 3), 132, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);//蓝色
+						traildust.noGravity = true;
+						Dust traildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 3), 134, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.5f);//梅红色
+						traildust2.noGravity = true;
+					}
 				}
 			}
 
@@ -751,19 +802,18 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			aimheight = 0;
 
 			//主体AI
-			if (NPC.life > 1 && (NPC.dontTakeDamage != true || nodamage == true || AACTstage == 3))
-			{
+			if (NPC.life > 1 && (NPC.dontTakeDamage != true || nodamage == true || AACTstage == 3)) {
 				//2阶段之后的玩家判定区
-				if (truestage2 == 1 && timer1 >= playerprefire) {
+				if ((truestage2 == 1 || truestage3 == 1) && timer1 >= playerprefire) {
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
 					Projectile.NewProjectile(newSource, Player.Center.X + prefire * Player.velocity.X, Player.Center.Y + prefire * Player.velocity.Y, 0, 0, ModContent.ProjectileType<CollapsedHitboxblueCore>(), 0, 0, 0, 0, 0);
 					timer1 = 0;
 				}
 
 				//固定判定区，数秒一个
-				if (timer2 >= normalatkcooldown && AACTstage != 2) {		
+				if (timer2 >= normalatkcooldown && AACTstage <= 2) {
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Alert") with { Volume = 1f, Pitch = 0f }, NPC.Center);
-					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
+					Projectile.NewProjectile(newSource, Player.Center.X + Main.rand.NextFloat(-128, 128), Player.Center.Y + Main.rand.NextFloat(-128, 128), 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 					timer2 = 0;
 				}
 
@@ -911,29 +961,29 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 				NPC.life = (int)(NPC.lifeMax * expertHealthFrac);//先卡在线上
 
-				if(InitializedSTGChange1 == false) {
+				if (InitializedSTGChange1 == false) {
 					if (Main.masterMode) {
-						stage1to2locktime = Main.rand.Next(420,451);
+						stage1to2locktime = Main.rand.Next(420, 451);
 						stage1to2r = Main.rand.Next(270, 331);
 						stage1to2atkspeed = Main.rand.Next(16, 25);
-						finishChangeSTGLoop = Main.rand.Next(240,361);
+						firstChangeSTGLoop = Main.rand.Next(240, 361);
 					}
 					else if (Main.expertMode) {
-						stage1to2locktime = Main.rand.Next(420,481);
+						stage1to2locktime = Main.rand.Next(420, 481);
 						stage1to2r = Main.rand.Next(360, 421);
 						stage1to2atkspeed = Main.rand.Next(24, 33);
-						finishChangeSTGLoop = Main.rand.Next(150, 241);
+						firstChangeSTGLoop = Main.rand.Next(150, 241);
 					}
 					else {
-						stage1to2locktime = Main.rand.Next(450,511);
+						stage1to2locktime = Main.rand.Next(450, 511);
 						stage1to2r = Main.rand.Next(480, 511);
 						stage1to2atkspeed = Main.rand.Next(36, 46);
-						finishChangeSTGLoop = Main.rand.Next(60, 151);
+						firstChangeSTGLoop = Main.rand.Next(60, 151);
 					}
 					InitializedSTGChange1 = true;
 				}
 
-				if (stg1to2safetimer <= stage1to2locktime - 300 + finishChangeSTGLoop) {
+				if (stg1to2safetimer <= stage1to2locktime - 300 + firstChangeSTGLoop) {
 					timer1to2++;
 					//NPC.dontTakeDamage = true;
 					CantBeChoose = true;
@@ -952,7 +1002,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					else if (timer1to2 >= 120 && timer1to2 < 180) {
 						//NPC.life = (int)(NPC.lifeMax * expertHealthFrac);
 						AACTstage = 2;
-						if(timer1to2 == 150 || timer1to2 == 179) {
+						if (timer1to2 == 150 || timer1to2 == 179) {
 							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Teleport") with { Volume = 1f, Pitch = 0f }, Player.Center);
 							DeathTP();
 						}
@@ -960,7 +1010,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					else if (timer1to2 >= 180 && timer1to2 < 300) {
 						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
 						Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, 3*targetv, 0.03f);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, 3 * targetv, 0.03f);
 					}
 					else if (timer1to2 >= 300) {
 						if (-12 <= diffX && diffX <= 12 && stage1to2r - 12 <= diffY && diffY <= stage1to2r + 12) {
@@ -971,7 +1021,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						{
 							Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage1to2r);
 							Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, 3*targetv, 0.03f);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, 3 * targetv, 0.03f);
 						}
 						else {
 							stg1to2safetimer++;
@@ -999,6 +1049,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					//NPC.dontTakeDamage = false;
 					CantBeChoose = false;
 					ontransform = false;
+					targetX = 0;
 				}
 			}
 
@@ -1008,52 +1059,59 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					ontransform = true;
 				}
 
-				NPC.life = (int)(NPC.lifeMax * expertHealthFrac / 2);//先卡在线上
+				NPC.life = (int)((NPC.lifeMax * expertHealthFrac / 2) * Math.Max(2 - timer2to3 / 240, 1));//变动，lifemax*exp/2是三阶段血量
 
-				if (Main.masterMode) {
-					stage2to3locktime = 600;
-					stage2to3r = 300;
-					//stage2to3atkspeed = (int)(Main.rand.NextFloat(10,20));
-					stage2to3atkspeed = 15;
-				}
-				else if (Main.expertMode) {
-					stage2to3locktime = 600;
-					stage2to3r = 400;
-					//stage2to3atkspeed =(int)(Main.rand.NextFloat(20,30));
-					stage2to3atkspeed = 20;
-				}
-				else {
-					stage2to3locktime = 660;
-					stage2to3r = 500;
-					//stage2to3atkspeed = (int)(Main.rand.NextFloat(30,45));
-					stage2to3atkspeed = 30;
+				if (InitializedSTGChange2 == false) {
+					if (Main.masterMode) {
+						stage2to3locktime = Main.rand.Next(360, 373);
+						stage2to3r = Main.rand.Next(240, 331);
+						stage2to3atkspeed = Main.rand.Next(16, 25);
+						secondChangeSTGLoop = Main.rand.Next(360, 481);
+					}
+					else if (Main.expertMode) {
+						stage2to3locktime = Main.rand.Next(330, 361);
+						stage2to3r = Main.rand.Next(330, 421);
+						stage2to3atkspeed = Main.rand.Next(24, 33);
+						secondChangeSTGLoop = Main.rand.Next(240, 361);
+					}
+					else {
+						stage2to3locktime = Main.rand.Next(300, 331);
+						stage2to3r = Main.rand.Next(390, 481);
+						stage2to3atkspeed = Main.rand.Next(32, 43);
+						secondChangeSTGLoop = Main.rand.Next(120, 241);
+					}
+					InitializedSTGChange2 = true;
 				}
 
-				if (stg2to3safetimer <= stage2to3locktime - 480) {
+				if (stg2to3safetimer <= stage2to3locktime - 480 + secondChangeSTGLoop) {
 					timer2to3++;
 					//NPC.dontTakeDamage = true;
 					CantBeChoose = true;
 					if (timer2to3 < 240) {
-						NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.01f);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.05f);
 						if ((int)timer2to3 == 235) {
 							Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<IACTScreenWave>(), 0, 0f, 0, 0);
 						}
 						if ((int)timer2to3 == 238) {
 							Player.GetModPlayer<ShakeEffectPlayer>().screenShakeOnlyOnY = true;//纵向震动
-							Player.GetModPlayer<ShakeEffectPlayer>().screenShakeTime = 15;//屏幕抖动
+							Player.GetModPlayer<ShakeEffectPlayer>().screenShakeTime = 30;//屏幕抖动
 						}
 					}
 					else if (timer2to3 >= 240 && timer2to3 < 360) {
 						if ((int)timer2to3 == 240) {
 							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/IACTStageChangeTremor") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							AACTstage = 3;
+						}
+						if (timer2to3 == 240 || timer2to3 == 270 || timer2to3 == 300 || timer2to3 == 330 || timer2to3 == 359) {
+							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Teleport") with { Volume = 1f, Pitch = 0f }, Player.Center);
+							DeathTP();
 						}
 						//NPC.life = (int)(NPC.lifeMax * expertHealthFrac / 2);
-						AACTstage = 3;
 					}
 					else if (timer2to3 >= 360 && timer2to3 < 480) {
 						Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage2to3r);
 						Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-						NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
+						NPC.velocity = Vector2.Lerp(NPC.velocity, 3 * targetv, 0.03f);
 					}
 					else if (timer2to3 >= 480) {
 						if ((int)(Player.Center.X - NPC.Center.X) >= -12 && (int)(Player.Center.X - NPC.Center.X) <= 12 && (int)(Player.Center.Y - NPC.Center.Y) >= stage2to3r - 12 && (int)(Player.Center.Y - NPC.Center.Y) <= stage2to3r + 12) {
@@ -1064,7 +1122,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						{
 							Vector2 targetPosition = Player.Center + new Vector2(targetX, -stage2to3r);
 							Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, 3 * targetv, 0.03f);
 						}
 						else {
 							stg2to3safetimer++;
@@ -1078,6 +1136,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg2to3safetimer % stage2to3atkspeed == 0) {
 								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
+								resetChangeSTG2();
 							}
 						}
 					}
@@ -1085,18 +1144,35 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				else {
 					Main.NewText(Language.GetTextValue("濡傛€濈淮鑸贩娌岀殑鏈兘銆�"), 240, 0, 0);
 					truestage2to3 = 2;
+					truestage3 = 1;
 					//NPC.dontTakeDamage = false;
 					CantBeChoose = false;
 					ontransform = false;
+					targetX = 0;
 				}
 			}
 			#endregion
 
 			if (AACTstage == 3)//第三阶段
 			{
-				//var AACTStage3TrueHealth = ModContent.GetModNPC(ModContent.NPCType<AACTStage3TrueHealth>());
-
-				if (isthNPCsummoned == false){
+				stage3timer++;
+				//屏幕效果
+				float fenceintensity = Math.Min(stage3timer / 60, 0.999f);
+				if (Main.netMode != NetmodeID.Server && !Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].IsActive()) {
+					Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBFence", Player.Center).GetShader().UseIntensity(fenceintensity);
+				}
+				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].IsActive()) {
+					Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBFence", Player.Center).GetShader().UseIntensity(fenceintensity);
+				}
+				float noiseintensity = Math.Min(Math.Max(1.5f - stage3truehealth / 15, 0.25f), 0.999f);
+				if (Main.netMode != NetmodeID.Server && !Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].IsActive()) {
+					Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBNoise", Player.Center).GetShader().UseIntensity(noiseintensity);
+				}
+				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].IsActive()) {
+					Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBNoise", Player.Center).GetShader().UseIntensity(noiseintensity);
+				}
+				//假血量机制
+				if (isthNPCsummoned == false) {
 					var entitySource = NPC.GetSource_FromAI();
 					NPC SubNPC = NPC.NewNPCDirect(entitySource, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<AACTStage3TrueHealth>(), NPC.whoAmI);
 					AACTStage3TrueHealth SubTH = (AACTStage3TrueHealth)SubNPC.ModNPC;
@@ -1104,7 +1180,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					//NPC.NewNPC(entitySource, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<AACTStage3TrueHealth>(),NPC.whoAmI);
 					//stage3truehealth = 100;
 					stage3truehealth = SubNPC.life;
-					NPC.life = (int)(NPC.lifeMax * expertHealthFrac / 4);
+					//NPC.life = (int)(NPC.lifeMax * expertHealthFrac / 4);
 					isthNPCsummoned = true;
 				}
 				else {
@@ -1119,66 +1195,118 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					NPC.dontTakeDamage = true;
 				}
 
-				if(stage3truehealth <= 1) {
+				if (stage3truehealth <= 1) {
 					NPC.dontTakeDamage = false;
 					NPC.life = 1;
 				}
+				//三阶段运行体系
+				if (Main.masterMode) {
+					stage3atkloop = 450;
+				}
+				else if (Main.expertMode) {
+					stage3atkloop = 540;
+				}
+				else {
+					stage3atkloop = 630;
+				}
+
+				NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.01f);
+				if (truestage3 == 1)//开启定点系统
+				{
+					NPC minionNPC = Main.npc[NPC.NewNPC(newSource, (int)(2 * Player.Center.X - NPC.Center.X), (int)(2 * Player.Center.Y - NPC.Center.Y), ModContent.NPCType<IACTStage3target>(), NPC.whoAmI)];
+					if (minionNPC.ModNPC is IACTStage3target minion) {
+						minion.ParentIndex = NPC.whoAmI;
+					}
+					truestage3 = 2;
+				}
+				if (stage3timer - stage2to3locktime >= 0 && truestage3 == 2) {
+					AACTStage3timer++;
+					if ((AACTStage3timer + 180) % stage3atkloop == 0) {
+						nodamage = true;
+						NPC.dontTakeDamage = true;
+					}
+				}
 			}
 
-				if (NPC.life <= 1)//坠毁及其保护机制
-				{
+			if (NPC.life <= 1)//坠毁及其保护机制
+			{
 				if (deathcheck == 1)//触发checkdead之后
 				{
-					if (stgendsafetimer < 150) {
+					if (stgendsafetimer < 1500) {
 						endtimer++;
+
+						if (endtimer <= 180) {
+							if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].IsActive()) {
+								Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBFence", Player.Center).GetShader().UseIntensity(Math.Max(1 - endtimer / 60, 0));
+							}
+							if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].IsActive()) {
+								Terraria.Graphics.Effects.Filters.Scene.Activate("AACTSTG3RBNoise", Player.Center).GetShader().UseIntensity(Math.Max(1 - endtimer / 60, 0));
+							}
+						}
+						else {
+							if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].IsActive()) {
+								Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBFence"].Deactivate();
+							}
+							if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].IsActive()) {
+								Terraria.Graphics.Effects.Filters.Scene["AACTSTG3RBNoise"].Deactivate();
+							}
+						}
+
 						if (endtimer < 180)//先照例悬停
 						{
 							NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.05f);
-
+							OldCenter = Player.Center;
 						}
 						else if (endtimer >= 180 && endtimer < 360) {
 							if (AACTstage == 3) {
 								Main.NewText(Language.GetTextValue("涔岃惃鏂渶娣遍們鐨勭瀵嗕笉瀹逛粬浜虹鎺紝"), 240, 0, 0);
+								OldCenter = Player.Center;
 								ontransform = true;
 								AACTstage += 1;
 							}
-							Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
+							Vector2 targetPosition = OldCenter + new Vector2(targetX, -480);
 							Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-							NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
+							NPC.velocity = Vector2.Lerp(NPC.velocity, 2 * targetv, 0.03f);
 						}
 						else if (endtimer >= 360) {
-							if ((int)(Player.Center.X - NPC.Center.X) >= -16 && (int)(Player.Center.X - NPC.Center.X) <= 16 && (int)(Player.Center.Y - NPC.Center.Y) >= 348 && (int)(Player.Center.Y - NPC.Center.Y) <= 372) {
+							if ((int)(OldCenter.X - NPC.Center.X) >= -16 && (int)(OldCenter.X - NPC.Center.X) <= 16 && (int)(OldCenter.Y - NPC.Center.Y) >= 468 && (int)(OldCenter.Y - NPC.Center.Y) <= 492) {
 								stgendmovementsafe = true;
 							}
 
 							if (stgendmovementsafe != true)//防跳变保护机制
 							{
-								Vector2 targetPosition = Player.Center + new Vector2(targetX, -360);
+								Vector2 targetPosition = OldCenter + new Vector2(targetX, -480);
 								Vector2 targetv = basedistance * (targetPosition - NPC.Center).SafeNormalize(Vector2.One);
-								NPC.velocity = Vector2.Lerp(NPC.velocity, targetv, 0.03f);
+								NPC.velocity = Vector2.Lerp(NPC.velocity, 2 * targetv, 0.05f);
 							}
 							else {
 								stgendsafetimer++;
 							}
 							if ((int)stgendsafetimer == 0) {
-								SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<AACTEndShow>(), 0, 0f, 0, 0);
+								//Projectile Endshow = Projectile.NewProjectileDirect(newSource, NPC.Center, Vector2.Zero, ModContent.ProjectileType<AACTEndSHow>(), 0, 0, NPC.whoAmI);
+								//AACTEndSHow SubEnd = (AACTEndSHow)Endshow.ModProjectile;
+								//SubEnd.ParentIndex = NPC.whoAmI;
+								//SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/iactstage1to2") with { Volume = 1f, Pitch = 0f }, Player.Center);
 							}
 							if ((int)stgendsafetimer >= 0) {
-								targetX = (float)(360 * Math.Sin(2 * stgendsafetimer * Math.PI / 180));
-								targetY = (float)(-360 * Math.Cos(2 * stgendsafetimer * Math.PI / 180));
-								NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
+								float t = 1 - stgendsafetimer / 2500;
+								targetX = (float)(480 * (t - t * stgendsafetimer / 1500) * Math.Sin(2 * stgendsafetimer * Math.PI / 180 / (1 - stgendsafetimer / 1800)));
+								targetY = (float)(-480 * (t - t * stgendsafetimer / 1500) * Math.Cos(2 * stgendsafetimer * Math.PI / 180 / (1 - stgendsafetimer / 1800)));
+								NPC.velocity = new Vector2(OldCenter.X, OldCenter.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 								endexplodespeed = (int)(Main.rand.NextFloat(0, 60));
 								if ((int)endexplodespeed >= 57) {
 									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
 								}
 							}
-
 						}
-
 					}
-					else if (stgendsafetimer >= 150) {
+					else {
 						AACTcrashed = true;
 						deathtimer++;
+						if (deathtimer <= 1) {
+							Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<IACTScreenWave>(), 0, 0f, 0, 0);
+						}
 						if (deathtimer <= 360) {
 							NPC.velocity.X = NPC.velocity.X * (360 - deathtimer) / 360;
 							NPC.velocity.Y = NPC.velocity.Y * (360 - deathtimer) / 360;
@@ -1199,9 +1327,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/AACTendboom") with { Volume = 1f, Pitch = 0f }, Player.Center);
 						}
 
-						if (deathtimer >= 380)
-						{
+						if (deathtimer >= 380) {
 							deathcheck = 2;
+							Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<IACTScreenWave>(), 0, 0f, 0, 0);
 							Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<AACTDeathdust>(), 0, 0f, 0, 0);//爆炸粒子
 						}
 
@@ -1251,18 +1379,29 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			return;
 		}
 
+		private void resetChangeSTG2() {//刷新投弹属性
+			Player Player = Main.player[NPC.target];
+			if (Main.masterMode) {
+				stage2to3r = Main.rand.Next(240, 331);
+				stage2to3atkspeed = Main.rand.Next(16, 25);
+			}
+			else if (Main.expertMode) {
+				stage2to3r = Main.rand.Next(330, 421);
+				stage2to3atkspeed = Main.rand.Next(24, 33);
+			}
+			else {
+				stage2to3r = Main.rand.Next(390, 481);
+				stage2to3atkspeed = Main.rand.Next(32, 43);
+			}
+			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Teleport") with { Volume = 1f, Pitch = 0f }, Player.Center);
+			return;
+		}
+
 		public override bool CheckDead()//锁血及锁血解除
 		{
 			Player Player = Main.player[Main.myPlayer];
 			if (deathcheck == 2)//死亡
 			{
-				//if (!Main.dedServ)//Gore
-				//{
-				//	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-5, 5) * 0.6f, (float)Main.rand.Next(-40, -20) * 0.6f), Mod.Find<ModGore>("IACT Gore 1").Type, 1f);
-				//	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 2").Type, 1f);
-				//	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
-				//	Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
-				//}
 				Main.NewText(Language.GetTextValue("瀹冨氨鐞嗗簲琚姽娑堛€�"), 138, 0, 18);
 				return true;
 			}
@@ -1280,6 +1419,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class AACTIntro : ModNPC
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
 		}
@@ -1308,7 +1448,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 			NPC.Center = Player.Center;
 			timer++;
-			if(timer == 330) {
+			if (timer == 330) {
 				Main.NewText(Language.GetTextValue("钀ㄧ背鍥犻潪鍐板師鐩樿笧鐨勯偑榄�"), 138, 0, 18);
 				NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(), (int)Player.Center.X, (int)Player.Center.Y - 1200, NPCType<AACT>());
 				NPC.life = 0;
@@ -1318,6 +1458,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class AACTDeathdust : ModProjectile//死亡粒子效果触发器
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1416,7 +1557,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				Projectile.alpha = 255;
 			}
 
-			Projectile.Center = Player.Center + prefire * Player.velocity + new Vector2(Main.rand.NextFloat(-32, 32), Main.rand.NextFloat(-32, 32));
+			Projectile.Center = Player.Center + prefire * Player.velocity + new Vector2(Main.rand.NextFloat(-64, 64), Main.rand.NextFloat(-64, 64));
 			Projectile.scale = (float)(3.3f / (click / 24 + 0.5f) / (click / 24 - 5.5f) + 1.4f);
 			Projectile.alpha = (int)(0.1 * click * click - 12 * click + 255);
 
@@ -1466,7 +1607,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float[,] VelocityABCDxy = new float[4, 2] { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };//存储四个顶点的发射速度
 		private float[] MoveLengthABCD = new float[4] { 0, 0, 0, 0 };//存储四个弹幕的位移
 		private float[,] RectangleABCDxy = new float[4, 2] { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };//存储四个顶点的位置坐标
-		private static Vector2 fixedBCDxy = new Vector2(192,192);
+		private static Vector2 fixedBCDxy = new Vector2(192, 192);
 		private float r;
 		private float g;
 		private float b;
@@ -1513,53 +1654,53 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			if (timer == 10) {// >= 10
-				//if(summonedframes == false) {
-					for (int i = 0; i < 4; i++) {
-						if (Main.masterMode) {
-							randspeed = Main.rand.NextFloat(9.6f, 10.8f);
-						}
-						else if (Main.expertMode) {
-							randspeed = Main.rand.NextFloat(7.5f, 10f);
-						}
-						else {
-							randspeed = Main.rand.NextFloat(6f, 8f);
-						}
-						randrotation = i * MathHelper.PiOver2 + Main.rand.NextFloat(-MathHelper.PiOver4, MathHelper.PiOver4);
-						randvelocity = new Vector2(randspeed, 0).RotatedBy(randrotation);
-						VelocityABCDxy[i, 0] = randspeed;//存储每个顶点的发射速度向量模长
-						VelocityABCDxy[i, 1] = randrotation;//存储每个顶点的发射速度角度
-						Projectile.NewProjectile(newSource, Projectile.Center, randvelocity, ModContent.ProjectileType<CollapsedFrame>(), 0, 0f, -1, i, randvelocity.X, randvelocity.Y);
+							  //if(summonedframes == false) {
+				for (int i = 0; i < 4; i++) {
+					if (Main.masterMode) {
+						randspeed = Main.rand.NextFloat(9.6f, 10.8f);
 					}
-					//summonedframes = true;
+					else if (Main.expertMode) {
+						randspeed = Main.rand.NextFloat(7.5f, 10f);
+					}
+					else {
+						randspeed = Main.rand.NextFloat(6f, 8f);
+					}
+					randrotation = i * MathHelper.PiOver2 + Main.rand.NextFloat(-MathHelper.PiOver4, MathHelper.PiOver4);
+					randvelocity = new Vector2(randspeed, 0).RotatedBy(randrotation);
+					VelocityABCDxy[i, 0] = randspeed;//存储每个顶点的发射速度向量模长
+					VelocityABCDxy[i, 1] = randrotation;//存储每个顶点的发射速度角度
+					Projectile.NewProjectile(newSource, Projectile.Center, randvelocity, ModContent.ProjectileType<CollapsedFrame>(), 0, 0f, -1, i, randvelocity.X, randvelocity.Y);
+				}
+				//summonedframes = true;
 				//}
 			}
 
 			if (timer > 10) {
-				for(int i = 0; i < 4; i++) {
+				for (int i = 0; i < 4; i++) {
 					MoveLengthABCD[i] = CalcPos(VelocityABCDxy[i, 0], timer - 10);//每个弹幕的运动长度（不是顶点）
 					RectangleABCDxy[i, 0] = Projectile.Center.X + new Vector2(MoveLengthABCD[i], 0).RotatedBy(VelocityABCDxy[i, 1]).X + new Vector2(-18, 0).RotatedBy(VelocityABCDxy[i, 1]).X;//每个顶点的X坐标
 					RectangleABCDxy[i, 1] = Projectile.Center.Y + new Vector2(MoveLengthABCD[i], 0).RotatedBy(VelocityABCDxy[i, 1]).Y + new Vector2(-18, 0).RotatedBy(VelocityABCDxy[i, 1]).Y;//每个顶点的Y坐标
 				}
 				//颜色修改
-				if(timer <= 30) {
+				if (timer <= 30) {
 					r = 0;
 					g = (30 - timer) / 20;
 					b = 1;
 					a = (timer - 10) / 40;
 				}
-				else if(timer <= 50) {
+				else if (timer <= 50) {
 					r = 0.75f * (timer - 30) / 20;
 					g = 0;
 					b = 1;
 					a = 0.2f * (float)Math.Cos(Math.PI * timer / 5f) + 0.3f;
 				}
-				else if(timer <= 70) {
+				else if (timer <= 70) {
 					r = 0.75f + 0.25f * (timer - 50) / 20;
 					g = (timer - 50) / 20;
 					b = 1;
 					a = 0.5f;
 				}
-				else{
+				else {
 					a = 0.5f * (85 - timer) / 15;
 				}
 				//喜闻乐见的傻der时刻
@@ -1594,8 +1735,23 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			if (timer == 70) {
-				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/IACTStageChangeTremor") with { Volume = 1f, Pitch = 0f }, player.Center);
-				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaPro>(), 15, 0f, 0, 0);
+				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/IACTStageChangeTremor") with { Volume = 2f, Pitch = 0f }, player.Center);
+				//player.Hurt(PlayerDeathReason.ByCustomReason(player.name + "坍缩了。"), Main.rand.Next(60, 120),0);
+				for (int i = 0; i < Main.maxNPCs; i++) {
+					NPC SeekForNPCs = Main.npc[i];
+					if (SeekForNPCs.active && SeekForNPCs.type == ModContent.NPCType<AACT>()) {
+						if (player.Center.X < RectangleABCDxy[0, 0] && player.Center.X > RectangleABCDxy[2, 0] && player.Center.Y < RectangleABCDxy[1, 1] && player.Center.Y > RectangleABCDxy[3, 1]) {
+							player.Heal((int)-SeekForNPCs.ai[2]);
+							SeekForNPCs.ai[2] = Math.Max(SeekForNPCs.ai[2] * Main.rand.NextFloat(2f, 4f), 2f);
+							if (player.statLife <= 0) {
+								player.KillMe(PlayerDeathReason.ByCustomReason(player.name + Language.GetTextValue("Mods.ArknightsMod.StatusMessage.AACT.Collapsed")), 99999, 0);
+							}
+						}
+						else {
+							SeekForNPCs.ai[2] = Math.Max(SeekForNPCs.ai[2] * Main.rand.NextFloat(0.5f, 1f), 2f);
+						}
+					}
+				}
 			}
 		}
 
@@ -1634,10 +1790,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float timer2;
 		//private float randstop;
 
-		public override void PostDraw(Color lightColor)
-		{
+		public override void PostDraw(Color lightColor) {
 			Texture2D Colline = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/CollapsedLine").Value;
-			Main.EntitySpriteDraw(Colline, Projectile.Center - Main.screenPosition + new Vector2(0, 32*Projectile.scale).RotatedBy(Projectile.rotation), new Rectangle(0, 0, Colline.Width, Colline.Height), Color.White, (Projectile.ai[0] - 1) * MathHelper.PiOver2, new Vector2(Colline.Width / 2, Colline.Height / 2), Projectile.scale, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(Colline, Projectile.Center - Main.screenPosition + new Vector2(0, 32 * Projectile.scale).RotatedBy(Projectile.rotation), new Rectangle(0, 0, Colline.Width, Colline.Height), Color.White, (Projectile.ai[0] - 1) * MathHelper.PiOver2, new Vector2(Colline.Width / 2, Colline.Height / 2), Projectile.scale, SpriteEffects.None, 0);
 		}
 
 		public override void AI() {
@@ -1672,9 +1827,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				Projectile.scale = 5 - timer2 / 15;
 			}
 
-			Projectile.frame += (int)Main.time % randt == 0 ? Main.rand.Next(1,9) : 0;
+			Projectile.frame += (int)Main.time % randt == 0 ? Main.rand.Next(1, 9) : 0;
 			Projectile.frame %= 8;
-			if(Projectile.timeLeft >= 15) {
+			if (Projectile.timeLeft >= 15) {
 				Projectile.velocity = new Vector2(Projectile.ai[1], Projectile.ai[2]) * (Projectile.timeLeft - 14) / 60;//一秒内减速到0
 				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			}
@@ -1687,6 +1842,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class AACTStage3TrueHealth : ModNPC
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -1706,7 +1862,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 		public int AACTstg3TH {
 			get {
-				if(ishealthget == false) {
+				if (ishealthget == false) {
 					ishealthget = true;
 					if (Main.masterMode) {
 						lasthealth = Main.rand.Next(16, 21);
@@ -1780,7 +1936,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Shield") with { Volume = 1f, Pitch = 0f }, Player.Center);
 			iscooldownsoundplayed = true;
-			cooldown = 90;
+			cooldown = Main.rand.Next(60,121);
 			usehealth -= 1;
 			NPC.life = usehealth;
 		}
@@ -1789,7 +1945,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/AACTSTG3HIT") with { Volume = 1f, Pitch = 0f }, Player.Center);
 			iscooldownsoundplayed = true;
-			cooldown = 90;
+			cooldown = Main.rand.Next(60, 121);
 			usehealth -= 1;
 			NPC.life = usehealth;
 		}
@@ -1842,6 +1998,483 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				NPC.life = 1;
 				return false;
 			}
+		}
+	}
+
+	public class IACTStage3target : ModNPC
+	{
+		public override string Texture => ArknightsMod.noTexture;
+		public override void SetStaticDefaults() {
+			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
+		}
+
+		public override void SetDefaults() {
+			NPC.lifeMax = 1;
+			NPC.damage = 0;
+			NPC.defense = 0;
+			NPC.knockBackResist = 0f;//击退抗性，0f为最高，1f为最低
+			NPC.width = 1;
+			NPC.height = 1;
+			NPC.noGravity = true;//无引力
+			NPC.noTileCollide = true;//不与物块相撞
+			NPC.lavaImmune = true;//免疫岩浆
+			NPC.aiStyle = -1;
+			NPC.HitSound = SoundID.NPCHit4;//金属声
+			NPC.DeathSound = SoundID.NPCDeath14;//爆炸声
+		}
+
+		public int ParentIndex {
+			get => (int)NPC.ai[0] - 1;
+			set => NPC.ai[0] = value + 1;
+		}
+
+		public static int BodyType() {
+			return ModContent.NPCType<AACT>();
+		}
+
+		private int timer;
+		private int stage3atkloop;
+
+		public override void AI() {
+			var newSource = NPC.GetSource_FromThis();
+
+			if (Main.masterMode) {
+				stage3atkloop = 450;
+			}
+			else if (Main.expertMode) {
+				stage3atkloop = 540;
+			}
+			else {
+				stage3atkloop = 630;
+			}
+			if (timer % stage3atkloop == 0) {
+				Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3InCore>(), 0, 0f, 0, NPC.whoAmI);
+				Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3InRing>(), 0, 0f, 0, NPC.whoAmI);
+				Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3OutPrism>(), 0, 0f, 0, NPC.whoAmI);
+				Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ISTG3OutRing>(), 0, 0f, 0, NPC.whoAmI);
+			}
+			timer++;
+			Player Player = Main.player[Main.myPlayer];
+			NPC parentNPC = Main.npc[ParentIndex];
+			NPC.dontTakeDamage = true;
+			NPC.Center = 2 * Player.Center - parentNPC.Center;
+			if (parentNPC.life == 1 || parentNPC.active == false) {
+				die();
+			}
+		}
+
+		private int killtimer;
+
+		private void die() {
+			killtimer++;
+			NPC.alpha = 4 * killtimer;
+			if (NPC.alpha > 255) {
+				NPC.alpha = 255;
+			}
+			NPC.scale = 1 - killtimer / 60;
+			if (NPC.scale < 0) {
+				NPC.scale = 0;
+			}
+			if (killtimer >= 120) {
+				NPC.dontTakeDamage = false;
+				NPC.life = 0;
+			}
+		}
+	}
+
+	public class ISTG3InCore : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3InCore";
+
+		public override void SetDefaults() {
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			if (Main.masterMode) {
+				Projectile.timeLeft = 360;
+			}
+			else if (Main.expertMode) {
+				Projectile.timeLeft = 450;
+			}
+			else {
+				Projectile.timeLeft = 540;
+			}
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private int timer;
+
+		public int ParentIndex {
+			get => (int)Projectile.ai[0] - 1;
+			set => Projectile.ai[0] = value + 1;
+		}
+
+		public override void AI() {
+			timer++;
+			Player Player = Main.player[Main.myPlayer];
+			NPC parentNPC = Main.npc[ParentIndex];
+			Projectile.Center = 2 * Player.Center - parentNPC.Center;
+			if (Main.masterMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
+				if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360)) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 60 - Math.PI / 2) + 0.9f;
+				}
+			}
+			else if (Main.expertMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else if (timer >= 60 && timer <= 390) {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 0.9f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2);
+				}
+			}
+			else {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else if (timer >= 60 && timer <= 480) {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 0.9f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4);
+				}
+			}
+			if (Projectile.alpha < 0) {
+				Projectile.alpha = 0;
+			}
+		}
+	}
+
+	public class ISTG3InRing : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3InRing";
+
+		public override void SetDefaults() {
+			Projectile.width = 52;
+			Projectile.height = 52;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			if (Main.masterMode) {
+				Projectile.timeLeft = 360;
+			}
+			else if (Main.expertMode) {
+				Projectile.timeLeft = 450;
+			}
+			else {
+				Projectile.timeLeft = 540;
+			}
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private int timer;
+
+		public int ParentIndex {
+			get => (int)Projectile.ai[0] - 1;
+			set => Projectile.ai[0] = value + 1;
+		}
+
+		public override void AI() {
+			timer++;
+			Player Player = Main.player[Main.myPlayer];
+			NPC parentNPC = Main.npc[ParentIndex];
+			Projectile.Center = 2 * Player.Center - parentNPC.Center;
+			Projectile.rotation = -0.05f * timer;
+			if (Main.masterMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
+				if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360)) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 60 - Math.PI / 2) + 0.9f;
+				}
+			}
+			else if (Main.expertMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else if (timer >= 60 && timer <= 390) {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 1f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2);
+				}
+			}
+			else {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else if (timer >= 60 && timer <= 480) {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 0.9f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4);
+				}
+			}
+			if (Projectile.alpha < 0) {
+				Projectile.alpha = 0;
+			}
+		}
+	}
+
+	public class ISTG3OutRing : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3OutRing";
+
+		public override void SetDefaults() {
+			Projectile.width = 166;
+			Projectile.height = 166;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			if (Main.masterMode) {
+				Projectile.timeLeft = 360;
+			}
+			else if (Main.expertMode) {
+				Projectile.timeLeft = 450;
+			}
+			else {
+				Projectile.timeLeft = 540;
+			}
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private int timer;
+
+		public int ParentIndex {
+			get => (int)Projectile.ai[0] - 1;
+			set => Projectile.ai[0] = value + 1;
+		}
+
+		public override void AI() {
+			timer++;
+			Player Player = Main.player[Main.myPlayer];
+			NPC parentNPC = Main.npc[ParentIndex];
+
+			Projectile.Center = 2 * Player.Center - parentNPC.Center;
+			Projectile.rotation = 0.05f * timer;
+			if (Main.masterMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
+				if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360)) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else {
+					Projectile.scale = 1f;
+				}
+			}
+			else if (Main.expertMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else if (timer >= 60 && timer <= 390) {
+					Projectile.scale = 1f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2);
+				}
+			}
+			else {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120);
+				}
+				else if (timer >= 60 && timer <= 480) {
+					Projectile.scale = 1f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4);
+				}
+			}
+			if (Projectile.alpha < 0) {
+				Projectile.alpha = 0;
+			}
+		}
+	}
+
+	public class ISTG3OutPrism : ModProjectile
+	{
+		private const string ChainTextPath = "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/ISTG3OutPrism";
+
+		public override void SetDefaults() {
+			Projectile.width = 132;
+			Projectile.height = 132;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			if (Main.masterMode) {
+				Projectile.timeLeft = 360;
+			}
+			else if (Main.expertMode) {
+				Projectile.timeLeft = 450;
+			}
+			else {
+				Projectile.timeLeft = 540;
+			}
+			Projectile.alpha = 10;
+			Projectile.damage = 0;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private int timer;
+
+		public int ParentIndex {
+			get => (int)Projectile.ai[0] - 1;
+			set => Projectile.ai[0] = value + 1;
+		}
+
+		public override void AI() {
+			timer++;
+			Player Player = Main.player[Main.myPlayer];
+			NPC parentNPC = Main.npc[ParentIndex];
+			Projectile.Center = 2 * Player.Center - parentNPC.Center;
+			Projectile.rotation = 0.05f * timer;
+			if (Main.masterMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 60 - timer * 6 + 255);
+				if ((timer >= 0 && timer <= 60) || (timer >= 300 && timer <= 360)) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120) + 0.2f;
+				}
+				else {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 60 - Math.PI / 2) + 1.1f;
+				}
+			}
+			else if (Main.expertMode) {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 75 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120) + 0.2f;
+				}
+				else if (timer >= 60 && timer <= 390) {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 1.1f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 + Math.PI / 2) + 0.2f;
+				}
+			}
+			else {
+				Projectile.alpha = (int)(Math.Pow(timer, 2) / 90 - timer * 6 + 255);
+				if (timer >= 0 && timer <= 60) {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120) + 0.2f;
+				}
+				else if (timer >= 60 && timer <= 480) {
+					Projectile.scale = 0.1f * (float)Math.Sin(timer * Math.PI / 70 - 5 * Math.PI / 14) + 1.1f;
+				}
+				else {
+					Projectile.scale = (float)Math.Sin(timer * Math.PI / 120 - 3 * Math.PI / 4) + 0.2f;
+				}
+			}
+			if (Projectile.alpha < 0) {
+				Projectile.alpha = 0;
+			}
+		}
+	}
+
+	public class AACTEndShow : ModProjectile
+	{
+		public override string Texture => ArknightsMod.noTexture;
+		public override void SetStaticDefaults() {
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 600;
+		}
+
+		public override void SetDefaults() {
+			Projectile.width = 1;
+			Projectile.height = 1;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 3200;
+			Projectile.alpha = 0;
+			Projectile.damage = 0;
+			Projectile.light = 0f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		public int ParentIndex {
+			get => (int)Projectile.ai[0] - 1;
+			set => Projectile.ai[0] = value + 1;
+		}
+
+		public static int HostType() {
+			return ModContent.NPCType<AACT>();
+		}
+
+		private float timer;
+		private int colortimer;
+		private int r;
+		private int g;
+
+		public override void AI() {
+			timer++;
+			for (int i = 0; i < Main.maxNPCs; i++) {
+				NPC SeekForNPCs = Main.npc[i];
+				if (SeekForNPCs.active && SeekForNPCs.type == ModContent.NPCType<AACT>()) {
+					Projectile.Center = SeekForNPCs.Center;
+					colortimer += Math.Min(Math.Max(1, (int)(16 * timer / Projectile.timeLeft)), Projectile.timeLeft / 10);
+				}
+			}
+
+			if(colortimer < 240) {
+				r = 0;
+				g = 240 - colortimer;
+			}
+			else if(colortimer < 440) {
+				r = colortimer - 240;
+				g = 0;
+			}
+			else if(colortimer < 640) {
+				r = 640 - colortimer;
+				g = 0;
+			}
+			else if (colortimer < 880) {
+				r = 0;
+				g = colortimer - 640;
+			}
+			else {
+				colortimer = 0;
+			}
+		}
+
+		public override bool PreDraw(ref Color lightColor) {
+			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/LineTrail").Value;
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, Vector2.Zero, new Color(r, g, 240), new Color(0, 0, 0), 25f * Math.Min(timer / 600, 1), true);
+			return true;
 		}
 	}
 }

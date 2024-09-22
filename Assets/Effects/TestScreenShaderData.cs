@@ -1,13 +1,6 @@
 using Terraria;
 using Terraria.Graphics.Shaders;
-//using Terraria.ModLoader;
-//using ArknightsMod.VisualEffects.Effects;
-//using System;
-//using System.Collections.Generic;
-//using Microsoft.Xna.Framework;
-//using Terraria.Graphics.Effects;
 using Microsoft.Xna.Framework.Graphics;
-//using Terraria.ID;
 
 namespace ArknightsMod.Assets.Effects
 {

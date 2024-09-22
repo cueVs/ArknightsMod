@@ -1,16 +1,10 @@
-﻿//using ArknightsMod.Content.NPCs;
-using Terraria;
+﻿using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-//using System.Collections.Generic;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-//using Microsoft.Xna.Framework;
-//using Microsoft.Xna.Framework.Graphics;
-//using System;
-//using System.IO;
 using Terraria.Localization;
-//using Terraria.DataStructures;
+using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
 
 namespace ArknightsMod.Content.Items.Summon
 {
@@ -38,7 +32,7 @@ namespace ArknightsMod.Content.Items.Summon
 
         public override bool CanUseItem(Player player)
         {
-            if (!Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer.IACT>()))
+            if (!Main.dayTime && !NPC.AnyNPCs(ModContent.NPCType<Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer.IAT>()))
             {
                 return true;
             }
@@ -50,9 +44,7 @@ namespace ArknightsMod.Content.Items.Summon
 
         public override bool? UseItem(Player player) 
         {
-            int IACTboss = NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(),(int)player.Center.X, (int)player.Center.Y - 800, NPCType<Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer.IAT> ());
-            Main.npc[IACTboss].netUpdate = true;
-            Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Summon"), 138, 0, 18);
+			NPC.NewNPC(Terraria.Entity.GetSource_TownSpawn(), (int)player.Center.X, (int)player.Center.Y - 800, NPCType<IAT>());
 			return true;
 		}
 

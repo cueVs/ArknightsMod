@@ -11,7 +11,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using ArknightsMod.Content.Items.Material;
 using static Terraria.ModLoader.ModContent;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
@@ -666,7 +665,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 
 			if (stage == 1) {
-				Texture2D healthTexture1 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB1").Value;//一·阶段血条
+				Texture2D healthTexture1 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB1").Value;//一阶段血条
 				Main.EntitySpriteDraw(healthTexture1, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture1.Width * stage1healthscale), healthTexture1.Height), Color.White, 0, new Vector2(healthTexture1.Width / 2, healthTexture1.Height / 2), barscale, SpriteEffects.None, 0);
 			}
 
@@ -2040,6 +2039,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 	#endregion
 	public class ExplodeArea : ModProjectile
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2079,6 +2079,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeAreaPro : ModProjectile
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2118,6 +2119,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class Deathdust : ModProjectile//死亡粒子效果触发器
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults()
 		{
 		}
@@ -2279,6 +2281,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class IACTScreenWave : ModProjectile
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2338,6 +2341,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeWave : ModProjectile
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -2436,7 +2440,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 		public override bool PreDraw(ref Color lightColor) {
 			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/FlameTrail").Value;
-			TrailProjectileMaker.ProjectileDrawTail(Projectile, trailtexture, new Vector2(12, -12), new Color(255, 80, 0), new Color(235, 100, 0), 15f, true);
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(12, -12), new Color(255, 80, 0), new Color(235, 100, 0), 15f, true);
 			return true;
 		}
 	}
@@ -2482,17 +2486,17 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 		public override bool PreDraw(ref Color lightColor) {
 			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/FlameTrail").Value;
-			TrailProjectileMaker.ProjectileDrawTail(Projectile, trailtexture, new Vector2(12, -12), new Color(255, 60, 0), new Color(220, 20, 0), 15f, true);
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(12, -12), new Color(255, 60, 0), new Color(220, 20, 0), 15f, true);
 			return true;
 		}
 	}
 
 	public class IACTIntro : ModNPC
 	{
+		public override string Texture => "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACT";
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
 		}
-
 		public override void SetDefaults() {
 			NPC.lifeMax = 1000;
 			NPC.damage = 0;

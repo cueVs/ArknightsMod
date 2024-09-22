@@ -840,6 +840,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 	public class ExplodeAreaSmall : ModProjectile
 	{
+		public override string Texture => ArknightsMod.noTexture;
 		public override void SetStaticDefaults() {
 		}
 		public override void SetDefaults() {
@@ -878,6 +879,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 	}
 	public class IATIntro : ModNPC
 	{
+		public override string Texture => "ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IAT";
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[NPC.type] = 1;//贴图帧数
 		}
