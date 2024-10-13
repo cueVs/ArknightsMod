@@ -95,6 +95,21 @@ Mods: {
 				Tooltip: ""
 			}
 
+			MelanthaBody: {
+				DisplayName: Melantha's outfit (Body)
+				Tooltip: ""
+			}
+
+			MelanthaHead: {
+				DisplayName: Melantha's outfit (Head)
+				Tooltip: ""
+			}
+
+			MelanthaLegs: {
+				DisplayName: Melantha's outfit (Legs)
+				Tooltip: ""
+			}
+
 			MatoimaruBody: {
 				DisplayName: Matoimaru's outfit (Body)
 				Tooltip: ""
@@ -207,6 +222,11 @@ Mods: {
 
 			AmiyaDefault: {
 				DisplayName: Amiya's costume (default)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MelanthaDefault: {
+				DisplayName: Melantha's costume (default)
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
@@ -517,26 +537,6 @@ Mods: {
 
 			AcidOgSlugBanner: {
 				DisplayName: Acid Originium Slug Banner
-				Tooltip: ""
-			}
-
-			MelanthaBody: {
-				DisplayName: Melantha Body
-				Tooltip: ""
-			}
-
-			MelanthaHead: {
-				DisplayName: Melantha Head
-				Tooltip: ""
-			}
-
-			MelanthaLegs: {
-				DisplayName: Melantha Legs
-				Tooltip: ""
-			}
-
-			MelanthaDefault: {
-				DisplayName: Melantha Default
 				Tooltip: ""
 			}
 		}
