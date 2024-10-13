@@ -7,7 +7,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 {
 	// See also: ExampleCostume
 	[AutoloadEquip(EquipType.Body)]
-	public class MatoimaruBody : ModItem
+	public class MelanthaBody : ModItem
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Jacket");
@@ -19,9 +19,9 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 		}
 
 		public override void SetDefaults() {
-			Item.width = 28;
-			Item.height = 22;
-			Item.rare = ItemRarityID.LightRed; // Same rarity as Arknights
+			Item.width = 26;
+			Item.height = 18;
+			Item.rare = ItemRarityID.Orange; // Same rarity as Arknights
 			Item.vanity = true;
 		}
 

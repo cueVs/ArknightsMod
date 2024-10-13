@@ -95,6 +95,21 @@ Mods: {
 				// Tooltip: ""
 			}
 
+			MelanthaBody: {
+				DisplayName: 玫兰莎的上衣
+				// Tooltip: ""
+			}
+
+			MelanthaHead: {
+				DisplayName: 玫兰莎的头套
+				// Tooltip: ""
+			}
+
+			MelanthaLegs: {
+				DisplayName: 玫兰莎的下装
+				// Tooltip: ""
+			}
+
 			MatoimaruBody: {
 				DisplayName: 缠丸的上衣
 				// Tooltip: ""
@@ -207,6 +222,11 @@ Mods: {
 
 			AmiyaDefault: {
 				DisplayName: 阿米娅的服饰（常规）
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			MelanthaDefault: {
+				DisplayName: 玫兰莎的服饰（常规）
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
