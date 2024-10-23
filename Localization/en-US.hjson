@@ -535,6 +535,11 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Spicycandy
 			}
+
+			CorruptedRecord: {
+				DisplayName: Corrupted Record
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -612,6 +617,12 @@ Mods: {
 			Crossbowman.DisplayName: Crossbowman
 			IACTStage3target.DisplayName: AACT Stage3target
 			FrostNova.DisplayName: Frost Nova
+			DeepSeaSlider.DisplayName: Deep Sea Slider
+			ShellSeaRunner.DisplayName: Shell Sea Runner
+			FloatingSeaDrifter.DisplayName: Floating Sea Drifter
+			PocketSeaCrawler.DisplayName: Pocket Sea Crawler
+			PrimalSeaPiercer.DisplayName: Primal Sea Piercer
+			BasinSeaReaper.DisplayName: Basin Sea Reaper
 		}
 
 		# Friendly
@@ -716,6 +727,13 @@ Mods: {
 			TestProj2.DisplayName: Test Proj2
 			TestProj3.DisplayName: Test Proj3
 			AACTEndShow.DisplayName: AACT End Show
+			Blizzard.DisplayName: Blizzard
+			BlizzardStorm.DisplayName: Blizzard Storm
+			BlizzardStormStarter.DisplayName: Blizzard Storm Starter
+			FloatingSeaDrifterShoot.DisplayName: Floating Sea Drifter Shoot
+			PocketSeaCrawlerShoot.DisplayName: Pocket Sea Crawler Shoot
+			PocketSeaCrawlerShoot2.DisplayName: Pocket Sea Crawler Shoot2
+			PSPShoot.DisplayName: P S P Shoot
 		}
 
 		ButtonName.button2: Annihilation operation

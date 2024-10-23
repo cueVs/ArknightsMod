@@ -535,6 +535,11 @@ Mods: {
 				// Tooltip: ""
 				// DisplayName: Spicycandy
 			}
+
+			CorruptedRecord: {
+				DisplayName: 腐蚀的伊比利亚唱片
+				Tooltip: 收下它的冲动来自一种不知名的渴求。
+			}
 		}
 
 		Buffs: {
@@ -612,6 +617,12 @@ Mods: {
 			Crossbowman.DisplayName: 弩手
 			IACTStage3target.DisplayName: 邪魔炮火中枢先兆者（三阶段目标）
 			FrostNova.DisplayName: 霜星
+			DeepSeaSlider.DisplayName: 底海滑动者
+			ShellSeaRunner.DisplayName: 壳海狂奔者
+			FloatingSeaDrifter.DisplayName: 浮海飘航者
+			PocketSeaCrawler.DisplayName: 囊海爬行者
+			// PrimalSeaPiercer.DisplayName: Primal Sea Piercer
+			// BasinSeaReaper.DisplayName: Basin Sea Reaper
 		}
 
 		# Friendly
@@ -716,6 +727,13 @@ Mods: {
 			// TestProj2.DisplayName: Test Proj2
 			// TestProj3.DisplayName: Test Proj3
 			AACTEndShow.DisplayName: 邪魔炮火中枢先兆者尾杀演出
+			// Blizzard.DisplayName: Blizzard
+			// BlizzardStorm.DisplayName: Blizzard Storm
+			// BlizzardStormStarter.DisplayName: Blizzard Storm Starter
+			FloatingSeaDrifterShoot.DisplayName: 水花弹
+			PocketSeaCrawlerShoot.DisplayName: 囊海爬行者的喷射物
+			PocketSeaCrawlerShoot2.DisplayName: 囊海爬行者的刺
+			// PSPShoot.DisplayName: P S P Shoot
 		}
 
 		ButtonName.button2: 剿灭作战

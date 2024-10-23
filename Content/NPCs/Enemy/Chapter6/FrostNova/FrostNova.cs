@@ -14,13 +14,13 @@ using Microsoft.Xna.Framework.Graphics;
 using ArknightsMod.Content.BossBars;
 using ArknightsMod.Content.Items.Material;
 using ArknightsMod.Common.VisualEffects;
+using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
 
 
 namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 {
 	[AutoloadBossHead]
-	public class FrostNova : ModNPC
-	{
+	public class FrostNova : ModNPC {
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = 76;
 			NPCID.Sets.MPAllowedEnemies[Type] = true;
@@ -67,7 +67,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
-				
+
 				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.FrostNova"))
 			});
 		}
@@ -92,7 +92,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			Texture2D BarTexTop = ModContent.Request<Texture2D>("ArknightsMod/Content/BossBars/FNBossBarTop").Value;
 			if (!FNDeathStart) {
 				Bartimer++;
-				if(Bartimer > 120) {
+				if (Bartimer > 120) {
 					Bartimer = 120;
 				}
 			}
@@ -126,6 +126,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		//}
 
 		private float BirthTimer;
+		private float ReBirthTimer;
 		private float escapetimer;
 		private float DeathTimer;
 		private float JumpTimer = 0;
@@ -158,7 +159,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 
 		public override void AI() {
 			Player player = Main.player[NPC.target];
-			//音乐
+
+			//霜星的具体阶段比较复杂，有两个标识种类，阶段表示法和状态表示法
+			//生成时候是0阶段，FNBirth和FNBirthEnd不生效，然后FNBirth的判定是生成动画播完，FNBirthEnd的判定是机制出完（BirthTimer 达到4秒），生成结束后进入1阶段
+			//一阶段没血后锁血进入1.5阶段，同时播放复活动画，FNRevivalStart启用，复活回满血持续10秒，这之间动画播完后结束后FNRevivalEnd生效，回到走路动画
+			//复活阶段结束后FNRevival启用，FNRevivalStart和FNRevivalEnd被禁用，进入2阶段
+			//二阶段起始前四秒（ReBirthTimer达到四秒）会召唤龙卷风，四秒后进入正常AI，n秒后解除无敌
+			//二阶段没血后锁血进入2.5阶段（还没写），后面还没写
+
+			#region 音乐
 			if (!Main.dedServ) {
 				if (FNStage <= 1) {
 					Music = MusicLoader.GetMusicSlot(Mod, "Music/FrostnovaStage1");//一阶段
@@ -170,68 +179,114 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 					Music = MusicLoader.GetMusicSlot(Mod, "Music/FrostnovaDeath");//死亡
 				}
 			}
-			//玩家死亡
-			if (!player.active || player.dead) {
-				NPC.TargetClosest(false);
-				player = Main.player[NPC.target];
-				escapetimer++;
-				if (escapetimer > 60) {
-					for (int i = 0; i < 3; i++) {
-						float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
-						float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
-						Vector2 position = new Vector2(positionX, positionY);
-						Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
+			#endregion
+
+			#region 移动方式
+			if (!FNRevivalStart && FNBirthEnd && FNStage != 3) {
+				//方向
+				float ax = 0.1f;
+				float vx = 0.25f;
+				int direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
+				NPC.direction = direction;
+				Vector2 velDiff = NPC.velocity - player.velocity;
+				int haltDirectionX = velDiff.X > 0 ? 1 : -1;
+				float haltPointX = NPC.Center.X + haltDirectionX * (velDiff.X * velDiff.X) / (2 * ax);
+				//撞墙后跳跃准备，跳跃K次后记录玩家位置，K+1次后传送到该位置
+				float jumpspeed = jumptimes < 3 ? 4f * (jumptimes + 1) : 0;
+				//int antijump = jumptimes == 2 ? -1 : 1;
+				//跳跃
+				if (NPC.velocity.X == 0 && jumptimes != 4 && !(FNStage == 2 && ReBirthTimer < 240)) {//撞墙，排除二阶段起始
+					isstuck = true;
+
+					if (player.Center.X > haltPointX) {
+						NPC.velocity.X += /*antijump * */ax;
 					}
-					for (int i = 0; i < 3; i++) {
-						float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
-						float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
-						Vector2 position = new Vector2(positionX, positionY);
-						Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
+					else {
+						NPC.velocity.X -= /*antijump * */ax;
 					}
-					NPC.Center = Vector2.Zero;
-					NPC.active = false;
-				}
-				return;
-			}
-			//生成
-			if (!FNBirthEnd) {
-				if (BirthTimer < 240) {
-					BirthTimer++;
-					NPC.damage = 0;
-					NPC.dontTakeDamage = true;
-					NPC.Opacity = BirthTimer / 120;
-					NPC.velocity.X = 0;
-					if (BirthTimer == 30) {
-						for (int i = 0; i < 3; i++) {
-							float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
-							float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
-							Vector2 position = new Vector2(positionX, positionY);
-							Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
-						}
-						for (int i = 0; i < 3; i++) {
-							float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
-							float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
-							Vector2 position = new Vector2(positionX, positionY);
-							Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
+					NPC.velocity.X = Math.Min(/*antijump * */vx, Math.Max(-vx/* * antijump*/, NPC.velocity.X));
+					if (NPC.velocity.Y == 0) {
+						jumpstage += 1;
+						if (jumpstage >= 1) {
+							NPC.velocity.Y -= jumpspeed;
+							jumpstage = 0;
+							jumptimes += 1;
+							if (jumptimes == 2) {
+								statplrposX = player.Center.X;
+								statplrposY = player.Center.Y;
+							}
 						}
 					}
-					if (BirthTimer <= 60) {
-						Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, NPC.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f)];
-						dust.noGravity = true;
-						dust.fadeIn = 0f;
-						dust.scale = 1f;
+				}
+				else if (jumptimes == 4) {//传送
+					JumpTimer++;
+					if (JumpTimer <= 30) {
+						if (player.Center.X > haltPointX) {
+							NPC.velocity.X -= 0.05f * ax;
+						}
+						else {
+							NPC.velocity.X += 0.05f * ax;
+						}
+					}
+					else if (JumpTimer <= 60) {
+						NPC.velocity.X = float.Lerp(NPC.velocity.X, 0, 0.01f);
+						NPC.Opacity = 2 - JumpTimer / 30;
+						FNTPOpacity = NPC.Opacity;
+						if (JumpTimer == 40) {
+							for (int i = 0; i < 2; i++) {
+								Projectile.NewProjectile(null, NPC.Center, new Vector2(1f * NPC.direction, 1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
+							}
+							SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
+						}
+						if (JumpTimer >= 40) {
+							Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, NPC.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f)];
+							dust.noGravity = true;
+							dust.fadeIn = 0f;
+							dust.scale = 1f;
+						}
+					}
+					else if (JumpTimer <= 90) {
+						if (JumpTimer == 90) {
+							NPC.Center = new Vector2(statplrposX, statplrposY - 8);
+						}
+					}
+					else if (JumpTimer <= 135) {
+						if (JumpTimer == 91) {
+							for (int i = 0; i < 2; i++) {
+								Projectile.NewProjectile(null, NPC.Center, new Vector2(1f * NPC.direction, 1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
+							}
+							SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
+						}
+						if (JumpTimer <= 120) {
+							Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, NPC.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f)];
+							dust.noGravity = true;
+							dust.fadeIn = 0f;
+							dust.scale = 1f;
+						}
+						NPC.Opacity = Math.Min(JumpTimer / 45 - 2, 1);
+						FNTPOpacity = NPC.Opacity;
+					}
+					else {
+						JumpTimer = 0;
+						jumptimes = 0;
 					}
 				}
-				else {
-					FNStage = 1;
-					NPC.damage = 12;
-					NPC.dontTakeDamage = false;
-					NPC.Opacity = 1;
-					FNBirthEnd = true;
-					//NPC.lifeMax = 200;
+				else {//没有撞墙
+					isstuck = false;
+					jumptimes = 0;
+					jumpstage = 0;
+					if (player.Center.X > haltPointX) {
+						NPC.velocity.X += ax;
+					}
+					else {
+						NPC.velocity.X -= ax;
+					}
+					NPC.velocity.X = Math.Min(vx, Math.Max(-vx, NPC.velocity.X));
 				}
 			}
-			//限制阈效果,progress为半径，intensity为不透明度，time为形变，opacity为粗细
+			#endregion
+
+			#region 限制阈效果,progress为半径，intensity为不透明度，time为形变，opacity为粗细
 			if (FNStage == 1) {
 				FNShaderRingTimer++;
 				//半径、颜色等与阶段有关
@@ -307,119 +362,83 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 					Terraria.Graphics.Effects.Filters.Scene["FNTwistedRing"].Deactivate();
 				}
 			}
-			//移动方式
-			if (!FNRevivalStart && FNBirthEnd) {
-				//方向
-				float ax = 0.1f;
-				float vx = 0.25f;
-				int direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
-				NPC.direction = direction;
-				Vector2 velDiff = NPC.velocity - player.velocity;
-				int haltDirectionX = velDiff.X > 0 ? 1 : -1;
-				float haltPointX = NPC.Center.X + haltDirectionX * (velDiff.X * velDiff.X) / (2 * ax);
-				//撞墙后跳跃准备，跳跃K次后记录玩家位置，K+1次后传送到该位置
-				float jumpspeed = jumptimes < 3 ? 4f * (jumptimes + 1) : 0;
-				//int antijump = jumptimes == 2 ? -1 : 1;
-				//跳跃
-				if (NPC.velocity.X == 0 && jumptimes != 4) {//撞墙
-					isstuck = true;
+			#endregion
 
-					if (player.Center.X > haltPointX) {
-						NPC.velocity.X += /*antijump * */ax;
+			#region 玩家死亡后消失
+			if (!player.active || player.dead) {
+				NPC.TargetClosest(false);
+				player = Main.player[NPC.target];
+				escapetimer++;
+				if (escapetimer > 60) {
+					for (int i = 0; i < 3; i++) {
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
+						float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
+						Vector2 position = new Vector2(positionX, positionY);
+						Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
 					}
-					else {
-						NPC.velocity.X -= /*antijump * */ax;
+					for (int i = 0; i < 3; i++) {
+						float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
+						float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
+						Vector2 position = new Vector2(positionX, positionY);
+						Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
 					}
-					NPC.velocity.X = Math.Min(/*antijump * */vx, Math.Max(-vx/* * antijump*/, NPC.velocity.X));
-					if (NPC.velocity.Y == 0) {
-						jumpstage += 1;
-						if (jumpstage >= 1) {
-							NPC.velocity.Y -= jumpspeed;
-							jumpstage = 0;
-							jumptimes += 1;
-							if (jumptimes == 2) {
-								statplrposX = player.Center.X;
-								statplrposY = player.Center.Y;
-							}
+					NPC.Center = Vector2.Zero;
+					NPC.active = false;
+				}
+				return;
+			}
+			#endregion
+
+			# region 生成（0阶段）
+			if (!FNBirthEnd) {
+				if (BirthTimer < 240) {
+					BirthTimer++;
+					NPC.damage = 0;
+					NPC.dontTakeDamage = true;
+					NPC.Opacity = BirthTimer / 120;
+					NPC.velocity.X = 0;
+					if (BirthTimer == 30) {
+						for (int i = 0; i < 3; i++) {
+							float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
+							float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
+							Vector2 position = new Vector2(positionX, positionY);
+							Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
 						}
+						for (int i = 0; i < 3; i++) {
+							float positionX = NPC.Center.X + Main.rand.NextFloat(-15, 15) * NPC.direction;
+							float positionY = NPC.Center.Y + Main.rand.NextFloat(0, 5);
+							Vector2 position = new Vector2(positionX, positionY);
+							Projectile.NewProjectile(null, position, new Vector2(0, -1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
+						}
+					}
+					if (BirthTimer <= 60) {
+						Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, NPC.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f)];
+						dust.noGravity = true;
+						dust.fadeIn = 0f;
+						dust.scale = 1f;
 					}
 				}
-				else if(jumptimes == 4) {//传送
-					JumpTimer++;
-					if(JumpTimer <= 30) {
-						if (player.Center.X > haltPointX) {
-							NPC.velocity.X -= 0.05f*ax;
-						}
-						else {
-							NPC.velocity.X += 0.05f*ax;
-						}
-					}
-					else if(JumpTimer <= 60) {
-						NPC.velocity.X = float.Lerp(NPC.velocity.X, 0, 0.01f);
-						NPC.Opacity = 2 - JumpTimer / 30;
-						FNTPOpacity = NPC.Opacity;
-						if (JumpTimer == 40) {
-							for (int i = 0; i < 2; i++) {
-								Projectile.NewProjectile(null, NPC.Center, new Vector2(1f * NPC.direction, 1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
-							}
-							SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
-						}
-						if (JumpTimer >= 40) {
-							Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, NPC.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f)];
-							dust.noGravity = true;
-							dust.fadeIn = 0f;
-							dust.scale = 1f;
-						}
-					}
-					else if(JumpTimer <= 90) {
-						if (JumpTimer == 90) {
-							NPC.Center = new Vector2(statplrposX, statplrposY - 8);
-						}
-					}
-					else if(JumpTimer <= 135) {
-						if (JumpTimer == 91) {
-							for (int i = 0; i < 2; i++) {
-								Projectile.NewProjectile(null, NPC.Center, new Vector2(1f * NPC.direction, 1f), ProjectileType<FrostNovaJump>(), 0, 0f, -1, 0, 40, 0);
-							}
-							SoundEngine.PlaySound(SoundID.NPCHit5, NPC.Center);
-						}
-						if(JumpTimer <= 120) {
-							Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, NPC.height / 2, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f)];
-							dust.noGravity = true;
-							dust.fadeIn = 0f;
-							dust.scale = 1f;
-						}
-						NPC.Opacity = Math.Min(JumpTimer / 45 - 2, 1);
-						FNTPOpacity = NPC.Opacity;
-					}
-					else {
-						JumpTimer = 0;
-						jumptimes = 0;
-					}
-				}
-				else {//没有撞墙
-					isstuck = false;
-					jumptimes = 0;
-					jumpstage = 0;
-					if (player.Center.X > haltPointX) {
-						NPC.velocity.X += ax;
-					}
-					else {
-						NPC.velocity.X -= ax;
-					}
-					NPC.velocity.X = Math.Min(vx, Math.Max(-vx, NPC.velocity.X));
+				else {
+					FNStage = 1;
+					NPC.damage = 12;
+					NPC.dontTakeDamage = false;
+					NPC.Opacity = 1;
+					FNBirthEnd = true;
+					//NPC.lifeMax = 200;
 				}
 			}
-			//复活
+			#endregion
+
+			# region 复活（1.5阶段）
 			if (FNRevivalStart) {
-				if(FNStage == 1.5f) {
+				if (FNStage == 1.5f) {
 					NPC.velocity.X = 0f;
 					DeathTimer++;
 					if (DeathTimer <= 320) {
 						NPC.life = 1;
 					}
 					else if (DeathTimer <= 500) {
-						NPC.life = (int)((NPC.lifeMax -1) * Math.Sin((DeathTimer - 320) * Math.PI / 360) + 1);
+						NPC.life = (int)((NPC.lifeMax - 1) * Math.Sin((DeathTimer - 320) * Math.PI / 360) + 1);
 					}
 					else {
 						NPC.life = NPC.lifeMax;
@@ -437,16 +456,44 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 						Projectile.NewProjectile(null, position, Vector2.Zero, ProjectileType<FrostNovaWhiteRing>(), 0, 0f, -1, NPC.direction);
 					}
 					if (DeathTimer >= 600) {
-						FNStage = 2;
-						NPC.dontTakeDamage = false;
+						FNStage = 2f;
 						FNRevival = true;
 						FNRevivalStart = false;
 						FNRevivalEnd = false;
 					}
 				}
 			}
-			//死亡
-			if(FNDeathStart == true) {
+			#endregion
+
+			#region 复活后召唤龙卷风
+			if (FNStage == 2f) {
+				ReBirthTimer++;
+				if (ReBirthTimer < 300) {
+					NPC.dontTakeDamage = true;
+					NPC.velocity.X = 0;
+					if (ReBirthTimer == 30) {
+						for (int i = -1; i < 3; i +=2 ) {
+							Projectile.NewProjectile(null, NPC.Center - new Vector2(0, NPC.height / 1.5f), Vector2.Zero, ProjectileType<BlizzardStormStarter>(), 0, 0f, -1, i);
+						}
+					}
+					if (BirthTimer <= 60) {
+						Dust dust = Main.dust[Dust.NewDust(NPC.position + new Vector2(0, NPC.height / 2), NPC.width, (int)(NPC.height / 1.5f), DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, -5f)];
+						dust.noGravity = true;
+						dust.fadeIn = 0f;
+						dust.scale = 1f;
+					}
+				}
+				else {
+					//FNStage = 2;
+					NPC.damage = 24;
+					NPC.dontTakeDamage = false;
+					//NPC.lifeMax = 200;
+				}
+			}
+			#endregion
+
+			#region 死亡
+			if (FNDeathStart == true) {
 				DeathTimer++;
 				if (DeathTimer == 130) {
 					for (int i = 0; i < 3; i++) {
@@ -482,6 +529,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 					NPC.checkDead();
 				}
 			}
+			#endregion
 		}
 
 		public override bool CheckDead() {
@@ -512,11 +560,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			int frameSpeed;
 			NPC.spriteDirection = NPC.direction;
 			//出场吟唱
-			if(BirthTimer < 240) {
+			if (BirthTimer < 240 || (FNStage == 2 && ReBirthTimer < 300)) {
 				startFrame = 55;
 				finalFrame = 75;
 				frameSpeed = 7;
-				if (!FNBirth) {
+				if (!FNBirth || (FNStage == 2 && ReBirthTimer < 300)) {
 					NPC.frameCounter++;
 					//如果超出范围就锁定第一帧
 					if (NPC.frame.Y == finalFrame * frameHeight) {
@@ -540,10 +588,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 				}
 			}
 			//走路
-			if (FNStage == 1 || FNStage == 2 || FNRevivalEnd) {
+			if (FNStage == 1 || (FNStage == 2 && ReBirthTimer > 300) || FNRevivalEnd) {
 				startFrame = 0;
 				finalFrame = 4;
-
 				frameSpeed = 5;
 				//if (State == ActionState.FastWalk) {
 				//	frameSpeed = 4;
@@ -946,40 +993,100 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			}
 		}
 	}
-
-	public class TestProj1 : ModProjectile
+	//往左右方向抛出的冰球，ai0分别设置为-1和1（由霜星发射时判定），同值传递给Storm
+	public class BlizzardStormStarter : ModProjectile
 	{
 		public override string Texture => ArknightsMod.noTexture;
+		public override void SetStaticDefaults() {
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 60;
+		}
 
 		public override void SetDefaults() {
 			Projectile.width = 1;
 			Projectile.height = 1;
 			Projectile.aiStyle = 0;
 			Projectile.penetrate = -1;
-			Projectile.tileCollide = false;
+			Projectile.tileCollide = true;
 			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 1;
+			Projectile.timeLeft = 6000;
 			Projectile.alpha = 0;
-			Projectile.damage = 0;
-			Projectile.light = 0f;
+			Projectile.damage = 100;
+			Projectile.light = 1f;
 			Projectile.friendly = false;
-			Projectile.hostile = false;
-			Projectile.scale = 0f;
+			Projectile.hostile = true;
+			Projectile.scale = 1f;
 		}
 
-		private bool isStormSummoned = false;
+		public override bool OnTileCollide(Vector2 oldVelocity) {
+			var newSource = Projectile.GetSource_FromThis();
+			Projectile.NewProjectile(newSource, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BlizzardStorm>(), 0, 0f, 0);
+			return true;
+		}
+
+		private float timer;
+		private int r;
+		private int g;
+		private float move1X;
+		private float move1Y;
+		private float oldPosX;
+		private float oldPosY;
+
+		//碰上就冻结
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers) {
+			target.buffImmune[BuffID.Frozen] = false;
+			target.AddBuff(BuffID.Frozen, 180);
+		}
 
 		public override void AI() {
-			var newSource = Projectile.GetSource_FromThis();
-			Player Player = Main.player[Main.myPlayer];
-			if (!isStormSummoned) {
-				Projectile.NewProjectile(newSource, Player.Center.X + Main.rand.NextFloat(-0.4f * Main.screenWidth, 0.4f * Main.screenWidth), Player.Center.Y + 0.4f * Main.screenHeight, 0, 0, ModContent.ProjectileType<TestProj2>(), 0, 0f, 0, Projectile.whoAmI);
-				isStormSummoned = true;
+			timer++;
+			r = 235 + 20 * (int)MathF.Sin(timer * MathHelper.Pi / 180);
+			g = 245 + 10 * (int)MathF.Sin(timer * MathHelper.Pi / 180);
+
+			if (Main.rand.NextFloat() < 0.25f) {
+				Dust.NewDustPerfect(Projectile.Center, DustType<Dusts.Bosses.FrostNovaDeathDust>(), Vector2.Zero, 120, new Color(255, 255, 255), 0.5f);
+			}
+
+			float uptimer = 60;
+			float spintimer = 495;
+			float lerptimer = 60;
+
+			if (timer == uptimer) {
+				oldPosX = Projectile.Center.X;
+				oldPosY = Projectile.Center.Y;
+			}
+			if (timer == uptimer + spintimer) {
+				Projectile.velocity.X = Projectile.ai[0] * 8f;
+				Projectile.velocity.Y = -Projectile.velocity.X;
+			}
+
+			if (timer <= uptimer) {
+				Projectile.velocity = new Vector2(0, -7f * (1 - timer / uptimer));
+			}
+			else if (timer <= uptimer + spintimer) {
+				float percentOfT = 1 - (timer - uptimer) / (2 * spintimer);
+				move1X = Projectile.ai[0] * (timer - uptimer) / 5f * MathF.Sin((timer - uptimer) * MathHelper.Pi / (120 * percentOfT));
+				move1Y = Projectile.ai[0] * (timer - uptimer) / 5f * MathF.Cos((timer - uptimer) * MathHelper.Pi / (120 * percentOfT));
+				Projectile.Center = new Vector2(move1X + oldPosX, move1Y + oldPosY);//期间的位置变动
+			}
+			else if (timer <= uptimer + spintimer + lerptimer) {
+				Projectile.velocity.Y = float.Lerp(Projectile.velocity.Y, 0, 0.15f);
+				Projectile.velocity.X = float.Lerp(Projectile.velocity.X, Projectile.ai[0] * 4f, 0.25f);
+			}
+			else {
+				Projectile.velocity.Y += 0.03f;
+				Projectile.velocity.X = float.Lerp(Projectile.velocity.X, Projectile.ai[0] * 8f * (60 / (timer - spintimer)), 0.025f);
 			}
 		}
-	}
 
-	public class TestProj2 : ModProjectile
+		public override bool PreDraw(ref Color lightColor) {
+			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/WindTrail").Value;
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, Vector2.Zero, new Color(r, g, 255), new Color(0, 0, 0), 15f * Math.Min(timer / 60, 1), true);
+			return true;
+		}
+	}
+	//玩家超过出龙卷风区域时龙卷风消失？？//不会写
+	public class BlizzardStorm : ModProjectile
 	{
 		public override string Texture => ArknightsMod.noTexture;
 
@@ -990,29 +1097,47 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
-			Projectile.timeLeft = 600;
+			Projectile.timeLeft = 6000;
 			Projectile.alpha = 0;
 			Projectile.damage = 0;
 			Projectile.light = 0f;
 			Projectile.friendly = false;
 			Projectile.hostile = false;
-			Projectile.scale = 0f;
+			Projectile.scale = 1f;
 		}
 
 		private int trailnum = Main.rand.Next(8, 13);//随机8-12条轨迹
 
+		public static int HostNPCType() {
+			return ModContent.NPCType<FrostNova>();
+		}
+
+		private float timer;
+
 		public override void AI() {
+			timer++;
+			for (int i = 0; i < Main.maxNPCs; i++) {
+				NPC SeekForNPCs = Main.npc[i];
+				if (SeekForNPCs.active && SeekForNPCs.type == HostNPCType()) {
+					if (SeekForNPCs.life == 1) {
+						Projectile.timeLeft = 0;
+					}
+					else {
+						Projectile.timeLeft = 60;
+					}
+				}
+			}
+
 			var newSource = Projectile.GetSource_FromThis();
-			//int trailnum = Main.rand.Next(3, 5);//随机3-4条轨迹
-			if (Projectile.timeLeft % 30 == 0) {
+			if ((int)timer % 30 == 0) {
 				for (int i = 0; i < trailnum; i++) {//生成轨迹，ai0为相位，2iπ/个数
-					Projectile.NewProjectile(newSource, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<TestProj3>(), 0, 0f, 0, 2 * i * MathHelper.Pi / trailnum);
+					Projectile.NewProjectile(newSource, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Blizzard>(), 0, 0f, 0, 2 * i * MathHelper.Pi / trailnum);
 				}
 			}
 		}
 	}
-
-	public class TestProj3 : ModProjectile
+	//单个的龙卷风团
+	public class Blizzard : ModProjectile
 	{
 		public override string Texture => ArknightsMod.noTexture;
 
@@ -1042,7 +1167,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 		private float ScreenMedPlaceDisRate;//到屏幕中央的距离占比
 		private float cosspeedy;//竖直方向的余弦运动，振幅随时间变大，与到屏幕中央的距离成正比
 		private float sinspeedx;//水平方向的正弦运动，振幅随时间变大
-		private int colorstate;//左右方向颜色不同
+		private float colorstate;//左右方向颜色不同
+		private int r;
+		private int g;
+
+		//碰上就冻结
+		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers) {
+			target.buffImmune[BuffID.Frozen] = false;
+			target.AddBuff(BuffID.Frozen, 120);
+		}
 
 		public override void AI() {
 			Player Player = Main.player[Main.myPlayer];
@@ -1054,22 +1187,23 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6.FrostNova
 			sinspeedx = (float)((Math.Pow(1.004f, 1.6f * timer) - 1) * Math.Min(timer / 360, 1) * Math.Sin(timer * MathHelper.Pi / 120 + Projectile.ai[0]));
 			Projectile.velocity = new Vector2(sinspeedx, addspeedy + cosspeedy);
 			if (Projectile.velocity.X >= 0) {
-				colorstate = 255;
+				colorstate = 1;
 			}
 			else {
-				colorstate = 85;
+				colorstate = 0.5f;
 			}
+
+			r = 235 + 20 * (int)MathF.Sin(timer * MathHelper.Pi / 180);
+			g = 245 + 10 * (int)MathF.Sin(timer * MathHelper.Pi / 180);
 
 			if (Main.rand.NextFloat() < Math.Min(timer / 960, 0.25f)) {
-				Dust dust;
-				dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f, 120, new Color(255, 255, 255), 0.5f);
+				Dust.NewDustDirect(Projectile.Center, 0, 0, DustType<Dusts.Bosses.FrostNovaDeathDust>(), 0f, 0f, 120, new Color(255, 255, 255), 0.5f);
 			}
-
 		}
 
 		public override bool PreDraw(ref Color lightColor) {
 			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/WindTrail").Value;
-			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, Vector2.Zero, new Color(colorstate, colorstate, colorstate), new Color(0, 0, 0), 15f, true);
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, Vector2.Zero, new Color((int)(r * colorstate), (int)(g * colorstate), (int)(255 * colorstate)), new Color(0, 0, 0), 15f, true);
 			return true;
 		}
 	}

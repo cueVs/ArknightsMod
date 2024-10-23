@@ -27,7 +27,6 @@ namespace ArknightsMod
 		public static Effect AACTSTG3RBNoise;//红蓝噪声效果（AACT三阶段）
 		public static Effect FNTwistedRing;//霜星限制阈（扭曲环效果）
 
-
 		public override void Load()
 		{
 			// Registers a new custom currency

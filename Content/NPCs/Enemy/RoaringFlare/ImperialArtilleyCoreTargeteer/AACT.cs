@@ -1613,7 +1613,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float b;
 		private float a;
 
-		private float CalcPos(float velocity, float time) {
+		private static float CalcPos(float velocity, float time) {
 			return velocity * time * (1 - time / 120);
 		}
 
