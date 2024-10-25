@@ -589,8 +589,6 @@ Mods: {
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
-<<<<<<< Updated upstream
-=======
 			AACT.DisplayName: Andskotarnir Artillery Core Targeteer
 			AACTIntro.DisplayName: AACT Intro
 			AACTStage3TrueHealth.DisplayName: AACT Stage3 True Health
@@ -606,7 +604,6 @@ Mods: {
 			PrimalSeaPiercer.DisplayName: Primal Sea Piercer
 			BasinSeaReaper.DisplayName: Basin Sea Reaper
 			TheFirstToTalk.DisplayName: The First To Talk
->>>>>>> Stashed changes
 		}
 
 		# Friendly

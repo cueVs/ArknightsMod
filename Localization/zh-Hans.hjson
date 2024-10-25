@@ -589,8 +589,6 @@ Mods: {
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 			IAT.DisplayName: 帝国炮火先兆者
-<<<<<<< Updated upstream
-=======
 			AACT.DisplayName: 邪魔炮火中枢先兆者
 			AACTIntro.DisplayName: 邪魔炮火中枢先兆者（引物）
 			AACTStage3TrueHealth.DisplayName: 邪魔炮火中枢先兆者（三阶段代理NPC）
@@ -606,7 +604,6 @@ Mods: {
 			PrimalSeaPiercer.DisplayName: 始海穿刺者
 			BasinSeaReaper.DisplayName: 钵海收割者
 			TheFirstToTalk.DisplayName: 首言者
->>>>>>> Stashed changes
 		}
 
 		# Friendly
@@ -689,16 +686,37 @@ Mods: {
 			HitboxRedFrame.DisplayName: 爆炸区域边框
 			ExplodeRingSmall.DisplayName: 爆炸区域边框
 			ExplodeRingBig.DisplayName: 爆炸区域边框
-			// ExplodeAimSmall.DisplayName: Explode Aim Small
-			// ExplodeAreaSmall.DisplayName: Explode Area Small
-			// HitboxRedCornerSmall1.DisplayName: Hitbox
-			// HitboxRedCornerSmall2.DisplayName: Hitbox
-			// HitboxRedCornerSmall3.DisplayName: Hitbox
-			// HitboxRedCornerSmall4.DisplayName: Hitbox
-			// PozemkaCrossbowSentry.DisplayName: Pozemka Crossbow Sentry
-			// PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
-			// PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
-			// AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+			ExplodeAimSmall.DisplayName: 准星
+			ExplodeAreaSmall.DisplayName: 爆炸区域
+			HitboxRedCorner.DisplayName: 爆炸区域边框
+			PozemkaCrossbowSentry.DisplayName: “打字机”
+			PozemkaCrossbowSentryProjectile.DisplayName: 鸿雪的弩箭
+			PozemkaCrossbowProjectile.DisplayName: 鸿雪的弩箭
+			AcidOgSlugProjectile.DisplayName: 酸液
+			AACTDeathdust.DisplayName: AACT死亡粒子效果
+			ExplodeWave.DisplayName: 爆炸波纹
+			Missle.DisplayName: 导弹
+			MisslePro.DisplayName: 二阶导弹
+			CrossbowmanBolt.DisplayName: 弩箭
+			CollapsedFrame.DisplayName: 坍缩框架
+			CollapsedExplodeAim.DisplayName: 坍缩爆炸核心
+			CollapsedHitboxblueCore.DisplayName: 坍缩预判核心
+			// FrostNovaYellowAura.DisplayName: Frost Nova Yellow Aura
+			// FrostNovaWhiteRing.DisplayName: Frost Nova White Ring
+			// FrostNovaSmoke.DisplayName: Frost Nova Smoke
+			// FrostNovaRevival.DisplayName: Frost Nova Revival
+			// FrostNovaJump.DisplayName: Frost Nova Jump
+			// TestProj1.DisplayName: Test Proj1
+			// TestProj2.DisplayName: Test Proj2
+			// TestProj3.DisplayName: Test Proj3
+			AACTEndShow.DisplayName: 邪魔炮火中枢先兆者尾杀演出
+			// Blizzard.DisplayName: Blizzard
+			// BlizzardStorm.DisplayName: Blizzard Storm
+			// BlizzardStormStarter.DisplayName: Blizzard Storm Starter
+			FloatingSeaDrifterShoot.DisplayName: 水花弹
+			PocketSeaCrawlerShoot.DisplayName: 囊海爬行者的喷射物
+			PocketSeaCrawlerShoot2.DisplayName: 囊海爬行者的刺
+			PSPShoot.DisplayName: 始海穿刺者的口器
 		}
 
 		ButtonName.button2: 剿灭作战
