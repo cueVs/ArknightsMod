@@ -28,9 +28,6 @@ namespace ArknightsMod
 			}
 		}
 	}
-<<<<<<< Updated upstream
-}
-=======
 	public class Ex : GlobalNPC
 	{
 		public override void SetDefaults(NPC entity) {
@@ -42,4 +39,3 @@ namespace ArknightsMod
 		}
 	}
 }
->>>>>>> Stashed changes
