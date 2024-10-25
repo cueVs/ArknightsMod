@@ -12,12 +12,13 @@ using System.Security.Cryptography.X509Certificates;
 using ArknightsMod.Content.Items.Material;
 using log4net.Core;
 using System;
+using Terraria.Audio;
 
 
 
 namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 {
-	public class BasinSeaReaper:ModNPC
+	public class BasinSeaReaper : ModNPC
 	{
 		public override void SetDefaults() {
 			NPC.width = 80;
@@ -28,7 +29,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.value = 32000;
-			NPC.knockBackResist = 0.4f;
+			NPC.knockBackResist = 0.3f;
 			NPC.aiStyle = -1; // Fighter AI, important to choose the aiStyle that matches the NPCID that we want to mimic. // Use vanilla zombie's type when executing AI code. (This also means it will try to despawn during daytime)
 			AnimationType = -1;
 			NPC.npcSlots = 5;
@@ -41,14 +42,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			}
 		}
 		private bool awake;
-		private bool sleep=true;
+		private bool sleep = true;
 		private float wondertime;
 		private float jumpCD;
 		private int status;
 		private int direction;
 		private float blooding;
-		private float acceleration = 0.05f;
-		private float maxSpeed = 8f;
+		private float acceleration = 0.04f;
+		private float maxSpeed = 5f;
 		private float waketime;
 		private float distance;
 		private float diffX;
@@ -72,6 +73,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			}
 			if (awake) {
 				if (waketime == 1) {
+					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/BSReaper") with { Volume = 0.9f, Pitch = 0f }, NPC.Center);
 					NPC.frame.Y = 8 * frameHeight;
 
 				}
@@ -79,7 +81,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					NPC.frame.Y = 20 * frameHeight;
 				}
 			}
-			
+
 		}
 
 		public override void AI() {
@@ -93,8 +95,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				awake = true;
 			}
 			if (sleep) {
-				
+
 				jumpCD++;
+				NPC.damage = 0;
 				if (NPC.ai[3] % 180 == 0) {
 					NPC.ai[3] = 0;
 					status = Main.rand.Next(5);
@@ -128,13 +131,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					jumpCD = 0;
 				}
 				NPC.ai[3]++;
-				
+
 			}
 			if (awake) {
 				blooding++;
 				waketime++;
-				if (blooding == 10 && NPC.life>=6) {
-					NPC.life -= 5;
+				NPC.damage = 50;
+				if (blooding == 5 && NPC.life >= 20) {
+					NPC.life -= 6;
 					blooding = 0;
 				}
 				jumpCD++;
@@ -153,19 +157,35 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 						NPC.velocity.X = maxSpeed;
 				}
 				if (NPC.collideX == true && jumpCD >= 100) {
-					NPC.velocity.Y = -12f;
+					NPC.velocity.Y = -10f;
 					jumpCD = 0;
 				}
 				if (NPC.Center.Y > (Main.player[NPC.target].Center.Y - 10) && jumpCD >= 100) {
-					NPC.velocity.Y = -12f;
+					NPC.velocity.Y = -10f;
 					jumpCD = 0;
 				}
-				if (distance <= 20) {
+				if (distance <= 15) {
 					Player.AddBuff(31, 30);
 					Player.AddBuff(23, 30);
 				}
 
 			}
+		}
+		public override void OnKill() {
+			int Gore1 = Mod.Find<ModGore>("PSP1").Type;
+			var entitySource = NPC.GetSource_Death();
+			for (int i = 0; i < 2; i++) {
+				Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 4), Main.rand.Next(-5, 4)), Mod.Find<ModGore>("PSP2").Type);
+			}
+			Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 4), Main.rand.Next(-5, 4)), Mod.Find<ModGore>("PSP3").Type);
+			Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 4), Main.rand.Next(-5, 4)), Mod.Find<ModGore>("PSP3").Type);
+		}
+		public override void ModifyNPCLoot(NPCLoot npcLoot) {
+			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CorruptedRecord>(), 1, 4, 6));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CoagulatingGel>(), 2, 1, 4));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TransmutedSalt>(), 3, 1, 2));
+
 		}
 	}
 }
