@@ -133,7 +133,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			if (awake) {
 				blooding++;
 				waketime++;
-				if (blooding == 10) {
+				if (blooding == 10 && NPC.life>=6) {
 					NPC.life -= 5;
 					blooding = 0;
 				}
