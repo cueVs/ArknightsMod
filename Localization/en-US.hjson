@@ -589,6 +589,24 @@ Mods: {
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
+<<<<<<< Updated upstream
+=======
+			AACT.DisplayName: Andskotarnir Artillery Core Targeteer
+			AACTIntro.DisplayName: AACT Intro
+			AACTStage3TrueHealth.DisplayName: AACT Stage3 True Health
+			IACTIntro.DisplayName: IACT Intro
+			IATIntro.DisplayName: IAT Intro
+			Crossbowman.DisplayName: Crossbowman
+			IACTStage3target.DisplayName: AACT Stage3target
+			FrostNova.DisplayName: Frost Nova
+			DeepSeaSlider.DisplayName: Deep Sea Slider
+			ShellSeaRunner.DisplayName: Shell Sea Runner
+			FloatingSeaDrifter.DisplayName: Floating Sea Drifter
+			PocketSeaCrawler.DisplayName: Pocket Sea Crawler
+			PrimalSeaPiercer.DisplayName: Primal Sea Piercer
+			BasinSeaReaper.DisplayName: Basin Sea Reaper
+			TheFirstToTalk.DisplayName: The First To Talk
+>>>>>>> Stashed changes
 		}
 
 		# Friendly

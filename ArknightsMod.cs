@@ -28,4 +28,18 @@ namespace ArknightsMod
 			}
 		}
 	}
+<<<<<<< Updated upstream
 }
+=======
+	public class Ex : GlobalNPC
+	{
+		public override void SetDefaults(NPC entity) {
+			if (entity.ModNPC is not null && entity.ModNPC.Mod == Mod) {
+				entity.lifeMax = (int)(entity.lifeMax * 1.2f);
+				entity.life = entity.lifeMax;
+				entity.damage = (int)(entity.damage * 1.2f);
+			}
+		}
+	}
+}
+>>>>>>> Stashed changes

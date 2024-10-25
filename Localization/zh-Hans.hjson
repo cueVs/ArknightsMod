@@ -589,6 +589,24 @@ Mods: {
 			IACT.DisplayName: 帝国炮火中枢先兆者
 			IACTStage3target.DisplayName: 中枢先兆者第三阶段目标
 			IAT.DisplayName: 帝国炮火先兆者
+<<<<<<< Updated upstream
+=======
+			AACT.DisplayName: 邪魔炮火中枢先兆者
+			AACTIntro.DisplayName: 邪魔炮火中枢先兆者（引物）
+			AACTStage3TrueHealth.DisplayName: 邪魔炮火中枢先兆者（三阶段代理NPC）
+			IACTIntro.DisplayName: 帝国炮火中枢先兆者（引物）
+			IATIntro.DisplayName: 帝国炮火先兆者（引物）
+			Crossbowman.DisplayName: 弩手
+			IACTStage3target.DisplayName: 邪魔炮火中枢先兆者（三阶段目标）
+			FrostNova.DisplayName: 霜星
+			DeepSeaSlider.DisplayName: 底海滑动者
+			ShellSeaRunner.DisplayName: 壳海狂奔者
+			FloatingSeaDrifter.DisplayName: 浮海飘航者
+			PocketSeaCrawler.DisplayName: 囊海爬行者
+			PrimalSeaPiercer.DisplayName: 始海穿刺者
+			BasinSeaReaper.DisplayName: 钵海收割者
+			TheFirstToTalk.DisplayName: 首言者
+>>>>>>> Stashed changes
 		}
 
 		# Friendly
