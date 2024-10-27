@@ -71,6 +71,7 @@ QQ group: 891522802
 - Slacker
 - Wesker
 - 呑某
+- Hanatsu
 </details>
 <details><summary>Translators</summary>
 
