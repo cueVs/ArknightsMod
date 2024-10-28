@@ -519,6 +519,11 @@ Mods: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
 			}
+
+			CorruptedRecord: {
+				DisplayName: Corrupted Record
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -587,7 +592,7 @@ Mods: {
 			OriginiumSlugBeta.DisplayName: Originium Slug Beta
 			AcidOgSlug.DisplayName: Acid Originium Slug
 			IACT.DisplayName: Imperial Artillery Core Targeteer
-			IACTStage3target.DisplayName: IACT Stage3 target
+			IACTStage3target.DisplayName: AACT Stage3target
 			IAT.DisplayName: Imperial Artillery Targeteer
 			AACT.DisplayName: Andskotarnir Artillery Core Targeteer
 			AACTIntro.DisplayName: AACT Intro
@@ -595,7 +600,6 @@ Mods: {
 			IACTIntro.DisplayName: IACT Intro
 			IATIntro.DisplayName: IAT Intro
 			Crossbowman.DisplayName: Crossbowman
-			IACTStage3target.DisplayName: AACT Stage3target
 			FrostNova.DisplayName: Frost Nova
 			DeepSeaSlider.DisplayName: Deep Sea Slider
 			ShellSeaRunner.DisplayName: Shell Sea Runner
@@ -696,6 +700,10 @@ Mods: {
 			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+			FloatingSeaDrifterShoot.DisplayName: Floating Sea Drifter Shoot
+			PocketSeaCrawlerShoot.DisplayName: Pocket Sea Crawler Shoot
+			PocketSeaCrawlerShoot2.DisplayName: Pocket Sea Crawler Shoot2
+			PSPShoot.DisplayName: P S P Shoot
 		}
 
 		ButtonName.button2: Annihilation operation

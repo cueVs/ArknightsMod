@@ -217,7 +217,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				}
 				if (rushtime<=90 && rushtime>=25)
 					if (NPC.collideX) {
-						NPC.velocity.X *= 0.98f;
+						NPC.velocity.X *= 0.96f;
 					}
 				if (rushtime == 91) {
 					NPC.velocity.X = 0;
@@ -225,7 +225,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				}
 				if (rushtime >= 21) {
 					Dust dust;
-					dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 200), NPC.width, NPC.height, DustID.WhiteTorch, 0f, -7f, 50, default(Color), 3f);
+					dust = Dust.NewDustDirect(new Vector2(NPC.position.X, NPC.position.Y + 80), NPC.width, NPC.height, DustID.WhiteTorch, 0f, -7f, 50, default(Color), 5f);
 					dust.noGravity = true;
 				}
 				if (rushtime >= 100) {
@@ -267,6 +267,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			}
 		}
 		
+
+	}
+	public class TFTTRush: ModProjectile {
 
 	}
 	
