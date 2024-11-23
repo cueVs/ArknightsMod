@@ -704,6 +704,14 @@ Mods: {
 			PocketSeaCrawlerShoot.DisplayName: 囊海爬行者的喷射物
 			PocketSeaCrawlerShoot2.DisplayName: 囊海爬行者的刺
 			PSPShoot.DisplayName: 始海穿刺者的口器
+			// TFTTRush.DisplayName: T F T T Rush
+			// TFTTRush2.DisplayName: T F T T Rush2
+			// TFTTShoot.DisplayName: T F T T Shoot
+			// seashoot.DisplayName: seashoot
+			// TFTTSkillshoot.DisplayName: T F T T Skillshoot
+			// splitwater.DisplayName: splitwater
+			// splitwater2.DisplayName: splitwater2
+			// SanCrash.DisplayName: San Crash
 		}
 
 		ButtonName.button2: 剿灭作战

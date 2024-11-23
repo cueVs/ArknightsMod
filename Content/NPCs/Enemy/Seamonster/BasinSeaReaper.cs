@@ -13,6 +13,8 @@ using ArknightsMod.Content.Items.Material;
 using log4net.Core;
 using System;
 using Terraria.Audio;
+using ArknightsMod;
+using MonoMod.Core.Platforms;
 
 
 
@@ -54,6 +56,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		private float distance;
 		private float diffX;
 		private float diffY;
+		
 		public override void FindFrame(int frameHeight) {
 			NPC.TargetClosest(true);
 			NPC.spriteDirection = -NPC.direction;
@@ -83,7 +86,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			}
 
 		}
-
+		
 		public override void AI() {
 			NPC.TargetClosest();
 			Player Player = Main.player[NPC.target];
@@ -165,8 +168,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					jumpCD = 0;
 				}
 				if (distance <= 15) {
-					Player.AddBuff(31, 30);
-					Player.AddBuff(23, 30);
+					//Player.CurrentSan -= 2;
+					
 				}
 
 			}
@@ -186,6 +189,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CoagulatingGel>(), 2, 1, 4));
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TransmutedSalt>(), 3, 1, 2));
 
+		}
+		private int wakeframe;
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color lightColor) {
+			wakeframe = ((int)waketime % 30)/10;
+			Texture2D texture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/voice").Value;
+			if (awake) {
+				spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, new Rectangle(0, wakeframe * 314, 316, 314), lightColor, 0, new Vector2(158, 157), new Vector2(1, 1f), 0, 0);
+			}
+			return true;
 		}
 	}
 }

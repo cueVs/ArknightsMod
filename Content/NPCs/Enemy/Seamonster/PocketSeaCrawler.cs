@@ -13,6 +13,7 @@ using ArknightsMod.Content.Items.Material;
 using Mono.Cecil;
 using System;
 using Terraria.Audio;
+using ArknightsMod.Common.VisualEffects;
 
 
 
@@ -210,10 +211,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 
 		public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 1;
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 40;
 		}
 		public override void SetDefaults() {
-			Projectile.width = 12;
-			Projectile.height = 12;
+			Projectile.width = 13;
+			Projectile.height = 8;
 			Projectile.aiStyle = 0;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = true;
@@ -236,9 +239,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		//	return true;
 		//}
 
-		public override void PostDraw(Color lightColor) {
-			//Texture2D lightsTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/Seamonster/FloatingSeaDrifterShoot").Value;
-			//Main.EntitySpriteDraw(lightsTexture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, lightsTexture.Width, lightsTexture.Height), Color.White, Projectile.rotation, new Vector2(lightsTexture.Width / 2, lightsTexture.Height / 2), 1f, SpriteEffects.None, 0);
+		public override bool PreDraw(ref Color lightColor) {
+
+			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/LineTrail").Value;
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(7, 4), new Color(20, 60, 255), new Color(80, 80, 255), 6f, true);
+			return true;
 		}
 
 		public override void AI() {
@@ -265,6 +270,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 
 		public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 1;
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 40;
 		}
 		public override void SetDefaults() {
 			Projectile.width = 12;
@@ -291,11 +298,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		//	return true;
 		//}
 
-		public override void PostDraw(Color lightColor) {
-			//Texture2D lightsTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/Seamonster/FloatingSeaDrifterShoot").Value;
-			//Main.EntitySpriteDraw(lightsTexture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, lightsTexture.Width, lightsTexture.Height), Color.White, Projectile.rotation, new Vector2(lightsTexture.Width / 2, lightsTexture.Height / 2), 1f, SpriteEffects.None, 0);
-		}
+		public override bool PreDraw(ref Color lightColor) {
 
+			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/LineTrail").Value;
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(7, 4), new Color(20, 60, 255), new Color(80, 80, 255), 6f, true);
+			return true;
+		}
 		public override void AI() {
 			;
 			Projectile.frameCounter++;
