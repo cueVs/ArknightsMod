@@ -524,6 +524,15 @@ Mods: {
 				DisplayName: 腐蚀的伊比利亚唱片
 				Tooltip: 收下它的冲动来自一种不知名的渴求。
 			}
+
+			TFTTS: {
+				DisplayName: 深海邀请函
+				Tooltip:
+					'''
+					用恐鱼血水书写的邀请函，邀请一位美丽得体的海洋访客
+					不消耗
+					'''
+			}
 		}
 
 		Buffs: {
@@ -704,14 +713,14 @@ Mods: {
 			PocketSeaCrawlerShoot.DisplayName: 囊海爬行者的喷射物
 			PocketSeaCrawlerShoot2.DisplayName: 囊海爬行者的刺
 			PSPShoot.DisplayName: 始海穿刺者的口器
-			// TFTTRush.DisplayName: T F T T Rush
-			// TFTTRush2.DisplayName: T F T T Rush2
-			// TFTTShoot.DisplayName: T F T T Shoot
-			// seashoot.DisplayName: seashoot
-			// TFTTSkillshoot.DisplayName: T F T T Skillshoot
-			// splitwater.DisplayName: splitwater
-			// splitwater2.DisplayName: splitwater2
-			// SanCrash.DisplayName: San Crash
+			TFTTRush.DisplayName: 首言者
+			TFTTRush2.DisplayName: 首言者
+			TFTTShoot.DisplayName: 首言者
+			seashoot.DisplayName: 首言者
+			TFTTSkillshoot.DisplayName: 首言者
+			splitwater.DisplayName: 首言者
+			splitwater2.DisplayName: 首言者
+			SanCrash.DisplayName: 神经损伤
 		}
 
 		ButtonName.button2: 剿灭作战

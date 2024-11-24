@@ -416,7 +416,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				shoottime++;
 				NPC.velocity.X = 0;
 				if (shoottime == 50) {
-					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/TFTTShoot") with { Volume = 0.7f, Pitch = 0f }, NPC.Center);
+					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/TFTTShoot") with { Volume = 1.5f, Pitch = 0f }, NPC.Center);
 					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 25f, 0).RotatedBy(angle), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
 					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-MathHelper.PiOver4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
 					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-(MathHelper.Pi / 4) * 3), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
@@ -683,7 +683,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			}
 
 			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/WindTrail").Value;
-			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(50, 26), new Color(20, 60, 255), new Color(80, 80, 255), 10f, true);
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(50, 26), new Color(20, 60, 255), new Color(80, 80, 255), 30f, true);
 
 			return true;
 		}

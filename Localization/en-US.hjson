@@ -524,6 +524,11 @@ Mods: {
 				DisplayName: Corrupted Record
 				Tooltip: ""
 			}
+
+			TFTTS: {
+				DisplayName: T F T T S
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {

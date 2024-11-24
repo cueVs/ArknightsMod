@@ -25,8 +25,7 @@ namespace ArknightsMod
 		public static int OrundumCurrencyId;
 		internal Closure.AOSystem CurrentAO;
 		public static Effect IACTSW;
-		internal Santable santable;
-		internal UserInterface sanUserInterface;
+		
 
 		public override void Load() {
 			// Registers a new custom currency
@@ -37,36 +36,10 @@ namespace ArknightsMod
 				Filters.Scene["IACTSW"] = new Filter(new ScreenShaderData(new Ref<Effect>(IACTSW), "IACTSW"), EffectPriority.VeryHigh);
 				Filters.Scene["IACTSW"].Load();
 			}
-			santable = new Santable();
-			santable.Activate();
-			sanUserInterface = new UserInterface();
-			sanUserInterface.SetState(santable);
+			
 
 		}
-		public override void UpdateUI(GameTime gameTime) {
-			if (Santable.Visible) {
-				sanUserInterface?.Update(gameTime);
-			}
-			base.UpdateUI(gameTime);
-		}
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-		{
-			int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-			if (MouseTextIndex != -1) {
-				layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
-					"ArknightsMod : Santable",
-					delegate
-					{
-						if (Santable.Visible)
-							santable.Draw(Main.spriteBatch);
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
-			}
-			base.ModifyInterfaceLayers(layers);
-		}
-
+		
 
 	}
 	//public class Ex : GlobalNPC
@@ -79,12 +52,45 @@ namespace ArknightsMod
 	//}
 	//}
 	//}
+	public class SanUI : ModSystem {
+		internal Santable santable;
+		internal UserInterface sanUserInterface;
+		public override void Load() {
+			santable = new Santable();
+			santable.Activate();
+			sanUserInterface = new UserInterface();
+			sanUserInterface.SetState(santable);
+		}
+		public override void UpdateUI(GameTime gameTime) {
+			if (Santable.Visible) {
+				sanUserInterface?.Update(gameTime);
+			}
+			base.UpdateUI(gameTime);
+		}
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
+			int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+			if (MouseTextIndex != -1) {
+				layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+					"ArknightsMod : Santable",
+					delegate {
+						if (Santable.Visible)
+							santable.Draw(Main.spriteBatch);
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
+			base.ModifyInterfaceLayers(layers);
+		}
+	
+
+	}
 
 
 	public class San : ModPlayer
 	{
 		public int CurrentSan = 1000;
-		public int MadnessCD;
+		public int MadnessCD = 600;
 		public int madtime;
 		public int madframe;
 
@@ -94,7 +100,7 @@ namespace ArknightsMod
 			if (CurrentSan <= 0) {
 				Player.AddBuff(31, 90);
 				Player.AddBuff(23, 240);
-				Player.Hurt(PlayerDeathReason.ByCustomReason("See Something"), 200, 1, false, false, 0, true, 1000, 1000, 0);
+				Player.Hurt(PlayerDeathReason.ByCustomReason("¾«Éñ±ÀÀ£"), 200, 1, false, false, 0, true, 1000, 1000, 0);
 				CurrentSan = 1000;
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/Madness") with { Volume = 1f, Pitch = 0f }, Player.Center);
 				MadnessCD = 0;
@@ -109,6 +115,9 @@ namespace ArknightsMod
 
 				}
 
+			}
+			if (MadnessCD % 2 == 0 && CurrentSan < 1000) {
+				CurrentSan += 1;
 			}
 		}
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo) {
@@ -141,6 +150,15 @@ namespace ArknightsMod
 			if (proj.type == ModContent.ProjectileType<TFTTRush>() && MadnessCD > 600) {
 				CurrentSan -= 300;
 			}
+			if (proj.type == ModContent.ProjectileType<PocketSeaCrawlerShoot>() && MadnessCD > 600) {
+				CurrentSan -= 300;
+			}
+			if (proj.type == ModContent.ProjectileType<PocketSeaCrawlerShoot2>() && MadnessCD > 600) {
+				CurrentSan -= 300;
+			}
+		}
+		public override void OnEnterWorld() {
+			Santable.Visible = true;
 		}
 	}
 }

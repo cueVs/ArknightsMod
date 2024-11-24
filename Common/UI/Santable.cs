@@ -27,19 +27,60 @@ namespace ArknightsMod.Common.UI
 {
 	public class Santable : UIState
 	{
-		private int CurrentSan = Main.LocalPlayer.GetModPlayer<San>().CurrentSan;
+		
 		public static bool Visible = true;
 
 		public override void OnInitialize() {
 			UIPanel panel = new UIPanel();
 			Append(panel);
 		}
-
+		private int CurrenSan;
+		private int SanCD;
 
 		public override void Draw(SpriteBatch spriteBatch) {
-			if (1000 >= CurrentSan && CurrentSan >= 916) {
-				spriteBatch.Draw(ModContent.Request<Texture2D>("UI/Santable").Value, new Vector2(400, 300), new Rectangle(0, 43 * 12, 43, 43), Color.White, 0, new Vector2(20, 20), 2f, 0, 0);
+			CurrenSan = Main.LocalPlayer.GetModPlayer<San>().CurrentSan;
+			SanCD = Main.LocalPlayer.GetModPlayer<San>().MadnessCD;
+			if (1000 >= CurrenSan && CurrenSan >= 916) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 12, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
 			}
+			if (916 > CurrenSan && CurrenSan >= 833) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 11, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (833 > CurrenSan && CurrenSan >= 750) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 10, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (750 > CurrenSan && CurrenSan >= 666) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 9, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (666 > CurrenSan && CurrenSan >= 583) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 8, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (583 > CurrenSan && CurrenSan >= 500) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 7, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (500 > CurrenSan && CurrenSan >= 416) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 6, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (416 > CurrenSan && CurrenSan >= 333) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 5, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (333 > CurrenSan && CurrenSan >= 250) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 4, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (250 > CurrenSan && CurrenSan >= 167) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 3, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (167 > CurrenSan && CurrenSan >= 83) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 2, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (83 > CurrenSan && CurrenSan > 0) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 43 * 1, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+			if (SanCD <= 601) {
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Santable").Value, new Vector2(1400, 70), new Rectangle(0, 0, 43, 43), Color.White, 0, new Vector2(20, 20), 1.5f, 0, 0);
+			}
+
+
 		}
 		
 	}
