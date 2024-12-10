@@ -50,8 +50,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		private int status;
 		private int direction;
 		private float blooding;
-		private float acceleration = 0.04f;
-		private float maxSpeed = 5f;
+		private float acceleration = 0.2f;
+		private float maxSpeed = 4f;
 		private float waketime;
 		private float distance;
 		private float diffX;
@@ -173,6 +173,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				}
 
 			}
+		}
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
 		}
 		public override void OnKill() {
 			int Gore1 = Mod.Find<ModGore>("PSP1").Type;

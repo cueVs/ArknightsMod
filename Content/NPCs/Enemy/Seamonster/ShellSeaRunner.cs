@@ -80,7 +80,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
         }
         public override void AI()
         {
-
+			
             NPC.ai[3]++;
             NPC.ai[2]++;
             NPC.ai[1]++;
@@ -204,5 +204,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TransmutedSalt>(), 8, 1, 2));
 
 		}
-    }
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
+		}
+	}
 }

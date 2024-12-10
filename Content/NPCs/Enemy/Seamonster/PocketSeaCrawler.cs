@@ -205,6 +205,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			
 			Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 4), Main.rand.Next(-5, 4)), Mod.Find<ModGore>("PSCrawler4").Type);
 		}
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
+		}
 	}
 	public class PocketSeaCrawlerShoot : ModProjectile
 	{

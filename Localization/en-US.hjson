@@ -717,6 +717,8 @@ Mods: {
 			splitwater.DisplayName: splitwater
 			splitwater2.DisplayName: splitwater2
 			SanCrash.DisplayName: San Crash
+			PWTFTT.DisplayName: P W T F T T
+			waterbombdie.DisplayName: waterbombdie
 		}
 
 		ButtonName.button2: Annihilation operation

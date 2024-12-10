@@ -721,6 +721,8 @@ Mods: {
 			splitwater.DisplayName: 首言者
 			splitwater2.DisplayName: 首言者
 			SanCrash.DisplayName: 神经损伤
+			// PWTFTT.DisplayName: P W T F T T
+			// waterbombdie.DisplayName: waterbombdie
 		}
 
 		ButtonName.button2: 剿灭作战
