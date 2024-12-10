@@ -195,6 +195,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TransmutedSalt>(), 3, 1, 3));
 
 		}
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
+		}
 
 	}
 	public class PSPShoot : ModProjectile

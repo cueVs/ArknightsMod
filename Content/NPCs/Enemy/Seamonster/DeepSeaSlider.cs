@@ -58,15 +58,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
                 
             }
         }
-        //public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        //{
-        //public void Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, Vector2 origin, float scale,SpriteEffects effects,float layerdepth)
-        //{
+		//public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		//{
+		//public void Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, Vector2 origin, float scale,SpriteEffects effects,float layerdepth)
+		//{
 
-        //}
-        // }
+		//}
+		// }
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
+		}
 
-        public override void SetDefaults()
+		public override void SetDefaults()
         {
             NPC.width = 60;
             NPC.height = 48;

@@ -157,10 +157,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		public override void SetDefaults() {
 			NPC.width = 60;
 			NPC.height = 60;
-			NPC.damage = 48;
+			NPC.damage = 45;
 			NPC.scale = 2f;
-			NPC.defense = 12;
-			NPC.lifeMax = 5500;
+			NPC.defense = 9;
+			NPC.lifeMax = 5000;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.value = 60000;
@@ -260,9 +260,17 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		private Vector2 oldpos2;
 		private Vector2 oldpos3;
 		private float texturedirection;
+		private float alpha = MathHelper.Pi/10;//抛物子弹发射角（取最小角）
+		private float PWH;
+		private float PWD;
+		private float UPX;//顶点距离
+		private Vector2 PWV;
+		private float PWJ;
+		private float G=0.12f;
 		public override void AI() {
 			SP++;
 			jumpCD++;
+			
 			if (NPC.direction > 0) {
 				texturedirection = 0;
 			}
@@ -274,12 +282,25 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			Player p = Main.player[NPC.target];
 			int directionchoose = p.Center.X - NPC.Center.X >= 0 ? 1 : -1;
 			float diffX = p.Center.X - NPC.Center.X;
-			float diffY = p.Center.Y - NPC.Center.Y;
+			float diffY = p.Center.Y- 20 - NPC.Center.Y;
 			float distance = (float)Math.Sqrt(Math.Pow(diffX / 16, 2) + Math.Pow(diffY / 16, 2));//到玩家的距离（格数）
 			float acceleration = 0.1f;
 			float maxSpeed = 2f;
 			float angle = (float)Math.Atan((p.Center.Y - NPC.Center.Y) / (p.Center.X - NPC.Center.X));
 			Music = MusicLoader.GetMusicSlot("ArknightsMod/Music/TFTT");
+			//炮兵模块
+			PWH = p.position.Y - 15 - NPC.position.Y;
+			PWD = p.position.X - NPC.position.X;
+			UPX = Math.Abs(PWD)/((PWH / ((float)Math.Sin(alpha)*Math.Abs(PWD))) + 2);
+			if (PWD > 0) {
+				PWJ = alpha;
+				PWV = new Vector2((float)(Math.Sqrt(G * UPX / (float)Math.Tan(alpha))), -(float)(Math.Sqrt((float)Math.Tan(alpha) * G * UPX)));
+			}
+			if (PWD <= 0) {
+				PWJ = MathHelper.Pi - alpha;
+				PWV = new Vector2(-(float)(Math.Sqrt(G * UPX/ (float)Math.Tan(alpha))), -(float)(Math.Sqrt((float)Math.Tan(alpha) * G * UPX)));
+			}
+
 			if (NPC.life <= NPC.lifeMax * 0.5 && ask == true) {
 				Main.maxRaining = 1.5f;
 				Main.StartRain();
@@ -317,7 +338,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					walk = false;
 					rushCD = 0;
 				}
-				if (shootCD >= 400 && SP <= 1800) {
+				if (shootCD >= 400 && SP <= 1800 && -Math.Abs(PWD) < PWH / Math.Sin(alpha)) {//抛物子弹判定在射程内
 					shoot = true;
 					walk = false;
 					shootCD = 0;
@@ -417,11 +438,18 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				NPC.velocity.X = 0;
 				if (shoottime == 50) {
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/TFTTShoot") with { Volume = 1.5f, Pitch = 0f }, NPC.Center);
-					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 25f, 0).RotatedBy(angle), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
-					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-MathHelper.PiOver4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
-					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-(MathHelper.Pi / 4) * 3), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
-					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy((MathHelper.Pi / 4) * 3), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
-					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(MathHelper.Pi / 4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
+					Projectile.NewProjectile(newSource, NPC.Center, PWV, ModContent.ProjectileType<PWTFTT>(), 18, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, NPC.Center + new Vector2(60, -100), new Vector2(0, 0), ModContent.ProjectileType<splitwater2>(), 0,0);
+					Projectile.NewProjectile(newSource, NPC.Center + new Vector2(-60, -100), new Vector2(0, 0), ModContent.ProjectileType<splitwater2>(), 0,0);
+					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 25f, 0).RotatedBy(angle), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
+					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-MathHelper.PiOver4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
+					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-(MathHelper.Pi / 4) * 3), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
+					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy((MathHelper.Pi / 4) * 3), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
+					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(MathHelper.Pi / 4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
+				}
+				if (shoottime == 60) {
+					NPC.NewNPC(newSource, (int)NPC.Center.X + 60, (int)NPC.Center.Y - 100, ModContent.NPCType<DeepSeaSlider>());
+					NPC.NewNPC(newSource, (int)NPC.Center.X - 60, (int)NPC.Center.Y - 100, ModContent.NPCType<DeepSeaSlider>());
 				}
 				if (shoottime == 99 && NPC.life < 0.5 * NPC.lifeMax) {
 					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-MathHelper.PiOver4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
@@ -454,6 +482,26 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				if(skilltime == 1) {
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/TFTTSkillS") with { Volume = 1f, Pitch = 0f }, NPC.Center);
 				}
+				if (skilltime == 40) {
+					Projectile.NewProjectile(newSource, NPC.Center + new Vector2(0, -100), new Vector2(0, 0), ModContent.ProjectileType<splitwater2>(), 0, 0);
+
+				}
+				if (skilltime == 50) {
+					NPC.NewNPC(newSource, (int)NPC.Center.X, (int)NPC.Center.Y-100, ModContent.NPCType<ShellSeaRunner>());
+				}
+				if (skilltime == 70) {
+					Projectile.NewProjectile(newSource, NPC.Center + new Vector2(0, -100), new Vector2(0, 0), ModContent.ProjectileType<splitwater2>(), 0, 0);
+					
+				}
+				if (skilltime == 80) {
+					NPC.NewNPC(newSource, (int)NPC.Center.X, (int)NPC.Center.Y-100, ModContent.NPCType<ShellSeaRunner>());
+				}
+				if (skilltime == 100) {
+					Projectile.NewProjectile(newSource, NPC.Center + new Vector2(0, -100), new Vector2(0, 0), ModContent.ProjectileType<splitwater2>(), 0, 0);
+				}
+				if (skilltime == 110) {
+					NPC.NewNPC(newSource, (int)NPC.Center.X, (int)NPC.Center.Y-100, ModContent.NPCType<ShellSeaRunner>());
+				}
 				if (skilltime == 70) {
 					for (int i = 1; i < 4; i++) {
 						Projectile.NewProjectile(newSource, NPC.Center - new Vector2(60, -50), new Vector2(1 * (8 + i * 2), 0).RotatedBy(-MathHelper.Pi / 6f), ModContent.ProjectileType<TFTTRush>(), 17, 0.8f, 0, 0);
@@ -474,22 +522,22 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				}
 				if (skilltime == 150) {
 
-					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(21, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 27, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(17, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 21, 0.8f, 0, 0);
 				}
 				if (skilltime == 200) {
-					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(21, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 27, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(17, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 21, 0.8f, 0, 0);
 				}
 				if (skilltime == 250) {
-					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(21, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 27, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(17, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 21, 0.8f, 0, 0);
 				}
 				if (skilltime == 300) {
-					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(21, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 27, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(17, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 21, 0.8f, 0, 0);
 				}
 				if (skilltime == 350) {
-					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(21, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 27, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(17, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 21, 0.8f, 0, 0);
 				}
 				if (skilltime == 400) {
-					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(21, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 27, 0.8f, 0, 0);
+					Projectile.NewProjectile(newSource, p.Center - new Vector2(0, 800), new Vector2(17, 0).RotatedBy(MathHelper.Pi / 2f), ModContent.ProjectileType<TFTTShoot>(), 21, 0.8f, 0, 0);
 				}
 
 				if (skilltime == 500) {
@@ -535,6 +583,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				spriteBatch.Draw(Immuntexture, NPC.Center + new Vector2(0, -30) - Main.screenPosition, new Rectangle(0, Immuntime * 61, 64, 61), Color.White, 0, new Vector2(32, 30), new Vector2(3, 1.5f), 0, 0);
 			}
 			
+		}
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
 		}
 
 		//public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color lightColor) {
@@ -617,7 +669,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 	public class TFTTShoot : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			Main.projFrames[Projectile.type] = 4;
+			
 			ProjectileID.Sets.TrailingMode[Type] = 2;
 			ProjectileID.Sets.TrailCacheLength[Type] = 40;
 			Projectile.spriteDirection = Projectile.direction;
@@ -627,7 +679,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 
 		public override void SetDefaults() {
 
-			Projectile.width = 52;
+			Projectile.width = 30;
 			Projectile.height = 24;
 			Projectile.aiStyle = 0;
 			Projectile.scale = 2f;
@@ -641,19 +693,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			
 		}
 		public override void AI() {
-			Projectile.frameCounter++;
+			
 			NPC npc = Main.npc[(int)Projectile.ai[0]];
 			Player p = Main.player[(int)Projectile.ai[1]];
-			if (Projectile.position.Y >= p.position.Y - 20) {
+			if (Projectile.position.Y >= p.position.Y - 40) {
 				Projectile.tileCollide = true;
 			}
-			if (Projectile.frameCounter > 5) {
-				Projectile.frame += 1;
-				Projectile.frameCounter = 0;
-			}
-			if (Projectile.frame == 4) {
-				Projectile.frame = 2;
-			}
+			Projectile.velocity.Y += 0.445f;
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (Projectile.timeLeft <= 15) {
 				Projectile.velocity *= 0.01f;
@@ -670,7 +716,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			Projectile.timeLeft = 1;
 			Dust dust;
 			dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch, 0f, -2f, 500, Color.SkyBlue, 5f);
-			Projectile.NewProjectile(newSource, Projectile.Center+new Vector2(20,64), new Vector2(0, 0), ModContent.ProjectileType<splitwater2>(), 0, 0);
+			Projectile.NewProjectile(newSource, Projectile.Center+new Vector2(100,140), new Vector2(0, 0), ModContent.ProjectileType<waterbombdie>(), 0, 0);
 			return false;
 
 		}
@@ -683,7 +729,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			}
 
 			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/WindTrail").Value;
-			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(50, 26), new Color(20, 60, 255), new Color(80, 80, 255), 30f, true);
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(64, 26), new Color(20, 60, 255), new Color(80, 80, 255), 30f, true);
 
 			return true;
 		}
@@ -720,6 +766,72 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				Projectile.frameCounter = 0;
 			}
 			
+		}
+	}
+	public class PWTFTT : ModProjectile {
+		private float G = 0.12f;// common gravity 一秒内达到10格/秒的速度的加速度
+		public override void AI() {
+			Projectile.velocity.Y += G;
+			Projectile.rotation = Projectile.velocity.ToRotation();
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter > 7) {
+				Projectile.frame += 1;
+				Projectile.frameCounter = 0;
+			}
+			if (Projectile.frame > 5) {
+				Projectile.frame = 1;
+			}
+		}
+		public override void SetStaticDefaults() {
+			Main.projFrames[Projectile.type] = 6;
+
+		}
+		public override void SetDefaults() {
+			Projectile.width = 5;
+			Projectile.height = 5;
+			Projectile.aiStyle = 0;
+			Projectile.scale = 2f;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = false;
+			Projectile.timeLeft = 999;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+		}
+	
+	}
+	public class waterbombdie : ModProjectile
+	{
+		public override void SetStaticDefaults() {
+			Main.projFrames[Projectile.type] = 7;
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 40;
+		}
+		public override void SetDefaults() {
+
+			Projectile.width = 100;
+			Projectile.height = 100;
+			Projectile.aiStyle = 0;
+			Projectile.scale = 2f;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = false;
+			Projectile.timeLeft = 70;
+			Projectile.light = 0.6f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+		}
+
+
+
+		public override void AI() {
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter > 10) {
+				Projectile.frame += 1;
+				Projectile.frameCounter = 0;
+			}
+
 		}
 	}
 }
