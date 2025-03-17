@@ -761,6 +761,69 @@ Mods: {
 					// Tooltip: ""
 				}
 			}
+
+			MonsterConfig: {
+				DisplayName: 生物生成设置
+
+				EnableAcidOgSlug: {
+					Label: 是否启用酸液源石虫
+					Tooltip: ""
+				}
+
+				EnableOriginiumSlug: {
+					Label: 是否启用源石虫
+					// Tooltip: ""
+				}
+
+				EnableOriginiumSlugAlpha: {
+					Label: 是否启用源石虫Alpha
+					// Tooltip: ""
+				}
+
+				EnableOriginiumSlugBeta: {
+					Label: 是否启用源石虫Beta
+					// Tooltip: ""
+				}
+
+				EnableSoldier: {
+					Label: 是否启用士兵
+					// Tooltip: ""
+				}
+			}
+
+			Dropconfig: {
+				DisplayName: 战利品掉落率设置
+
+				DropOriginiumSlug: {
+					Label: 源石虫的固源岩掉落率
+					Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+				}
+
+				DropOriginiumSlugAlpha: {
+					Label: 源石虫Alpha的固源岩掉落率
+					Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+				}
+
+				DropOriginiumSlugBeta: {
+					Label: 源石虫Beta的全新装置掉落率
+					Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+				}
+
+				DropSoldier1: {
+					Label: 士兵的装置掉落率
+					Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+				}
+
+				DropSoldier2: {
+					Label: 士兵的酮凝集掉落率
+					Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+				}
+
+				DropAcidOgSlug: {
+					Label: 酸液源石虫的异铁掉落率
+					Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+				}
+			}
 		}
 	}
 }

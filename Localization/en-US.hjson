@@ -761,6 +761,69 @@ Mods: {
 					Tooltip: ""
 				}
 			}
+
+			MonsterConfig: {
+				DisplayName: Mob spawn settings
+
+				EnableAcidOgSlug: {
+					Label: Enable Acid Originium Slug
+					Tooltip: ""
+				}
+
+				EnableOriginiumSlug: {
+					Label: Enable Originium Slug
+					Tooltip: ""
+				}
+
+				EnableOriginiumSlugAlpha: {
+					Label: Enable Originium Slug Alpha
+					Tooltip: ""
+				}
+
+				EnableOriginiumSlugBeta: {
+					Label: Enable Originium Slug Beta
+					Tooltip: ""
+				}
+
+				EnableSoldier: {
+					Label: Enable Soldier
+					Tooltip: ""
+				}
+			}
+
+			Dropconfig: {
+				DisplayName: Loot drop rate settings
+
+				DropOriginiumSlug: {
+					Label: Orirock Cube drop rate for Originium Slug
+					Tooltip: The smaller the value, the greater the drop probability. When the value is 1, the item will definitely drop.
+				}
+
+				DropOriginiumSlugAlpha: {
+					Label: Orirock Cube drop rate for Originium Slug Alpha
+					Tooltip: The smaller the value, the greater the drop probability. When the value is 1, the item will definitely drop.
+				}
+
+				DropOriginiumSlugBeta: {
+					Label: Integrated Device drop rate for Originium Slug Beta
+					Tooltip: The smaller the value, the greater the drop probability. When the value is 1, the item will definitely drop.
+				}
+
+				DropSoldier1: {
+					Label: Device drop rate for soldiers.
+					Tooltip: The smaller the value, the greater the drop probability. When the value is 1, the item will definitely drop.
+				}
+
+				DropSoldier2: {
+					Label: Polyketon drop rate for soldiers
+					Tooltip: The smaller the value, the greater the drop probability. When the value is 1, the item will definitely drop.
+				}
+
+				DropAcidOgSlug: {
+					Label: Oriron drop rate from Acid Og Slug
+					Tooltip: The smaller the value, the greater the drop probability. When the value is 1, the item will definitely drop.
+				}
+			}
 		}
 	}
 }

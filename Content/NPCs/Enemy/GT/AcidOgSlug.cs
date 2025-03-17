@@ -22,6 +22,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 		private int status;
 		private int Frame_State;
 
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<MonsterConfig>().EnableAcidOgSlug;
+		}
+
 		private enum ActionState {
 			Walk,
 			Attack
@@ -59,12 +64,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.Oriron>(), 8, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.Oriron>(), ModContent.GetInstance<Dropconfig>().DropAcidOgSlug, 1, 2));
 
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
-			return SpawnCondition.Underground.Chance * 0.4f; 
+			return SpawnCondition.Underground.Chance * 0.4f;
 			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 
