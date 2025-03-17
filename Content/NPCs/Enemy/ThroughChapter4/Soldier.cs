@@ -14,6 +14,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
 	public class Soldier : ModNPC
 	{
+
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ModContent.GetInstance<MonsterConfig>().EnableSoldier;
+		}
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Zombie];
 
@@ -44,8 +49,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Material.Device>(), 8, 1, 1));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Material.Polyketon>(), 8, 1, 1));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Material.Device>(), ModContent.GetInstance<Dropconfig>().DropSoldier1, 1, 1));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Material.Polyketon>(), ModContent.GetInstance<Dropconfig>().DropSoldier2, 1, 1));
 
 		}
 
