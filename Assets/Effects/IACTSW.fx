@@ -38,7 +38,7 @@ float4 IACTSW(float4 position : SV_POSITION, float2 coords : TEXCOORD0) : COLOR0
     {
         rewritewavevelocity = 0;
     }*/
-
+    
     float2 rewritetargetposition = (uTargetPosition - uScreenPosition) / uScreenResolution;//目标触发位置
     float2 realcenter = (coords - rewritetargetposition) * (uScreenResolution / uScreenResolution.y);//正中央位置
     float bechangedfield = dot(realcenter, realcenter);//被改变区域

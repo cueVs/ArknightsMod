@@ -19,6 +19,7 @@ namespace ArknightsMod.Content.Items.Accessories
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Exusiai's wing");
 			// Tooltip.SetDefault("Apple pie!");
+			
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			// These wings use the same values as the solar wings
