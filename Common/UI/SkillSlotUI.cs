@@ -1,4 +1,6 @@
 ﻿using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Players;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -13,6 +15,7 @@ namespace ArknightsMod.Common.UI
 
 		private readonly static Texture2D noSkill = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/NoSkill", AssetRequestMode.ImmediateLoad).Value;
 		private readonly static Texture2D baseOfSP = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP", AssetRequestMode.ImmediateLoad).Value;
+		private readonly static Texture2D selector = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillSelector", AssetRequestMode.ImmediateLoad).Value;
 		private readonly MasteryLevelUI ml;
 		private readonly UIText initSP, maxSP;
 		private readonly UIImage icon;
@@ -40,6 +43,7 @@ namespace ArknightsMod.Common.UI
 		}
 		protected override void DrawSelf(SpriteBatch spriteBatch) {
 			base.DrawSelf(spriteBatch);
+
 			if (IsMouseHovering)
 				Main.LocalPlayer.mouseInterface = true;
 		}
@@ -48,6 +52,9 @@ namespace ArknightsMod.Common.UI
 			if (skillData == null)
 				return;
 			base.DrawChildren(sb);
+			if (Main.LocalPlayer.GetModPlayer<WeaponPlayer>().CurrentSkill == skillData) {
+				sb.Draw(selector, GetDimensions().ToRectangle().TopRight() - Vector2.UnitX * 14, Color.White);
+			}
 		}
 		public void SetSkill(SkillData value) {
 
