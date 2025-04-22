@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ArknightsMod.Common.Configs;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ArknightsMod.Assets.SceneEffects

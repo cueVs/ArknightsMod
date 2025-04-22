@@ -10,14 +10,67 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using ArknightsMod.Common.UI;
 using ArknightsMod.Content.Projectiles;
+using ArknightsMod.Common.Items;
+using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-    public class PozemkaCrossbow : ModItem
-    {
+    public class PozemkaCrossbow : ArknightsWeapon
+	{
+		public override void RegisterSkills() {
+			string name = Name;
+
+			SkillData data = new() {
+				Name = name + 1,
+				ForceReplaceLevel = 10,
+				ChargeType = SkillChargeType.Attack,
+				AutoTrigger = true,
+				AutoUpdateActive = false,
+				SummonSkill = true
+			};
+			data[10] = new() {
+				InitSP = 0,
+				MaxSP = 20,
+				ActiveTime = 30,
+				MaxStock = 1
+			};
+			AddSkillData(data);
+
+			data = new() {
+				Name = name + 2,
+				ForceReplaceLevel = 10,
+				ChargeType = SkillChargeType.Auto,
+				AutoTrigger = false,
+				AutoUpdateActive = true,
+				SummonSkill = true
+			};
+			data[10] = new() {
+				InitSP = 9,
+				MaxSP = 9,
+				ActiveTime = 0.4f,
+				MaxStock = 2
+			};
+			AddSkillData(data);
+
+			data = new() {
+				Name = name + 3,
+				ForceReplaceLevel = 10,
+				ChargeType = SkillChargeType.Auto,
+				AutoTrigger = false,
+				AutoUpdateActive = true,
+				SummonSkill = true
+			};
+			data[10] = new() {
+				InitSP = 23,
+				MaxSP = 35,
+				ActiveTime = 30,
+				MaxStock = 1
+			};
+			AddSkillData(data);
+		}
+
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Yato's Katana");
-			// Tooltip.SetDefault("Yato has joined the team.");
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
@@ -46,34 +99,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 
 		}
-
-		// Right Click in world
 		public override bool AltFunctionUse(Player player) => true;
-		// Right Click in inventory
-		//public override bool ConsumeItem(Player player) => false;
-		//public override bool CanRightClick() => true;
-
-		//public override void RightClick(Player player) {
-		//	var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-		//	modPlayer.Skill++;
-		//	modPlayer.Skill = modPlayer.Skill % 3;
-
-		//	// S1
-		//	if (modPlayer.Skill == 0) {
-		//		modPlayer.SkillInitialize = true;
-		//	}
-
-		//	// S2
-		//	if (modPlayer.Skill == 1) {
-		//		modPlayer.SkillInitialize = true;
-		//	}
-
-		//	// S3
-		//	if (modPlayer.Skill == 2) {
-		//		modPlayer.SkillInitialize = true;
-		//	}
-		//}
-
 		public override bool CanUseItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
@@ -87,11 +113,11 @@ namespace ArknightsMod.Content.Items.Weapons
 
 							modPlayer.DelStockCount();
 
-							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS2") {
+							/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS2") {
 								Volume = 0.4f,
 								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 							};
-							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 							return true;
 						}
 						// S3
@@ -101,11 +127,11 @@ namespace ArknightsMod.Content.Items.Weapons
 
 							modPlayer.DelStockCount();
 
-							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
+							/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
 								Volume = 0.4f,
 								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 							};
-							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 						}
 						else
 							return false;
@@ -121,11 +147,11 @@ namespace ArknightsMod.Content.Items.Weapons
 						Item.useTime = 30;
 						Item.crit = 0;
 						Item.sentry = false;
-						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
+						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
 							Volume = 0.4f,
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 						// S1
 						if (modPlayer.Skill == 0) {
 							if (!modPlayer.SkillActive) {
@@ -136,11 +162,11 @@ namespace ArknightsMod.Content.Items.Weapons
 							}
 							else {
 								Item.crit = 36;
-								Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS1") {
+								/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS1") {
 									Volume = 0.4f,
 									MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 								};
-								SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+								SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 							}
 						}
 
@@ -149,22 +175,22 @@ namespace ArknightsMod.Content.Items.Weapons
 							Item.useAnimation = 20;
 							Item.useTime = 20;
 
-							Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
+							/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
 								Volume = 0.4f,
 								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 							};
-							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 						}
 					}
 					else {
 						Item.sentry = true;
 						Item.useTime = 30;
 
-						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentry") {
+						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentry") {
 							Volume = 0.4f,
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 					}
 				}
 			}
@@ -211,35 +237,6 @@ namespace ArknightsMod.Content.Items.Weapons
 
 		public override Vector2? HoldoutOffset() {
 			return new Vector2(-21f, -3f);
-		}
-
-		public override void HoldItem(Player player) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData();
-
-				if (!modPlayer.HoldPozemkaCrossbow) {
-					modPlayer.SkillInitialize = true;
-					modPlayer.Skill = 0;
-				}
-
-				// S1
-				if (modPlayer.Skill == 0) {
-				}
-				// S2
-				if (modPlayer.Skill == 1) {
-					modPlayer.AutoCharge();
-					modPlayer.SkillActiveTimer();
-				}
-				// S3
-				if (modPlayer.Skill == 2) {
-					modPlayer.AutoCharge();
-					modPlayer.SkillActiveTimer();
-				}
-
-				modPlayer.HoldPozemkaCrossbow = true; // you have to write this line HERE!
-			}
-			base.HoldItem(player);
 		}
 
 		// This method lets you adjust position of the gun in the player's hands. Play with these values until it looks good with your graphics.

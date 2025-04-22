@@ -740,19 +740,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						}
 						if (stage3dusttimer <= 2) {
 							Dust dust1 = Dust.NewDustPerfect(dustPos, 20, Velocity: Vector2.Zero, Scale: 1f);
-							dust1.velocity = (2 * dustPos - 2 * NPC.Center);
+							dust1.velocity = 2 * dustPos - 2 * NPC.Center;
 						}
 						else if (stage3dusttimer > 2 && stage3dusttimer <= 5) {
 							Dust dust2 = Dust.NewDustPerfect(dustPos, 21, Velocity: Vector2.Zero, Scale: 1f);
-							dust2.velocity = (2 * dustPos - 2 * NPC.Center);
+							dust2.velocity = 2 * dustPos - 2 * NPC.Center;
 						}
 						else if (stage3dusttimer > 5 && stage3dusttimer <= 8) {
 							Dust dust3 = Dust.NewDustPerfect(dustPos, 132, Velocity: Vector2.Zero, Scale: 1f);
-							dust3.velocity = (2 * dustPos - 2 * NPC.Center);
+							dust3.velocity = 2 * dustPos - 2 * NPC.Center;
 						}
 						else if (stage3dusttimer > 8) {
 							Dust dust4 = Dust.NewDustPerfect(dustPos, 134, Velocity: Vector2.Zero, Scale: 1f);
-							dust4.velocity = (2 * dustPos - 2 * NPC.Center);
+							dust4.velocity = 2 * dustPos - 2 * NPC.Center;
 						}
 					}
 				}
@@ -1042,7 +1042,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							targetY = (float)(-stage1to2r * Math.Cos(2 * stg1to2safetimer * Math.PI / (stage1to2locktime - 300)));
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg1to2safetimer % stage1to2atkspeed == 0) {
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
 								resetChangeSTG();
 							}
 						}
@@ -1065,7 +1065,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					ontransform = true;
 				}
 
-				NPC.life = (int)((NPC.lifeMax * expertHealthFrac / 2) * Math.Max(2 - timer2to3 / 240, 1));//变动，lifemax*exp/2是三阶段血量
+				NPC.life = (int)(NPC.lifeMax * expertHealthFrac / 2 * Math.Max(2 - timer2to3 / 240, 1));//变动，lifemax*exp/2是三阶段血量
 
 				if (InitializedSTGChange2 == false) {
 					if (Main.masterMode) {
@@ -1141,7 +1141,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							targetY = (float)(-stage2to3r * Math.Cos(2 * stg2to3safetimer * Math.PI / (stage2to3locktime - 480)));
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg2to3safetimer % stage2to3atkspeed == 0) {
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
 								resetChangeSTG2();
 							}
 						}
@@ -1300,9 +1300,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 								targetX = (float)(480 * (t - t * stgendsafetimer / 1500) * Math.Sin(2 * stgendsafetimer * Math.PI / 180 / (1 - stgendsafetimer / 1800)));
 								targetY = (float)(-480 * (t - t * stgendsafetimer / 1500) * Math.Cos(2 * stgendsafetimer * Math.PI / 180 / (1 - stgendsafetimer / 1800)));
 								NPC.velocity = new Vector2(OldCenter.X, OldCenter.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
-								endexplodespeed = (int)(Main.rand.NextFloat(0, 60));
+								endexplodespeed = (int)Main.rand.NextFloat(0, 60);
 								if ((int)endexplodespeed >= 57) {
-									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
+									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
 								}
 							}
 						}
@@ -1342,13 +1342,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						Vector2 dustPos = NPC.Center + new Vector2(Main.rand.NextFloat(12), 0).RotatedByRandom(MathHelper.TwoPi);
 						for (int i = 0; i < 2; i++) {
 							Dust deathdust1 = Dust.NewDustPerfect(dustPos, 20, Velocity: Vector2.Zero, Scale: 1.25f);
-							deathdust1.velocity = (4 * dustPos - 4 * NPC.Center);
+							deathdust1.velocity = 4 * dustPos - 4 * NPC.Center;
 							Dust deathdust2 = Dust.NewDustPerfect(dustPos, 21, Velocity: Vector2.Zero, Scale: 1.25f);
-							deathdust2.velocity = (4 * dustPos - 4 * NPC.Center);
+							deathdust2.velocity = 4 * dustPos - 4 * NPC.Center;
 							Dust deathdust3 = Dust.NewDustPerfect(dustPos, 132, Velocity: Vector2.Zero, Scale: 1.5f);
-							deathdust3.velocity = (3 * dustPos - 3 * NPC.Center);
+							deathdust3.velocity = 3 * dustPos - 3 * NPC.Center;
 							Dust deathdust4 = Dust.NewDustPerfect(dustPos, 134, Velocity: Vector2.Zero, Scale: 1.5f);
-							deathdust4.velocity = (3 * dustPos - 3 * NPC.Center);
+							deathdust4.velocity = 3 * dustPos - 3 * NPC.Center;
 						}
 					}
 				}
@@ -1489,13 +1489,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(10), 0).RotatedByRandom(Math.PI);
 			for (int i = 0; i < 5; i++) {
 				Dust deathdust1 = Dust.NewDustPerfect(dustPos, 20, Velocity: Vector2.Zero, Scale: 2f);
-				deathdust1.velocity = (5 * dustPos - 5 * Projectile.Center);
+				deathdust1.velocity = 5 * dustPos - 5 * Projectile.Center;
 				Dust deathdust2 = Dust.NewDustPerfect(dustPos, 21, Velocity: Vector2.Zero, Scale: 2f);
-				deathdust2.velocity = (5 * dustPos - 5 * Projectile.Center);
+				deathdust2.velocity = 5 * dustPos - 5 * Projectile.Center;
 				Dust deathdust3 = Dust.NewDustPerfect(dustPos, 132, Velocity: Vector2.Zero, Scale: 2.5f);
-				deathdust3.velocity = (4 * dustPos - 4 * Projectile.Center);
+				deathdust3.velocity = 4 * dustPos - 4 * Projectile.Center;
 				Dust deathdust4 = Dust.NewDustPerfect(dustPos, 134, Velocity: Vector2.Zero, Scale: 2.5f);
-				deathdust4.velocity = (4 * dustPos - 4 * Projectile.Center);
+				deathdust4.velocity = 4 * dustPos - 4 * Projectile.Center;
 			}
 		}
 	}
@@ -1564,7 +1564,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			Projectile.Center = Player.Center + prefire * Player.velocity + new Vector2(Main.rand.NextFloat(-64, 64), Main.rand.NextFloat(-64, 64));
-			Projectile.scale = (float)(3.3f / (click / 24 + 0.5f) / (click / 24 - 5.5f) + 1.4f);
+			Projectile.scale = 3.3f / (click / 24 + 0.5f) / (click / 24 - 5.5f) + 1.4f;
 			Projectile.alpha = (int)(0.1 * click * click - 12 * click + 255);
 
 			if (skilltimer == 120) {

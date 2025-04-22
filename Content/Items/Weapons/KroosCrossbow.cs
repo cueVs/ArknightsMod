@@ -9,14 +9,33 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using ArknightsMod.Common.UI;
+using ArknightsMod.Common.Items;
+using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-    public class KroosCrossbow : ModItem
-    {
+    public class KroosCrossbow : ArknightsWeapon
+	{
+		public override void RegisterSkills() {
+			string name = Name;
+			SkillData data = new() {
+				Name = name + 1,
+				ForceReplaceLevel = 7,
+				ChargeType = SkillChargeType.Attack,
+				AutoTrigger = true,
+				AutoUpdateActive = true,
+				SummonSkill = false
+			};
+			data[7] = new() {
+				InitSP = 0,
+				MaxSP = 4,
+				ActiveTime = 0.2f,
+				MaxStock = 1
+			};
+			AddSkillData(data);
+		}
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Yato's Katana");
-			// Tooltip.SetDefault("Yato has joined the team.");
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
@@ -65,10 +84,10 @@ namespace ArknightsMod.Content.Items.Weapons
 							modPlayer.DelStockCount();
 						}
 					}
-					Item.UseSound = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
+					/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
 						Volume = 0.8f,
 						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};
+					};*/
 				}
 			}
 			return true;
@@ -86,25 +105,6 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
 			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
 			return false;
-		}
-
-		public override void HoldItem(Player player) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData();
-				if (!modPlayer.HoldKroosCrossbow) {
-					modPlayer.SkillInitialize = true;
-					modPlayer.Skill = 0;
-				}
-
-				// S1
-				if (modPlayer.Skill == 0) {
-					modPlayer.SkillActiveTimer();
-				}
-
-				modPlayer.HoldKroosCrossbow = true; // you have to write this line HERE!
-			}
-			base.HoldItem(player);
 		}
 
 		// This method lets you adjust position of the gun in the player's hands. Play with these values until it looks good with your graphics.

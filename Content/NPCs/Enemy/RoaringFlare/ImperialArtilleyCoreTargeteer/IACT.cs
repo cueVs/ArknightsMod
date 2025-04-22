@@ -206,7 +206,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				IAORScale = (float)(0.475f*Math.Sin(Math.PI*IAORScaleX/120f - Math.PI/2f)+0.475f);//内环缩放,周期4秒，在0~0.95倍之间变化
 				if(timer1<=60)//刚进入一阶段的第一秒，光环从0增大
 				{
-					OAOScaleEnter = (float)(Math.Sin(Math.PI*OAOScaleX/120f));//引入过程，实现平滑过渡
+					OAOScaleEnter = (float)Math.Sin(Math.PI*OAOScaleX/120f);//引入过程，实现平滑过渡
 					Main.EntitySpriteDraw(OutringTexture, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, OutringTexture.Width, OutringTexture.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(OutringTexture.Width / 2, OutringTexture.Height / 2), OAOScaleEnter, SpriteEffects.None, 0);
 				}
 				else//确实进入了一阶段（1秒后）
@@ -235,7 +235,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 				if(timer1<=90)//刚进入一阶段的第1.5秒，探照灯从0增大
 				{
-					IACTLightScale0Enter = (float)(Math.Sin(Math.PI*LightScale/180f));//引入过程，实现平滑过渡
+					IACTLightScale0Enter = (float)Math.Sin(Math.PI*LightScale/180f);//引入过程，实现平滑过渡
 					Main.EntitySpriteDraw(waveTexture, NPC.Center - Main.screenPosition + new Vector2(0,25), new Rectangle(0, 0, waveTexture.Width, waveTexture.Height), Color.Red, NPC.rotation, new Vector2(waveTexture.Width / 2, 0), IACTLightScale0Enter , SpriteEffects.None, 0);
 				}		
 				else//确实进入了一阶段（1.5秒后）
@@ -318,9 +318,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				
 				if(stage2timer<=60)//刚进入二阶段的第一秒，光环从0增大,内圈的0、6、10应用于此处
 				{
-					OAOScale2Enter = (float)(Math.Sin(Math.PI*OAOScaleY/120f));//引入过程，实现平滑过渡
+					OAOScale2Enter = (float)Math.Sin(Math.PI*OAOScaleY/120f);//引入过程，实现平滑过渡
 					IAFRScale0Enter = (float)(0.95*Math.Sin(Math.PI*IAORScaleX/120f));
-					IAFRScale10Enter = (float)(IAORScaleX/84.21f);
+					IAFRScale10Enter = IAORScaleX / 84.21f;
 					Main.EntitySpriteDraw(OutringTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, OutringTexture2.Width, OutringTexture2.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(OutringTexture2.Width / 2, OutringTexture2.Height / 2), OAOScale2Enter, SpriteEffects.None, 0);
 					Main.EntitySpriteDraw(InringTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, InringTexture2.Width, InringTexture2.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(InringTexture2.Width / 2, InringTexture2.Height / 2), IAFRScale0Enter, SpriteEffects.None, 0);
 					Main.EntitySpriteDraw(InringTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, InringTexture2.Width, InringTexture2.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(InringTexture2.Width / 2, InringTexture2.Height / 2), IAFRScale10Enter, SpriteEffects.None, 0);
@@ -495,7 +495,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				{
 					OARScaleEnter = (float)(0.875*Math.Sin(Math.PI*OARScaleX/120f));//引入过程，实现平滑过渡
 					IARSScale0Enter = (float)(0.5*Math.Sin(Math.PI*IAORScaleY/120f));
-					IARSScale10Enter = (float)(1/160*IAORScaleY);
+					IARSScale10Enter = 1 / 160 * IAORScaleY;
 					Main.EntitySpriteDraw(OutringTexture3, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, OutringTexture3.Width, OutringTexture3.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(OutringTexture3.Width / 2, OutringTexture3.Height / 2), OARScaleEnter, SpriteEffects.None, 0);
 					Main.EntitySpriteDraw(OutringTexture4, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, OutringTexture4.Width, OutringTexture4.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(OutringTexture4.Width / 2, OutringTexture4.Height / 2), OARScaleEnter, SpriteEffects.None, 0);
 					Main.EntitySpriteDraw(InringTexture3, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, InringTexture3.Width, InringTexture3.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(InringTexture3.Width / 2, InringTexture3.Height / 2), IARSScale0Enter, SpriteEffects.None, 0);   
@@ -1260,7 +1260,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg1to2safetimer % stage1to2atkspeed == 0)
 							{
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 							}
 						}
 					}
@@ -1371,7 +1371,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg2to3safetimer % stage2to3atkspeed == 0)
 							{
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
 							}
 						}
 					}
@@ -1440,10 +1440,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 								targetX = (float)(360 * Math.Sin(2 * stgendsafetimer * Math.PI / 180));
 								targetY = (float)(-360 * Math.Cos(2 * stgendsafetimer * Math.PI / 180));
 								NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
-								endexplodespeed = (int)(Main.rand.NextFloat(0, 60));
+								endexplodespeed = (int)Main.rand.NextFloat(0, 60);
 								if ((int)endexplodespeed >= 57)
 								{
-									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), (int)(NPC.damage), 0f, 0, 0);
+									Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimPro>(), NPC.damage, 0f, 0, 0);
 								}
 							}
 							
@@ -1471,7 +1471,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 						for(int i = 0 ; i < 2 ; i++)
 						{
 							Dust dust8 = Dust.NewDustPerfect(dustPos, 219, Velocity: Vector2.Zero, Scale: 1.35f);
-							dust8.velocity = (3*dustPos - 3*NPC.Center);
+							dust8.velocity = 3*dustPos - 3*NPC.Center;
 						}
 					}
 				}
@@ -1491,10 +1491,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			{
 				if (!Main.dedServ)//Gore
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-5, 5) * 0.6f, (float)Main.rand.Next(-40, -20) * 0.6f), Mod.Find<ModGore>("IACT Gore 1").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 2").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-5, 5) * 0.6f, Main.rand.Next(-40, -20) * 0.6f), Mod.Find<ModGore>("IACT Gore 1").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.6f, Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 2").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.6f, Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.6f, Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
                 }
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/IACTboom") with { Volume = 2f, Pitch = 0f }, Player.Center);//死亡音效
 				Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Complete"), 138, 0, 18);
@@ -2063,10 +2063,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
 			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
 			dust.noGravity = true;
-			dust.velocity = (4 * dustPos - 4 * Projectile.Center);
+			dust.velocity = 4 * dustPos - 4 * Projectile.Center;
 			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
 			dust2.noGravity = true;
-			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
+			dust2.velocity = 4 * dustPos - 4 * Projectile.Center;
 			for (int i = 0; i < 2; i++) {
 				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Pixie, Scale: 1.5f)].noGravity = true;
 			}
@@ -2103,10 +2103,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
 			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
 			dust.noGravity = true;
-			dust.velocity = (4 * dustPos - 4 * Projectile.Center);
+			dust.velocity = 4 * dustPos - 4 * Projectile.Center;
 			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
 			dust2.noGravity = true;
-			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
+			dust2.velocity = 4 * dustPos - 4 * Projectile.Center;
 
 			for (int i = 0; i < 3; i++) {
 				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Pixie, Scale: 1.5f)].noGravity = true;
@@ -2148,7 +2148,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			for(int i = 0 ; i < 8 ; i++)
 			{
 				Dust dust7 = Dust.NewDustPerfect(dustPos, 219, Velocity: Vector2.Zero, Scale: 2f);
-				dust7.velocity = (5*dustPos - 5*Projectile.Center);
+				dust7.velocity = 5*dustPos - 5*Projectile.Center;
 			}
 		}
 	}
@@ -2205,7 +2205,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			Projectile.Center = Player.Center + prefire * Player.velocity;
-			Projectile.scale = (float)(3.3f / (click / 24 + 0.5f) / (click / 24 - 5.5f) + 1.4f);
+			Projectile.scale = 3.3f / (click / 24 + 0.5f) / (click / 24 - 5.5f) + 1.4f;
 			Projectile.alpha = (int)(0.1 * click * click - 12 * click + 255);
 		}
 	}
@@ -2265,7 +2265,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 			Projectile.Center = Player.Center + prefire * Player.velocity;
 
-			Projectile.scale = (float)(3.3f / (atktimer / 24 + 0.5f) / (atktimer / 24 - 5.5f) + 1.4f);
+			Projectile.scale = 3.3f / (atktimer / 24 + 0.5f) / (atktimer / 24 - 5.5f) + 1.4f;
 			Projectile.alpha = (int)(0.1 * atktimer * atktimer - 12 * atktimer + 255);
 			if (skilltimer == 120) {
 				if (Player.velocity.X * Player.velocity.X + Player.velocity.Y * Player.velocity.Y >= 100) {
@@ -2326,7 +2326,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 
 				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["IACTSW"].IsActive()) {
-					float progress = (shadertimer) / 60f;
+					float progress = shadertimer / 60f;
 					Terraria.Graphics.Effects.Filters.Scene["IACTSW"].GetShader().UseProgress(3 * progress).UseOpacity(distortStrength * (1 - progress / 1f));
 				}
 			}
@@ -2386,7 +2386,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 
 				if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["IACTSW"].IsActive()) {
-					float progress = (shadertimer) / 30f;
+					float progress = shadertimer / 30f;
 					Terraria.Graphics.Effects.Filters.Scene["IACTSW"].GetShader().UseProgress(3 * progress).UseOpacity(distortStrength * (1 - progress / 1f));
 				}
 			}

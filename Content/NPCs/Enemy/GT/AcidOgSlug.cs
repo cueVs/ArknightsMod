@@ -225,10 +225,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 				float x = Main.player[NPC.target].Center.X - NPC.Center.X;
 				float y = Main.player[NPC.target].Center.Y - NPC.Center.Y - 20f - addHight;
 
-				float theta = (new Vector2(x, y)).ToRotation();
+				float theta = new Vector2(x, y).ToRotation();
 				float addSpeed = Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) / 60; // Change speed according to distance
 
-				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, (8f + addSpeed) * (new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta))), ProjectileType<AcidOgSlugProjectile>(), 10, 0f, Main.myPlayer);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, (8f + addSpeed) * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ProjectileType<AcidOgSlugProjectile>(), 10, 0f, Main.myPlayer);
 			}
 		}
 

@@ -70,9 +70,9 @@ namespace ArknightsMod
 				Filters.Scene["AACTSTG3RBNoise"] = new Filter(new ScreenShaderData(new Ref<Effect>(AACTSTG3RBNoise), "AACTSTG3RBNoise"), EffectPriority.VeryHigh);
 				Filters.Scene["AACTSTG3RBNoise"].Load();
 
-				FNTwistedRing = ModContent.Request<Effect>("ArknightsMod/Assets/Effects/FNTwistedRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				/*FNTwistedRing = ModContent.Request<Effect>("ArknightsMod/Assets/Effects/FNTwistedRing", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				Filters.Scene["FNTwistedRing"] = new Filter(new ScreenShaderData(new Ref<Effect>(FNTwistedRing), "FNTwistedRing"), EffectPriority.VeryHigh);
-				Filters.Scene["FNTwistedRing"].Load();
+				Filters.Scene["FNTwistedRing"].Load();*/
 			}
 
 			MusicLoader.AddMusic(this, "Assets/OriginalMusic/AACTintro");

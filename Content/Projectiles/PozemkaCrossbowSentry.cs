@@ -59,7 +59,7 @@ namespace ArknightsMod.Content.Projectiles
 				float x = target.Center.X - Projectile.Center.X;
 				float y = target.Center.Y - Projectile.Center.Y - 20;
 
-				float theta = (new Vector2(x, y)).ToRotation();
+				float theta = new Vector2(x, y).ToRotation();
 
 				Projectile.rotation = theta;
 
@@ -74,7 +74,7 @@ namespace ArknightsMod.Content.Projectiles
 
 					if (Projectile.frame == 3 && Main.myPlayer == Projectile.owner) {
 						int damage = (int)Math.Round(Projectile.damage * 0.95);
-						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 15 * (new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta))), ModContent.ProjectileType<PozemkaCrossbowSentryProjectile>(), damage, 5f, Projectile.owner);
+						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 15 * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ModContent.ProjectileType<PozemkaCrossbowSentryProjectile>(), damage, 5f, Projectile.owner);
 						if(modPlayer.Skill == 2 && modPlayer.SkillActive) {
 							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentryProjectileS3"));
 						}

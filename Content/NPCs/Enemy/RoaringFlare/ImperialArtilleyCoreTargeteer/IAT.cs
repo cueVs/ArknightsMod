@@ -146,9 +146,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 				if (npctimer <= 60)//刚进入二阶段的第一秒，光环从0增大,内圈的0、6、10应用于此处
 				{
-					OAOScale2Enter = (float)(Math.Sin(Math.PI * OAOScaleY / 120f));//引入过程，实现平滑过渡
+					OAOScale2Enter = (float)Math.Sin(Math.PI * OAOScaleY / 120f);//引入过程，实现平滑过渡
 					IAFRScale0Enter = (float)(0.95 * Math.Sin(Math.PI * IAORScaleX / 120f));
-					IAFRScale10Enter = (float)(IAORScaleX / 84.21f);
+					IAFRScale10Enter = IAORScaleX / 84.21f;
 					Main.EntitySpriteDraw(OutringTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, OutringTexture2.Width, OutringTexture2.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(OutringTexture2.Width / 2, OutringTexture2.Height / 2), OAOScale2Enter, SpriteEffects.None, 0);
 					Main.EntitySpriteDraw(InringTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, InringTexture2.Width, InringTexture2.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(InringTexture2.Width / 2, InringTexture2.Height / 2), IAFRScale0Enter, SpriteEffects.None, 0);
 					Main.EntitySpriteDraw(InringTexture2, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, InringTexture2.Width, InringTexture2.Height), Color.White, (float)(0 * NPC.rotation), new Vector2(InringTexture2.Width / 2, InringTexture2.Height / 2), IAFRScale10Enter, SpriteEffects.None, 0);
@@ -681,7 +681,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg1to2safetimer % stage1to2atkspeed == 0)
 							{
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), (int)(NPC.damage), 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 							}
 						}
 					}
@@ -722,7 +722,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					for(int i = 0 ; i < 2 ; i++)
 					{
 						Dust dust8 = Dust.NewDustPerfect(dustPos, 219, Velocity: Vector2.Zero, Scale: 1.35f);
-						dust8.velocity = (3*dustPos - 3*NPC.Center);
+						dust8.velocity = 3*dustPos - 3*NPC.Center;
 					}
 				}
 				if(deathcheck == 2)//赐死
@@ -741,10 +741,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			{
 				if (!Main.dedServ)//Gore
                 {
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-5, 5) * 0.6f, (float)Main.rand.Next(-40, -20) * 0.6f), Mod.Find<ModGore>("IACT Gore 1").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 2").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2((float)Main.rand.Next(-30, 31) * 0.6f, (float)Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-5, 5) * 0.6f, Main.rand.Next(-40, -20) * 0.6f), Mod.Find<ModGore>("IACT Gore 1").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.6f, Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 2").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.6f, Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 3").Type, 1f);
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, new Vector2(Main.rand.Next(-30, 31) * 0.6f, Main.rand.Next(-30, 31) * 0.6f), Mod.Find<ModGore>("IACT Gore 4").Type, 1f);
                 }
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/IACTboom") with { Volume = 2f, Pitch = 0f }, Player.Center);//死亡音效
 				Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.Complete"), 138, 0, 18);
@@ -864,10 +864,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
 			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
 			dust.noGravity = true;
-			dust.velocity = (4 * dustPos - 4 * Projectile.Center);
+			dust.velocity = 4 * dustPos - 4 * Projectile.Center;
 			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
 			dust2.noGravity = true;
-			dust2.velocity = (4 * dustPos - 4 * Projectile.Center);
+			dust2.velocity = 4 * dustPos - 4 * Projectile.Center;
 			for (int i = 0; i < 2; i++) {
 				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Pixie, Scale: 1.5f)].noGravity = true;
 			}

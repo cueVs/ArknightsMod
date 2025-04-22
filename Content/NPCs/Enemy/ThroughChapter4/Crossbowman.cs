@@ -313,7 +313,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			frameHeight = 56;
 			if (iswalk == true || isescape == true) {
 				walkframe++;
-				framecount = (int)(walkframe / 20);
+				framecount = walkframe / 20;
 				if (framecount > 13) {
 					walkframe = 0;
 				}
@@ -324,7 +324,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			}
 			if (isatk == true) {
 				atkframe++;
-				framecount = (int)(atkframe / 10) + 15;
+				framecount = atkframe / 10 + 15;
 				NPC.frame.Y = framecount * frameHeight;
 				if (framecount > 18) {
 					NPC.frame.Y = 15 * frameHeight;

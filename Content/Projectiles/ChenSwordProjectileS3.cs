@@ -64,7 +64,7 @@ namespace ArknightsMod.Content.Projectiles
 			Projectile.rotation = (float)(Projectile.velocity.ToRotation() + Math.Cos(Main.rand.Next(0, 90)));
 
 			Projectile.position.X += (float)Main.rand.Next(-7, 7) - 15;
-			Projectile.position.Y += (float)Main.rand.Next(-7, 7);
+			Projectile.position.Y += Main.rand.Next(-7, 7);
 
 
 		}
@@ -72,7 +72,7 @@ namespace ArknightsMod.Content.Projectiles
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
 		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] >= 1f && Projectile.ai[0] <= (float)Main.rand.Next(4, 7)) {
+			if (Projectile.ai[0] >= 1f && Projectile.ai[0] <= Main.rand.Next(4, 7)) {
 				// Fade in
 				Projectile.scale += 0.12f;
 				// Cap scale 

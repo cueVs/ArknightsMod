@@ -1,20 +1,36 @@
+using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Players;
 using ArknightsMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using Terraria.Audio;
-using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Buffs;
-using System;
-using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-	public class ChenSword : ModItem
+	public class ChenSword : ArknightsWeapon
 	{
-		//Chen's sword. greatly strong.
+		public override void RegisterSkills() {
+			string name = Name;
+			SkillData data = new() {
+				Name = name + 1,
+				ForceReplaceLevel = 10,
+				ChargeType = SkillChargeType.Attack,
+				AutoTrigger = false,
+				AutoUpdateActive = false,
+				SummonSkill = false
+			};
+			data[10] = new() {
+				InitSP = 20,
+				MaxSP = 30,
+				ActiveTime = 1,
+				MaxStock = 1
+			};
+			AddSkillData(data);
+		}
 
 		public override void SetStaticDefaults() {
 			//ItemID.Sets.SkipsInitialUseSound[Item.type] = true; // This skips use animation-tied sound playback, so that we're able to make it be tied to use time instead in the UseItem() hook.
@@ -45,7 +61,7 @@ namespace ArknightsMod.Content.Items.Weapons
 
 			// Projectile Properties
 			Item.shootSpeed = 1f; // The speed of the projectile measured in pixels per frame.
-			// Item.shoot = ModContent.ProjectileType<ChenSwordProjectileS3>(); // The projectile that is fired from this weapon
+								  // Item.shoot = ModContent.ProjectileType<ChenSwordProjectileS3>(); // The projectile that is fired from this weapon
 
 			// The sound that this item plays when used. Need "using Terraria.Audio;"
 			//Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
@@ -54,34 +70,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			//};
 
 		}
-
-		// Right Click in world
 		public override bool AltFunctionUse(Player player) => true;
-		// Right Click in inventory
-		//public override bool ConsumeItem(Player player) => false;
-		//public override bool CanRightClick() => true;
-
-		//public override void RightClick(Player player) {
-		//	var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-		//	modPlayer.Skill++;
-		//	modPlayer.Skill = modPlayer.Skill % 3;
-
-		//	// S1
-		//	if (modPlayer.Skill == 0) {
-		//		modPlayer.SkillInitialize = true;
-		//	}
-
-		//	// S2
-		//	if (modPlayer.Skill == 1) {
-		//		modPlayer.SkillInitialize = true;
-		//	}
-
-		//	// S3
-		//	if (modPlayer.Skill == 2) {
-		//		modPlayer.SkillInitialize = true;
-		//	}
-		//}
-
 		public override bool CanUseItem(Player player) {
 			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
@@ -97,11 +86,11 @@ namespace ArknightsMod.Content.Items.Weapons
 
 						modPlayer.DelStockCount();
 
-						Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
+						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
 							Volume = 0.6f,
 							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
 						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
 					}
 
 					else
@@ -110,10 +99,10 @@ namespace ArknightsMod.Content.Items.Weapons
 				else {
 					Item.useAnimation = 15;
 					Item.useTime = 15; // If you want to attack triple hit, useTime = useAnimation/3
-					Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS0") {
+					/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS0") {
 						Volume = 0.4f,
 						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};
+					};*/
 
 					// S3 (but now it sets S1)
 					if (modPlayer.Skill == 0 && modPlayer.StockCount == 0) {
@@ -127,25 +116,17 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 		public override void HoldItem(Player player) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			var mp = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (Main.myPlayer == player.whoAmI) {
-
-				modPlayer.SetAllSkillsData();
-
-				if (!modPlayer.HoldChenSword) {
-					modPlayer.SkillInitialize = true;
-					modPlayer.Skill = 0;
-				}
-
 				// S3 (but now S1)
-				if (modPlayer.Skill == 0) {
+				if (mp.Skill == 0) {
 
-					if (modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
+					if (mp.StockCount > 0 && !mp.SkillActive) {
 						for (int i = 0; i < 30; i++) {//Circle
 							Vector2 offset = new Vector2();
 							double angle = Main.rand.NextDouble() * 2d * Math.PI;
-							offset.X += (float)(Math.Sin(angle) * (500));
-							offset.Y += (float)(Math.Cos(angle) * (500));
+							offset.X += (float)(Math.Sin(angle) * 500);
+							offset.Y += (float)(Math.Cos(angle) * 500);
 
 							Dust circle_dust = Dust.NewDustPerfect(player.MountedCenter + offset, 235, player.velocity, 200, default(Color), 0.5f);
 							circle_dust.fadeIn = 0.1f;
@@ -153,48 +134,49 @@ namespace ArknightsMod.Content.Items.Weapons
 						}
 					}
 
-					if (modPlayer.SkillActive) {
-						modPlayer.SkillTimer++;
+					if (mp.SkillActive) {
+						mp.SkillTimer++;
 						player.immune = true;
 						player.immuneTime = 5;
 						player.immuneAlpha = 255;
-						if (modPlayer.SkillTimer == 1) {
+						float activeTime = mp.CurrentSkill.CurrentLevelData.ActiveTime * 60;
+						if (mp.SkillTimer == 1) {
 							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X - 50, player.Center.Y - 100, 0, 0, ProjectileType<ChenSwordProjectileS3Dragon>(), 0, 0, player.whoAmI, 0f);
 						}
-						if (modPlayer.SkillTimer <= modPlayer.SkillActiveTime[modPlayer.Skill] * 60) {
+						if (mp.SkillTimer <= activeTime) {
 							player.velocity = Vector2.Zero;
 						}
-						if (modPlayer.SkillTimer == 10) {
-							player.Teleport(new Vector2(modPlayer.mousePositionX, modPlayer.mousePositionY), -1, 0);
-							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
+						if (mp.SkillTimer == 10) {
+							player.Teleport(new Vector2(mp.mousePositionX, mp.mousePositionY), -1, 0);
+							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, mp.mousePositionX, mp.mousePositionY, 1, 0, 0);
 						}
 
-						if (modPlayer.SkillTimer > 10 && modPlayer.SkillTimer <= modPlayer.SkillActiveTime[modPlayer.Skill] * 60 && modPlayer.SkillTimer % 5 == 0) {
+						if (mp.SkillTimer > 10 && mp.SkillTimer <= activeTime && mp.SkillTimer % 5 == 0) {
 							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), player.GetWeaponDamage(Item) * 3, 2.5f, player.whoAmI, 0f);
 							player.immuneAlpha = 0;
-							if (modPlayer.SkillTimer == 60) {
-								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
+							if (mp.SkillTimer == 60) {
+								/*SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
 									Volume = 0.7f,
 									MaxInstances = 1,
 								};
-								SoundEngine.PlaySound(projSound);
+								SoundEngine.PlaySound(projSound);*/
 							}
 							else {
-								SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
+								/*SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
 									Volume = 0.7f,
 									MaxInstances = 4,
 								};
-								SoundEngine.PlaySound(projSound);
+								SoundEngine.PlaySound(projSound);*/
 							}
 
 						}
 
-						if (modPlayer.SkillTimer == modPlayer.SkillActiveTime[modPlayer.Skill] * 60 + 10) {
-							player.Teleport(new Vector2(modPlayer.playerPositionX - 10, modPlayer.playerPositionY - 10), -1, 0);
-							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, (float)player.whoAmI, modPlayer.mousePositionX, modPlayer.mousePositionY, 1, 0, 0);
+						if (mp.SkillTimer == activeTime + 10) {
+							player.Teleport(new Vector2(mp.playerPositionX - 10, mp.playerPositionY - 10), -1, 0);
+							NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, mp.mousePositionX, mp.mousePositionY, 1, 0, 0);
 
-							modPlayer.SkillActive = false;
-							modPlayer.SkillTimer = 0;
+							mp.SkillActive = false;
+							mp.SkillTimer = 0;
 						}
 					}
 					else {
@@ -204,7 +186,6 @@ namespace ArknightsMod.Content.Items.Weapons
 				}
 
 
-				modPlayer.HoldChenSword = true; // you have to write this line HERE!
 			}
 			base.HoldItem(player);
 		}
