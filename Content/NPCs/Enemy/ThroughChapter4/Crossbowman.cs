@@ -1,17 +1,14 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader.Utilities;
-using Terraria.Localization;
-using System;
-using ArknightsMod.Content.Items;
-using ArknightsMod.Common.VisualEffects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
 using Terraria.Audio;
-using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 
 namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
@@ -152,7 +149,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 					return;
 				}
 			}
-			
+
 			//模式选择
 			if (distance >= atkrange) {//攻击范围之外
 				Walk();
@@ -168,7 +165,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 					//attacktimer = 0;
 				}
 			}
-			else if(distance >= escrange) {//中间范围，只攻击不移动
+			else if (distance >= escrange) {//中间范围，只攻击不移动
 				timer++;
 				NPC.velocity.X = float.Lerp(NPC.velocity.X, 0, 0.1f);
 				if (timer >= atkloop) {
@@ -295,8 +292,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				isstuck = false;
 				if (attacktimer == 50) {
 					directionchoose = Player.Center.X - NPC.Center.X >= 0 ? 1 : -1;
-					angle = (float)Math.Atan((Player.Center.Y - NPC.Center.Y)/(Player.Center.X - NPC.Center.X));
-					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 8f,0).RotatedBy(angle), ModContent.ProjectileType<CrossbowmanBolt>(), 12, 0.8f, 0, 0);
+					angle = (float)Math.Atan((Player.Center.Y - NPC.Center.Y) / (Player.Center.X - NPC.Center.X));
+					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 8f, 0).RotatedBy(angle), ModContent.ProjectileType<CrossbowmanBolt>(), 12, 0.8f, 0, 0);
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/Crossbow") with { Volume = 1f, Pitch = 0f }, NPC.Center);
 				}
 			}
@@ -369,7 +366,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			Projectile.velocity = Vector2.Lerp(Projectile.velocity, 0.833f * Projectile.velocity, 0.01f);
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			Dust dust;
-			Vector2 position = Projectile.Center + new Vector2(0,3);
+			Vector2 position = Projectile.Center + new Vector2(0, 3);
 			dust = Terraria.Dust.NewDustPerfect(position, 279, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
 		}
 	}

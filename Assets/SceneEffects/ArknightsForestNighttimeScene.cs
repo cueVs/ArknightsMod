@@ -8,8 +8,7 @@ namespace ArknightsMod.Assets.SceneEffects
 	{
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Music/asisaw");
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeLow;
-		public override bool IsLoadingEnabled(Mod mod)
-		{
+		public override bool IsLoadingEnabled(Mod mod) {
 			return ModContent.GetInstance<MusicConfig>().EnableArknightsForestNighttime;
 		}
 

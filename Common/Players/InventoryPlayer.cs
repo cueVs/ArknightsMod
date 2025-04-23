@@ -1,7 +1,5 @@
-﻿using ArknightsMod.Content.Items;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArknightsMod.Common.Players
@@ -14,10 +12,8 @@ namespace ArknightsMod.Common.Players
 		// This method adds an ExampleItem and 256 gold ore to the player's inventory.
 		//
 		// If you know what 'yield return' is, you can also use that here, if you prefer so.
-		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
-		{
-			if (mediumCoreDeath)
-			{
+		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
+			if (mediumCoreDeath) {
 				return new[] {
 					new Item(ModContent.ItemType<Content.Items.Consumables.StartBag>()),
 					new Item(ModContent.ItemType<Content.Items.Placeable.Furniture.AnniversaryWheel>())

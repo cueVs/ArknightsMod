@@ -1,13 +1,11 @@
 using ArknightsMod.Content.NPCs.Friendly;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.GameContent.UI;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria;
-using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
-using System;
+using Terraria.ModLoader;
 
 namespace ArknightsMod
 {
@@ -27,13 +25,11 @@ namespace ArknightsMod
 		public static Effect AACTSTG3RBNoise;//红蓝噪声效果（AACT三阶段）
 		public static Effect FNTwistedRing;//霜星限制阈（扭曲环效果）
 
-		public override void Load()
-		{
+		public override void Load() {
 			// Registers a new custom currency
 			OrundumCurrencyId = CustomCurrencyManager.RegisterCurrency(new Content.Currencies.OrundumCurrency(ModContent.ItemType<Content.Items.Orundum>(), 9999L, "Mods.ArknightsMod.Currencies.OrundumCurrency"));
 			//shader
-			if (Main.netMode != NetmodeID.Server)
-			{
+			if (Main.netMode != NetmodeID.Server) {
 				IACTSW = ModContent.Request<Effect>("ArknightsMod/Assets/Effects/IACTSW", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				Filters.Scene["IACTSW"] = new Filter(new ScreenShaderData(new Ref<Effect>(IACTSW), "IACTSW"), EffectPriority.VeryHigh);
 				Filters.Scene["IACTSW"].Load();

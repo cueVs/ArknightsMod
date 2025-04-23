@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.GameContent;
 using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
@@ -15,8 +14,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 	{
 		public const int NextStyleHeight = 42; // Calculated by adding all CoordinateHeights{16, 18} + CoordinatePaddingFix.Y{2} applied to all of them + 2
 
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// Properties
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -50,17 +48,14 @@ namespace ArknightsMod.Content.Tiles.Furniture
 		//	num = fail ? 1 : 3;
 		//}
 
-		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
-		{
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) {
 			return settings.player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance); // Avoid being able to trigger it from long range
 		}
 
-		public override bool RightClick(int i, int j)
-		{
+		public override bool RightClick(int i, int j) {
 			Player player = Main.LocalPlayer;
 
-			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance))
-			{ // Avoid being able to trigger it from long range
+			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance)) { // Avoid being able to trigger it from long range
 				player.GamepadEnableGrappleCooldown();
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Orundum>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.OrirockCube>(), 100);
@@ -84,12 +79,10 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			return true;
 		}
 
-		public override void MouseOver(int i, int j)
-		{
+		public override void MouseOver(int i, int j) {
 			Player player = Main.LocalPlayer;
 
-			if (!player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance))
-			{ // Match condition in RightClick. Interaction should only show if clicking it does something
+			if (!player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance)) { // Match condition in RightClick. Interaction should only show if clicking it does something
 				return;
 			}
 

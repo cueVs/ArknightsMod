@@ -11,7 +11,7 @@ namespace ArknightsMod.Content.Dusts
 			dust.noGravity = true; // Makes the dust have no gravity.
 			dust.noLight = true; // Makes the dust emit no light.
 			dust.scale *= 0.6f; // Multiplies the dust's initial scale by 1.5.
-							  // If our texture had 3 different dust on top of each other (a 20x60 pixel image), we might do this:
+								// If our texture had 3 different dust on top of each other (a 20x60 pixel image), we might do this:
 			dust.frame = new Rectangle(0, Main.rand.Next(3) * 30, 28, 30);
 		}
 

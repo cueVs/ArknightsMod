@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {
-    public class ChenSwordProjectileS3Dragon : ModProjectile
+	public class ChenSwordProjectileS3Dragon : ModProjectile
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("The Only Thing I Know For Real");
@@ -62,11 +62,9 @@ namespace ArknightsMod.Content.Projectiles
 
 
 
-			if (++Projectile.frameCounter >= 1)
-			{
+			if (++Projectile.frameCounter >= 1) {
 				Projectile.frameCounter = 0;
-				if (Projectile.frame < 26)
-				{
+				if (Projectile.frame < 26) {
 					Projectile.frame++;
 					if (Projectile.frame > 24) {
 						Projectile.alpha += 50;

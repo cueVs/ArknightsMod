@@ -1,20 +1,14 @@
-﻿using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Buffs;
+﻿using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Players;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using ArknightsMod.Common.UI;
-using ArknightsMod.Common.Items;
-using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-    public class KroosCrossbow : ArknightsWeapon
+	public class KroosCrossbow : ArknightsWeapon
 	{
 		public override void RegisterSkills() {
 			string name = Name;
@@ -35,18 +29,17 @@ namespace ArknightsMod.Content.Items.Weapons
 			AddSkillData(data);
 		}
 		public override void SetStaticDefaults() {
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
-		public override void SetDefaults()
-        {
-            Item.damage = 12;
+		public override void SetDefaults() {
+			Item.damage = 12;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 120;
-            Item.height = 60;
+			Item.height = 60;
 			Item.scale = 0.5f;
-            Item.useTime = 8;
-            Item.useAnimation = 8;
+			Item.useTime = 8;
+			Item.useAnimation = 8;
 			Item.reuseDelay = 10;
 			Item.consumeAmmoOnLastShotOnly = true;
 
@@ -74,10 +67,10 @@ namespace ArknightsMod.Content.Items.Weapons
 
 					// S1
 					if (modPlayer.Skill == 0) {
-						if(modPlayer.StockCount == 0) {
+						if (modPlayer.StockCount == 0) {
 							modPlayer.OffensiveRecovery();
 						}
-						else if(modPlayer.StockCount > 0) {
+						else if (modPlayer.StockCount > 0) {
 							Item.useTime = 4;
 							modPlayer.SkillActive = true;
 							modPlayer.SkillTimer = 0;

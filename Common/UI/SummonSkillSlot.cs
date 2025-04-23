@@ -1,6 +1,4 @@
-﻿using ArknightsMod.Common.Items;
-using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Items.Weapons;
+﻿using ArknightsMod.Common.Players;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;

@@ -1,21 +1,16 @@
-﻿using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Buffs;
+﻿using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Players;
+using ArknightsMod.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using ArknightsMod.Common.UI;
-using ArknightsMod.Content.Projectiles;
-using ArknightsMod.Common.Items;
-using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-    public class PozemkaCrossbow : ArknightsWeapon
+	public class PozemkaCrossbow : ArknightsWeapon
 	{
 		public override void RegisterSkills() {
 			string name = Name;
@@ -70,18 +65,17 @@ namespace ArknightsMod.Content.Items.Weapons
 		}
 
 		public override void SetStaticDefaults() {
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
-		public override void SetDefaults()
-        {
-            Item.damage = 100;
+		public override void SetDefaults() {
+			Item.damage = 100;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 88;
-            Item.height = 44;
+			Item.height = 44;
 			Item.scale = 0.7f;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
 			Item.reuseDelay = 10;
 			Item.consumeAmmoOnLastShotOnly = true;
 

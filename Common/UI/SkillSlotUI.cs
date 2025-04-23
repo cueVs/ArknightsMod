@@ -53,7 +53,7 @@ namespace ArknightsMod.Common.UI
 				return;
 			base.DrawChildren(sb);
 			if (Main.LocalPlayer.GetModPlayer<WeaponPlayer>().CurrentSkill == skillData) {
-				sb.Draw(selector, GetDimensions().ToRectangle().TopRight() - Vector2.UnitX * 14, Color.White);
+				sb.Draw(selector, GetDimensions().ToRectangle().TopRight() - Vector2.UnitX * 20, Color.White);
 			}
 		}
 		public void SetSkill(SkillData value) {

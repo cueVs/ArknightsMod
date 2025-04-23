@@ -5,15 +5,15 @@ public class MonsterConfig : ModConfig
 {
 	public override ConfigScope Mode => (ConfigScope)1;
 
-    [DefaultValue(true)]
+	[DefaultValue(true)]
 	[ReloadRequired]
 	public bool EnableOriginiumSlug { get; set; }
 
-    [DefaultValue(true)]
+	[DefaultValue(true)]
 	[ReloadRequired]
 	public bool EnableOriginiumSlugAlpha { get; set; }
 
-    [DefaultValue(true)]
+	[DefaultValue(true)]
 	[ReloadRequired]
 	public bool EnableOriginiumSlugBeta { get; set; }
 

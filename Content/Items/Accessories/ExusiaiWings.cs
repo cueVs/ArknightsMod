@@ -1,26 +1,23 @@
-using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.CodeAnalysis;
-using System;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace ArknightsMod.Content.Items.Accessories
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class ExusiaiWings : ModItem
 	{
+		private static Asset<Texture2D> glowMask;
+		public override void Load() => glowMask = ModContent.Request<Texture2D>("ArknightsMod/Content/Items/Accessories/ExusiaiWings_Glowmask");
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Exusiai's wing");
 			// Tooltip.SetDefault("Apple pie!");
-			
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+			Item.ResearchUnlockCount = 1;
 
 			// These wings use the same values as the solar wings
 			// Fly time: 180 ticks = 3 seconds
@@ -56,7 +53,7 @@ namespace ArknightsMod.Content.Items.Accessories
 
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
-			Texture2D texture = ModContent.Request<Texture2D>("ArknightsMod/Content/Items/Accessories/ExusiaiWings_Glowmask", AssetRequestMode.ImmediateLoad).Value;
+			Texture2D texture = glowMask.Value;
 			spriteBatch.Draw
 			(
 				texture,

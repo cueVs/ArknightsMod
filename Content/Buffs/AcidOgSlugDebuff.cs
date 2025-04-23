@@ -1,8 +1,7 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using System;
+using Terraria;
 using Terraria.ID;
-using System.Collections.Generic;
-using System.Security.Principal;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Buffs
 {
@@ -18,16 +17,21 @@ namespace ArknightsMod.Content.Buffs
 		}
 
 		public override void Update(Player player, ref int buffIndex) {
-			player.statDefense -= player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount * 2;
-			player.GetModPlayer<AcidOgSlugDebuffPlayer>().Debuff = true;
+			var mp = player.GetModPlayer<AcidOgSlugDebuffPlayer>();
+
+			player.statDefense -= mp.stackCount * 2;
+			mp.Debuff = true;
 		}
 
 		public override bool ReApply(Player player, int time, int buffIndex) {
-			player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount += 1;
+			ref int count = ref player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount;
+			count = Math.Max(++count, 5);
+
+			/*player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount += 1;
 			if(player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount > 5) {
 				player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount = 5;
-			}
-			player.statDefense -= player.GetModPlayer<AcidOgSlugDebuffPlayer>().stackCount * 2;
+			}*/
+			player.statDefense -= count * 2;
 			return false;
 		}
 	}
@@ -39,7 +43,7 @@ namespace ArknightsMod.Content.Buffs
 		public bool Debuff;
 
 		public override void ResetEffects() {
-			if(!Debuff) {
+			if (!Debuff) {
 				stackCount = 1;
 			}
 			Debuff = false;

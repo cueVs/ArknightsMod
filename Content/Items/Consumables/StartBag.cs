@@ -1,11 +1,7 @@
 ﻿using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader.IO;
-using System.IO;
-using System.Collections.Generic;
-using Terraria.GameContent.ItemDropRules;
 
 namespace ArknightsMod.Content.Items.Consumables
 {
@@ -15,7 +11,7 @@ namespace ArknightsMod.Content.Items.Consumables
 			// DisplayName.SetDefault("Example CanStack Item: Gift Bag");
 			// Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}"); // References a language key that says "Right Click To Open" in the language of the game
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults() {

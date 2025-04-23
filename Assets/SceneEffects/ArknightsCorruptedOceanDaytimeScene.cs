@@ -1,8 +1,6 @@
 ﻿using ArknightsMod.Common.Configs;
 using Terraria;
-using Terraria.IO;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 
 namespace ArknightsMod.Assets.SceneEffects
 {
@@ -10,12 +8,11 @@ namespace ArknightsMod.Assets.SceneEffects
 	{
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Music/darktides");
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-		public override bool IsLoadingEnabled(Mod mod)
-		{
+		public override bool IsLoadingEnabled(Mod mod) {
 			return ModContent.GetInstance<MusicConfig>().EnableArknightsCorruptedOceanDaytime;
 		}
 
-		public override bool IsSceneEffectActive(Player player){
+		public override bool IsSceneEffectActive(Player player) {
 			if (WorldGen.GetWorldSize() is WorldGen.WorldSize.Large) {
 				return Main.player[Main.myPlayer].active && Main.dayTime && (Main.player[Main.myPlayer].position.X <= 6080 || Main.player[Main.myPlayer].position.X >= WorldGen.WorldSizeLargeX * 16 - 6080) && Main.player[Main.myPlayer].ZoneCorrupt && !Main.player[Main.myPlayer].ZoneCrimson && !Main.player[Main.myPlayer].ZoneHallow;
 			}

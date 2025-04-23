@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Enums;
 using Terraria.ModLoader;
-using Terraria.ID;
-using System;
 
 namespace ArknightsMod.Content.Projectiles
 {
@@ -14,8 +11,7 @@ namespace ArknightsMod.Content.Projectiles
 	public class ShinginzanProjectile : ModProjectile
 	{
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 60;
 			Projectile.height = 144;
 
@@ -31,13 +27,11 @@ namespace ArknightsMod.Content.Projectiles
 		// Allows you to determine the color and transparency in which a projectile is drawn
 		// Return null to use the default color (normally light and buff color)
 		// Returns null by default.
-		public override Color? GetAlpha(Color lightColor)
-		{
+		public override Color? GetAlpha(Color lightColor) {
 			return new Color(0, 50, 100, 0) * Projectile.Opacity;
 		}
 
-		public override void AI()
-		{
+		public override void AI() {
 			Projectile.ai[0] += 1f;
 			Projectile.scale += 0.05f;
 			Projectile.rotation = Projectile.velocity.ToRotation();
@@ -53,11 +47,9 @@ namespace ArknightsMod.Content.Projectiles
 		}
 
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
-		public void FadeInAndOut()
-		{
+		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] <= 50f)
-			{
+			if (Projectile.ai[0] <= 50f) {
 				// Fade in
 				Projectile.alpha -= 25;
 				// Cap alpha before timer reaches 50 ticks
@@ -74,17 +66,15 @@ namespace ArknightsMod.Content.Projectiles
 				Projectile.alpha = 255;
 		}
 
-		private void delayCollision()
-		{
-			if (Projectile.ai[0] <= 10f)
-			{
+		private void delayCollision() {
+			if (Projectile.ai[0] <= 10f) {
 				Projectile.tileCollide = false;
 			}
-			else Projectile.tileCollide = true;
+			else
+				Projectile.tileCollide = true;
 		}
 
-		private void SetVisualOffsets()
-		{
+		private void SetVisualOffsets() {
 			// 32 is the sprite size (here both width and height equal)
 			const int HalfSpriteWidth = 60 / 2;
 			const int HalfSpriteHeight = 144 / 2;

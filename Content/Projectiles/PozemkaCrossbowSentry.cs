@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Enums;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System;
-using System.Linq;
-using Terraria.Audio;
-using ArknightsMod.Common.Players;
-using Terraria.DataStructures;
-using ArknightsMod.Content.Projectiles;
+﻿using ArknightsMod.Common.Players;
 using ArknightsMod.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {
@@ -22,8 +18,7 @@ namespace ArknightsMod.Content.Projectiles
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 64;
 			Projectile.height = 38;
 
@@ -68,14 +63,14 @@ namespace ArknightsMod.Content.Projectiles
 					if (Projectile.ai[0] < Cooldown - 16) {
 						Projectile.frame = 0;
 					}
-					else if (Projectile.ai[0] % 2 == 0){
+					else if (Projectile.ai[0] % 2 == 0) {
 						Projectile.frame++;
 					}
 
 					if (Projectile.frame == 3 && Main.myPlayer == Projectile.owner) {
 						int damage = (int)Math.Round(Projectile.damage * 0.95);
 						Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, 15 * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ModContent.ProjectileType<PozemkaCrossbowSentryProjectile>(), damage, 5f, Projectile.owner);
-						if(modPlayer.Skill == 2 && modPlayer.SkillActive) {
+						if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
 							SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentryProjectileS3"));
 						}
 						else {

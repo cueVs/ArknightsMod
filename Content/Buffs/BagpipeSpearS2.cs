@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 
 namespace ArknightsMod.Content.Buffs
 {
@@ -15,7 +14,7 @@ namespace ArknightsMod.Content.Buffs
 		}
 
 		public override void Update(Player player, ref int buffIndex) {
-			
+
 		}
 	}
 }

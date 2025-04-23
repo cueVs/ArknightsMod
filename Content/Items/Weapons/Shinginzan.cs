@@ -2,23 +2,19 @@ using ArknightsMod.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using Terraria.Audio;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
 	public class Shinginzan : ModItem
 	{
 
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Yato's Katana");
 			// Tooltip.SetDefault("Yato has joined the team.");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Item.damage = 150;
 			Item.knockBack = 6.5f;
 			Item.useStyle = ItemUseStyleID.Swing; // Makes the player do the proper arm motion

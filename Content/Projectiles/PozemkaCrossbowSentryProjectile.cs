@@ -1,13 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Enums;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System;
-using ArknightsMod.Content.Dusts;
+﻿using ArknightsMod.Content.Dusts;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {

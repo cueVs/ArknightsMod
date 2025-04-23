@@ -1,7 +1,6 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Armor.Vanity.Specialist
 {
@@ -11,7 +10,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Specialist
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Hood");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;

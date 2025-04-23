@@ -10,8 +10,6 @@ namespace ArknightsMod.Content.Items.Weapons
 	public abstract class ArknightsWeapon : ModItem
 	{
 		private readonly static Dictionary<int, List<SkillData>> Skills = [];
-		public bool ShowSummonIconBySkills { get; private set; }
-		private bool init;
 
 		#region 技能等级
 		// 等级系统开发完成后使用

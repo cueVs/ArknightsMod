@@ -11,8 +11,7 @@ namespace ArknightsMod.Content.Tiles
 {
 	public class Grind : ModTile
 	{
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			TileID.Sets.Ore[Type] = true;
 			// Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
 			Main.tileOreFinderPriority[Type] = 180; // Metal Detector value, see https://terraria.gamepedia.com/Metal_Detector
@@ -63,20 +62,17 @@ namespace ArknightsMod.Content.Tiles
 
 	public class GrindPass : GenPass
 	{
-		public GrindPass(string name, float loadWeight) : base(name, loadWeight)
-		{
+		public GrindPass(string name, float loadWeight) : base(name, loadWeight) {
 		}
 
-		protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
-		{
+		protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration) {
 			// progress.Message is the message shown to the user while the following code is running.
 			// Try to make your message clear. You can be a little bit clever, but make sure it is descriptive enough for troubleshooting purposes.
 			progress.Message = "Grindstone";
 
 			// Ores are quite simple, we simply use a for loop and the WorldGen.TileRunner to place splotches of the specified Tile in the world.
 			// "6E-05" is "scientific notation". It simply means 0.00006 but in some ways is easier to read.
-			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-04); k++)
-			{
+			for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-04); k++) {
 				// The inside of this for loop corresponds to one single splotch of our Ore.
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
@@ -89,8 +85,7 @@ namespace ArknightsMod.Content.Tiles
 				// Alternately, we could check the tile already present in the coordinate we are interested.
 				// Wrapping WorldGen.TileRunner in the following condition would make the ore only generate in Dirt.
 				Tile tile = Framing.GetTileSafely(x, y);
-				if (tile.HasTile && tile.TileType == TileID.Dirt)
-				{
+				if (tile.HasTile && tile.TileType == TileID.Dirt) {
 					WorldGen.TileRunner(x, y, WorldGen.genRand.Next(4, 6), WorldGen.genRand.Next(5, 8), ModContent.TileType<Grind>());
 				}
 			}

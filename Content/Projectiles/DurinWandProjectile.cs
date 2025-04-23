@@ -1,17 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Enums;
-using Terraria.ModLoader;
 using Terraria.ID;
-using System;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {
 	public class DurinWandProjectile : ModProjectile
 	{
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 10;
 			Projectile.height = 10;
 
@@ -30,14 +27,12 @@ namespace ArknightsMod.Content.Projectiles
 		// Allows you to determine the color and transparency in which a projectile is drawn
 		// Return null to use the default color (normally light and buff color)
 		// Returns null by default.
-		public override Color? GetAlpha(Color lightColor)
-		{
+		public override Color? GetAlpha(Color lightColor) {
 			// return Color.White;
 			return new Color(255, 255, 255, 0) * Projectile.Opacity;
 		}
 
-		public override void AI()
-		{
+		public override void AI() {
 			Projectile.ai[0] += 1f;
 			FadeInAndOut();
 
@@ -49,11 +44,9 @@ namespace ArknightsMod.Content.Projectiles
 		}
 
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
-		public void FadeInAndOut()
-		{
+		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] <= 50f)
-			{
+			if (Projectile.ai[0] <= 50f) {
 				// Fade in
 				Projectile.alpha -= 25;
 				// Cap alpha before timer reaches 50 ticks

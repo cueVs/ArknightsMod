@@ -1,7 +1,6 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 {
@@ -11,7 +10,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 	{
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Jacket");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
 			ArmorIDs.Body.Sets.HidesTopSkin[Item.bodySlot] = true;

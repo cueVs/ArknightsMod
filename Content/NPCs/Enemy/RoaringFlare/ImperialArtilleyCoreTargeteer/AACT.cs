@@ -1,22 +1,19 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Localization;    
+﻿using ArknightsMod.Common.VisualEffects;
+using ArknightsMod.Content.BossBars;
+using ArknightsMod.Content.Items.Material;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.Audio;
 using System;
-using ArknightsMod.Common.VisualEffects;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using ArknightsMod.Content.Items.Material;
-using ArknightsMod.Content.BossBars;
-using ArknightsMod.Assets.Effects;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using Terraria.GameContent.UI.BigProgressBar;
-using Terraria.DataStructures;
-using SteelSeries.GameSense;
 
 namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer
 {
@@ -1660,7 +1657,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 
 			if (timer == 10) {// >= 10
-			//if(summonedframes == false) {
+							  //if(summonedframes == false) {
 				for (int i = 0; i < 4; i++) {
 					if (Main.masterMode) {
 						randspeed = Main.rand.NextFloat(9.6f, 10.8f);
@@ -1927,7 +1924,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			Player Player = Main.player[Main.myPlayer];
 			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Shield") with { Volume = 1f, Pitch = 0f }, Player.Center);
 			iscooldownsoundplayed = true;
-			cooldown = Main.rand.Next(60,121);
+			cooldown = Main.rand.Next(60, 121);
 			usehealth -= 1;
 			NPC.life = usehealth;
 		}
@@ -2441,15 +2438,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				}
 			}
 
-			if(colortimer < 240) {
+			if (colortimer < 240) {
 				r = 0;
 				g = 240 - colortimer;
 			}
-			else if(colortimer < 440) {
+			else if (colortimer < 440) {
 				r = colortimer - 240;
 				g = 0;
 			}
-			else if(colortimer < 640) {
+			else if (colortimer < 640) {
 				r = 640 - colortimer;
 				g = 0;
 			}

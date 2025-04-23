@@ -1,8 +1,8 @@
 using ArknightsMod.Content.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
