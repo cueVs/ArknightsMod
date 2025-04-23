@@ -31,6 +31,19 @@ namespace ArknightsMod.Content.Items.Weapons
 		public abstract void RegisterSkills();
 
 		/// <summary>
+		/// 密封<see cref="SetStaticDefaults()"/>以防止技能注册被覆盖
+		/// Sealed override <see cref="SetStaticDefaults()"/> to prevent <see cref="RegisterSkills()"/> method being override
+		/// </summary>
+		public sealed override void SetStaticDefaults() {
+			RegisterSkills();
+			SetStaticDefaults(Type);
+		}
+
+		public virtual void SetStaticDefaults(int type) {
+
+		}
+
+		/// <summary>
 		/// 添加技能数据
 		/// </summary>
 		/// <param name="skillData"></param>
@@ -47,18 +60,12 @@ namespace ArknightsMod.Content.Items.Weapons
 		/// <param name="index">Skill index, range must in 0~2</param>
 		/// <returns></returns>
 		public SkillData GetSkillData(int index) {
-			if (Skills.TryAdd(Type, []))
-				RegisterSkills();
-
 			if (!Skills.TryGetValue(Type, out var list)) {
 				Main.NewText(DisplayName.Value + "未注册技能", Color.Red);
 				return null;
 			}
 
-			if (!list.IndexInRange(index))
-				return null;
-
-			return list[index];
+			return !list.IndexInRange(index) ? null : list[index];
 		}
 	}
 }

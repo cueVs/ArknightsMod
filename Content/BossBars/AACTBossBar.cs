@@ -14,10 +14,7 @@ namespace ArknightsMod.Content.BossBars
 		private int bossHeadIndex = -1;
 
 		public override Asset<Texture2D> GetIconTexture(ref Rectangle? iconFrame) {
-			if (bossHeadIndex != -1) {
-				return TextureAssets.NpcHeadBoss[bossHeadIndex];
-			}
-			return null;
+			return bossHeadIndex != -1 ? TextureAssets.NpcHeadBoss[bossHeadIndex] : null;
 		}
 
 		private float timer1 = 0;
@@ -78,12 +75,7 @@ namespace ArknightsMod.Content.BossBars
 				}
 			}
 
-			if (npc.ai[1] == 0) {
-				return false;
-			}
-			else {
-				return true;
-			}
+			return npc.ai[1] == 0 ? false : true;
 		}
 	}
 }

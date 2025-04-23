@@ -903,22 +903,45 @@ Mods: {
 		}
 
 		Skills: {
-			BagpipeSpear1Label: Mods.ArknightsMod.Skills.BagpipeSpear1Label
-			BagpipeSpear1Desc: Mods.ArknightsMod.Skills.BagpipeSpear1Desc
-			BagpipeSpear2Label: Mods.ArknightsMod.Skills.BagpipeSpear2Label
-			BagpipeSpear2Desc: Mods.ArknightsMod.Skills.BagpipeSpear2Desc
-			BagpipeSpear3Label: Mods.ArknightsMod.Skills.BagpipeSpear3Label
-			BagpipeSpear3Desc: Mods.ArknightsMod.Skills.BagpipeSpear3Desc
-			ChenSword1Label: Mods.ArknightsMod.Skills.ChenSword1Label
-			ChenSword1Desc: Mods.ArknightsMod.Skills.ChenSword1Desc
-			KroosCrossbow1Label: Mods.ArknightsMod.Skills.KroosCrossbow1Label
-			KroosCrossbow1Desc: Mods.ArknightsMod.Skills.KroosCrossbow1Desc
-			PozemkaCrossbow1Label: Mods.ArknightsMod.Skills.PozemkaCrossbow1Label
-			PozemkaCrossbow1Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow1Desc
-			PozemkaCrossbow2Label: Mods.ArknightsMod.Skills.PozemkaCrossbow2Label
-			PozemkaCrossbow2Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow2Desc
-			PozemkaCrossbow3Label: Mods.ArknightsMod.Skills.PozemkaCrossbow3Label
-			PozemkaCrossbow3Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow3Desc
+			BagpipeSpear1: {
+				Label: Mods.ArknightsMod.Skills.BagpipeSpear1.Label
+				Desc: Mods.ArknightsMod.Skills.BagpipeSpear1.Desc
+			}
+
+			BagpipeSpear2: {
+				Label: Mods.ArknightsMod.Skills.BagpipeSpear2.Label
+				Desc: Mods.ArknightsMod.Skills.BagpipeSpear2.Desc
+			}
+
+			BagpipeSpear3: {
+				Label: Mods.ArknightsMod.Skills.BagpipeSpear3.Label
+				Desc: Mods.ArknightsMod.Skills.BagpipeSpear3.Desc
+			}
+
+			ChenSword1: {
+				Label: Mods.ArknightsMod.Skills.ChenSword1.Label
+				Desc: Mods.ArknightsMod.Skills.ChenSword1.Desc
+			}
+
+			KroosCrossbow1: {
+				Label: Mods.ArknightsMod.Skills.KroosCrossbow1.Label
+				Desc: Mods.ArknightsMod.Skills.KroosCrossbow1.Desc
+			}
+
+			PozemkaCrossbow1: {
+				Label: Mods.ArknightsMod.Skills.PozemkaCrossbow1.Label
+				Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow1.Desc
+			}
+
+			PozemkaCrossbow2: {
+				Label: Mods.ArknightsMod.Skills.PozemkaCrossbow2.Label
+				Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow2.Desc
+			}
+
+			PozemkaCrossbow3: {
+				Label: Mods.ArknightsMod.Skills.PozemkaCrossbow3.Label
+				Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow3.Desc
+			}
 		}
 	}
 }

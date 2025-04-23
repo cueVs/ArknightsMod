@@ -68,11 +68,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			if (Projectile.hostile == true) {
 				return false;
 			}
-			else if (Projectile.friendly == true) {
-				return null;
-			}
 			else {
-				return false;
+				return Projectile.friendly == true ? null : false;
 			}
 		}
 

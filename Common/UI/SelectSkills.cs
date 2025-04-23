@@ -63,9 +63,7 @@ namespace ArknightsMod.Common.UI
 			s3.Height.Set(64, 0f);
 			s3.OnLeftClick += (_, _) => ChangeSkill(2);
 			area.Append(s3);
-
 		}
-
 		private static void ChangeSkill(int index, bool force = false) {
 			Player p = Main.LocalPlayer;
 			if (p.HeldItem.ModItem is not ArknightsWeapon)

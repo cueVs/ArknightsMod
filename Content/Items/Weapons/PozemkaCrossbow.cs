@@ -64,7 +64,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			AddSkillData(data);
 		}
 
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults(int type) {
 			Item.ResearchUnlockCount = 1;
 		}
 

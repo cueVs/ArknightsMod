@@ -60,7 +60,7 @@ namespace ArknightsMod.Content.Projectiles
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
 			// Terraria.Audio.SoundEngine.PlaySound(PenNibHit);
 			Vector2 vector14 = Projectile.Center + Projectile.velocity * 0.1f;
-			int HitSparkle = Dust.NewDust(vector14 - Projectile.Size / 2f, Projectile.width, Projectile.height, 66, 0f, 0f, 150, default(Color), 0.9f);
+			int HitSparkle = Dust.NewDust(vector14 - Projectile.Size / 2f, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 150, default(Color), 0.9f);
 			int PenNibDust = Dust.NewDust(vector14 - Projectile.Size / 2f, Projectile.width, Projectile.height, ModContent.DustType<PozemkaCrossbowDust>(), 0f, 0f, 150, default(Color), 0.9f);
 			Main.dust[HitSparkle].noGravity = true;
 			Main.dust[PenNibDust].noGravity = true;

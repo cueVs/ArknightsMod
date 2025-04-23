@@ -29,9 +29,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Defender
 				=> MudrockChestplate_EX_Texture = null;
 			public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
 				Item body = new(ModContent.ItemType<MudrockChestplate>());
-				if (drawInfo.drawPlayer.body == body.bodySlot)
-					return true;
-				return false;
+				return drawInfo.drawPlayer.body == body.bodySlot;
 			}
 			public override Position GetDefaultPosition()
 			=> new AfterParent(PlayerDrawLayers.Head);

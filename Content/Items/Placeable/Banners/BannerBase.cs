@@ -129,12 +129,7 @@ namespace ArknightsMod.Content.Items.Placeable.Banners
 		//}
 
 		public static int BannerIndexToNPCType(int index) {
-			if (bannerIndexToNPCType.ContainsKey(index)) {
-				return bannerIndexToNPCType[index];
-			}
-			else {
-				return 0;
-			}
+			return bannerIndexToNPCType.ContainsKey(index) ? bannerIndexToNPCType[index] : 0;
 		}
 
 		public static int BannerIndexToItemType(int index) {

@@ -86,11 +86,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				if (Main.masterMode) {
 					return Main.rand.NextFloat(288f, 384f);
 				}
-				else if (Main.expertMode) {
-					return Main.rand.NextFloat(320f, 432f);
-				}
 				else {
-					return Main.rand.NextFloat(352f, 480f);
+					return Main.expertMode ? Main.rand.NextFloat(320f, 432f) : Main.rand.NextFloat(352f, 480f);
 				}
 			}
 		}
@@ -189,12 +186,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		}
 		//无敌帧
 		public override bool? CanBeHitByItem(Player player, Item item) {
-			if ((AACTstage == 3 && stage3truehealth > 1) || CantBeChoose == true) {
-				return false;
-			}
-			else {
-				return null;
-			}
+			return (AACTstage == 3 && stage3truehealth > 1) || CantBeChoose == true ? false : null;
 		}
 		//不被敌方弹幕和无来源弹幕攻击
 		public override bool? CanBeHitByProjectile(Projectile Projectile) {
@@ -202,12 +194,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				return false;
 			}
 			else if (Projectile.friendly == true) {
-				if ((AACTstage == 3 && stage3truehealth > 1) || CantBeChoose == true) {
-					return false;
-				}
-				else {
-					return null;
-				}
+				return (AACTstage == 3 && stage3truehealth > 1) || CantBeChoose == true ? false : null;
 			}
 			else {
 				return false;
@@ -256,16 +243,16 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				stage3dusttimer = 0;
 			}
 			if (stage3dusttimer <= 2) {
-				Dust.NewDust(NPC.Center, 10, 10, 20, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
+				Dust.NewDust(NPC.Center, 10, 10, DustID.PurificationPowder, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
 			}
 			else if (stage3dusttimer > 2 && stage3dusttimer <= 5) {
-				Dust.NewDust(NPC.Center, 10, 10, 21, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
+				Dust.NewDust(NPC.Center, 10, 10, DustID.VilePowder, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
 			}
 			else if (stage3dusttimer > 5 && stage3dusttimer <= 8) {
-				Dust.NewDust(NPC.Center, 10, 10, 132, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
+				Dust.NewDust(NPC.Center, 10, 10, DustID.Firework_Blue, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
 			}
 			else if (stage3dusttimer > 8) {
-				Dust.NewDust(NPC.Center, 10, 10, 134, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
+				Dust.NewDust(NPC.Center, 10, 10, DustID.Firework_Pink, hit.HitDirection, 0, -1, new Color(255, 255, 255), 1f);
 			}
 		}
 		#endregion
@@ -1895,12 +1882,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		}
 		//无敌帧
 		public override bool? CanBeHitByItem(Player player, Item item) {
-			if (cooldown <= 0) {
-				return null;
-			}
-			else {
-				return false;
-			}
+			return cooldown <= 0 ? null : false;
 		}
 		//无敌帧
 		public override bool? CanBeHitByProjectile(Projectile Projectile) {
@@ -1908,12 +1890,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				return false;
 			}
 			else if (Projectile.friendly == true) {
-				if (cooldown <= 0) {
-					return null;
-				}
-				else {
-					return false;
-				}
+				return cooldown <= 0 ? null : false;
 			}
 			else {
 				return false;

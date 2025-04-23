@@ -13,16 +13,15 @@ namespace ArknightsMod.Common.Players
 		//
 		// If you know what 'yield return' is, you can also use that here, if you prefer so.
 		public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
-			if (mediumCoreDeath) {
-				return new[] {
+			return mediumCoreDeath
+				? (new[] {
 					new Item(ModContent.ItemType<Content.Items.Consumables.StartBag>()),
 					new Item(ModContent.ItemType<Content.Items.Placeable.Furniture.AnniversaryWheel>())
-				};
-			}
-			return new[] {
+				})
+				: (IEnumerable<Item>)(new[] {
 				new Item(ModContent.ItemType<Content.Items.Consumables.StartBag>()),
 				new Item(ModContent.ItemType<Content.Items.Placeable.Furniture.AnniversaryWheel>())
-			};
+			});
 		}
 	}
 }

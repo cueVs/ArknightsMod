@@ -4,15 +4,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace ArknightsMod.Common.UI
 {
 	public class SkillSlotUI : UIImage
 	{
 		private SkillData skillData;
-
+		private readonly static Texture2D hoverBG = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillHoverBackGround", AssetRequestMode.ImmediateLoad).Value;
 		private readonly static Texture2D noSkill = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillIcons/NoSkill", AssetRequestMode.ImmediateLoad).Value;
 		private readonly static Texture2D baseOfSP = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/BaseOfSP", AssetRequestMode.ImmediateLoad).Value;
 		private readonly static Texture2D selector = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillSelector", AssetRequestMode.ImmediateLoad).Value;
@@ -31,21 +33,32 @@ namespace ArknightsMod.Common.UI
 			sp.Top.Set(52, 0);
 			Append(sp);
 
-			initSP = new(string.Empty);
+			initSP = new(string.Empty, 0.75f);
 			initSP.Left.Set(18, 0);
-			initSP.Top.Set(52, 0);
+			initSP.Top.Set(56, 0);
 			Append(initSP);
 
-			maxSP = new(string.Empty);
+			maxSP = new(string.Empty, 0.75f);
 			maxSP.Left.Set(48, 0);
-			maxSP.Top.Set(52, 0);
+			maxSP.Top.Set(56, 0);
 			Append(maxSP);
 		}
-		protected override void DrawSelf(SpriteBatch spriteBatch) {
-			base.DrawSelf(spriteBatch);
+		protected override void DrawSelf(SpriteBatch sb) {
+			base.DrawSelf(sb);
 
-			if (IsMouseHovering)
+			if (IsMouseHovering) {
 				Main.LocalPlayer.mouseInterface = true;
+				if (skillData == null)
+					return;
+				var font = FontAssets.MouseText.Value;
+				string tips = skillData.Label.Value + "\n" +
+					font.CreateWrappedText(skillData.Desc.Value, 300);
+				Point size = ChatManager.GetStringSize(font, tips, Vector2.One).ToPoint();
+				Rectangle area = new(20, 220, size.X + 30, size.Y + 20);
+				sb.Draw(hoverBG, area, Color.White);
+				ChatManager.DrawColorCodedString(sb, font, tips,
+					new Vector2(30, 230), Color.White, 0, Vector2.Zero, Vector2.One);
+			}
 		}
 
 		protected override void DrawChildren(SpriteBatch sb) {

@@ -34,8 +34,8 @@ namespace ArknightsMod.Common.Items
 	public class SkillData
 	{
 		private const string _Key = "Mods.ArknightsMod.Skills.";
-		private const string _Label = "Label";
-		private const string _Desc = "Desc";
+		private const string _Label = ".Label";
+		private const string _Desc = ".Desc";
 		private const string _IconPath = "ArknightsMod/Common/UI/SkillIcons/";
 		private const string _SummonPath = "ArknightsMod/Common/UI/SummonIcon/";
 		private string name;
