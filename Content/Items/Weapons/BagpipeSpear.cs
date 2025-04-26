@@ -9,60 +9,10 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class BagpipeSpear : ArknightsWeapon
 	{
-		public override void RegisterSkills() {
-			string name = Name;
-			SkillData data = new() {
-				Name = name + 1,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Auto,
-				AutoTrigger = false,
-				AutoUpdateActive = true,
-				SummonSkill = false
-			};
-			data[10] = new() {
-				InitSP = 15,
-				MaxSP = 33,
-				ActiveTime = 35,
-				MaxStock = 1
-			};
-			AddSkillData(data);
 
-			data = new() {
-				Name = name + 2,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Auto,
-				AutoTrigger = true,
-				AutoUpdateActive = true,
-				SummonSkill = false
-			};
-			data[10] = new() {
-				InitSP = 0,
-				MaxSP = 4,
-				ActiveTime = 0.5f,
-				MaxStock = 3
-			};
-			AddSkillData(data);
-
-			data = new() {
-				Name = name + 3,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Auto,
-				AutoTrigger = false,
-				AutoUpdateActive = true,
-				SummonSkill = false
-			};
-			data[10] = new() {
-				InitSP = 25,
-				MaxSP = 40,
-				ActiveTime = 25,
-				MaxStock = 1
-			};
-			AddSkillData(data);
-		}
-
-		public override void SetStaticDefaults(int type) {
+		public override void SetStaticDefaults() {
 			//ItemID.Sets.SkipsInitialUseSound[Item.type] = true; // This skips use animation-tied sound playback, so that we're able to make it be tied to use time instead in the UseItem() hook.
-			ItemID.Sets.Spears[type] = true; // This allows the game to recognize our new item as a spear.
+			ItemID.Sets.Spears[Type] = true; // This allows the game to recognize our new item as a spear.
 			Item.ResearchUnlockCount = 1;
 		}
 

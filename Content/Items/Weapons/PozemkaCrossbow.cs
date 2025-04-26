@@ -12,59 +12,7 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class PozemkaCrossbow : ArknightsWeapon
 	{
-		public override void RegisterSkills() {
-			string name = Name;
-
-			SkillData data = new() {
-				Name = name + 1,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Attack,
-				AutoTrigger = true,
-				AutoUpdateActive = false,
-				SummonSkill = true
-			};
-			data[10] = new() {
-				InitSP = 0,
-				MaxSP = 20,
-				ActiveTime = 30,
-				MaxStock = 1
-			};
-			AddSkillData(data);
-
-			data = new() {
-				Name = name + 2,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Auto,
-				AutoTrigger = false,
-				AutoUpdateActive = true,
-				SummonSkill = true
-			};
-			data[10] = new() {
-				InitSP = 9,
-				MaxSP = 9,
-				ActiveTime = 0.4f,
-				MaxStock = 2
-			};
-			AddSkillData(data);
-
-			data = new() {
-				Name = name + 3,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Auto,
-				AutoTrigger = false,
-				AutoUpdateActive = true,
-				SummonSkill = true
-			};
-			data[10] = new() {
-				InitSP = 23,
-				MaxSP = 35,
-				ActiveTime = 30,
-				MaxStock = 1
-			};
-			AddSkillData(data);
-		}
-
-		public override void SetStaticDefaults(int type) {
+		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
 		}
 

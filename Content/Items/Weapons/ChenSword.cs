@@ -12,28 +12,9 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class ChenSword : ArknightsWeapon
 	{
-		public override void RegisterSkills() {
-			string name = Name;
-			SkillData data = new() {
-				Name = name + 1,
-				ForceReplaceLevel = 10,
-				ChargeType = SkillChargeType.Attack,
-				AutoTrigger = false,
-				AutoUpdateActive = false,
-				SummonSkill = false
-			};
-			data[10] = new() {
-				InitSP = 20,
-				MaxSP = 30,
-				ActiveTime = 1,
-				MaxStock = 1
-			};
-			AddSkillData(data);
-		}
-
-		public override void SetStaticDefaults(int type) {
+		public override void SetStaticDefaults() {
 			//ItemID.Sets.SkipsInitialUseSound[Item.type] = true; // This skips use animation-tied sound playback, so that we're able to make it be tied to use time instead in the UseItem() hook.
-			ItemID.Sets.Spears[type] = true; // This allows the game to recognize our new item as a spear.
+			ItemID.Sets.Spears[Type] = true; // This allows the game to recognize our new item as a spear.
 			Item.ResearchUnlockCount = 1;
 		}
 

@@ -1,3 +1,4 @@
+using ArknightsMod.Common.Items;
 using ArknightsMod.Content.NPCs.Friendly;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -26,6 +27,7 @@ namespace ArknightsMod
 		public static Effect FNTwistedRing;//霜星限制阈（扭曲环效果）
 
 		public override void Load() {
+			SkillDataLoader.LoadData(this);
 			// Registers a new custom currency
 			OrundumCurrencyId = CustomCurrencyManager.RegisterCurrency(new Content.Currencies.OrundumCurrency(ModContent.ItemType<Content.Items.Orundum>(), 9999L, "Mods.ArknightsMod.Currencies.OrundumCurrency"));
 			//shader
@@ -73,6 +75,9 @@ namespace ArknightsMod
 
 			MusicLoader.AddMusic(this, "Assets/OriginalMusic/AACTintro");
 			MusicLoader.AddMusic(this, "Assets/OriginalMusic/AACTloop");
+		}
+		public override void Unload() {
+			SkillDataLoader.Unload();
 		}
 	}
 }

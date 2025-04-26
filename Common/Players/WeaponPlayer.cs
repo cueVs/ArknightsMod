@@ -39,7 +39,7 @@ namespace ArknightsMod.Common.Players
 			if (initSP == maxSP) {
 				SkillCharge = 0;
 				StockCount = 1;
-				SP = StockCount == data.MaxStock ? maxSP : 0;
+				SP = StockCount == data.MaxStack ? maxSP : 0;
 			}
 			else {
 				SkillCharge = initSP * Div;
@@ -80,25 +80,25 @@ namespace ArknightsMod.Common.Players
 		}
 		public void AutoCharge() {
 			SkillLevelData data = CurrentSkill.CurrentLevelData;
-			if (!SkillActive && StockCount < data.MaxStock) {
+			if (!SkillActive && StockCount < data.MaxStack) {
 				if (++SkillCharge % 60 == 0)
 					SP++;
 				if (SkillCharge == SkillChargeMax) {
 					SkillCharge = 0;
-					SP = ++StockCount == data.MaxStock ? data.MaxSP : 0;
+					SP = ++StockCount == data.MaxStack ? data.MaxSP : 0;
 				}
 			}
 		}
 
 		public void OffensiveRecovery() {
 			SkillLevelData data = CurrentSkill.CurrentLevelData;
-			if (!SkillActive && StockCount < data.MaxStock) {
+			if (!SkillActive && StockCount < data.MaxStack) {
 				SkillCharge++;
 				SP++;
 			}
 			if (SkillCharge == SkillChargeMax) {
 				SkillCharge = 0;
-				SP = ++StockCount == data.MaxStock ? data.MaxSP : 0;
+				SP = ++StockCount == data.MaxStack ? data.MaxSP : 0;
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace ArknightsMod.Common.Players
 		}
 
 		public void DelStockCount() {
-			if (StockCount-- == CurrentSkill.CurrentLevelData.MaxStock)
+			if (StockCount-- == CurrentSkill.CurrentLevelData.MaxStack)
 				SP = 0;
 		}
 	}

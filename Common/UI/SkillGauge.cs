@@ -80,7 +80,7 @@ namespace ArknightsMod.Common.UI
 			SkillData skill = mp.CurrentSkill;
 			SkillLevelData data = skill.CurrentLevelData;
 			float activeTime = data.ActiveTime * 60;
-			int maxStock = data.MaxStock;
+			int maxStock = data.MaxStack;
 			int stock = mp.StockCount;
 			// Calculate quotient
 			float quotient1 = (float)mp.SkillCharge / mp.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.

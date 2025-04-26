@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -16,16 +15,10 @@ namespace ArknightsMod.Common.Items
 
 	public struct SkillLevelData
 	{
-		public readonly int Level;
 		public int InitSP;
 		public int MaxSP;
 		public float ActiveTime;
-
-		private int maxStock;
-		public int MaxStock {
-			readonly get => Math.Max(1, maxStock);
-			set => maxStock = value;
-		}
+		public int MaxStack;
 	}
 
 	/// <summary>
@@ -82,11 +75,12 @@ namespace ArknightsMod.Common.Items
 			get => name;
 			init {
 				name = value;
-				Label = Language.GetOrRegister(_Key + name + _Label);
-				Desc = Language.GetOrRegister(_Key + name + _Desc);
-				Icon = ModContent.Request<Texture2D>(_IconPath + name, AssetRequestMode.ImmediateLoad);
-				SummonIcon = ModContent.HasAsset(_SummonPath + name) ?
-					ModContent.Request<Texture2D>(_SummonPath + name, AssetRequestMode.ImmediateLoad) : null;
+				string path = name.Replace(".", "");
+				Label = Language.GetOrRegister(_Key + path + _Label);
+				Desc = Language.GetOrRegister(_Key + path + _Desc);
+				Icon = ModContent.Request<Texture2D>(_IconPath + path, AssetRequestMode.ImmediateLoad);
+				SummonIcon = ModContent.HasAsset(_SummonPath + path) ?
+					ModContent.Request<Texture2D>(_SummonPath + path, AssetRequestMode.ImmediateLoad) : null;
 			}
 		}
 		public SkillData() {
