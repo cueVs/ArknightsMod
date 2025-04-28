@@ -539,6 +539,26 @@ Mods: {
 				DisplayName: 酸液源石虫旗
 				// Tooltip: ""
 			}
+
+			DrillBattleRecord: {
+				// DisplayName: Drill Battle Record
+				// Tooltip: ""
+			}
+
+			FrontlineBattleRecord: {
+				// DisplayName: Frontline Battle Record
+				// Tooltip: ""
+			}
+
+			StrategicBattleRecord: {
+				// DisplayName: Strategic Battle Record
+				// Tooltip: ""
+			}
+
+			TacticalBattleRecord: {
+				// DisplayName: Tactical Battle Record
+				// Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -943,5 +963,8 @@ Mods: {
 				// Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow3.Desc
 			}
 		}
+
+		UI.UpgradeUI.Upgrade: 提升等级
+		UpgradeWeapon.LevelPreview.Damage: 伤害
 	}
 }

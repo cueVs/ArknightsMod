@@ -18,6 +18,7 @@ namespace ArknightsMod.Common.UI
 		// For this bar we'll be using a frame texture and then a gradient inside bar, as it's one of the more simpler approaches while still looking decent.
 		// Once this is all set up make sure to go and do the required stuff for most UI's in the ModSystem class.
 		private UIText text;
+
 		private UIElement area;
 		private UIImage barFrame;
 		private Color gradientA;
@@ -32,7 +33,7 @@ namespace ArknightsMod.Common.UI
 			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Skill", AssetRequestMode.ImmediateLoad).Value;
 
 		public override void OnInitialize() {
-			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
+			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element.
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
 			//area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
@@ -141,7 +142,7 @@ namespace ArknightsMod.Common.UI
 		//}
 	}
 
-	class SkillGaugeSystem : ModSystem
+	internal class SkillGaugeSystem : ModSystem
 	{
 		private UserInterface SkillGaugeUserInterface;
 

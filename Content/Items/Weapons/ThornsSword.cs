@@ -1,14 +1,14 @@
 using ArknightsMod.Content.Projectiles;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-	public class ThornsSword : ModItem
+	public class ThornsSword : UpgradeWeaponBase
 	{
-
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Yato's Katana");
 			// Tooltip.SetDefault("Yato has joined the team.");
@@ -54,6 +54,14 @@ namespace ArknightsMod.Content.Items.Weapons
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
+
+		protected override int GetDamage(int level) => Item.OriginalDamage + (level - 1) * 20;
+
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage) {
+			base.ModifyWeaponDamage(player, ref damage);
+			damage.Base += (Level - 1) * 20;
+		}
+
 		//public override void AddRecipes() {
 		//	CreateRecipe()
 		//		.AddIngredient(ItemID.DirtBlock, 1)

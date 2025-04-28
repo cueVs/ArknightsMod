@@ -104,7 +104,7 @@ namespace ArknightsMod.Common.UI
 		}
 	}
 
-	class SelectSkillsSystem : ModSystem
+	internal class SelectSkillsSystem : ModSystem
 	{
 		private UserInterface SelectSkillsUserInterface;
 
@@ -117,6 +117,7 @@ namespace ArknightsMod.Common.UI
 			Visiable = true;
 			SelectSkillsUserInterface?.SetState(SelectSkillsUI);
 		}
+
 		public void HideMyUI() {
 			if (!Visiable)
 				return;
