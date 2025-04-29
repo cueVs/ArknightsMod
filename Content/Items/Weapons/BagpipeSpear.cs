@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-	public class BagpipeSpear : ArknightsWeapon
+	public class BagpipeSpear : UpgradeWeaponBase
 	{
 
 		public override void SetStaticDefaults() {

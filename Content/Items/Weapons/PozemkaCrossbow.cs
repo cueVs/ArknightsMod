@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-	public class PozemkaCrossbow : ArknightsWeapon
+	public class PozemkaCrossbow : UpgradeWeaponBase
 	{
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;

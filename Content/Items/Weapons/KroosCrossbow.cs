@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-	public class KroosCrossbow : ArknightsWeapon
+	public class KroosCrossbow : UpgradeWeaponBase
 	{
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;

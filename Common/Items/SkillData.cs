@@ -20,10 +20,13 @@ namespace ArknightsMod.Common.Items
 		public float ActiveTime;
 		public int MaxStack;
 	}
+	public struct SkillKey(string item, int index, string name)
+	{
+		public int Index = index;
+		public string Name = name;
+		public string Item = item;
+	}
 
-	/// <summary>
-	/// 在初始化时
-	/// </summary>
 	public class SkillData
 	{
 		private const string _Key = "Mods.ArknightsMod.Skills.";
@@ -31,8 +34,9 @@ namespace ArknightsMod.Common.Items
 		private const string _Desc = ".Desc";
 		private const string _IconPath = "ArknightsMod/Common/UI/SkillIcons/";
 		private const string _SummonPath = "ArknightsMod/Common/UI/SummonIcon/";
-		private string name;
-		public int Level = 0;
+		public string Name => Key.Name;
+		public SkillKey Key { get; private set; }
+		public int Level = 1;
 
 		/// <summary>
 		/// 这是一个临时的字段，后续等级系统做完了就可以删了
@@ -71,17 +75,15 @@ namespace ArknightsMod.Common.Items
 
 		public LocalizedText Label { get; private set; }
 		public LocalizedText Desc { get; private set; }
-		public string Name {
-			get => name;
-			init {
-				name = value;
-				string path = name.Replace(".", "");
-				Label = Language.GetOrRegister(_Key + path + _Label);
-				Desc = Language.GetOrRegister(_Key + path + _Desc);
-				Icon = ModContent.Request<Texture2D>(_IconPath + path, AssetRequestMode.ImmediateLoad);
-				SummonIcon = ModContent.HasAsset(_SummonPath + path) ?
-					ModContent.Request<Texture2D>(_SummonPath + path, AssetRequestMode.ImmediateLoad) : null;
-			}
+		public void BindKey(string item, int index, string name) {
+			Key = new(item, index, name);
+			string path = item + "." + name;
+			Label = Language.GetOrRegister(_Key + path + _Label);
+			Desc = Language.GetOrRegister(_Key + path + _Desc);
+			path = item + "_" + name;
+			Icon = ModContent.Request<Texture2D>(_IconPath + path, AssetRequestMode.ImmediateLoad);
+			SummonIcon = ModContent.HasAsset(path = _SummonPath + path) ?
+				ModContent.Request<Texture2D>(path, AssetRequestMode.ImmediateLoad) : null;
 		}
 		public SkillData() {
 			LevelData = new SkillLevelData[10];

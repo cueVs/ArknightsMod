@@ -2,7 +2,6 @@
 using ArknightsMod.Common.UI.BattleRecord.Calculators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
@@ -46,40 +45,22 @@ namespace ArknightsMod.Content.Items
 		protected int m_Experience;
 		protected int m_EliteStage;
 
-		private static readonly Dictionary<int, Dictionary<int, int>> UpgradeData = new Dictionary<int, Dictionary<int, int>>();
-
-		public override void Load() {
-			base.Load();
-			UpgradeData.Clear();
-			using (var sr = new StreamReader(Mod.GetFileStream("Assets/UpgradeData/EliteZero.txt"))) {
-				UpgradeData.Add(0, new Dictionary<int, int>());
-				string data = sr.ReadLine();
-				while (!string.IsNullOrEmpty(data)) {
-					var ds = data.Split('	', System.StringSplitOptions.RemoveEmptyEntries);
-					if (int.TryParse(ds[0], out int level) && int.TryParse(ds[1], out int exp))
-						UpgradeData[0].TryAdd(level, exp);
-					data = sr.ReadLine();
+		private static readonly int[][] UpgradeData = new int[3][];
+		public static void LoadLevelData(Mod mod) {
+			UpgradeData[0] = new int[50];
+			UpgradeData[1] = new int[80];
+			UpgradeData[2] = new int[90];
+			using var sr = new StreamReader(mod.GetFileStream("Assets/LevelDatas/EliteDatas.csv"));
+			sr.ReadLine();
+			int j = 0;
+			while (!sr.EndOfStream) {
+				string[] datas = sr.ReadLine().Split(',');
+				for (int i = 0; i < 3; i++) {
+					int[] exps = UpgradeData[i];
+					if (exps.IndexInRange(j) && int.TryParse(datas[i], out int exp))
+						exps[j] = exp;
 				}
-			}
-			using (var sr = new StreamReader(Mod.GetFileStream("Assets/UpgradeData/EliteOne.txt"))) {
-				UpgradeData.Add(1, new Dictionary<int, int>());
-				string data = sr.ReadLine();
-				while (!string.IsNullOrEmpty(data)) {
-					var ds = data.Split('	', System.StringSplitOptions.RemoveEmptyEntries);
-					if (int.TryParse(ds[0], out int level) && int.TryParse(ds[1], out int exp))
-						UpgradeData[1].TryAdd(level, exp);
-					data = sr.ReadLine();
-				}
-			}
-			using (var sr = new StreamReader(Mod.GetFileStream("Assets/UpgradeData/EliteTwo.txt"))) {
-				UpgradeData.Add(2, new Dictionary<int, int>());
-				string data = sr.ReadLine();
-				while (!string.IsNullOrEmpty(data)) {
-					var ds = data.Split('	', System.StringSplitOptions.RemoveEmptyEntries);
-					if (int.TryParse(ds[0], out int level) && int.TryParse(ds[1], out int exp))
-						UpgradeData[2].TryAdd(level, exp);
-					data = sr.ReadLine();
-				}
+				j++;
 			}
 		}
 
@@ -149,7 +130,7 @@ namespace ArknightsMod.Content.Items
 		/// </summary>
 		/// <param name="eliteStage">精英化阶段</param>
 		/// <returns>最大等级</returns>
-		public virtual int GetLevelMax(int eliteStage) => UpgradeData[eliteStage].Count + 1;
+		public virtual int GetLevelMax(int eliteStage) => UpgradeData[eliteStage].Length;
 
 		/// <summary>
 		/// 获取升满级所需的经验

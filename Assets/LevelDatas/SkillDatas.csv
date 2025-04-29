@@ -1,0 +1,9 @@
+Item,Index,Name,ChargeType,AutoTrigger,AutoUpdateActive,SummonSkill
+BagpipeSpear,0,1,1,0,1,0
+BagpipeSpear,1,2,1,1,1,0
+BagpipeSpear,2,3,1,0,1,0
+ChenSword,0,1,2,0,0,0
+KroosCrossbow,0,1,2,1,1,0
+PozemkaCrossbow,0,1,2,1,0,1
+PozemkaCrossbow,1,2,1,0,1,1
+PozemkaCrossbow,2,3,1,0,1,1

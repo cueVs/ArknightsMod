@@ -54,7 +54,7 @@ namespace ArknightsMod.Common.Players
 
 		public override void ResetEffects() {
 			Item item = Main.LocalPlayer.HeldItem;
-			if (item.ModItem is ArknightsWeapon ark) {
+			if (item.ModItem is UpgradeWeaponBase ark) {
 				int type = item.type;
 				if (type != oldHeld) {
 					oldHeld = type;

@@ -67,7 +67,7 @@ namespace ArknightsMod.Common.UI
 
 		public override void Draw(SpriteBatch spriteBatch) {
 			// This prevents drawing unless we are using an ExampleCustomResourceWeapon
-			if (Main.LocalPlayer.HeldItem.ModItem is not ArknightsWeapon)
+			if (Main.LocalPlayer.HeldItem.ModItem is not UpgradeWeaponBase)
 				return;
 			base.Draw(spriteBatch);
 		}

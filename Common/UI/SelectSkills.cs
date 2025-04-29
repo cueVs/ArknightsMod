@@ -66,7 +66,7 @@ namespace ArknightsMod.Common.UI
 		}
 		private static void ChangeSkill(int index, bool force = false) {
 			Player p = Main.LocalPlayer;
-			if (p.HeldItem.ModItem is not ArknightsWeapon)
+			if (p.HeldItem.ModItem is not UpgradeWeaponBase)
 				return;
 			var mp = p.GetModPlayer<WeaponPlayer>();
 			if (!force && (mp.SkillCount <= index || mp.Skill == index))
@@ -84,7 +84,7 @@ namespace ArknightsMod.Common.UI
 			}
 			ins.ActiveSummonUI(data.SummonIcon.Value);
 		}
-		public static void ChangeSkillSlot(ArknightsWeapon ark) {
+		public static void ChangeSkillSlot(UpgradeWeaponBase ark) {
 			ins.s1.SetSkill(ark.GetSkillData(0));
 			ins.s2.SetSkill(ark.GetSkillData(1));
 			ins.s3.SetSkill(ark.GetSkillData(2));
@@ -141,7 +141,7 @@ namespace ArknightsMod.Common.UI
 				HideMyUI();
 			}
 			else {
-				if (Main.LocalPlayer.HeldItem.ModItem is ArknightsWeapon) {
+				if (Main.LocalPlayer.HeldItem.ModItem is UpgradeWeaponBase) {
 					ShowMyUI();
 				}
 				else {

@@ -8,7 +8,7 @@ namespace ArknightsMod.Common.Items
 	public class ArknightWeaponItem : GlobalItem
 	{
 		public override void HoldItem(Item item, Player player) {
-			if (player.whoAmI != Main.myPlayer || item.ModItem is not ArknightsWeapon)
+			if (player.whoAmI != Main.myPlayer || item.ModItem is not UpgradeWeaponBase)
 				return;
 			var mp = player.GetModPlayer<WeaponPlayer>();
 			var skill = mp.CurrentSkill;
