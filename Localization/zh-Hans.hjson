@@ -533,6 +533,36 @@ Mods: {
 					不消耗
 					'''
 			}
+
+			RAWater: {
+				DisplayName: 清水
+				Tooltip: 净化后可以作为饮用水直接饮用，也能在设施建设中发挥作用。
+			}
+
+			RAlegmeat: {
+				DisplayName: 带骨腿肉
+				Tooltip: 紧实的腿肉连带着坚硬的骨头，自带一股草木香味。
+			}
+
+			RARicecrab: {
+				DisplayName: 蟹肉碎拌饭
+				Tooltip:
+					'''
+					热腾腾的杂粮中加入了岩壳蟹肉，吃起来朴素中略带鲜味。
+					食用后4分钟内:
+					最大生命值+8%,防御力+8%
+					'''
+			}
+
+			RAMeatchip: {
+				DisplayName: 脆肉薯条转醇
+				Tooltip:
+					'''
+					选取荒地上随处可见的肉作为原料，和粗细不一的薯条一起在锅中煎炸而成。
+					食用后5分钟内:
+					攻击力+15%,攻击速度+15%
+					'''
+			}
 		}
 
 		Buffs: {
@@ -568,6 +598,16 @@ Mods: {
 			AcidOgSlugDebuff: {
 				DisplayName: 分泌物腐蚀
 				Description: 击中目标后使其防御力减少2。
+			}
+
+			RAMeatchipBuff: {
+				DisplayName: 脆肉薯条转醇
+				Description: 攻击力+15%,攻击速度+15%
+			}
+
+			RARicecrabBuff: {
+				DisplayName: 蟹肉碎拌饭
+				Description: 防御+8%,生命上限+8%
 			}
 		}
 
@@ -617,6 +657,12 @@ Mods: {
 			PrimalSeaPiercer.DisplayName: 始海穿刺者
 			BasinSeaReaper.DisplayName: 钵海收割者
 			TheFirstToTalk.DisplayName: 首言者
+			MortarGunner.DisplayName: 炮手
+			snowcaster.DisplayName: 雪怪小队术士
+			Snowsoldier.DisplayName: 雪怪小队
+			icecleaver.DisplayName: 雪怪小队凿冰人
+			Seniorcaster.DisplayName: 高阶术士
+			Oneiros.DisplayName: 虚幻
 		}
 
 		# Friendly
@@ -668,6 +714,8 @@ Mods: {
 			AcidOgSlug: 野生的被感染生物，且会使用分泌物腐蚀作战人员防护设备。这种低智能生物极有可能会被敌方术师操纵，以进入人工设施内发动集群攻击。
 			IACT: 乌萨斯军炮兵术师操作的无人机中枢，装甲厚重，材质坚实。正是他们引导了乌萨斯炮兵猛烈的炮火袭击。乌萨斯的炮兵是深入城市的火力队伍，相对舰炮火力较弱，但也足以撕碎装甲与建筑。
 			IAT: 乌萨斯军炮兵术师操作的无人机，装甲厚重，材质坚实。正是他们引导了乌萨斯炮兵猛烈的炮火袭击。
+			MortarGunner: 整合运动的特殊远程作战人员。配备了缴获的军用源石爆破物发射器，常在难以设防的位置发动袭击，对我后方目标有巨大威胁。
+			TheFirstToTalk: 第一个在文明面前说出人类语言的美丽生物。海嗣。
 		}
 
 		Projectiles: {
@@ -721,8 +769,11 @@ Mods: {
 			splitwater.DisplayName: 首言者
 			splitwater2.DisplayName: 首言者
 			SanCrash.DisplayName: 神经损伤
-			// PWTFTT.DisplayName: P W T F T T
+			PWTFTT.DisplayName: 首言者
 			// waterbombdie.DisplayName: waterbombdie
+			Snowcastershoot.DisplayName: 寒冰射线
+			Icebreak.DisplayName: 碎冰之刃
+			SCproj.DisplayName: 溅射法术
 		}
 
 		ButtonName.button2: 剿灭作战

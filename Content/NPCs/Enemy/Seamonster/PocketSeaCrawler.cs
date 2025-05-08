@@ -168,15 +168,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			return SpawnCondition.OverworldDayRain.Chance * 0.6f;
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo) {
-			// Here we can make things happen if this NPC hits a player via its hitbox (not projectiles it shoots, this is handled in the projectile code usually)
-			// Common use is applying buffs/debuffs:
-
-			//int buffType = ModContent.BuffType<AnimatedBuff>();
-			// Alternatively, you can use a vanilla buff: int buffType = BuffID.Slow;
-
-			int timeToAdd = 6 * 60; //This makes it 5 seconds, one second is 60 ticks
-			target.AddBuff(31, timeToAdd);
-			target.AddBuff(22, 3 * 60);
+			
 			NPC.ai[3] = 200;
 
 		}
@@ -264,10 +256,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			
 		}
 		
-		public override void OnHitPlayer(Player target, Player.HurtInfo info) {
-			target.AddBuff(31, 5 * 60);
-			target.AddBuff(23, 3 * 60);
-		}
+	
 	}
 	public class PocketSeaCrawlerShoot2 : ModProjectile
 	{
@@ -321,10 +310,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 
 
 		}
-		public override void OnHitPlayer(Player target, Player.HurtInfo info) {
-			target.AddBuff(31, 5 * 60);
-			target.AddBuff(23, 3 * 60);
-		}
+	
 	}
 }
 

@@ -17,6 +17,7 @@ using ArknightsMod.Common.UI;
 using Terraria.UI;
 using System.Collections.Generic;
 using Terraria.GameContent.UI.Elements;
+using ArknightsMod.Content.Buffs;
 
 namespace ArknightsMod
 {
@@ -25,7 +26,9 @@ namespace ArknightsMod
 		public static int OrundumCurrencyId;
 		internal Closure.AOSystem CurrentAO;
 		public static Effect IACTSW;
-		
+
+
+
 
 		public override void Load() {
 			// Registers a new custom currency
@@ -36,10 +39,15 @@ namespace ArknightsMod
 				Filters.Scene["IACTSW"] = new Filter(new ScreenShaderData(new Ref<Effect>(IACTSW), "IACTSW"), EffectPriority.VeryHigh);
 				Filters.Scene["IACTSW"].Load();
 			}
-			
+
+
+
+
+
+
 
 		}
-		
+
 
 	}
 	//public class Ex : GlobalNPC
@@ -52,7 +60,8 @@ namespace ArknightsMod
 	//}
 	//}
 	//}
-	public class SanUI : ModSystem {
+	public class SanUI : ModSystem
+	{
 		internal Santable santable;
 		internal UserInterface sanUserInterface;
 		public override void Load() {
@@ -82,8 +91,11 @@ namespace ArknightsMod
 			}
 			base.ModifyInterfaceLayers(layers);
 		}
-	
 
+	}
+	
+	public class RAfood : ModPlayer {
+		public static List<int> RAfoodBuff = [ModContent.BuffType<RAMeatchipBuff>(), ModContent.BuffType<RARicecrabBuff>()];
 	}
 
 
@@ -104,7 +116,7 @@ namespace ArknightsMod
 				CurrentSan = 1000;
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/Madness") with { Volume = 1f, Pitch = 0f }, Player.Center);
 				MadnessCD = 0;
-				Projectile.NewProjectile(newSource, Player.Center+new Vector2(100,180), new Vector2(0, 0), ModContent.ProjectileType<SanCrash>(), 0, 0);
+				Projectile.NewProjectile(newSource, Player.Center + new Vector2(100, 180), new Vector2(0, 0), ModContent.ProjectileType<SanCrash>(), 0, 0);
 
 			}
 

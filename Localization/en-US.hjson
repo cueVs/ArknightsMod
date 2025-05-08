@@ -526,7 +526,27 @@ Mods: {
 			}
 
 			TFTTS: {
-				DisplayName: T F T T S
+				DisplayName: TheFirstToTalk
+				Tooltip: ""
+			}
+
+			RAWater: {
+				DisplayName: RAWater
+				Tooltip: ""
+			}
+
+			RAlegmeat: {
+				DisplayName: RAlegmeat
+				Tooltip: ""
+			}
+
+			RARicecrab: {
+				DisplayName: R A Ricecrab
+				Tooltip: ""
+			}
+
+			RAMeatchip: {
+				DisplayName: R A Meatchip
 				Tooltip: ""
 			}
 		}
@@ -564,6 +584,16 @@ Mods: {
 			AcidOgSlugDebuff: {
 				DisplayName: Corrosive fluids
 				Description: Every attack reduces the target's DEF 2
+			}
+
+			RAMeatchipBuff: {
+				DisplayName: R A Meatchip Buff
+				Description: Mods.ArknightsMod.Buffs.RAMeatchipBuff.Description
+			}
+
+			RARicecrabBuff: {
+				DisplayName: R A Ricecrab Buff
+				Description: Mods.ArknightsMod.Buffs.RARicecrabBuff.Description
 			}
 		}
 
@@ -613,6 +643,12 @@ Mods: {
 			PrimalSeaPiercer.DisplayName: Primal Sea Piercer
 			BasinSeaReaper.DisplayName: Basin Sea Reaper
 			TheFirstToTalk.DisplayName: The First To Talk
+			MortarGunner.DisplayName: Mortar Gunner
+			snowcaster.DisplayName: snowcaster
+			Snowsoldier.DisplayName: Snowsoldier
+			icecleaver.DisplayName: icecleaver
+			Seniorcaster.DisplayName: Seniorcaster
+			Oneiros.DisplayName: Oneiros
 		}
 
 		# Friendly
@@ -664,6 +700,8 @@ Mods: {
 			AcidOgSlug: An infected wild creature that can secrete corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
 			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
+			MortarGunner: One of Reunion's special ranged soldiers. Equipped with pilfered military-grade Originium launchers, they launch explosive attacks from hard-to-defend positions, making them a significant threat to back-line Operators.
+			TheFirstToTalk: The first beautiful living being to speak human language before civilized man. Seaborn.
 		}
 
 		Projectiles: {
@@ -719,6 +757,9 @@ Mods: {
 			SanCrash.DisplayName: San Crash
 			PWTFTT.DisplayName: P W T F T T
 			waterbombdie.DisplayName: waterbombdie
+			Snowcastershoot.DisplayName: Snowcastershoot
+			Icebreak.DisplayName: Icebreak
+			SCproj.DisplayName: S Cproj
 		}
 
 		ButtonName.button2: Annihilation operation

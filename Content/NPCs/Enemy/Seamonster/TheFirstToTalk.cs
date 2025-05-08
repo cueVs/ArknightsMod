@@ -267,10 +267,37 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		private Vector2 PWV;
 		private float PWJ;
 		private float G=0.12f;
+		private float spawntimer;
+		private int spawn;
 		public override void AI() {
 			SP++;
 			jumpCD++;
-			
+			if (leave==false){
+				spawntimer++;
+				if (new Random().Next(0, 5) <= 2) {
+					spawntimer += 1;
+				}
+				if (spawntimer== 14) {
+					spawn = new Random().Next(0, 200);
+					if (spawn <= 4) {
+						NPC.NewNPC(NPC.GetSource_FromThis(), (int)(Main.screenPosition.X - 0.55 * Main.screenWidth), (int)(Main.screenPosition.Y), ModContent.NPCType<DeepSeaSlider>());
+					}
+					if (spawn <= 8 && spawn >4) {
+						NPC.NewNPC(NPC.GetSource_FromThis(), (int)(Main.screenPosition.X + 0.55 * Main.screenWidth), (int)(Main.screenPosition.Y), ModContent.NPCType<DeepSeaSlider>());
+					}
+					if (spawn <= 15 && spawn > 8) {
+						NPC.NewNPC(NPC.GetSource_FromThis(), (int)(Main.screenPosition.X + 0.55 * Main.screenWidth), (int)(Main.screenPosition.Y), ModContent.NPCType<ShellSeaRunner>());
+					}
+					if (spawn <= 22 && spawn > 15) {
+						NPC.NewNPC(NPC.GetSource_FromThis(), (int)(Main.screenPosition.X - 0.55 * Main.screenWidth), (int)(Main.screenPosition.Y), ModContent.NPCType<ShellSeaRunner>());
+					}
+					if (spawn <= 26 && spawn > 22) {
+						NPC.NewNPC(NPC.GetSource_FromThis(), (int)(Main.screenPosition.X - 0.55 * Main.screenWidth), (int)(Main.screenPosition.Y), ModContent.NPCType<ShellSeaRunner>());
+					}
+
+				}
+			}
+
 			if (NPC.direction > 0) {
 				texturedirection = 0;
 			}
@@ -329,21 +356,21 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					NPC.velocity.Y = -7f;
 					jumpCD = 0;
 				}
-				if (NPC.position.Y - p.position.Y > 80 && jumpCD > 200) {
+				if (NPC.position.Y - p.position.Y > 80 && jumpCD > 500) {
 					NPC.velocity.Y = -12f;
 					jumpCD = 0;
 				}
-				if (rushCD >= 600) {
+				if (rushCD >= 800) {
 					rush = true;
 					walk = false;
 					rushCD = 0;
 				}
-				if (shootCD >= 400 && SP <= 1800 && -Math.Abs(PWD) < PWH / Math.Sin(alpha)) {//抛物子弹判定在射程内
+				if (shootCD >= 540 && SP <= 2000 && -Math.Abs(PWD) < PWH / Math.Sin(alpha)) {//抛物子弹判定在射程内
 					shoot = true;
 					walk = false;
 					shootCD = 0;
 				}
-				if (SP >= 2000) {
+				if (SP >= 2400) {
 					skill = true;
 					walk = false;
 					SP = 0;
@@ -368,8 +395,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					SP += 1;
 				}
 				if (NPC.life<=NPC.lifeMax *0.5 && ask == false) {
-					NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X+10, (int)NPC.position.Y, ModContent.NPCType<PocketSeaCrawler>());
-					NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X -10, (int)NPC.position.Y, ModContent.NPCType<PocketSeaCrawler>());
+					NPC.NewNPC(NPC.GetSource_FromThis(), (int)(p.position.X+0.55*Main.screenWidth), (int)(p.position.Y), ModContent.NPCType<BasinSeaReaper>());
+					NPC.NewNPC(NPC.GetSource_FromThis(), (int)(p.position.X - 0.55 * Main.screenWidth), (int)(p.position.Y), ModContent.NPCType<BasinSeaReaper>());
 					ask = true;
 					SP += 2000;
 				}
@@ -428,6 +455,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					walk = true;
 					extime = 0;
 					rushtime = 0;
+
 				}
 			}
 			if (shoot) {
@@ -447,9 +475,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy((MathHelper.Pi / 4) * 3), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
 					//Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(MathHelper.Pi / 4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
 				}
-				if (shoottime == 60) {
-					NPC.NewNPC(newSource, (int)NPC.Center.X + 60, (int)NPC.Center.Y - 100, ModContent.NPCType<DeepSeaSlider>());
-					NPC.NewNPC(newSource, (int)NPC.Center.X - 60, (int)NPC.Center.Y - 100, ModContent.NPCType<DeepSeaSlider>());
+				
 				}
 				if (shoottime == 99 && NPC.life < 0.5 * NPC.lifeMax) {
 					Projectile.NewProjectile(newSource, NPC.Center, new Vector2(15f, 0).RotatedBy(-MathHelper.PiOver4), ModContent.ProjectileType<seashoot>(), 18, 0.8f, 0, NPC.whoAmI, NPC.target);
@@ -468,7 +494,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 					walk = true;
 					shoottime = 0;
 				}
-			}
+			
 			if (skill) {
 				skilltime++;
 				NPC.dontTakeDamage = true;
@@ -588,7 +614,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			Player player = Main.player[NPC.target];
 			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
 		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
+			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
 
+
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ArknightsMod.Bestiary.TheFirstToTalk")),
+
+			});
+		}
 		//public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color lightColor) {
 		//Texture2D texturerush = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/Seamonster/TheFirstToTalk").Value;
 		//if (rush && texturedirection == 0) {

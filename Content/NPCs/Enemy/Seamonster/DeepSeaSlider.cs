@@ -147,14 +147,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            // Here we can make things happen if this NPC hits a player via its hitbox (not projectiles it shoots, this is handled in the projectile code usually)
-            // Common use is applying buffs/debuffs:
-
-            //int buffType = ModContent.BuffType<AnimatedBuff>();
-            // Alternatively, you can use a vanilla buff: int buffType = BuffID.Slow;
-
-            int timeToAdd = 3 * 60; //This makes it 5 seconds, one second is 60 ticks
-            target.AddBuff(31, timeToAdd);
+            
             NPC.ai[3] = 200;
             
         }
