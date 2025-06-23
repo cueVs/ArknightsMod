@@ -12,6 +12,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ArknightsMod.Common.VisualEffects;
+using System.Collections.Generic;
+using Terraria.Audio;
+using ArknightsMod.Common.Damageclasses;
 
 namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
@@ -29,14 +32,14 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			NPC.height = 50;
 			NPC.damage = 12;
 			NPC.defense = 20;
-			NPC.lifeMax = 700;
+			NPC.lifeMax = 350;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.BlizzardInsideBuildingLoop;
 			NPC.value = 100f;
 			NPC.knockBackResist = 0.50f;
 			NPC.aiStyle = -1;
-			NPC.scale = 0.9f;
-
+			NPC.scale = 1f;
+			NPC.npcSlots = 3;
 		}
 		private int AttackCD = 0;
 		private bool attack;
@@ -44,9 +47,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		private int Framespeed = 6;
 		private int framecounter;
 		private int attackframeY;
-		private float maxspeed = 1.1f;
+		private float maxspeed = 1.6f;
 		private int jumpCD = 0;
 		private int directionchoose;
+		private int lastHealthThreshold; // 记录上次触发传送的血量阈值
+		private bool isTeleporting;      // 是否正在传送
+		private int teleportTimer;
 
 		public override void FindFrame(int frameHeight) {
 
@@ -59,10 +65,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				NPC.frame.Y += frameHeight;
 				framecounter = 0;
 			}
-			if (walk == true && (NPC.frame.Y <= attackframeY+3 || NPC.frame.Y > (30 * frameHeight+3))) {
-				NPC.frame.Y = attackframeY+3;
+			if (walk == true && (NPC.frame.Y <= attackframeY + 3 || NPC.frame.Y > (30 * frameHeight + 3))) {
+				NPC.frame.Y = attackframeY + 3;
 			}
-			if (attack == true && (NPC.frame.Y > attackframeY+3)) {
+			if (attack == true && (NPC.frame.Y > attackframeY + 3)) {
 				NPC.frame.Y = 3;
 			}
 
@@ -75,7 +81,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			if (walk == true) {
 				NPC.spriteDirection = -NPC.direction;
 				AttackCD++;
-				if (NPC.position.X - p.position.X < -280 || (0 < NPC.position.X - p.position.X && NPC.position.X - p.position.X < 220)) {
+
+				// 2. 传送过程处理
+				if (isTeleporting) {
+					return; // 传送期间暂停其他AI
+				}
+				if (NPC.position.X - p.position.X < -400 || (0 < NPC.position.X - p.position.X && NPC.position.X - p.position.X < 200)) {
 					if (NPC.velocity.X < maxspeed) {
 						NPC.velocity.X += 0.3f;
 					}
@@ -83,11 +94,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 						NPC.velocity.X = maxspeed;
 					}
 				}
-				if (NPC.position.X - p.position.X == -220 || NPC.position.X - p.position.X == 220) {
+				if ((-200 <= NPC.position.X - p.position.X && NPC.position.X - p.position.X <= -300) || (200 >= NPC.position.X - p.position.X && NPC.position.X - p.position.X >= 300)) {
 					NPC.velocity.X = 0;
 				}
 
-				if (NPC.position.X - p.position.X > 280 || (0 > NPC.position.X - p.position.X && NPC.position.X - p.position.X > -220)) {
+				if (NPC.position.X - p.position.X > 400 || (0 > NPC.position.X - p.position.X && NPC.position.X - p.position.X > -200)) {
 					if (NPC.velocity.X > -maxspeed) {
 						NPC.velocity.X += -0.3f;
 					}
@@ -96,7 +107,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 					}
 				}
 
-				if (Math.Abs(NPC.velocity.X) <= 0.5f && attack == false && Math.Abs(NPC.position.X - p.position.X)!=220) {
+				if (Math.Abs(NPC.velocity.X) <= 0.5f && attack == false && (400 < Math.Abs(NPC.position.X - p.position.X) || 200 > Math.Abs(NPC.position.X - p.position.X))) {
 					jumpCD++;
 				}
 				if (jumpCD >= 400) {
@@ -113,7 +124,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				NPC.velocity.X = 0;
 				AttackCD++;
 				if (AttackCD == 1) {
-					Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(p.position.X+ 20*p.velocity.X,p.position.Y + 12 * p.velocity.Y), new Vector2(0, 0).RotatedBy(angle), ModContent.ProjectileType<SCproj>(), 12, 0.8f);
+					Projectile.NewProjectile(NPC.GetSource_FromThis(), new Vector2(p.position.X + 20 * p.velocity.X, p.position.Y + 12 * p.velocity.Y), new Vector2(0, 0).RotatedBy(angle), ModContent.ProjectileType<SCproj>(), 12, 0.8f);
 				}
 				if (AttackCD > 90) {
 					attack = false;
@@ -123,11 +134,52 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				}
 			}
 		}
+
+
 		public override bool? CanFallThroughPlatforms() {
 			Player player = Main.player[NPC.target];
 			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 0;
 		}
+		public override void OnKill() {
+			SoundStyle ghostSound = SoundID.NPCDeath6 with {
+				Pitch = -0.4f, // 范围[-1.0, 1.0]，-0.5表示降低八度
+				Volume = 0.6f  // 可选调整音量
+			};
+			SoundEngine.PlaySound(ghostSound, NPC.Center);
+			for (int i = 0; i < 25; i++) // 总粒子数
+	{
+				// 70%概率生成黑色，30%概率生成橙色
+				bool isBlack = Main.rand.NextFloat() < 0.7f;
+
+				Dust dust = Dust.NewDustPerfect(
+					NPC.Center,
+					isBlack ? DustID.Asphalt : DustID.FireworksRGB, // 黑色或橙色
+					Main.rand.NextVector2Circular(5, 5),
+					Alpha: 150,
+					Scale: Main.rand.NextFloat(1.2f, 2f)
+				);
+
+				// 统一物理参数
+				dust.noGravity = true;
+				dust.fadeIn = 1.5f;
+				dust.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+			}
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			if (SpellDamageConfig.SpellProjectiles.Contains(projectile.type)) {
+				// 法术伤害无视护甲
+				modifiers.ScalingArmorPenetration += 1f;
+				// 0.95倍伤害减免
+				modifiers.FinalDamage *= 0.5f;
+
+				for (int i = 0; i < 3; i++) {
+					Dust.NewDust(NPC.position, NPC.width, NPC.height,
+						DustID.Shadowflame, 0, 0, 150, default, 0.7f);
+				}
+			}
+		}
 	}
+
 	public class SCproj : ModProjectile
 	{
 		public override void SetStaticDefaults() {

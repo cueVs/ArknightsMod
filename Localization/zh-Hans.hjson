@@ -8,6 +8,8 @@
 
 Mods: {
 	ArknightsMod: {
+		// DamageClasses.SpellDamage.DisplayName: Arcane Damage
+
 		Items: {
 			# Weapons
 			YatoKatana: {
@@ -563,6 +565,11 @@ Mods: {
 					攻击力+15%,攻击速度+15%
 					'''
 			}
+
+			UnionInvader: {
+				DisplayName: 破损的整合运动旗帜
+				Tooltip: 白天使用以召唤整合运动的先锋部队
+			}
 		}
 
 		Buffs: {
@@ -608,6 +615,16 @@ Mods: {
 			RARicecrabBuff: {
 				DisplayName: 蟹肉碎拌饭
 				Description: 防御+8%,生命上限+8%
+			}
+
+			Tumor1: {
+				// DisplayName: Tumor1
+				// Description: Mods.ArknightsMod.Buffs.Tumor1.Description
+			}
+
+			Tumor2: {
+				// DisplayName: Tumor2
+				// Description: Mods.ArknightsMod.Buffs.Tumor2.Description
 			}
 		}
 
@@ -663,6 +680,21 @@ Mods: {
 			icecleaver.DisplayName: 雪怪小队凿冰人
 			Seniorcaster.DisplayName: 高阶术士
 			Oneiros.DisplayName: 虚幻
+			Hound.DisplayName: 猎狗
+			Drone.DisplayName: 妖怪
+			// ShieldGuard.DisplayName: Shield Guard
+			// HoundPro.DisplayName: Hound Pro
+			// SoldierLeader.DisplayName: Soldier Leader
+			// CrossbowmanLeader.DisplayName: Crossbowman Leader
+			// NourishedPiercer.DisplayName: Nourished Piercer
+			// Caster.DisplayName: Caster
+			// DoubleSword.DisplayName: Double Sword
+			// DroneII.DisplayName: Drone I I
+			// LightShield.DisplayName: Light Shield
+			// InsaneZombieL.DisplayName: Insane Zombie L
+			// Level11.DisplayName: Level11
+			// tumor1.DisplayName: tumor1
+			// tumor2.DisplayName: tumor2
 		}
 
 		# Friendly
@@ -774,6 +806,17 @@ Mods: {
 			Snowcastershoot.DisplayName: 寒冰射线
 			Icebreak.DisplayName: 碎冰之刃
 			SCproj.DisplayName: 溅射法术
+			Oneirosbomb.DisplayName: 虚幻
+			Iceexplode.DisplayName: 冰寒炸弹
+			CrossbowmanBolt.DisplayName: 弩箭
+			Motarbomb.DisplayName: 炮弹
+			explode.DisplayName: 迫击炮弹
+			// FPSPShoot.DisplayName: F P S P Shoot
+			// ShieldGuardShield.DisplayName: Shield Guard Shield
+			// DoubleCut.DisplayName: Double Cut
+			// LightShieldCut.DisplayName: Light Shield Cut
+			// InsaneZombieLHit.DisplayName: Insane Zombie L Hit
+			// CasterShoot.DisplayName: Caster Shoot
 		}
 
 		ButtonName.button2: 剿灭作战

@@ -5,4 +5,10 @@
     <AssemblyName>ArknightsMod</AssemblyName>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\86198\Documents\My Games\Terraria\tModLoader\ModSources\ArknightsMod\Assets\Effects\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\86198\Documents\My Games\Terraria\tModLoader\ModSources\ArknightsMod\Assets\Effects\.editorconfig" />
+  </ItemGroup>
 </Project>

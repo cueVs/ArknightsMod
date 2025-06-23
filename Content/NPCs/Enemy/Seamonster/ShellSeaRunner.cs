@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Http.Headers;
 using Terraria.GameContent.Biomes.Desert;
+using ArknightsMod.Common.Damageclasses;
 
 
 
@@ -167,6 +168,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				dust.velocity.X += Main.rand.NextFloat(-0.05f, 0.05f);
 				dust.velocity.Y += Main.rand.NextFloat(-0.05f, 0.05f);
 				dust.scale *= 1f + Main.rand.NextFloat(-0.03f, 0.03f);
+			}
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			if (SpellDamageConfig.SpellProjectiles.Contains(projectile.type)) {
+				// 法术伤害无视护甲
+				modifiers.ScalingArmorPenetration += 1f;
+				// 0.95倍伤害减免
+				modifiers.FinalDamage *= 0.8f;
+
 			}
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)

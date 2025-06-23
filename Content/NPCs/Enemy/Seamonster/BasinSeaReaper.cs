@@ -15,6 +15,7 @@ using System;
 using Terraria.Audio;
 using ArknightsMod;
 using MonoMod.Core.Platforms;
+using ArknightsMod.Common.Damageclasses;
 
 
 
@@ -26,7 +27,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			NPC.width = 80;
 			NPC.height = 118;
 			NPC.damage = 50;
-			NPC.defense = 26;
+			NPC.defense = 80;
 			NPC.lifeMax = 1000;
 			NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -202,6 +203,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, new Rectangle(0, wakeframe * 314, 316, 314), lightColor, 0, new Vector2(158, 157), new Vector2(1, 1f), 0, 0);
 			}
 			return true;
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			if (SpellDamageConfig.SpellProjectiles.Contains(projectile.type)) {
+				// 法术伤害无视护甲
+				modifiers.ScalingArmorPenetration += 1f;
+				// 0.95倍伤害减免
+				modifiers.FinalDamage *= 0.25f;
+
+				for (int i = 0; i < 3; i++) {
+					Dust.NewDust(NPC.position, NPC.width, NPC.height,
+						DustID.Shadowflame, 0, 0, 150, Color.LightBlue, 0.7f);
+				}
+			}
 		}
 	}
 }

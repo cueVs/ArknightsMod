@@ -18,6 +18,9 @@ using Terraria.UI;
 using System.Collections.Generic;
 using Terraria.GameContent.UI.Elements;
 using ArknightsMod.Content.Buffs;
+using Humanizer;
+using ReLogic.Content;
+using ArknightsMod.Assets.Effects;
 
 namespace ArknightsMod
 {
@@ -39,15 +42,30 @@ namespace ArknightsMod
 				Filters.Scene["IACTSW"] = new Filter(new ScreenShaderData(new Ref<Effect>(IACTSW), "IACTSW"), EffectPriority.VeryHigh);
 				Filters.Scene["IACTSW"].Load();
 			}
+			Filters.Scene["AshStorm"] = new Filter(
+		   new ScreenShaderData("FilterAsh").UseColor(1f, 0.8f, 0.5f),
+		   EffectPriority.High
+	   );
 
-
-
-
+			LoadClient();
+			SkyManager.Instance["ArknightsMod:UnionInvadeSky"] = new UnionInvadeSky();
 
 
 
 		}
+		public static Texture2D UnionInvadeSkyTexture { get; private set; }
 
+		private void LoadClient() {
+			// 强制立即加载天空纹理（仿照灾厄）
+			UnionInvadeSkyTexture = ModContent.Request<Texture2D>(
+				"ArknightsMod/Content/Events/UnionInvadeSky",
+				AssetRequestMode.ImmediateLoad
+			).Value;
+
+			// 调试验证
+			if (UnionInvadeSkyTexture == null || UnionInvadeSkyTexture.IsDisposed)
+				Logger.Error("天空纹理加载失败！");
+		}
 
 	}
 	//public class Ex : GlobalNPC
@@ -91,7 +109,7 @@ namespace ArknightsMod
 			}
 			base.ModifyInterfaceLayers(layers);
 		}
-
+		
 	}
 	
 	public class RAfood : ModPlayer {
@@ -172,6 +190,7 @@ namespace ArknightsMod
 		public override void OnEnterWorld() {
 			Santable.Visible = true;
 		}
+		
 	}
 }
 

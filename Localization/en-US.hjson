@@ -8,6 +8,8 @@
 
 Mods: {
 	ArknightsMod: {
+		DamageClasses.SpellDamage.DisplayName: Arcane Damage
+
 		Items: {
 			# Weapons
 			YatoKatana: {
@@ -549,6 +551,11 @@ Mods: {
 				DisplayName: R A Meatchip
 				Tooltip: ""
 			}
+
+			UnionInvader: {
+				DisplayName: Union Invader
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -594,6 +601,16 @@ Mods: {
 			RARicecrabBuff: {
 				DisplayName: R A Ricecrab Buff
 				Description: Mods.ArknightsMod.Buffs.RARicecrabBuff.Description
+			}
+
+			Tumor1: {
+				DisplayName: Tumor1
+				Description: Mods.ArknightsMod.Buffs.Tumor1.Description
+			}
+
+			Tumor2: {
+				DisplayName: Tumor2
+				Description: Mods.ArknightsMod.Buffs.Tumor2.Description
 			}
 		}
 
@@ -649,6 +666,21 @@ Mods: {
 			icecleaver.DisplayName: icecleaver
 			Seniorcaster.DisplayName: Seniorcaster
 			Oneiros.DisplayName: Oneiros
+			Hound.DisplayName: Hound
+			Drone.DisplayName: Drone
+			ShieldGuard.DisplayName: Shield Guard
+			HoundPro.DisplayName: Hound Pro
+			SoldierLeader.DisplayName: Soldier Leader
+			CrossbowmanLeader.DisplayName: Crossbowman Leader
+			NourishedPiercer.DisplayName: Nourished Piercer
+			Caster.DisplayName: Caster
+			DoubleSword.DisplayName: Double Sword
+			DroneII.DisplayName: Drone I I
+			LightShield.DisplayName: Light Shield
+			InsaneZombieL.DisplayName: Insane Zombie L
+			Level11.DisplayName: Level11
+			tumor1.DisplayName: tumor1
+			tumor2.DisplayName: tumor2
 		}
 
 		# Friendly
@@ -760,6 +792,17 @@ Mods: {
 			Snowcastershoot.DisplayName: Snowcastershoot
 			Icebreak.DisplayName: Icebreak
 			SCproj.DisplayName: S Cproj
+			Oneirosbomb.DisplayName: Oneirosbomb
+			Iceexplode.DisplayName: Iceexplode
+			CrossbowmanBolt.DisplayName: Crossbowman Bolt
+			Motarbomb.DisplayName: Motarbomb
+			explode.DisplayName: explode
+			FPSPShoot.DisplayName: F P S P Shoot
+			ShieldGuardShield.DisplayName: Shield Guard Shield
+			DoubleCut.DisplayName: Double Cut
+			LightShieldCut.DisplayName: Light Shield Cut
+			InsaneZombieLHit.DisplayName: Insane Zombie L Hit
+			CasterShoot.DisplayName: Caster Shoot
 		}
 
 		ButtonName.button2: Annihilation operation

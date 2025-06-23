@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
 	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
-	public class Soldier : ModNPC
+	public class SoldierLeader : ModNPC
 	{
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = 28;
@@ -26,11 +26,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		public override void SetDefaults() {
 			NPC.width = 9;
 			NPC.height = 20;
-			NPC.damage = 16;
-			NPC.defense = 5;
-			NPC.lifeMax = 105;
+			NPC.damage = 25;
+			NPC.defense = 10;
+			NPC.lifeMax = 185;
 			NPC.HitSound = SoundID.NPCHit1;
-			NPC.value = 60f;
+			NPC.value = 200f;
 			NPC.knockBackResist = 0.5f;
 			NPC.aiStyle = -1; // Fighter AI, important to choose the aiStyle that matches the NPCID that we want to mimic
 			NPC.scale = 2f;

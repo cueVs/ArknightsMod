@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
 using ArknightsMod.Content.Items.Material;
+using ArknightsMod.Common.Damageclasses;
 
 
 
@@ -158,6 +159,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				dust.velocity.X += Main.rand.NextFloat(-0.05f, 0.05f);
 				dust.velocity.Y += Main.rand.NextFloat(-0.05f, 0.05f);
 				dust.scale *= 1f + Main.rand.NextFloat(-0.03f, 0.03f);
+			}
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			if (SpellDamageConfig.SpellProjectiles.Contains(projectile.type)) {
+				// 法术伤害无视护甲
+				modifiers.ScalingArmorPenetration += 1f;
+				// 0.95倍伤害减免
+				modifiers.FinalDamage *= 0.9f;
+
+				for (int i = 0; i < 3; i++) {
+					Dust.NewDust(NPC.position, NPC.width, NPC.height,
+						DustID.MagicMirror, 0, 0, 150, Color.LightBlue, 0.7f);
+				}
 			}
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)

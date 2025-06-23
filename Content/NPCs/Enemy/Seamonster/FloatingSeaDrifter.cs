@@ -16,6 +16,7 @@ using System.Reflection.Metadata;
 using Humanizer;
 using Terraria.Audio;
 using ArknightsMod.Common.VisualEffects;
+using ArknightsMod.Common.Damageclasses;
 
 
 
@@ -57,7 +58,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			NPC.width = 84;
 			NPC.height = 56;
 			NPC.damage = 22;
-			NPC.defense = 9;
+			NPC.defense = 20;
 			NPC.lifeMax = 140;
 			NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath1;
@@ -86,8 +87,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		private int directionchoose;
 		private float angle;
 		private int moving=0;
-		public override void AI()
-		{
+		public override void AI() {
 			moving++;
 			if (moving >= 600) {
 				moving = 0;
@@ -103,30 +103,25 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			distance = (float)Math.Sqrt(Math.Pow(diffX / 16, 2) + Math.Pow(diffY / 16, 2));//到玩家的距离（格数）
 			float acceleration = 0.02f;
 			float maxSpeed = 2f;
-			
+
 			angle = (float)Math.Atan((Player.Center.Y - NPC.Center.Y) / (Player.Center.X - NPC.Center.X));
 			if (NPC.ai[3] >= 1200) {
 				NPC.ai[3] = 0;
 			}
-			if (inattack == false)
-			{
+			if (inattack == false) {
 				flytime++;
 				attacktime = 0;
 			}
-			if (inattack == true)
-
-			{
+			if (inattack == true) {
 				attacktime++;
 				flytime = 0;
 			}
-			if (flytime >= 300 && distance < 30)
-			{
+			if (flytime >= 300 && distance < 30) {
 				inattack = true;
 				NPC.velocity.Y = 0;
 				NPC.velocity.X = 0;
 			}
-			if (attacktime >= 40)
-			{
+			if (attacktime >= 40) {
 				inattack = false;
 			}
 			if (moving < 400) {
@@ -186,10 +181,19 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 			if (attacktime == 20) {
 				Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 8f, 0).RotatedBy(angle), ModContent.ProjectileType<FloatingSeaDrifterShoot>(), 12, 0.8f, 0, 0);
 			}
-
-
-
 		}
+
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			if (SpellDamageConfig.SpellProjectiles.Contains(projectile.type)) {
+				// 法术伤害无视护甲
+				modifiers.ScalingArmorPenetration += 1f;
+				// 伤害减免
+				modifiers.FinalDamage *= 0.8f;
+
+			}
+		}
+
+		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
 			return SpawnCondition.OverworldDayRain.Chance * 0.8f;
 		}

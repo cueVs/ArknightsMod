@@ -19,14 +19,14 @@ using ArknightsMod.Common.Damageclasses;
 
 namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 {
-	public class PrimalSeaPiercer:ModNPC
+	public class NourishedPiercer:ModNPC
 	{
 		public override void SetDefaults() {
 			NPC.width = 50;
 			NPC.height = 94;
 			NPC.damage = 30;
 			NPC.defense = 24;
-			NPC.lifeMax = 550;
+			NPC.lifeMax = 840;
 			NPC.HitSound = SoundID.NPCHit2;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.value = 18000;
@@ -142,7 +142,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 				leavetime = 0;
 			}
 			if (attacktime == 10) {
-				Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 12f, 0).RotatedBy(angle), ModContent.ProjectileType<PSPShoot>(), 25, 0.8f, 0, NPC.whoAmI);
+				Projectile.NewProjectile(newSource, NPC.Center, new Vector2(directionchoose * 12f, 0).RotatedBy(angle), ModContent.ProjectileType<FPSPShoot>(), 35, 0.8f, 0, NPC.whoAmI);
 			}
 			if (leave == true) {
 				approach = false;
@@ -211,7 +211,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Seamonster
 		}
 
 	}
-	public class PSPShoot : ModProjectile
+	public class FPSPShoot : ModProjectile
 	{
 
 		public override void SetStaticDefaults() {
