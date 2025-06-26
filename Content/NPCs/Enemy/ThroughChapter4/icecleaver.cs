@@ -18,6 +18,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
 	public class icecleaver:ModNPC
 	{
+		private int fadeTimer;
 		public override void SetStaticDefaults() {
 			Main.npcFrameCount[Type] = 21;
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { // Influences how the NPC looks in the Bestiary
@@ -37,6 +38,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			NPC.knockBackResist = 0.20f;
 			NPC.aiStyle = -1;
 			NPC.scale = 1f;
+		}
+		public override void OnSpawn(IEntitySource source) {
+			fadeTimer = 60; // 持续60帧
+			NPC.color = Color.Black; // 初始为纯黑
+			NPC.alpha = 240;
 		}
 		public override void FindFrame(int frameHeight) {
 
@@ -59,6 +65,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
 			Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
 			NPC.spriteDirection = -NPC.direction;
+			if (fadeTimer > 0) {
+				fadeTimer--;
+			}
+			Color drawcolor = Color.Lerp(new Color(0, 0, 0, 65), new Color(255, 255, 255, 255), 1f - fadeTimer / 60f);
 			// 动态计算原点（水平居中，底部对齐碰撞箱）
 			Vector2 origin1 = new Vector2(NPC.frame.Width *2/ 3f, NPC.frame.Height - 55);
 			Vector2 origin2 = new Vector2(NPC.frame.Width / 3f, NPC.frame.Height - 55);
@@ -68,7 +78,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				texture,
 				NPC.Center - screenPos + new Vector2(0, 4f), // 整体下移4像素
 				NPC.frame,
-				drawColor,
+				drawcolor,
 				NPC.rotation,
 				origin1,
 				NPC.scale,
@@ -82,7 +92,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				texture,
 				NPC.Center - screenPos + new Vector2(0, 4f), // 整体下移4像素
 				NPC.frame,
-				drawColor,
+				drawcolor,
 				NPC.rotation,
 				origin2,
 				NPC.scale,

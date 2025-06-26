@@ -681,6 +681,7 @@ Mods: {
 			Level11.DisplayName: Level11
 			tumor1.DisplayName: tumor1
 			tumor2.DisplayName: tumor2
+			Evolution.DisplayName: Evolution
 		}
 
 		# Friendly
