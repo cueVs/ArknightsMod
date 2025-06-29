@@ -1,13 +1,11 @@
+using ArknightsMod.Content.Items.Placeable.Banners;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader.Utilities;
-using Terraria.DataStructures;
-using ArknightsMod.Content.Items.Placeable.Banners;
+using Terraria.ID;
 using Terraria.Localization;
-using Terraria.UI;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 using static Terraria.ModLoader.ModContent;
 namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
@@ -18,8 +16,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		private float preposition;
 		private int direction;
 
-		public override bool IsLoadingEnabled(Mod mod)
-		{
+		public override bool IsLoadingEnabled(Mod mod) {
 			return ModContent.GetInstance<MonsterConfig>().EnableOriginiumSlug;
 		}
 
@@ -60,7 +57,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo) {
 			return SpawnCondition.OverworldDaySlime.Chance * 0.8f; // Spawn with 1/1st the chance of a regular slime.
-			// return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
+																   // return SpawnCondition.OverworldNightMonster.Chance * 1f; // Spawn with 1/5th the chance of a regular zombie.
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {

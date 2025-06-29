@@ -6,5 +6,16 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Items\BattleRecords\DrillBattleRecord.png" />
+    <None Remove="Content\Items\BattleRecords\FrontlineBattleRecord.png" />
+    <None Remove="Content\Items\BattleRecords\StrategicBattleRecord.png" />
+    <None Remove="Content\Items\BattleRecords\TacticalBattleRecord.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\LevelDatas\Skills\" />
+    <Folder Include="Common\UI\BattleRecord\Images\" />
   </ItemGroup>
 </Project>

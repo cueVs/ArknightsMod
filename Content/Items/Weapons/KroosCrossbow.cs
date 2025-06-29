@@ -1,33 +1,35 @@
-﻿using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Buffs;
+﻿using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Players;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using ArknightsMod.Common.UI;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
-    public class KroosCrossbow : ModItem
-    {
+	public class KroosCrossbow : UpgradeWeaponBase
+	{
+		private static SoundStyle KroosCrossbowS1;
+		public override void Load() {
+			KroosCrossbowS1 = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+		}
 		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Yato's Katana");
-			// Tooltip.SetDefault("Yato has joined the team.");
+			Item.ResearchUnlockCount = 1;
 		}
 
-		public override void SetDefaults()
-        {
-            Item.damage = 12;
+		public override void SetDefaults() {
+			Item.damage = 12;
 			Item.DamageType = DamageClass.Ranged;
 			Item.width = 120;
-            Item.height = 60;
+			Item.height = 60;
 			Item.scale = 0.5f;
-            Item.useTime = 8;
-            Item.useAnimation = 8;
+			Item.useTime = 8;
+			Item.useAnimation = 8;
 			Item.reuseDelay = 10;
 			Item.consumeAmmoOnLastShotOnly = true;
 
@@ -55,20 +57,17 @@ namespace ArknightsMod.Content.Items.Weapons
 
 					// S1
 					if (modPlayer.Skill == 0) {
-						if(modPlayer.StockCount == 0) {
+						if (modPlayer.StockCount == 0) {
 							modPlayer.OffensiveRecovery();
 						}
-						else if(modPlayer.StockCount > 0) {
+						else if (modPlayer.StockCount > 0) {
 							Item.useTime = 4;
 							modPlayer.SkillActive = true;
 							modPlayer.SkillTimer = 0;
 							modPlayer.DelStockCount();
 						}
 					}
-					Item.UseSound = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
-						Volume = 0.8f,
-						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};
+					Item.UseSound = KroosCrossbowS1;
 				}
 			}
 			return true;
@@ -86,25 +85,6 @@ namespace ArknightsMod.Content.Items.Weapons
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
 			Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
 			return false;
-		}
-
-		public override void HoldItem(Player player) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-			if (Main.myPlayer == player.whoAmI) {
-				modPlayer.SetAllSkillsData();
-				if (!modPlayer.HoldKroosCrossbow) {
-					modPlayer.SkillInitialize = true;
-					modPlayer.Skill = 0;
-				}
-
-				// S1
-				if (modPlayer.Skill == 0) {
-					modPlayer.SkillActiveTimer();
-				}
-
-				modPlayer.HoldKroosCrossbow = true; // you have to write this line HERE!
-			}
-			base.HoldItem(player);
 		}
 
 		// This method lets you adjust position of the gun in the player's hands. Play with these values until it looks good with your graphics.

@@ -1,13 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Enums;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System;
-using ArknightsMod.Content.Dusts;
+﻿using ArknightsMod.Content.Dusts;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {
@@ -61,7 +60,7 @@ namespace ArknightsMod.Content.Projectiles
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
 			// Terraria.Audio.SoundEngine.PlaySound(PenNibHit);
 			Vector2 vector14 = Projectile.Center + Projectile.velocity * 0.1f;
-			int HitSparkle = Dust.NewDust(vector14 - Projectile.Size / 2f, Projectile.width, Projectile.height, 66, 0f, 0f, 150, default(Color), 0.9f);
+			int HitSparkle = Dust.NewDust(vector14 - Projectile.Size / 2f, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 150, default(Color), 0.9f);
 			int PenNibDust = Dust.NewDust(vector14 - Projectile.Size / 2f, Projectile.width, Projectile.height, ModContent.DustType<PozemkaCrossbowDust>(), 0f, 0f, 150, default(Color), 0.9f);
 			Main.dust[HitSparkle].noGravity = true;
 			Main.dust[PenNibDust].noGravity = true;
@@ -88,7 +87,7 @@ namespace ArknightsMod.Content.Projectiles
 			// Redraw the projectile with the color not influenced by light
 			Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
 			for (int k = 0; k < Projectile.oldPos.Length; k++) {
-				Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
 				Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 				Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 			}

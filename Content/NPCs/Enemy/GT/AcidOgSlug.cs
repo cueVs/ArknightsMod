@@ -1,17 +1,15 @@
+using ArknightsMod.Content.Items.Placeable.Banners;
+using ArknightsMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader.Utilities;
-using Terraria.DataStructures;
-using ArknightsMod.Content.Items.Placeable.Banners;
+using Terraria.ID;
 using Terraria.Localization;
-using Terraria.UI;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 using static Terraria.ModLoader.ModContent;
-using ArknightsMod.Content.Projectiles;
-using System;
-using Microsoft.Xna.Framework;
 
 
 namespace ArknightsMod.Content.NPCs.Enemy.GT
@@ -22,12 +20,12 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 		private int status;
 		private int Frame_State;
 
-		public override bool IsLoadingEnabled(Mod mod)
-		{
+		public override bool IsLoadingEnabled(Mod mod) {
 			return ModContent.GetInstance<MonsterConfig>().EnableAcidOgSlug;
 		}
 
-		private enum ActionState {
+		private enum ActionState
+		{
 			Walk,
 			Attack
 		}
@@ -90,7 +88,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 			NPC.spriteDirection = NPC.direction;
 
 
-			if(Frame_State == (int)ActionState.Walk) {
+			if (Frame_State == (int)ActionState.Walk) {
 				int startFrame = 0;
 				int finalFrame = 4;
 				int frameSpeed = 6;
@@ -111,11 +109,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 					}
 				}
 			}
-			else if(Frame_State == (int)ActionState.Attack) {
+			else if (Frame_State == (int)ActionState.Attack) {
 				int startFrame = 5;
 				int finalFrame = 14;
 				int frameSpeed = 5;
-				if(NPC.frame.Y < startFrame * frameHeight) {
+				if (NPC.frame.Y < startFrame * frameHeight) {
 					NPC.frame.Y = startFrame * frameHeight;
 				}
 
@@ -215,7 +213,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 				Vector2 position = NPC.Center;
 
 				float addHight;
-				if((NPC.Center.Y - Main.player[NPC.target].Center.Y) > 20) {
+				if ((NPC.Center.Y - Main.player[NPC.target].Center.Y) > 20) {
 					addHight = 10f;
 				}
 				else {
@@ -225,15 +223,15 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 				float x = Main.player[NPC.target].Center.X - NPC.Center.X;
 				float y = Main.player[NPC.target].Center.Y - NPC.Center.Y - 20f - addHight;
 
-				float theta = (new Vector2(x, y)).ToRotation();
+				float theta = new Vector2(x, y).ToRotation();
 				float addSpeed = Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) / 60; // Change speed according to distance
 
-				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, (8f + addSpeed) * (new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta))), ProjectileType<AcidOgSlugProjectile>(), 10, 0f, Main.myPlayer);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), position, (8f + addSpeed) * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)), ProjectileType<AcidOgSlugProjectile>(), 10, 0f, Main.myPlayer);
 			}
 		}
 
 		private void Approach() {
-			if(Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) > 2) {
+			if (Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) > 2) {
 				NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
 				NPC.velocity.X = 1f * NPC.direction;
 			}

@@ -1,21 +1,18 @@
-using ArknightsMod.Content.Projectiles;
+﻿using ArknightsMod.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 
 namespace ArknightsMod.Content.Items.Weapons
 {
 	public class DurinWand : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Durin's wand");
 			// Tooltip.SetDefault("She looks quite sleepy.");
 		}
 
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Item.damage = 5;
 			Item.DamageType = DamageClass.Magic;
 			Item.mana = 2;

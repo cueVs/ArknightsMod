@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameContent.UI;
-using Terraria.Localization;
+﻿using Terraria.GameContent.UI;
 
 namespace ArknightsMod.Content.Currencies
 {

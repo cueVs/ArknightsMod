@@ -1,11 +1,9 @@
-﻿using Terraria;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.DataStructures;
-using System.Xml;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 {
@@ -23,7 +21,7 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 		}
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Arknights Doctor's Hood");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			Item.ResearchUnlockCount = 1;
 			if (Main.netMode == NetmodeID.Server)
 				return;
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
@@ -56,9 +54,9 @@ namespace ArknightsMod.Content.Items.Armor.Vanity.Guard
 
 			if (drawPlayer.armor[10].type == ModContent.ItemType<MelanthaHead>()) {
 				var data = new DrawData(texture, drawPosition, null,
-					drawInfo.colorArmorBody, drawPlayer.fullRotation, drawInfo.bodyVect, 1f, drawInfo.playerEffect, 0){
+					drawInfo.colorArmorBody, drawPlayer.fullRotation, drawInfo.bodyVect, 1f, drawInfo.playerEffect, 0) {
 					shader = dyeShader
-					};
+				};
 				drawInfo.DrawDataCache.Add(data);
 			}
 		}

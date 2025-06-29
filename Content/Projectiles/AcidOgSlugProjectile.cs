@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 
@@ -38,7 +38,7 @@ namespace ArknightsMod.Content.Projectiles
 
 		public override void AI() {
 			Projectile.ai[0] += 1;
-			if(Projectile.velocity.X > 0f) {
+			if (Projectile.velocity.X > 0f) {
 				Projectile.spriteDirection = Projectile.direction = -1;
 			}
 

@@ -1,13 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Players;
+using ArknightsMod.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Items.Weapons;
-using Terraria.GameContent;
-using System.Collections.Generic;
 
 namespace ArknightsMod.Common.UI
 {
@@ -16,14 +18,22 @@ namespace ArknightsMod.Common.UI
 		// For this bar we'll be using a frame texture and then a gradient inside bar, as it's one of the more simpler approaches while still looking decent.
 		// Once this is all set up make sure to go and do the required stuff for most UI's in the ModSystem class.
 		private UIText text;
+
 		private UIElement area;
 		private UIImage barFrame;
 		private Color gradientA;
 		private Color gradientB;
 		private Color skillColor;
+		private readonly Texture2D[] stockIcon = [
+			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock1", AssetRequestMode.ImmediateLoad).Value,
+			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock2", AssetRequestMode.ImmediateLoad).Value,
+			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock3", AssetRequestMode.ImmediateLoad).Value,
+		];
+		private readonly Texture2D skillCanUse =
+			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Skill", AssetRequestMode.ImmediateLoad).Value;
 
 		public override void OnInitialize() {
-			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
+			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element.
 			// UIElement is invisible and has no padding.
 			area = new UIElement();
 			//area.Left.Set(-area.Width.Pixels - 790, 1f); // Place the resource bar to the left of the hearts.
@@ -57,30 +67,26 @@ namespace ArknightsMod.Common.UI
 
 		public override void Draw(SpriteBatch spriteBatch) {
 			// This prevents drawing unless we are using an ExampleCustomResourceWeapon
-			if (Main.LocalPlayer.HeldItem.ModItem is BagpipeSpear) {
-				base.Draw(spriteBatch);
-			}
-			if (Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow) {
-				base.Draw(spriteBatch);
-			}
-			if (Main.LocalPlayer.HeldItem.ModItem is ChenSword) {
-				base.Draw(spriteBatch);
-			}
-			if (Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow) {
-				base.Draw(spriteBatch);
-			}
+			if (Main.LocalPlayer.HeldItem.ModItem is not UpgradeWeaponBase)
+				return;
+			base.Draw(spriteBatch);
 		}
 
 		// Here we draw our UI
-		protected override void DrawSelf(SpriteBatch spriteBatch) {
-			base.DrawSelf(spriteBatch);
+		protected override void DrawSelf(SpriteBatch sb) {
+			base.DrawSelf(sb);
 
-			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-
+			var mp = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+			Texture2D pixel = TextureAssets.MagicPixel.Value;
+			SkillData skill = mp.CurrentSkill;
+			SkillLevelData data = skill.CurrentLevelData;
+			float activeTime = data.ActiveTime * 60;
+			int maxStock = data.MaxStack;
+			int stock = mp.StockCount;
 			// Calculate quotient
-			float quotient1 = (float)modPlayer.SkillCharge / modPlayer.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			float quotient1 = (float)mp.SkillCharge / mp.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient1 = Utils.Clamp(quotient1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-			float quotient2 = (float)modPlayer.SkillTimer / (modPlayer.SkillActiveTime[modPlayer.Skill] * 60); // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			float quotient2 = mp.SkillTimer / activeTime; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient2 = Utils.Clamp(quotient2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
 
@@ -92,11 +98,7 @@ namespace ArknightsMod.Common.UI
 			hitbox.Y += 2;
 			hitbox.Height -= 2;
 
-			var aboveHead = new Rectangle((int)Main.screenWidth / 2 - 12, (int)Main.screenHeight / 2 - 65, 22, 22);
-			Texture2D skillStock1 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock1").Value;
-			Texture2D skillStock2 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock2").Value;
-			Texture2D skillStock3 = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock3").Value;
-			Texture2D skill = ModContent.Request<Texture2D>("ArknightsMod/Common/UI/Skill").Value;
+			var aboveHead = new Rectangle(Main.screenWidth / 2 - 12, Main.screenHeight / 2 - 65, 22, 22);
 
 			// Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
 			int left = hitbox.Left;
@@ -104,35 +106,27 @@ namespace ArknightsMod.Common.UI
 			int steps1 = (int)((right - left) * quotient1);
 			int steps2 = (int)((right - left) * quotient2);
 
-			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientB);
+			sb.Draw(pixel, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientB);
 			for (int i = 0; i < steps1; i += 1) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
+				sb.Draw(pixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
 			}
-			if (modPlayer.StockCount == modPlayer.StockMax[modPlayer.Skill]) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientA);
+			if (mp.StockCount == maxStock) {
+				sb.Draw(pixel, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientA);
 			}
 
-			if (modPlayer.SkillActive) {
-				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left, hitbox.Y, 116, hitbox.Height), skillColor);
+			if (mp.SkillActive) {
+				sb.Draw(pixel, new Rectangle(left, hitbox.Y, 116, hitbox.Height), skillColor);
 				for (int i = 0; i < steps2; i += 1) {
-					spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
+					sb.Draw(pixel, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
 				}
 			}
 
-			if (modPlayer.StockMax[modPlayer.Skill] > 1) {
-				if (modPlayer.StockCount == 1) {
-					spriteBatch.Draw(skillStock1, aboveHead, Color.White);
-				}
-				else if (modPlayer.StockCount == 2) {
-					spriteBatch.Draw(skillStock2, aboveHead, Color.White);
-				}
-				else if (modPlayer.StockCount == 3) {
-					spriteBatch.Draw(skillStock3, aboveHead, Color.White);
-				}
+			if (maxStock > 1 && stock > 0) {
+				sb.Draw(stockIcon[stock - 1], aboveHead, Color.White);
 			}
-			else if (modPlayer.StockMax[modPlayer.Skill] == 1 && !modPlayer.AutoTrigger[modPlayer.Skill]) {
-				if (modPlayer.StockCount == 1) {
-					spriteBatch.Draw(skill, aboveHead, Color.White);
+			else if (maxStock == 1 && !skill.AutoTrigger) {
+				if (stock == 1) {
+					sb.Draw(skillCanUse, aboveHead, Color.White);
 				}
 			}
 		}
@@ -148,7 +142,7 @@ namespace ArknightsMod.Common.UI
 		//}
 	}
 
-	class SkillGaugeSystem : ModSystem
+	internal class SkillGaugeSystem : ModSystem
 	{
 		private UserInterface SkillGaugeUserInterface;
 

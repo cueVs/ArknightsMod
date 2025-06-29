@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Placeable

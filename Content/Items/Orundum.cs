@@ -1,9 +1,5 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Net;
-using Terraria.GameContent.NetModules;
-using Terraria.GameContent.Creative;
 
 namespace ArknightsMod.Content.Items
 {
@@ -12,7 +8,7 @@ namespace ArknightsMod.Content.Items
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Orundum"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
 			// Tooltip.SetDefault("An artificial material commonly used to recruit operators."); // The (English) text shown below your item's name
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10; // How many items are needed in order to research duplication of this item in Journey mode. See https://terraria.gamepedia.com/Journey_Mode/Research_list for a list of commonly used research amounts depending on item type.
+			Item.ResearchUnlockCount = 10; // How many items are needed in order to research duplication of this item in Journey mode. See https://terraria.gamepedia.com/Journey_Mode/Research_list for a list of commonly used research amounts depending on item type.
 		}
 
 		public override void SetDefaults() {

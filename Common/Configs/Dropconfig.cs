@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using Terraria.ModLoader.Config;
-using Newtonsoft.Json;
-using Terraria;
-using Terraria.Localization;
 
 
 public class Dropconfig : ModConfig

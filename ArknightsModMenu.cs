@@ -3,7 +3,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.ModLoader;
-using Terraria.Audio;
 //using Terraria.ID;
 
 namespace ArknightsMod.VisualEffects
@@ -14,7 +13,7 @@ namespace ArknightsMod.VisualEffects
 
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{menuAssetPath}/TerrariArknights");
 
-        public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/mrfz");
+		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/mrfz");
 
 		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/Sami");
 

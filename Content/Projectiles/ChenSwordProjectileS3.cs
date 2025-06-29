@@ -5,17 +5,15 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Projectiles
 {
-    public class ChenSwordProjectileS3 : ModProjectile
+	public class ChenSwordProjectileS3 : ModProjectile
 	{
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("The Only Thing I Know For Real");
 			// Main.projFrames[Projectile.type] = 4;
 			//DrawOriginOffsetY = 30;
 			//DrawOffsetX = -60;
 		}
-		public override void SetDefaults()
-		{
+		public override void SetDefaults() {
 			Projectile.width = 198;
 			Projectile.height = 18;
 			Projectile.aiStyle = 0;
@@ -30,7 +28,7 @@ namespace ArknightsMod.Content.Projectiles
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.tileCollide = false;
 			Projectile.friendly = true;
-			
+
 			Projectile.scale = 0.2f;
 			Projectile.alpha = 0;
 		}
@@ -60,11 +58,11 @@ namespace ArknightsMod.Content.Projectiles
 			// Projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
 			Projectile.direction = Projectile.spriteDirection = (Projectile.velocity.X > 0f) ? 1 : -1;
 
-			
+
 			Projectile.rotation = (float)(Projectile.velocity.ToRotation() + Math.Cos(Main.rand.Next(0, 90)));
 
 			Projectile.position.X += (float)Main.rand.Next(-7, 7) - 15;
-			Projectile.position.Y += (float)Main.rand.Next(-7, 7);
+			Projectile.position.Y += Main.rand.Next(-7, 7);
 
 
 		}
@@ -72,7 +70,7 @@ namespace ArknightsMod.Content.Projectiles
 		// Many projectiles fade in so that when they spawn they don't overlap the gun muzzle they appear from
 		public void FadeInAndOut() {
 			// If last less than 50 ticks — fade in, than more — fade out
-			if (Projectile.ai[0] >= 1f && Projectile.ai[0] <= (float)Main.rand.Next(4, 7)) {
+			if (Projectile.ai[0] >= 1f && Projectile.ai[0] <= Main.rand.Next(4, 7)) {
 				// Fade in
 				Projectile.scale += 0.12f;
 				// Cap scale 

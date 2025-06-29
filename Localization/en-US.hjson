@@ -539,6 +539,26 @@ Mods: {
 				DisplayName: Acid Originium Slug Banner
 				Tooltip: ""
 			}
+
+			DrillBattleRecord: {
+				DisplayName: Drill Battle Record
+				Tooltip: ""
+			}
+
+			FrontlineBattleRecord: {
+				DisplayName: Frontline Battle Record
+				Tooltip: ""
+			}
+
+			StrategicBattleRecord: {
+				DisplayName: Strategic Battle Record
+				Tooltip: ""
+			}
+
+			TacticalBattleRecord: {
+				DisplayName: Tactical Battle Record
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -609,6 +629,12 @@ Mods: {
 			IACT.DisplayName: Imperial Artillery Core Targeteer
 			IACTStage3target.DisplayName: IACT Stage3 target
 			IAT.DisplayName: Imperial Artillery Targeteer
+			AACT.DisplayName: A A C T
+			AACTIntro.DisplayName: A A C T Intro
+			AACTStage3TrueHealth.DisplayName: A A C T Stage3 True Health
+			IACTIntro.DisplayName: I A C T Intro
+			IATIntro.DisplayName: I A T Intro
+			Crossbowman.DisplayName: Crossbowman
 		}
 
 		# Friendly
@@ -697,10 +723,20 @@ Mods: {
 			HitboxRedCornerSmall2.DisplayName: Hitbox
 			HitboxRedCornerSmall3.DisplayName: Hitbox
 			HitboxRedCornerSmall4.DisplayName: Hitbox
+			HitboxRedCorner.DisplayName: Hitbox Red Corner
 			PozemkaCrossbowSentry.DisplayName: Pozemka Crossbow Sentry
 			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+			AACTDeathdust.DisplayName: A A C T Deathdust
+			AACTEndShow.DisplayName: A A C T End Show
+			CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
+			CollapsedFrame.DisplayName: Collapsed Frame
+			CollapsedHitboxblueCore.DisplayName: Collapsed Hitboxblue Core
+			ExplodeWave.DisplayName: Explode Wave
+			Missle.DisplayName: Missle
+			MisslePro.DisplayName: Missle Pro
+			CrossbowmanBolt.DisplayName: Crossbowman Bolt
 		}
 
 		ButtonName.button2: Annihilation operation
@@ -758,6 +794,66 @@ Mods: {
 
 				EnableArknightsOceanNighttimeScene: {
 					Label: Enable ArknightsOceanNighttime Music
+					Tooltip: ""
+				}
+
+				EnableArknightsOceanNighttime: {
+					Label: Enable Arknights Ocean Nighttime
+					Tooltip: ""
+				}
+
+				EnableArknightsSpaceDaytime: {
+					Label: Enable Arknights Space Daytime
+					Tooltip: ""
+				}
+
+				EnableArknightsSpaceNighttimeLow: {
+					Label: Enable Arknights Space Nighttime Low
+					Tooltip: ""
+				}
+
+				EnableArknightsSpaceNighttimeHigh: {
+					Label: Enable Arknights Space Nighttime High
+					Tooltip: ""
+				}
+
+				EnableArknightsForestDaytime: {
+					Label: Enable Arknights Forest Daytime
+					Tooltip: ""
+				}
+
+				EnableArknightsForestNighttime: {
+					Label: Enable Arknights Forest Nighttime
+					Tooltip: ""
+				}
+
+				EnableArknightsHallowedOceanDaytime: {
+					Label: Enable Arknights Hallowed Ocean Daytime
+					Tooltip: ""
+				}
+
+				EnableArknightsHallowedOceanNighttime: {
+					Label: Enable Arknights Hallowed Ocean Nighttime
+					Tooltip: ""
+				}
+
+				EnableArknightsCorruptedOceanDaytime: {
+					Label: Enable Arknights Corrupted Ocean Daytime
+					Tooltip: ""
+				}
+
+				EnableArknightsCorruptedOceanNighttime: {
+					Label: Enable Arknights Corrupted Ocean Nighttime
+					Tooltip: ""
+				}
+
+				EnableArknightsCrimsonOceanDaytime: {
+					Label: Enable Arknights Crimson Ocean Daytime
+					Tooltip: ""
+				}
+
+				EnableArknightsCrimsonOceanNighttime: {
+					Label: Enable Arknights Crimson Ocean Nighttime
 					Tooltip: ""
 				}
 			}
@@ -825,5 +921,98 @@ Mods: {
 				}
 			}
 		}
+
+		Skills: {
+			BagpipeSpear1: {
+				Label: Mods.ArknightsMod.Skills.BagpipeSpear1.Label
+				Desc: Mods.ArknightsMod.Skills.BagpipeSpear1.Desc
+			}
+
+			BagpipeSpear2: {
+				Label: Mods.ArknightsMod.Skills.BagpipeSpear2.Label
+				Desc: Mods.ArknightsMod.Skills.BagpipeSpear2.Desc
+			}
+
+			BagpipeSpear3: {
+				Label: Mods.ArknightsMod.Skills.BagpipeSpear3.Label
+				Desc: Mods.ArknightsMod.Skills.BagpipeSpear3.Desc
+			}
+
+			BagpipeSpear: {
+				1: {
+					Label: Mods.ArknightsMod.Skills.BagpipeSpear.1.Label
+					Desc: Mods.ArknightsMod.Skills.BagpipeSpear.1.Desc
+				}
+
+				2: {
+					Label: Mods.ArknightsMod.Skills.BagpipeSpear.2.Label
+					Desc: Mods.ArknightsMod.Skills.BagpipeSpear.2.Desc
+				}
+
+				3: {
+					Label: Mods.ArknightsMod.Skills.BagpipeSpear.3.Label
+					Desc: Mods.ArknightsMod.Skills.BagpipeSpear.3.Desc
+				}
+			}
+
+			ChenSword1: {
+				Label: Mods.ArknightsMod.Skills.ChenSword1.Label
+				Desc: Mods.ArknightsMod.Skills.ChenSword1.Desc
+			}
+
+			ChenSword: {
+				1: {
+					Label: Mods.ArknightsMod.Skills.ChenSword.1.Label
+					Desc: Mods.ArknightsMod.Skills.ChenSword.1.Desc
+				}
+			}
+
+			KroosCrossbow1: {
+				Label: Mods.ArknightsMod.Skills.KroosCrossbow1.Label
+				Desc: Mods.ArknightsMod.Skills.KroosCrossbow1.Desc
+			}
+
+			KroosCrossbow: {
+				1: {
+					Label: Mods.ArknightsMod.Skills.KroosCrossbow.1.Label
+					Desc: Mods.ArknightsMod.Skills.KroosCrossbow.1.Desc
+				}
+			}
+
+			PozemkaCrossbow1: {
+				Label: Mods.ArknightsMod.Skills.PozemkaCrossbow1.Label
+				Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow1.Desc
+			}
+
+			PozemkaCrossbow2: {
+				Label: Mods.ArknightsMod.Skills.PozemkaCrossbow2.Label
+				Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow2.Desc
+			}
+
+			PozemkaCrossbow3: {
+				Label: Mods.ArknightsMod.Skills.PozemkaCrossbow3.Label
+				Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow3.Desc
+			}
+
+			PozemkaCrossbow: {
+				1: {
+					Label: Mods.ArknightsMod.Skills.PozemkaCrossbow.1.Label
+					Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow.1.Desc
+				}
+
+				2: {
+					Label: Mods.ArknightsMod.Skills.PozemkaCrossbow.2.Label
+					Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow.2.Desc
+				}
+
+				3: {
+					Label: Mods.ArknightsMod.Skills.PozemkaCrossbow.3.Label
+					Desc: Mods.ArknightsMod.Skills.PozemkaCrossbow.3.Desc
+				}
+			}
+		}
+
+		UI.UpgradeUI.Upgrade: Upgrade
+		UpgradeWeapon.LevelPreview.Damage: Damage
 	}
 }

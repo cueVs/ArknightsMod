@@ -15,8 +15,7 @@ namespace ArknightsMod.Content.Tiles.Furniture
 	{
 		public const int NextStyleHeight = 60; // Calculated by adding all CoordinateHeights{16, 16, 18} + CoordinatePaddingFix.Y{2} applied to all of them + 2
 
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			// Properties
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -69,13 +68,11 @@ namespace ArknightsMod.Content.Tiles.Furniture
 		//	Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 50, ModContent.ItemType<Items.Placeable.Furniture.DareUsa>());
 		//}
 
-		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
-		{
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) {
 			return settings.player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance); // Avoid being able to trigger it from long range
 		}
 
-		public override void ModifySittingTargetInfo(int i, int j, ref TileRestingInfo info)
-		{
+		public override void ModifySittingTargetInfo(int i, int j, ref TileRestingInfo info) {
 			// It is very important to know that this is called on both players and NPCs, so do not use Main.LocalPlayer for example, use info.restingEntity
 			Tile tile = Framing.GetTileSafely(i, j);
 
@@ -90,36 +87,29 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			// The anchor represents the bottom-most tile of the chair. This is used to align the entity hitbox
 			// Since i and j may be from any coordinate of the chair, we need to adjust the anchor based on that
 			info.AnchorTilePosition.X = i;
-			if (tile.TileFrameX == 0)
-			{
+			if (tile.TileFrameX == 0) {
 				info.AnchorTilePosition.X += 2;
 			}
-			else if (tile.TileFrameX == 18)
-			{
+			else if (tile.TileFrameX == 18) {
 				info.AnchorTilePosition.X++;
 			}
-			else if (tile.TileFrameX == 54)
-			{
+			else if (tile.TileFrameX == 54) {
 				info.AnchorTilePosition.X--;
 			}
 
 			info.AnchorTilePosition.Y = j;
-			if (tile.TileFrameY == 0)
-			{
+			if (tile.TileFrameY == 0) {
 				info.AnchorTilePosition.Y += 2; // move it 1 down when you click the top-most tile
 			}
-			else if (tile.TileFrameY == 18)
-			{
+			else if (tile.TileFrameY == 18) {
 				info.AnchorTilePosition.Y++; // move it 1 down when you click the top-most tile
 			}
 		}
 
-		public override bool RightClick(int i, int j)
-		{
+		public override bool RightClick(int i, int j) {
 			Player player = Main.LocalPlayer;
 
-			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance))
-			{ // Avoid being able to trigger it from long range
+			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance)) { // Avoid being able to trigger it from long range
 				player.GamepadEnableGrappleCooldown();
 				player.sitting.SitDown(player, i, j);
 			}
@@ -127,12 +117,10 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			return true;
 		}
 
-		public override void MouseOver(int i, int j)
-		{
+		public override void MouseOver(int i, int j) {
 			Player player = Main.LocalPlayer;
 
-			if (!player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance))
-			{ // Match condition in RightClick. Interaction should only show if clicking it does something
+			if (!player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance)) { // Match condition in RightClick. Interaction should only show if clicking it does something
 				return;
 			}
 
