@@ -2,6 +2,7 @@
 using ArknightsMod.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,13 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class KroosCrossbow : UpgradeWeaponBase
 	{
+		private static SoundStyle KroosCrossbowS1;
+		public override void Load() {
+			KroosCrossbowS1 = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+		}
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
 		}
@@ -59,10 +67,7 @@ namespace ArknightsMod.Content.Items.Weapons
 							modPlayer.DelStockCount();
 						}
 					}
-					/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/KroosCrossbowS1") {
-						Volume = 0.8f,
-						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};*/
+					Item.UseSound = KroosCrossbowS1;
 				}
 			}
 			return true;

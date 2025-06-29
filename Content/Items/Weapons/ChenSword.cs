@@ -1,9 +1,11 @@
-using ArknightsMod.Common.Items;
+﻿using ArknightsMod.Common.Items;
 using ArknightsMod.Common.Players;
+using ArknightsMod.Content.Buffs;
 using ArknightsMod.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -12,6 +14,28 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class ChenSword : UpgradeWeaponBase
 	{
+		private static SoundStyle SkillActive1;
+		private static SoundStyle ChenSwordS0;
+		private static SoundStyle ChenSwordS3;
+		private static SoundStyle ChenSwordS3Last;	
+		public override void Load() {
+			SkillActive1 = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			ChenSwordS0 = new SoundStyle("ArknightsMod/Sounds/ChenSwordS0") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			ChenSwordS3 = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			ChenSwordS3Last = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+		}
 		public override void SetStaticDefaults() {
 			//ItemID.Sets.SkipsInitialUseSound[Item.type] = true; // This skips use animation-tied sound playback, so that we're able to make it be tied to use time instead in the UseItem() hook.
 			ItemID.Sets.Spears[Type] = true; // This allows the game to recognize our new item as a spear.
@@ -66,11 +90,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 						modPlayer.DelStockCount();
 
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
-							Volume = 0.6f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+						Item.UseSound = SkillActive1;
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 					}
 
 					else
@@ -79,10 +100,7 @@ namespace ArknightsMod.Content.Items.Weapons
 				else {
 					Item.useAnimation = 15;
 					Item.useTime = 15; // If you want to attack triple hit, useTime = useAnimation/3
-					/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS0") {
-						Volume = 0.4f,
-						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};*/
+					Item.UseSound = ChenSwordS0;
 
 					// S3 (but now it sets S1)
 					if (modPlayer.Skill == 0 && modPlayer.StockCount == 0) {
@@ -135,18 +153,12 @@ namespace ArknightsMod.Content.Items.Weapons
 							Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), player.Center.X, player.Center.Y, 0, 0, ProjectileType<ChenSwordProjectileS3>(), player.GetWeaponDamage(Item) * 3, 2.5f, player.whoAmI, 0f);
 							player.immuneAlpha = 0;
 							if (mp.SkillTimer == 60) {
-								/*SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3Last") {
-									Volume = 0.7f,
-									MaxInstances = 1,
-								};
-								SoundEngine.PlaySound(projSound);*/
+								Item.UseSound = ChenSwordS3Last;
+								SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 							}
 							else {
-								/*SoundStyle projSound = new SoundStyle("ArknightsMod/Sounds/ChenSwordS3") {
-									Volume = 0.7f,
-									MaxInstances = 4,
-								};
-								SoundEngine.PlaySound(projSound);*/
+								Item.UseSound = ChenSwordS3;
+								SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 							}
 
 						}

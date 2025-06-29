@@ -1,7 +1,8 @@
-using ArknightsMod.Common.Items;
+﻿using ArknightsMod.Common.Items;
 using ArknightsMod.Common.Players;
 using ArknightsMod.Content.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +10,33 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class BagpipeSpear : UpgradeWeaponBase
 	{
-
+		private static SoundStyle SkillActive1;
+		private static SoundStyle SkillActive2;
+		private static SoundStyle BagpipeSpearS0;
+		private static SoundStyle BagpipeSpearS2;
+		private static SoundStyle BagpipeSpearS3;
+		public override void Load() {
+			SkillActive1 = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			SkillActive2 = new SoundStyle("ArknightsMod/Sounds/SkillActive2") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			BagpipeSpearS0 = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			BagpipeSpearS2 = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS2") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			BagpipeSpearS3 = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS3") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+		}
 		public override void SetStaticDefaults() {
 			//ItemID.Sets.SkipsInitialUseSound[Item.type] = true; // This skips use animation-tied sound playback, so that we're able to make it be tied to use time instead in the UseItem() hook.
 			ItemID.Sets.Spears[Type] = true; // This allows the game to recognize our new item as a spear.
@@ -41,11 +68,7 @@ namespace ArknightsMod.Content.Items.Weapons
 			Item.shootSpeed = 3.3f; // The speed of the projectile measured in pixels per frame.
 			Item.shoot = ModContent.ProjectileType<BagpipeSpearProjectileS0>(); // The projectile that is fired from this weapon
 
-			// The sound that this item plays when used. Need "using Terraria.Audio;"
-			//Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
-			//	Volume = 0.2f,
-			//	MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-			//};
+			Item.UseSound = BagpipeSpearS0;
 
 		}
 
@@ -61,11 +84,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 						modPlayer.DelStockCount();
 
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
-							Volume = 0.6f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+						Item.UseSound = SkillActive1;
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 					}
 					// S3
 					if (modPlayer.Skill == 2 && modPlayer.StockCount > 0 && !modPlayer.SkillActive) {
@@ -74,11 +94,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 						modPlayer.DelStockCount();
 
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive2") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+						Item.UseSound = SkillActive2;
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 					}
 
 					else
@@ -87,27 +104,21 @@ namespace ArknightsMod.Content.Items.Weapons
 				else {
 					Item.useAnimation = 30;
 					Item.useTime = 30; // If you want to attack triple hit, useTime = useAnimation/3
-					/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
-						Volume = 0.4f,
-						MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-					};*/
+				
+					Item.UseSound = BagpipeSpearS0;
 
 					// S1
 					if (modPlayer.Skill == 0 && modPlayer.SkillActive) {
 						Item.useAnimation = 22;
 						Item.useTime = 22;
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS0") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};*/
+						
+						Item.UseSound = BagpipeSpearS0;
 					}
 					// S2
 					if (modPlayer.Skill == 1 && modPlayer.StockCount > 0) {
 						Item.useTime = 15;
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS2") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};*/
+						
+						Item.UseSound = BagpipeSpearS2;
 						modPlayer.SkillActive = true;
 						modPlayer.SkillTimer = 0;
 						modPlayer.DelStockCount();
@@ -116,10 +127,8 @@ namespace ArknightsMod.Content.Items.Weapons
 					if (modPlayer.Skill == 2 && modPlayer.SkillActive) {
 						Item.useAnimation = 48;
 						Item.useTime = 16;
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/BagpipeSpearS3") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};*/
+
+						Item.UseSound = BagpipeSpearS3;
 					}
 				}
 			}

@@ -1,9 +1,11 @@
 ﻿using ArknightsMod.Common.Items;
 using ArknightsMod.Common.Players;
+using ArknightsMod.Content.Buffs;
 using ArknightsMod.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +14,33 @@ namespace ArknightsMod.Content.Items.Weapons
 {
 	public class PozemkaCrossbow : UpgradeWeaponBase
 	{
+		private static SoundStyle SkillActive1;
+		private static SoundStyle PozemkaCrossbowS0;
+		private static SoundStyle PozemkaCrossbowS2;
+		private static SoundStyle PozemkaCrossbowS3;
+		private static SoundStyle PozemkaCrossbowSentry;
+		public override void Load() {
+			SkillActive1 = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			PozemkaCrossbowS0 = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			PozemkaCrossbowS2 = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS2") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			PozemkaCrossbowS3 = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+			PozemkaCrossbowSentry = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentry") {
+				Volume = 0.4f,
+				MaxInstances = 4,
+			};
+		}
 		public override void SetStaticDefaults() {
 			Item.ResearchUnlockCount = 1;
 		}
@@ -55,11 +84,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 							modPlayer.DelStockCount();
 
-							/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS2") {
-								Volume = 0.4f,
-								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-							};
-							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+							Item.UseSound = PozemkaCrossbowS2;
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 							return true;
 						}
 						// S3
@@ -69,11 +95,8 @@ namespace ArknightsMod.Content.Items.Weapons
 
 							modPlayer.DelStockCount();
 
-							/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/SkillActive1") {
-								Volume = 0.4f,
-								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-							};
-							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+							Item.UseSound = SkillActive1;
+							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 						}
 						else
 							return false;
@@ -89,11 +112,8 @@ namespace ArknightsMod.Content.Items.Weapons
 						Item.useTime = 30;
 						Item.crit = 0;
 						Item.sentry = false;
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS0") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+						Item.UseSound = PozemkaCrossbowS0;
+						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);
 						// S1
 						if (modPlayer.Skill == 0) {
 							if (!modPlayer.SkillActive) {
@@ -104,11 +124,7 @@ namespace ArknightsMod.Content.Items.Weapons
 							}
 							else {
 								Item.crit = 36;
-								/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS1") {
-									Volume = 0.4f,
-									MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-								};
-								SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+								Item.UseSound = PozemkaCrossbowS0;
 							}
 						}
 
@@ -117,22 +133,14 @@ namespace ArknightsMod.Content.Items.Weapons
 							Item.useAnimation = 20;
 							Item.useTime = 20;
 
-							/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowS3") {
-								Volume = 0.4f,
-								MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-							};
-							SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+							Item.UseSound = PozemkaCrossbowS3;
 						}
 					}
 					else {
 						Item.sentry = true;
 						Item.useTime = 30;
 
-						/*Item.UseSound = new SoundStyle("ArknightsMod/Sounds/PozemkaCrossbowSentry") {
-							Volume = 0.4f,
-							MaxInstances = 4, //This dicatates how many instances of a sound can be playing at the same time. The default is 1. Adjust this to allow overlapping sounds.
-						};
-						SoundEngine.PlaySound(Item.UseSound.Value, player.Center);*/
+						Item.UseSound = PozemkaCrossbowSentry;
 					}
 				}
 			}

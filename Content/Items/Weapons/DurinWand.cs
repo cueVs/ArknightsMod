@@ -1,4 +1,4 @@
-using ArknightsMod.Content.Projectiles;
+﻿using ArknightsMod.Content.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
