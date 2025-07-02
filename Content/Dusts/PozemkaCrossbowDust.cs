@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -25,7 +25,7 @@ namespace ArknightsMod.Content.Dusts
 		}
 
 		public override bool PreDraw(Dust dust) {
-			// Here we draw a trail by drawing the dust many times at different scales and offsets. 
+			// Here we draw a trail by drawing the dust many times at different scales and offsets.
 			if (dust.fadeIn == 0f) {
 				float trailLength = Math.Abs(dust.velocity.X) + Math.Abs(dust.velocity.Y);
 				trailLength *= 5f;

@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.Players;
+using ArknightsMod.Common.Players;
 using ArknightsMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using System;

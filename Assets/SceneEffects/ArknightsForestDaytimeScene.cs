@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.Configs;
+using ArknightsMod.Common.Configs;
 using Terraria;
 using Terraria.ModLoader;
 

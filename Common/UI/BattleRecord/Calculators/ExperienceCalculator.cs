@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Content.Items;
+using ArknightsMod.Content.Items;
 
 namespace ArknightsMod.Common.UI.BattleRecord.Calculators
 {

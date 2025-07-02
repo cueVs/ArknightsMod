@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Content.Items;
+using ArknightsMod.Content.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;

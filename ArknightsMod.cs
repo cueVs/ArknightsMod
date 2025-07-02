@@ -16,17 +16,17 @@ namespace ArknightsMod
 	{
 		public static int OrundumCurrencyId;
 		internal Closure.AOSystem CurrentAO;
-		public const string noTexture = "ArknightsMod/Assets/null";//¿Õ²ÄÖÊ
-		public static Effect IACTSW;//³å»÷²¨Á°äôĞ§¹ûshader£¨ÈçIACT£©
-		public static Effect AACTTP;//ËõĞ¡Ğ§¹ûshader£¨AACT´«ËÍ£©
-		public static Effect AACTOC;//±äÉ«Ğ§¹ûshader£¨AACT£©
-		public static Effect AACTOC2;//·´É«Ğ§¹ûshader£¨AACT×ª½×¶Î£©
-		public static Effect LightRing;//¹â»·shader£¨AACT¶ş½×¶Î£©
-		public static Effect CollapsedExplosionPart1;//Ì®Ëõ±¬Õ¨Ğ§¹û£¨ÄÚºË£©£¨AACT¶ş½×¶Î£©
-		public static Effect CollapsedExplosionPart2;//Ì®Ëõ±¬Õ¨Ğ§¹û£¨Ãè±ß£©£¨AACT¶ş½×¶Î£©
-		public static Effect AACTSTG3RBFence;//ºìÀ¶¹âÕ¤Ğ§¹û£¨AACTÈı½×¶Î£©
-		public static Effect AACTSTG3RBNoise;//ºìÀ¶ÔëÉùĞ§¹û£¨AACTÈı½×¶Î£©
-		public static Effect FNTwistedRing;//ËªĞÇÏŞÖÆãĞ£¨Å¤Çú»·Ğ§¹û£©
+		public const string noTexture = "ArknightsMod/Assets/null";//ç©ºæè´¨
+		public static Effect IACTSW;//å†²å‡»æ³¢æ¶Ÿæ¼ªæ•ˆæœshaderï¼ˆå¦‚IACTï¼‰
+		public static Effect AACTTP;//ç¼©å°æ•ˆæœshaderï¼ˆAACTä¼ é€ï¼‰
+		public static Effect AACTOC;//å˜è‰²æ•ˆæœshaderï¼ˆAACTï¼‰
+		public static Effect AACTOC2;//åè‰²æ•ˆæœshaderï¼ˆAACTè½¬é˜¶æ®µï¼‰
+		public static Effect LightRing;//å…‰ç¯shaderï¼ˆAACTäºŒé˜¶æ®µï¼‰
+		public static Effect CollapsedExplosionPart1;//åç¼©çˆ†ç‚¸æ•ˆæœï¼ˆå†…æ ¸ï¼‰ï¼ˆAACTäºŒé˜¶æ®µï¼‰
+		public static Effect CollapsedExplosionPart2;//åç¼©çˆ†ç‚¸æ•ˆæœï¼ˆæè¾¹ï¼‰ï¼ˆAACTäºŒé˜¶æ®µï¼‰
+		public static Effect AACTSTG3RBFence;//çº¢è“å…‰æ …æ•ˆæœï¼ˆAACTä¸‰é˜¶æ®µï¼‰
+		public static Effect AACTSTG3RBNoise;//çº¢è“å™ªå£°æ•ˆæœï¼ˆAACTä¸‰é˜¶æ®µï¼‰
+		public static Effect FNTwistedRing;//éœœæ˜Ÿé™åˆ¶é˜ˆï¼ˆæ‰­æ›²ç¯æ•ˆæœï¼‰
 
 		public override void Load() {
 			UpgradeItemBase.LoadLevelData(this);

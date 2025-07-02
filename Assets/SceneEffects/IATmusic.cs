@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
+using ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTargeteer;
 using Terraria;
 using Terraria.ModLoader;
 

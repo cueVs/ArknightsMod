@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.UI.BattleRecord;
+using ArknightsMod.Common.UI.BattleRecord;
 using ArknightsMod.Content.Items;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;

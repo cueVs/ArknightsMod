@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.UI.BattleRecord.Calculators;
+using ArknightsMod.Common.UI.BattleRecord.Calculators;
 using ArknightsMod.Content.Items;
 using Microsoft.Xna.Framework.Graphics;
 

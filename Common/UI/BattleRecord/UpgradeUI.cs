@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.UI.BattleRecord.Calculators;
+using ArknightsMod.Common.UI.BattleRecord.Calculators;
 using ArknightsMod.Common.UI.BattleRecord.UIElements;
 using ArknightsMod.Content.Items;
 using ArknightsMod.Content.Items.BattleRecords;

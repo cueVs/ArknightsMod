@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.Items;
+using ArknightsMod.Common.Items;
 using ArknightsMod.Common.UI;
 using ArknightsMod.Content.Items.Weapons;
 using Terraria;

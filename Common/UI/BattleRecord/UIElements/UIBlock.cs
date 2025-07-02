@@ -1,4 +1,4 @@
-﻿using Terraria.GameContent;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 
 namespace ArknightsMod.Common.UI.BattleRecord.UIElements

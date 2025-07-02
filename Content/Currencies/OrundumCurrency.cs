@@ -1,4 +1,4 @@
-﻿using Terraria.GameContent.UI;
+using Terraria.GameContent.UI;
 
 namespace ArknightsMod.Content.Currencies
 {

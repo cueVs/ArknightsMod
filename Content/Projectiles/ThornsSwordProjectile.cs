@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,7 +51,7 @@ namespace ArknightsMod.Content.Projectiles
 			//if (Projectile.timeLeft % 2 == 0)
 			//{
 			//    Dust.NewDustPerfect(new Vector2(Projectile.Center.X - (Projectile.width * Projectile.direction), Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust2>(), null, 0, default, 0.4f); //Here we spawn the dust at the back of the projectile with half scale.
-			//    // Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust1>(), null, 0, default, 1f); 
+			//    // Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust1>(), null, 0, default, 1f);
 			//}
 			Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust2>(), null, 0, default, 0.4f); //Here we spawn the dust at the back of the projectile with half scale.
 			Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust1>(), null, 0, default, 0.4f);

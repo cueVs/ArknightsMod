@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Content.Items.BattleRecords;
+using ArknightsMod.Content.Items.BattleRecords;
 using System;
 using System.Collections.Generic;
 using System.Linq;

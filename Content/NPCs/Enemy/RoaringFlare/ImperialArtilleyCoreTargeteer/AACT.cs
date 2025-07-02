@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.VisualEffects;
+using ArknightsMod.Common.VisualEffects;
 using ArknightsMod.Content.BossBars;
 using ArknightsMod.Content.Items.Material;
 using Microsoft.Xna.Framework;

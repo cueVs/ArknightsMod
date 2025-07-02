@@ -6,7 +6,7 @@ namespace ArknightsMod.Common.Configs
 	public class MusicConfig : ModConfig
 	{
 		public override ConfigScope Mode => (ConfigScope)1;
-		//Ã´ø’
+		//Â§™Á©∫
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsSpaceDaytime { get; set; }
@@ -16,35 +16,35 @@ namespace ArknightsMod.Common.Configs
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsSpaceNighttimeHigh { get; set; }
-		//…≠¡÷
+		//Ê£ÆÊûó
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsForestDaytime { get; set; }
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsForestNighttime { get; set; }
-		//∫£—Û
+		//Êµ∑Ê¥ã
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsOceanDaytime { get; set; }
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsOceanNighttime { get; set; }
-		//…Ò •∫£—Û
+		//Á•ûÂú£Êµ∑Ê¥ã
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsHallowedOceanDaytime { get; set; }
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsHallowedOceanNighttime { get; set; }
-		//∏ØªØ∫£—Û
+		//ËÖêÂåñÊµ∑Ê¥ã
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsCorruptedOceanDaytime { get; set; }
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsCorruptedOceanNighttime { get; set; }
-		//–…∫Ï∫£—Û
+		//Áå©Á∫¢Êµ∑Ê¥ã
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool EnableArknightsCrimsonOceanDaytime { get; set; }

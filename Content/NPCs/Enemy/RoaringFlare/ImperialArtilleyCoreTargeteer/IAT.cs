@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Content.Items.Material;
+using ArknightsMod.Content.Items.Material;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -63,7 +63,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float expertHealthFrac = Main.expertMode ? 0.9f : 0.75f;//进入第二阶段生命值百分比（12000/16000；21600/24000）
 
 		//视觉效果部分
-		#region 
+		#region
 		private int OAOScaleY;
 		private int IAORScaleX;
 		private int LightScale2;
@@ -651,7 +651,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				if (deathcheck == 1)//触发checkdead之后
 				{
 					IATcrashed = true;
-					NPC.noTileCollide = false;//与物块相撞	
+					NPC.noTileCollide = false;//与物块相撞
 					deathtimer++;
 					if (stage == 2) {
 						Main.NewText(Language.GetTextValue("Mods.ArknightsMod.StatusMessage.IACT.End"), 240, 0, 0);

@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.VisualEffects;
+using ArknightsMod.Common.VisualEffects;
 using ArknightsMod.Content.Items.Material;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -63,7 +63,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		private float expertHealthFrac = Main.expertMode ? 0.9f : 0.75f;//进入第二阶段生命值百分比（12000/16000；21600/24000）
 
 		//视觉效果部分
-		#region 
+		#region
 		private int OAOScaleX;
 		private int OAOScaleY;
 		private int OARScaleX;
@@ -1326,7 +1326,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					}
 					else if (stgendsafetimer >= 150) {
 						IACTcrashed = true;
-						NPC.noTileCollide = false;//与物块相撞	
+						NPC.noTileCollide = false;//与物块相撞
 						deathtimer++;
 						if (deathtimer >= 180)//下坠3秒后爆炸并触发爆炸粒子
 						{

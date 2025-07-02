@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,7 +54,7 @@ namespace ArknightsMod.Content.Projectiles
 			// Let's add some dust for special effect. In this case, it runs every other tick (30 ticks per second).
 			if (Projectile.ai[0] > 10) {
 				if (Projectile.timeLeft % 2 == 0) {
-					Dust.NewDust(new Vector2(Projectile.Center.X - 8, Projectile.Center.Y - 10), 0, 0, ModContent.DustType<Dusts.AcidOgSlugDust>());                                                                                                                                                                // Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust1>(), null, 0, default, 1f); 
+					Dust.NewDust(new Vector2(Projectile.Center.X - 8, Projectile.Center.Y - 10), 0, 0, ModContent.DustType<Dusts.AcidOgSlugDust>());                                                                                                                                                                // Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust1>(), null, 0, default, 1f);
 				}
 			}
 			//Dust.NewDustPerfect(new Vector2(Projectile.Center.X, Projectile.Center.Y), ModContent.DustType<Dusts.ThornsSwordDust1>(), null, 0, default, 0.4f);
