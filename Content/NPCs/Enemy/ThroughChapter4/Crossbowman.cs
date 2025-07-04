@@ -6,9 +6,17 @@ using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
+using Terraria.Localization;
+using System;
+using ArknightsMod.Content.Items;
+using ArknightsMod.Common.VisualEffects;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
+using static Terraria.ModLoader.ModContent;
+using ArknightsMod.Common.Damageclasses;
+using ArknightsMod.Content.Projectiles;
 
 namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 {
@@ -25,7 +33,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 		public override void SetDefaults() {
 			NPC.lifeMax = 45;
-			NPC.damage = 0;
+			NPC.damage = 4;
 			NPC.defense = 5;
 			NPC.knockBackResist = 0.5f;//击退抗性，0f为最高，1f为最低
 			NPC.width = 32;
@@ -114,6 +122,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			diffY = Player.Center.Y - NPC.Center.Y;
 			ax = 0.3f;
 			distance = (float)Math.Sqrt(Math.Pow(diffX / 16, 2) + Math.Pow(diffY / 16, 2));//到玩家的距离（格数）
+			if (NPC.velocity.X != 0) {
+				NPC.spriteDirection = Math.Sign(NPC.velocity.X);
+				NPC.rotation = 0; 
+			}
 			if (Main.masterMode) {
 				atkloop = 90;
 				atkrange = 30;
@@ -146,7 +158,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 					return;
 				}
 			}
-
+			
 			//模式选择
 			if (distance >= atkrange) {//攻击范围之外
 				Walk();
@@ -235,7 +247,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				return;
 			}
 		}
-
+		private int jumpCD;
 		private void Escape() {//往远离玩家方向走，可选择攻击或不攻击
 			escapetimer++;
 			isescape = true;
@@ -243,6 +255,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			isatk = false;
 			isstuck = false;
 			if (escapetimer <= escapetime) {
+				jumpCD++;
 				Player Player = Main.player[NPC.target];
 				Vector2 velDiff = NPC.velocity - Player.velocity;
 				int haltDirectionX = velDiff.X > 0 ? 1 : -1;
@@ -256,9 +269,11 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				NPC.velocity.X = Math.Min(vx, Math.Max(-vx, NPC.velocity.X));
 				if (NPC.velocity.Y == 0) {
 					jumpstage += 1;
-					if (jumpstage >= 1) {
+
+					if (jumpstage >= 1&&jumpCD>=60) {
 						NPC.velocity.Y -= jumpspeed;
 						jumpstage = 0;
+						jumpCD = 0;
 						jumptimes += 1;
 						if (jumptimes >= 3) {
 							jumptimes = 0;
@@ -323,6 +338,44 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 				if (framecount > 18) {
 					NPC.frame.Y = 15 * frameHeight;
 					atkframe = 0;
+				}
+			}
+		}
+		public override void OnKill() {
+			SoundStyle ghostSound = SoundID.NPCDeath6 with {
+				Pitch = -0.4f, // 范围[-1.0, 1.0]，-0.5表示降低八度
+				Volume = 0.6f  // 可选调整音量
+			};
+			SoundEngine.PlaySound(ghostSound, NPC.Center);
+			for (int i = 0; i < 25; i++) // 总粒子数
+	{
+				// 70%概率生成黑色，30%概率生成橙色
+				bool isBlack = Main.rand.NextFloat() < 0.7f;
+
+				Dust dust = Dust.NewDustPerfect(
+					NPC.Center,
+					isBlack ? DustID.Asphalt : DustID.FireworksRGB, // 黑色或橙色
+					Main.rand.NextVector2Circular(5, 5),
+					Alpha: 150,
+					Scale: Main.rand.NextFloat(1.2f, 2f)
+				);
+
+				// 统一物理参数
+				dust.noGravity = true;
+				dust.fadeIn = 1.5f;
+				dust.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
+			}
+		}
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers) {
+			if (SpellDamageConfig.SpellProjectiles.Contains(projectile.type)) {
+				// 法术伤害无视护甲
+				modifiers.ScalingArmorPenetration += 1f;
+				// 0.95倍伤害减免
+				modifiers.FinalDamage *= 1f;
+
+				for (int i = 0; i < 3; i++) {
+					Dust.NewDust(NPC.position, NPC.width, NPC.height,
+						DustID.MagicMirror, 0, 0, 150, Color.LightBlue, 0.7f);
 				}
 			}
 		}

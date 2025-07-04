@@ -8,6 +8,8 @@
 
 Mods: {
 	ArknightsMod: {
+		DamageClasses.SpellDamage.DisplayName: Arcane Damage
+
 		Items: {
 			# Weapons
 			YatoKatana: {
@@ -540,10 +542,46 @@ Mods: {
 				Tooltip: ""
 			}
 
+			CorruptedRecord: {
+				DisplayName: Corrupted Record
+				Tooltip: ""
+			}
+
 			DrillBattleRecord: {
 				DisplayName: Drill Battle Record
 				Tooltip: ""
 			}
+
+			TFTTS: {
+				DisplayName: TheFirstToTalk
+				Tooltip: ""
+			}
+
+			RAWater: {
+				DisplayName: RAWater
+				Tooltip: ""
+			}
+
+			RAlegmeat: {
+				DisplayName: RAlegmeat
+				Tooltip: ""
+			}
+
+			RARicecrab: {
+				DisplayName: R A Ricecrab
+				Tooltip: ""
+			}
+
+			RAMeatchip: {
+				DisplayName: R A Meatchip
+				Tooltip: ""
+			}
+
+			UnionInvader: {
+				DisplayName: Union Invader
+				Tooltip: ""
+			}
+		}
 
 			FrontlineBattleRecord: {
 				DisplayName: Frontline Battle Record
@@ -595,6 +633,26 @@ Mods: {
 				DisplayName: Corrosive fluids
 				Description: Every attack reduces the target's DEF 2
 			}
+
+			RAMeatchipBuff: {
+				DisplayName: R A Meatchip Buff
+				Description: Mods.ArknightsMod.Buffs.RAMeatchipBuff.Description
+			}
+
+			RARicecrabBuff: {
+				DisplayName: R A Ricecrab Buff
+				Description: Mods.ArknightsMod.Buffs.RARicecrabBuff.Description
+			}
+
+			Tumor1: {
+				DisplayName: Tumor1
+				Description: Mods.ArknightsMod.Buffs.Tumor1.Description
+			}
+
+			Tumor2: {
+				DisplayName: Tumor2
+				Description: Mods.ArknightsMod.Buffs.Tumor2.Description
+			}
 		}
 
 		NPCs: {
@@ -627,8 +685,43 @@ Mods: {
 			OriginiumSlugBeta.DisplayName: Originium Slug Beta
 			AcidOgSlug.DisplayName: Acid Originium Slug
 			IACT.DisplayName: Imperial Artillery Core Targeteer
-			IACTStage3target.DisplayName: IACT Stage3 target
+			IACTStage3target.DisplayName: AACT Stage3target
 			IAT.DisplayName: Imperial Artillery Targeteer
+			AACT.DisplayName: Andskotarnir Artillery Core Targeteer
+			AACTIntro.DisplayName: AACT Intro
+			AACTStage3TrueHealth.DisplayName: AACT Stage3 True Health
+			IACTIntro.DisplayName: IACT Intro
+			IATIntro.DisplayName: IAT Intro
+			Crossbowman.DisplayName: Crossbowman
+			FrostNova.DisplayName: Frost Nova
+			DeepSeaSlider.DisplayName: Deep Sea Slider
+			ShellSeaRunner.DisplayName: Shell Sea Runner
+			FloatingSeaDrifter.DisplayName: Floating Sea Drifter
+			PocketSeaCrawler.DisplayName: Pocket Sea Crawler
+			PrimalSeaPiercer.DisplayName: Primal Sea Piercer
+			BasinSeaReaper.DisplayName: Basin Sea Reaper
+			TheFirstToTalk.DisplayName: The First To Talk
+			MortarGunner.DisplayName: Mortar Gunner
+			snowcaster.DisplayName: snowcaster
+			Snowsoldier.DisplayName: Snowsoldier
+			icecleaver.DisplayName: icecleaver
+			Seniorcaster.DisplayName: Seniorcaster
+			Oneiros.DisplayName: Oneiros
+			Hound.DisplayName: Hound
+			Drone.DisplayName: Drone
+			ShieldGuard.DisplayName: Shield Guard
+			HoundPro.DisplayName: Hound Pro
+			SoldierLeader.DisplayName: Soldier Leader
+			CrossbowmanLeader.DisplayName: Crossbowman Leader
+			NourishedPiercer.DisplayName: Nourished Piercer
+			Caster.DisplayName: Caster
+			DoubleSword.DisplayName: Double Sword
+			DroneII.DisplayName: Drone I I
+			LightShield.DisplayName: Light Shield
+			InsaneZombieL.DisplayName: Insane Zombie L
+			Level11.DisplayName: Level11
+			tumor1.DisplayName: tumor1
+			tumor2.DisplayName: tumor2
 			AACT.DisplayName: A A C T
 			AACTIntro.DisplayName: A A C T Intro
 			AACTStage3TrueHealth.DisplayName: A A C T Stage3 True Health
@@ -686,6 +779,8 @@ Mods: {
 			AcidOgSlug: An infected wild creature that can secrete corrosive fluids strong enough to dissolve armor. Due to their low intelligence, they are easily controlled by enemy casters for use as cannon fodder during invasions.
 			IACT: A heavily-armored, sturdily-built core drone operated by artillery technicians of the Ursus army. They presage the withering firepower of the Ursus Artillery. The Ursus Artillery is a fire team that has bunkered down into the city. Though packing less firepower than naval guns, their equipment still shreds through buildings and armor with ease.
 			IAT: A heavily-armored, sturdily-built drone operated by artillery casters of the Ursus army. They presage the withering firepower of the Ursus Artillery.
+			MortarGunner: One of Reunion's special ranged soldiers. Equipped with pilfered military-grade Originium launchers, they launch explosive attacks from hard-to-defend positions, making them a significant threat to back-line Operators.
+			TheFirstToTalk: The first beautiful living being to speak human language before civilized man. Seaborn.
 		}
 
 		Projectiles: {
@@ -728,6 +823,34 @@ Mods: {
 			PozemkaCrossbowSentryProjectile.DisplayName: Pozemka Crossbow Sentry Projectile
 			PozemkaCrossbowProjectile.DisplayName: Pozemka Crossbow Projectile
 			AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+			FloatingSeaDrifterShoot.DisplayName: Floating Sea Drifter Shoot
+			PocketSeaCrawlerShoot.DisplayName: Pocket Sea Crawler Shoot
+			PocketSeaCrawlerShoot2.DisplayName: Pocket Sea Crawler Shoot2
+			PSPShoot.DisplayName: P S P Shoot
+			TFTTRush.DisplayName: T F T T Rush
+			TFTTRush2.DisplayName: T F T T Rush2
+			TFTTShoot.DisplayName: T F T T Shoot
+			seashoot.DisplayName: seashoot
+			TFTTSkillshoot.DisplayName: T F T T Skillshoot
+			splitwater.DisplayName: splitwater
+			splitwater2.DisplayName: splitwater2
+			SanCrash.DisplayName: San Crash
+			PWTFTT.DisplayName: P W T F T T
+			waterbombdie.DisplayName: waterbombdie
+			Snowcastershoot.DisplayName: Snowcastershoot
+			Icebreak.DisplayName: Icebreak
+			SCproj.DisplayName: S Cproj
+			Oneirosbomb.DisplayName: Oneirosbomb
+			Iceexplode.DisplayName: Iceexplode
+			CrossbowmanBolt.DisplayName: Crossbowman Bolt
+			Motarbomb.DisplayName: Motarbomb
+			explode.DisplayName: explode
+			FPSPShoot.DisplayName: F P S P Shoot
+			ShieldGuardShield.DisplayName: Shield Guard Shield
+			DoubleCut.DisplayName: Double Cut
+			LightShieldCut.DisplayName: Light Shield Cut
+			InsaneZombieLHit.DisplayName: Insane Zombie L Hit
+			CasterShoot.DisplayName: Caster Shoot
 			AACTDeathdust.DisplayName: A A C T Deathdust
 			AACTEndShow.DisplayName: A A C T End Show
 			CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
