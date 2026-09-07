@@ -1,4 +1,4 @@
-Item,Index,Name,ChargeType,AutoTrigger,AutoUpdateActive,SummonSkill,
+Item,Index,Name,ChargeType,AutoTrigger,AutoUpdateActive,SummonSkill,SuppressReadyPulse,IsPermanent,UsesCustomCharge
 BagpipeSpear,0,1,1,0,1,0,
 BagpipeSpear,1,2,1,1,1,0,
 BagpipeSpear,2,3,1,0,1,0,
@@ -63,7 +63,7 @@ HongdouLance,0,1,1,0,1,0,
 HongdouLance,1,2,1,0,1,0,
 BeanstalkOrb,0,1,1,0,1,0,
 BeanstalkOrb,1,2,1,0,1,0,
-JessicaGun,0,1,2,0,0,0,
+JessicaGun,0,1,1,0,0,0,
 JessicaGun,1,2,1,0,1,0,
 MeteorBow,0,1,1,0,0,0,
 MeteorBow,1,2,1,0,0,0,
@@ -101,3 +101,22 @@ CuoraWeapon,1,2,1,0,1,0,
 Tragodia,0,1,2,1,1,0,
 Tragodia,1,2,1,0,1,0,
 Tragodia,2,3,1,0,1,0,
+HellagurOdachi,0,1,2,1,0,0,1,0,0
+HellagurOdachi,1,2,1,0,0,0,0,0,0
+HellagurOdachi,2,3,1,0,0,0,0,0,0
+BlazeGreatsword,0,1,2,1,0,0,1,0,0
+BlazeGreatsword,1,2,1,1,0,0,1,1,1
+BlazeGreatsword,2,3,1,0,0,0,0,0,0
+FiammettaHandCannon,0,1,2,0,1,0,0,0,0
+FiammettaHandCannon,1,2,2,0,0,0,0,0,0
+FiammettaHandCannon,2,3,2,0,0,0,0,1,0
+SpecterBoneSaw,0,1,1,0,0,0,0,0,0
+SpecterBoneSaw,1,2,1,0,0,0,0,0,0
+ShiningStaff,0,1,1,0,1,0,0,0,0
+ShiningStaff,1,2,1,1,1,0,1,0,0
+ShiningStaff,2,3,1,0,1,0,0,0,0
+PassengerConductor,0,1,1,1,0,0,1,0,0
+PassengerConductor,1,2,1,0,1,0,0,0,0
+PassengerConductor,2,3,1,0,0,0,0,0,0
+LeiziStaff,0,1,1,0,1,0,0,0,0
+LeiziStaff,1,2,1,0,1,0,0,0,0

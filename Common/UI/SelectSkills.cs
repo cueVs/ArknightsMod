@@ -159,11 +159,9 @@ namespace ArknightsMod.Common.UI
 		private static void ChangeSkill(int index, bool force = false)
 		{
 			Player p = Main.LocalPlayer;
-			if (p.HeldItem.ModItem is not UpgradeWeaponBase) return;
+			if (p.HeldItem.ModItem is not UpgradeWeaponBase ark) return;
 			var mp = p.GetModPlayer<WeaponPlayer>();
-			if (!force && (mp.SkillCount <= index || mp.Skill == index)) return;
-
-			mp.Skill = index;
+			if (!mp.TrySelectSkill(ark, index, force)) return;
 			SkillData data = mp.CurrentSkill;
 			if (data == null) return;
 
@@ -182,7 +180,7 @@ namespace ArknightsMod.Common.UI
 			_ins.s1.SetSkill(ark.GetSkillData(0));
 			_ins.s2.SetSkill(ark.GetSkillData(1));
 			_ins.s3.SetSkill(ark.GetSkillData(2));
-			ChangeSkill(0, true);
+			ChangeSkill(Main.LocalPlayer.GetModPlayer<WeaponPlayer>().Skill, true);
 		}
 
 		private void ActiveSummonUI(Texture2D icon)

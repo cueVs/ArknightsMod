@@ -48,7 +48,9 @@ namespace ArknightsMod.Content.Items.Weapons
 		protected int[] skillLevel = new int[3];
 		protected int[][] weaponData = new int[3][];
 		protected readonly static Dictionary<string, SkillData[]> skillDatas = [];
-		public bool[] chargeReady = new bool[3];
+		// 新获得的武器第一次被拿起时也必须按技能表发放 InitSP；此前默认 false 会让
+		// CSV 技能在首次装备时一律从 0 开始，只有死亡或脱战重置后才得到正确初始技力。
+		public bool[] chargeReady = [true, true, true];
 		public override void DrawUpgradePreview(SpriteBatch spriteBatch, Rectangle rectangle, BattleRecordCalculator battleRecordCalculator, ExperienceCalculator experienceCalculator) {
 			var pos = rectangle.Location.ToVector2();
 			pos.Y += 20f;
@@ -112,6 +114,8 @@ namespace ArknightsMod.Content.Items.Weapons
 							AutoUpdateActive = int.Parse(info[5]) == 1,
 							SummonSkill      = int.Parse(info[6]) == 1,
 							SuppressReadyPulse = info.Length >= 8 && info[7].Trim() == "1",
+							IsPermanent      = info.Length >= 9 && info[8].Trim() == "1",
+							UsesCustomCharge = info.Length >= 10 && info[9].Trim() == "1",
 						};
 						string name = info[2];
 						data.BindKey(item, index, name);

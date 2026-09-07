@@ -233,3 +233,24 @@ SurtrLaevatainS3Buff: {
 	// DisplayName: Surtr Laevatain S3 Buff
 	// Description: Mods.ArknightsMod.Buffs.SurtrLaevatainS3Buff.Description
 }
+
+FrostleafSlowDebuff: {
+	DisplayName: 寒霜减速
+	Description: 移动速度降低 50%
+}
+
+FrostleafBindDebuff: {
+	DisplayName: 寒霜束缚
+	Description: 无法移动
+}
+
+WeaponBleedingDebuff: {
+	DisplayName: 流血
+	Description: 阻止生命再生，每秒损失8点生命
+}
+
+
+PassengerCurrentSlow: {
+	DisplayName: 电流停顿
+	Description: 移动速度降低80%，首领与多节敌人不受此效果影响
+}

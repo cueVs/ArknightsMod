@@ -2,6 +2,7 @@ bin/
 obj/
 .vs
 .DS_Store
+._*
 .disabled
 /Content/Items/源石锭
 /Music

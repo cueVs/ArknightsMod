@@ -416,12 +416,12 @@ namespace ArknightsMod.Content.Projectiles.Medic.Closure
 			}
 			else {
 				// ── 2+3 的"离场"版本：三角线条不再整体淡出，而是碎成一颗颗小三角形向外飘散淡出 ──
+				Span<Vector2> tri = stackalloc Vector2[3];
 				foreach (var s in _exitShards) {
 					Color c = s.Col * fade;
 					if (c.A <= 2)
 						continue;
 					Vector2 c0 = pos + s.Offset;
-					Span<Vector2> tri = stackalloc Vector2[3];
 					for (int k = 0; k < 3; k++) {
 						float ang = s.Rot + k * MathHelper.TwoPi / 3f;
 						tri[k] = c0 + ang.ToRotationVector2() * s.Size;
@@ -481,6 +481,8 @@ namespace ArknightsMod.Content.Projectiles.Medic.Closure
 			}
 
 			// ── 5. 向四周飞出的小三角形（白/红紫，均带红紫发光模糊边缘）──
+			Span<Vector2> p = stackalloc Vector2[3];
+			Span<Vector2> g = stackalloc Vector2[3];
 			foreach (var t in _flyTris) {
 				float lifeT = t.Life / (float)t.MaxLife;
 				float alpha = fade * MathHelper.Clamp((1f - lifeT) * 2f, 0f, 1f) * MathHelper.Clamp(lifeT * 6f, 0f, 1f);
@@ -488,13 +490,11 @@ namespace ArknightsMod.Content.Projectiles.Medic.Closure
 					continue;
 
 				Vector2 c = pos + t.Offset;
-				Span<Vector2> p = stackalloc Vector2[3];
 				for (int k = 0; k < 3; k++) {
 					float ang = t.Rot + k * MathHelper.TwoPi / 3f;
 					p[k] = c + ang.ToRotationVector2() * t.Size;
 				}
 				// 发光模糊边缘：先画放大 1.8 倍的低透明度紫色三角
-				Span<Vector2> g = stackalloc Vector2[3];
 				for (int k = 0; k < 3; k++)
 					g[k] = c + (p[k] - c) * 1.8f;
 				Color glowC = GlowCol * (alpha * 0.45f); glowC.A = 0;

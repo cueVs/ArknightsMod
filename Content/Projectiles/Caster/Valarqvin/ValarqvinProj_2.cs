@@ -228,7 +228,10 @@ namespace ArknightsMod.Content.Projectiles.Caster.Valarqvin
 		}
 
 		// 弹丸消失时（撞墙或时间到）也生成爆炸特效
-		public override void Kill(int timeLeft) {
+		public override void OnKill(int timeLeft) {
+			if (Projectile.owner != Main.myPlayer)
+				return;
+
 			SpawnHitEffect();
 		}
 

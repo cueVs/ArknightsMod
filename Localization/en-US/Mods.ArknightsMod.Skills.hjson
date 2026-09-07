@@ -925,3 +925,113 @@ Tragodia: {
 			'''
 	}
 }
+
+HellagurOdachi: {
+	1: {
+		Label: Crescent Moon
+		Desc: Offensive Recovery; auto trigger. The next attack deals 175% ATK twice
+	}
+
+	2: {
+		Label: Half Moon
+		Desc: Manual. For 13 seconds, raises ATK by 80%, makes attacks strike twice, and grants 75% combat-damage evasion
+	}
+
+	3: {
+		Label: Full Moon
+		Desc: Manual. For 15 seconds, raises ATK by 100% and reach; each swing can strike up to 3 targets
+	}
+}
+
+BlazeGreatsword: {
+	1: {
+		Label: Power Strike γ
+		Desc: Offensive Recovery; auto trigger. After 2 effective attacks, the next chainsaw cleave deals 290% ATK as Physical damage
+	}
+
+	2: {
+		Label: Chainsaw Extension Module
+		Desc: Auto Recovery and auto trigger. After a 70-second warm-up, permanently raises ATK by 100%, DEF by 35%, and reach until death
+	}
+
+	3: {
+		Label: Boiling Burst
+		Desc: Manual. Over 10 seconds, ramps ATK and DEF up to +80%; during the first 8 seconds, the cutting interval accelerates from 7 frames to 3 frames; at 9 seconds, deals 400% of current ATK nearby and loses 25% max life (cannot reduce life below 1)
+	}
+}
+
+FiammettaHandCannon: {
+	1: {
+		Label: Provocate
+		Desc: Offensive Recovery; manual. For 30 seconds, raises ATK by 100% and extends maximum bombardment range
+	}
+
+	2: {
+		Label: Paenitete
+		Desc: Offensive Recovery; manual. Fires a scorching shell forward; the terminal blast deals 350% ATK as Physical damage, followed by five sequential scorch-mark explosions
+	}
+
+	3: {
+		Label: Reponite
+		Desc: Offensive Recovery; manually toggled. Continuously bombards the selected point with expanded explosions whose small inner radius deals greatly increased damage
+	}
+}
+
+
+SpecterBoneSaw: {
+	1: {
+		Label: ATK Up γ
+		Desc: Manual. For 30 seconds, raises ATK by 100%
+	}
+
+	2: {
+		Label: Bone Fracture
+		Desc: Manual. For 15 seconds, raises ATK by 160% and prevents life from falling below 1; becomes incapacitated for 10 seconds afterward
+	}
+}
+
+ShiningStaff: {
+	1: {
+		Label: Creed
+		Desc: Manual. Raises ATK by 35% and attack speed by 55%; Arts blade hits can periodically restore a small amount of life
+	}
+
+	2: {
+		Label: Auto Protect
+		Desc: Auto trigger. Grants the wielder a 4-second barrier equal to 15% of maximum life; repeated barriers do not stack
+	}
+
+	3: {
+		Label: Creed Field
+		Desc: Manual. Raises ATK by 50% and defense by 30, reduces damage taken by 18%, and unfolds a large black-and-white defensive field
+	}
+}
+
+PassengerConductor: {
+	1: {
+		Label: Touch of Static
+		Desc: Auto recovery, auto trigger. A direct lightning collision consumes a charge, deals 150%-250% damage, chains between up to 4 targets, and slows ordinary enemies by 80% for 1.5 seconds. Missed shots do not consume charges
+	}
+
+	2: {
+		Label: Focus Command
+		Desc: Auto recovery, manual activation. Extends flight range from about 2.5 to 2.9 visible screen widths, increases ATK by 10%-30%, reduces attack interval by 20%-50%, and chains between up to 5 targets only after a direct collision. Lasts 25-35 seconds
+	}
+
+	3: {
+		Label: Glorious Shards
+		Desc: Auto recovery, manual activation. Places a stationary 4-second storm with a 16-tile radius at the visible enemy with the highest current HP within 25 tiles of the cursor. Every 0.5 seconds, drops a 100%-150% damage bolt onto a random enemy inside, then chains between up to 4 targets within the storm. Stores 2 charges; one cast per key press. Storms vanish when the weapon is put away
+	}
+}
+
+LeiziStaff: {
+	1: {
+		Label: ATK Up γ
+		Desc: Auto recovery, manual activation. Increases ATK by 30%-100% for 30 seconds
+	}
+
+	2: {
+		Label: Thunderclap
+		Desc: Auto recovery, manual activation. Increases ATK by 60%-150% and removes chain damage falloff for 30-35 seconds
+	}
+}

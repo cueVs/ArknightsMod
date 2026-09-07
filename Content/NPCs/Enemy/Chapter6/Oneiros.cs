@@ -185,6 +185,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6
 		private Vector2? targetPosition;          // 锁定时的目标位置
 		private float hoverTimer;                 // 停留计时器
 		private bool hasLaunched;                // 是否已发射
+		private bool exploded;
 
 
 		public override void SetDefaults() {
@@ -274,26 +275,31 @@ namespace ArknightsMod.Content.NPCs.Enemy.Chapter6
 			return true; // 销毁弹幕
 		}
 
-		[Obsolete]
 		public override void OnKill(int timeLeft) {
-			// 确保爆炸只执行一次
-			if (Projectile.active) {
-				Explode();
-			}
+			Explode();
 		}
 
 		private void Explode() {
+			if (exploded)
+				return;
+			exploded = true;
+
 			// 爆炸音效
-			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+			if (!Main.dedServ)
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 			// 爆炸视觉效果
-			for (int i = 0; i < 25; i++) {
-				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height,
-					DustID.Electric, 0f, 0f, 100, default, 2f);
-				dust.velocity *= 1.4f;
-				dust.noGravity = true;
+			if (!Main.dedServ) {
+				for (int i = 0; i < 25; i++) {
+					Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height,
+						DustID.Electric, 0f, 0f, 100, default, 2f);
+					dust.velocity *= 1.4f;
+					dust.noGravity = true;
+				}
 			}
-			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 0), ModContent.ProjectileType<Iceexplode>(), 25, 0.8f);
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+					ModContent.ProjectileType<Iceexplode>(), 25, 0.8f, Main.myPlayer);
 			// 爆炸伤害
 			//foreach (Player player in Main.player) {
 			//if (player.active && !player.dead &&

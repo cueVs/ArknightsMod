@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -74,7 +74,7 @@ namespace ArknightsMod.Common.Particle
             {
                 if (particleType.IsSubclassOf(typeof(Particle)) && !particleType.IsAbstract)
                 {
-                    Particle particle = (Particle)FormatterServices.GetUninitializedObject(particleType);
+                    Particle particle = (Particle)RuntimeHelpers.GetUninitializedObject(particleType);
                     ParticleManager.particleIDLookup[particleType] = currentParticleID;
                     Texture2D particleTexture = ModContent.Request<Texture2D>(particle.TexturePath, AssetRequestMode.ImmediateLoad).Value;
                     ParticleManager.particleTextureLookup[currentParticleID] = particleTexture;

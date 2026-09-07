@@ -1899,7 +1899,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		//血量修改
 		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers) {
 			Player Player = Main.player[Main.myPlayer];
-			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Shield") with { Volume = 1f, Pitch = 0f }, Player.Center);
+			SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Sounds/AACTShield") with { Volume = 1f, Pitch = 0f }, Player.Center);
 			iscooldownsoundplayed = true;
 			cooldown = Main.rand.Next(60, 121);
 			usehealth -= 1;

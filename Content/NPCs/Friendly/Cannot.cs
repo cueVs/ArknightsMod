@@ -21,6 +21,9 @@ namespace ArknightsMod.Content.NPCs.Friendly
 	[AutoloadHead]
 	public class Cannot : ModNPC
 	{
+		private const float MaxReinforcementRequestDistancePixels = 160f * 16f;
+		private const float MaxCannotInteractionDistancePixels = 20f * 16f;
+
 		// 修改：保存完整的 Item 对象而不是只保存 type
 		public readonly static List<Item> shopItems = [];
 
@@ -268,16 +271,47 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			packet.Send();
 		}
 
-		public static void ReadSpawnReinforcements(BinaryReader reader) {
-			int whoAmI = reader.ReadInt32();
-			int target = reader.ReadInt32();
-			int x = reader.ReadInt32();
-			int y = reader.ReadInt32();
-			SpawnReinforcements(whoAmI, target, x, y);
+		public static void ReadSpawnReinforcements(BinaryReader reader, int senderWhoAmI) {
+			int sourceNpcIndex = reader.ReadInt32();
+			int requestedTarget = reader.ReadInt32();
+			int requestedX = reader.ReadInt32();
+			int requestedY = reader.ReadInt32();
+
+			if (Main.netMode != NetmodeID.Server || (uint)senderWhoAmI >= Main.maxPlayers)
+				return;
+			if ((uint)sourceNpcIndex >= Main.maxNPCs || requestedTarget != senderWhoAmI)
+				return;
+			if (!WorldGen.InWorld(requestedX, requestedY, 10))
+				return;
+
+			Player player = Main.player[senderWhoAmI];
+			NPC sourceNpc = Main.npc[sourceNpcIndex];
+			if (!player.active || player.dead || !sourceNpc.active || sourceNpc.type != ModContent.NPCType<Cannot>() || sourceNpc.ModNPC is not Cannot cannot)
+				return;
+
+			Vector2 requestedSpawnPosition = new(requestedX * 16f + 8f, requestedY * 16f);
+			if (Vector2.DistanceSquared(player.Center, requestedSpawnPosition) > MaxReinforcementRequestDistancePixels * MaxReinforcementRequestDistancePixels)
+				return;
+			if (Vector2.DistanceSquared(player.Center, sourceNpc.Center) > MaxCannotInteractionDistancePixels * MaxCannotInteractionDistancePixels)
+				return;
+			if (cannot.summoncd > 0 || Isnpcexist)
+				return;
+
+			// 客户端给出的落点只用于拒绝明显伪造的包；真正的安全落点必须由服务器重新计算。
+			cannot.TrySpawnReinforcements(player);
+			cannot.summoncd = 600;
 		}
 
 		public static void SpawnReinforcements(int whoAmI, int target, int x, int y) {
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+				return;
+			if ((uint)whoAmI >= Main.maxNPCs || (uint)target >= Main.maxPlayers || !WorldGen.InWorld(x, y, 10))
+				return;
+
 			NPC npc = Main.npc[whoAmI];
+			if (!npc.active || npc.type != ModContent.NPCType<Cannot>() || !Main.player[target].active)
+				return;
+
 			int type = Main.rand.Next(Eliteslist);
 			NPC.NewNPC(npc.GetSource_FromThis(), x * 16 + 8, y * 16, type, Target: target);
 		}

@@ -159,10 +159,10 @@ WeaponStatOverrideConfig: {
 	UseGlobalWeaponStats: {
 		Tooltip:
 			'''
-			开启后，所有武器的数值将由 Common/WeaponStatOverride.cs 统一控制。
-			关闭则使用各武器原始数值。
+			When enabled, values in Common/WeaponStatOverride.cs override each weapon's defaults.
+			Disable this to use the values declared by each weapon instead.
 			'''
-		Label: 启用统一武器数值覆写
+		Label: Enable Unified Weapon Stats
 	}
 
 	DisplayName: Weapon Stat Override Config
@@ -172,8 +172,8 @@ DebugConfig: {
 	DisplayName: Debug Config
 
 	AutoUpgradeNeoArmor: {
-		Label: NeoArmor 自动升级
-		Tooltip: 获取 NeoArmor 物品时自动设为已升级样式（DEBUG 专用）
+		Label: Auto-upgrade NeoArmor
+		Tooltip: Marks newly acquired NeoArmor as upgraded in debug builds.
 	}
 }
 

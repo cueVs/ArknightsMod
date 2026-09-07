@@ -142,8 +142,11 @@ namespace ArknightsMod.Common.UI
 
 			if (mp.SkillActive) {
 				sb.Draw(pixel, new Rectangle(left, hitbox.Y, 116, hitbox.Height), skillColor);
-				for (int i = 0; i < steps2; i += 1) {
-					sb.Draw(pixel, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
+				// 永久技能展开后保持整条金色，不画并不存在的倒计时。
+				if (!skill.IsPermanent) {
+					for (int i = 0; i < steps2; i += 1) {
+						sb.Draw(pixel, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
+					}
 				}
 			}
 

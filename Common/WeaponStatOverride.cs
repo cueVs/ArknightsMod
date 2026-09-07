@@ -68,15 +68,15 @@ namespace ArknightsMod.Common
 			},
 
 			// FrostleafAxe - 霜叶 - 战斧 (EliteDamage=[40,48,58])
-			// 原始值: damage=40, useTime=31, useAnimation=31, knockBack=7
+			// 当前值: damage=40, useTime=14, useAnimation=14, knockBack=7
 			[typeof(Content.Items.Weapons.Guard.Frostleaf.FrostleafAxe)] = new() {
-				Damage = 40, UseTime = 31, UseAnimation = 31, KnockBack = 7f
+				Damage = 40, UseTime = 14, UseAnimation = 14, KnockBack = 7f
 			},
 
 			// HongdouLance - 红豆 - 长枪 (EliteDamage=[44,52,60])
-			// 原始值: damage=44, useTime=22, useAnimation=22, knockBack=5, shootSpeed=3
+			// 当前值: damage=44, useTime=14, useAnimation=14, knockBack=5, shootSpeed=3
 			[typeof(Content.Items.Weapons.Guard.Hongdou.HongdouLance)] = new() {
-				Damage = 44, UseTime = 22, UseAnimation = 22, KnockBack = 5f, ShootSpeed = 3f
+				Damage = 44, UseTime = 14, UseAnimation = 14, KnockBack = 5f, ShootSpeed = 3f
 			},
 
 			// LupineScarlet - 狼德 - 赤红

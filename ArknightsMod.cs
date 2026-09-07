@@ -154,10 +154,12 @@ namespace ArknightsMod
 					NPCShopSystem.TryUpdateCannotShop(this, forcedUpdate);
 					break;
 				case ArkMessageID.SpawnReinforcements:
-					Cannot.ReadSpawnReinforcements(reader);
+					if (IsValidClientRequest(whoAmI))
+						Cannot.ReadSpawnReinforcements(reader, whoAmI);
 					break;
 				case ArkMessageID.CannotAggroAck:
-					CannotAggroPlayer.ServerApplyAck(whoAmI);
+					if (IsValidClientRequest(whoAmI))
+						CannotAggroPlayer.ServerApplyAck(whoAmI);
 					break;
 				case ArkMessageID.CannotLifeTokenSync:
 					if (Main.netMode == NetmodeID.MultiplayerClient) {
@@ -166,23 +168,44 @@ namespace ArknightsMod
 					}
 					break;
 				case ArkMessageID.CoffeeMachineRequest:
-					if (Main.netMode == NetmodeID.Server)
+					if (IsValidClientRequest(whoAmI))
 						WaterDispenserTile.TryGiveCoffee(Main.player[whoAmI]);
 					break;
 				case ArkMessageID.ElevatorRequestFloor:
-					if (Main.netMode != NetmodeID.MultiplayerClient) {
+					if (IsValidClientRequest(whoAmI)) {
 						int teId = reader.ReadInt32();
 						int floorBottomY = reader.ReadInt32();
-						global::ArknightsMod.Content.Tiles.TEElevator.ApplyMoveRequest(teId, floorBottomY);
+						global::ArknightsMod.Content.Tiles.TEElevator.ApplyMoveRequest(teId, floorBottomY, whoAmI);
 					}
 					break;
 				case ArkMessageID.AkStructureRequestDeploy:
-					global::ArknightsMod.Systems.Structures.AkStructureDeploySystem.ReceiveDeployRequest(reader, whoAmI);
+					if (IsValidClientRequest(whoAmI))
+						global::ArknightsMod.Systems.Structures.AkStructureDeploySystem.ReceiveDeployRequest(reader, whoAmI);
 					break;
 				case ArkMessageID.AkStructurePlacedEffect:
-					global::ArknightsMod.Systems.Structures.AkStructureDeploySystem.ReceivePlacedEffect(reader);
+					// 放置特效是服务器广播结果，专服绝不能执行客户端绘制路径。
+					if (Main.netMode == NetmodeID.MultiplayerClient)
+						global::ArknightsMod.Systems.Structures.AkStructureDeploySystem.ReceivePlacedEffect(reader);
+					break;
+				case ArkMessageID.DeploymentCostAbsorbRequest:
+					if (IsValidClientRequest(whoAmI))
+						DeploymentCost.ReceiveAbsorbRequest(reader, whoAmI);
+					break;
+				case ArkMessageID.DeploymentCostAbsorbGrant:
+					if (Main.netMode == NetmodeID.MultiplayerClient)
+						DeploymentCost.ReceiveAbsorbGrant(reader);
+					break;
+				case ArkMessageID.DeploymentCostAbsorbResult:
+					if (IsValidClientRequest(whoAmI))
+						DeploymentCost.ReceiveAbsorbResult(reader, whoAmI);
 					break;
 			}
+		}
+
+		private static bool IsValidClientRequest(int whoAmI) {
+			return Main.netMode == NetmodeID.Server &&
+				(uint)whoAmI < Main.maxPlayers &&
+				Main.player[whoAmI].active;
 		}
 
 		public enum ArkMessageID : short {
@@ -201,6 +224,9 @@ namespace ArknightsMod
 			// 不存在新旧版本互相收发包的情况。
 			AkStructureRequestDeploy,
 			AkStructurePlacedEffect,
+			DeploymentCostAbsorbRequest,
+			DeploymentCostAbsorbGrant,
+			DeploymentCostAbsorbResult,
 		}
 	}
 	//public class Ex : GlobalNPC

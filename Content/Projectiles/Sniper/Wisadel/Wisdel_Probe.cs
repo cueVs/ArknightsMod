@@ -100,7 +100,8 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Wisadel
 				0 => new Vector2(0, 0),
 				1 => new Vector2(-23, 9),
 				2 => new Vector2(-47, -1),
-				3 => new Vector2(-27, -6)
+				3 => new Vector2(-27, -6),
+				_ => Vector2.Zero
 			};
 			return pos;
 		}
@@ -148,7 +149,8 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Wisadel
 					0 => 0,
 					3 => 1,
 					2 => 2,
-					1 => 3
+					1 => 3,
+					_ => 0
 				};
 				Position = player.RotatedRelativePoint(player.MountedCenter
 					+ new Vector2(Style == 2 ? 30 : 40, 0).RotatedBy(MathHelper.PiOver4 + style * MathHelper.PiOver2)
@@ -346,7 +348,8 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Wisadel
 				0 => MathHelper.PiOver4,
 				3 => MathHelper.PiOver4 * 3,
 				2 => MathHelper.PiOver4,
-				1 => -MathHelper.PiOver4
+				1 => -MathHelper.PiOver4,
+				_ => MathHelper.PiOver4
 			};
 			Rotation = rot + (Projectile.direction == -1 ? MathHelper.Pi : 0);
 
@@ -358,7 +361,8 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Wisadel
 				0 => new Vector2(1, -1),
 				3 => new Vector2(-1, 1),
 				2 => new Vector2(1, 1),
-				1 => new Vector2(-1, -1)
+				1 => new Vector2(-1, -1),
+				_ => new Vector2(1, -1)
 			};
 
 			float random = Main.rand.NextFloat(12, 36);

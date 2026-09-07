@@ -93,8 +93,11 @@ namespace ArknightsMod.Content.Projectiles.Rogue.Dedication.ShootProj
             targetNPC = closestNPC;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
+            if (Projectile.owner != Main.myPlayer)
+                return;
+
             if (!exploded)
             {
                 exploded = true;

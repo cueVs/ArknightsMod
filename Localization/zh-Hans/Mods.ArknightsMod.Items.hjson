@@ -3970,3 +3970,66 @@ Vulcan_Weapon: {
 	DisplayName: 火神的锤盾
 	// Tooltip: ""
 }
+
+HellagurOdachi: {
+	DisplayName: 赫拉格的大太刀
+	Tooltip:
+		'''
+		生命值越低攻速越快，攻击可以回复生命值
+		“他是将军”
+		'''
+}
+
+BlazeGreatsword: {
+	DisplayName: 煌的链锯大剑
+	Tooltip:
+		'''
+		攻击所有与之接触的敌人
+		“热血沸腾”
+		'''
+}
+
+FiammettaHandCannon: {
+	DisplayName: 菲亚梅塔的手炮
+	Tooltip: 向天空释放炮弹，并对目标进行打击
+}
+
+
+SpecterBoneSaw: {
+	DisplayName: 幽灵鲨的圆锯
+	Tooltip:
+		'''
+		攻击所有与之接触的敌人
+		手持时生命上限提高10%，每秒恢复2%最大生命
+		'''
+}
+
+ShiningStaff: {
+	DisplayName: 闪灵的法杖
+	Tooltip:
+		'''
+		发射黑白剑形源石技艺攻击敌人
+		技能提供有限治疗、自身屏障与防护领域
+		'''
+}
+
+PassengerConductor: {
+	DisplayName: 异客的电磁枢杖
+	Tooltip:
+		'''
+		向瞄准方向三连发可穿墙的橙黄闪电，不自动锁敌，射程约为发射时可视宽度的2.5倍
+		实际撞敌后才触发爆闪和链式传导，最多命中4个敌人
+		每次跳跃伤害递减15%，短暂减缓普通敌人的移动；三技能部署天降雷暴
+		'''
+}
+
+LeiziStaff: {
+	DisplayName: 惊蛰的雷法杖
+	Tooltip:
+		'''
+		向瞄准方向发射可穿墙的绯橙金色闪电，不自动锁敌
+		实际撞敌后爆闪并传导，最多命中4个敌人
+		每次跳跃伤害递减15%，短暂减缓普通敌人的移动
+		可进一步制作为异客的电磁枢杖
+		'''
+}

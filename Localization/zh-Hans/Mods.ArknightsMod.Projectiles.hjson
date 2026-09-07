@@ -306,3 +306,31 @@ TransparentSlash.DisplayName: 透明斩击
 // Vulcan_Shield.DisplayName: Vulcan_ Shield
 // Frostleaf_Axe.DisplayName: Frostleaf_ Axe
 // Frostleaf_Projectile.DisplayName: Frostleaf_ Projectile
+// FrostleafAxeSwing.DisplayName: Frostleaf Axe Swing
+// HongdouLanceProjectile.DisplayName: Hongdou Lance Projectile
+// FrostleafIceShard.DisplayName: Frostleaf Ice Shard
+// HongdouBreachWave.DisplayName: Hongdou Breach Wave
+// BlazeFlameArc.DisplayName: Blaze Flame Arc
+BlazeChainsawHoldout.DisplayName: 煌的链锯
+BlazeScarletEjecta.DisplayName: 炽血锯屑
+// HellagurBloodSlash.DisplayName: Hellagur Blood Slash
+// HellagurOdachiSwing.DisplayName: Hellagur Odachi Swing
+// BlazeBoilingBurstController.DisplayName: Blaze Boiling Burst Controller
+FiammettaCannonHoldout.DisplayName: 菲亚梅塔的手炮
+FiammettaReponiteController.DisplayName: 偿还落点
+FiammettaMortarShell.DisplayName: 凤凰迫击炮弹
+FiammettaScorchingShell.DisplayName: 愧悔灼痕弹
+FiammettaScorchMark.DisplayName: 灼痕
+FiammettaExplosion.DisplayName: 凤凰炮击
+SpecterBoneSawHoldout.DisplayName: 幽灵鲨的圆锯
+SpecterFrenzyAura.DisplayName: 肉斩骨断
+// ShiningBarrierProjectile.DisplayName: Shining Barrier Projectile
+// ShiningBladeProjectile.DisplayName: Shining Blade Projectile
+// ShiningSanctuaryProjectile.DisplayName: Shining Sanctuary Projectile
+PassengerChainDischarge.DisplayName: 异客的闪电链
+PassengerFlyingDischarge.DisplayName: 异客的直射闪电
+PassengerArcVisual.DisplayName: 电弧余辉
+PassengerThunderstorm.DisplayName: 辉煌裂片
+// ShiningHealingWispProjectile.DisplayName: Shining Healing Wisp Projectile
+LeiziFlyingDischarge.DisplayName: 惊蛰的直射闪电
+LeiziChainDischarge.DisplayName: 初雷传导

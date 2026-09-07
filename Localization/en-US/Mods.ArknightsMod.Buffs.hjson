@@ -202,3 +202,24 @@ SurtrLaevatainS3Buff: {
 	DisplayName: Surtr Laevatain S3 Buff
 	Description: Mods.ArknightsMod.Buffs.SurtrLaevatainS3Buff.Description
 }
+
+FrostleafSlowDebuff: {
+	DisplayName: Frostleaf Slow
+	Description: Movement speed is reduced by 50%
+}
+
+FrostleafBindDebuff: {
+	DisplayName: Frostleaf Bind
+	Description: Unable to move
+}
+
+WeaponBleedingDebuff: {
+	DisplayName: Bleeding
+	Description: Prevents life regeneration and drains 8 life per second
+}
+
+
+PassengerCurrentSlow: {
+	DisplayName: Current Slow
+	Description: Movement speed reduced by 80%; bosses and segmented enemies are unaffected
+}

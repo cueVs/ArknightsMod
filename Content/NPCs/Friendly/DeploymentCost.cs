@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using ArknightsMod.Content.Items.Weapons;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,6 +45,12 @@ namespace ArknightsMod.Content.NPCs.Friendly
 		private int _fadeAge;
 		private float _orbitAngle;
 		private bool _orbitInit;
+		private int _absorbRequestCooldown;
+		private int _pendingRequestToken;
+		private int _reservedPlayer = -1;
+		private int _reservationTicks;
+		private int _reservationToken;
+		private static int _nextClientRequestToken;
 
 		public int Value {
 			get => Math.Max(1, (int)NPC.ai[0]);
@@ -117,9 +125,108 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				SpawnOrb(source, position, 1);
 		}
 
+		public static void ReceiveAbsorbRequest(BinaryReader reader, int sender) {
+			int npcIndex = reader.ReadInt16();
+			int requestToken = reader.ReadInt32();
+			int itemType = reader.ReadInt32();
+			int skillIndex = reader.ReadByte();
+			if (Main.netMode != NetmodeID.Server || (uint)sender >= Main.maxPlayers || (uint)npcIndex >= Main.maxNPCs)
+				return;
+
+			Player player = Main.player[sender];
+			NPC npc = Main.npc[npcIndex];
+			if (!player.active || player.dead || player.HeldItem.type != itemType
+				|| player.HeldItem.ModItem is not UpgradeWeaponBase || (uint)skillIndex >= 3
+				|| !npc.active || npc.ModNPC is not DeploymentCost cost
+				|| Vector2.DistanceSquared(player.Center, npc.Center) > (AbsorbRange + 36f) * (AbsorbRange + 36f))
+				return;
+			if (requestToken == 0 || cost._reservationTicks > 0)
+				return;
+
+			int points = cost.Value;
+			Vector2 position = npc.Center;
+			cost._reservedPlayer = sender;
+			cost._reservationTicks = 6 * 60;
+			cost._reservationToken = requestToken;
+
+			ModPacket packet = ModContent.GetInstance<global::ArknightsMod.ArknightsMod>().GetPacket();
+			packet.Write((short)global::ArknightsMod.ArknightsMod.ArkMessageID.DeploymentCostAbsorbGrant);
+			packet.Write((short)npcIndex);
+			packet.Write(requestToken);
+			packet.Write(itemType);
+			packet.Write((byte)skillIndex);
+			packet.Write((byte)points);
+			packet.Write(position.X);
+			packet.Write(position.Y);
+			packet.Send(sender);
+		}
+
+		public static void ReceiveAbsorbGrant(BinaryReader reader) {
+			int npcIndex = reader.ReadInt16();
+			int requestToken = reader.ReadInt32();
+			int itemType = reader.ReadInt32();
+			int skillIndex = reader.ReadByte();
+			int points = reader.ReadByte();
+			Vector2 position = new(reader.ReadSingle(), reader.ReadSingle());
+			if (Main.netMode != NetmodeID.MultiplayerClient)
+				return;
+
+			DeploymentCost cost = null;
+			if ((uint)npcIndex < Main.maxNPCs && Main.npc[npcIndex].active)
+				cost = Main.npc[npcIndex].ModNPC as DeploymentCost;
+			bool tokenMatches = cost != null && cost._pendingRequestToken == requestToken;
+			Player player = Main.LocalPlayer;
+			WeaponPlayer weaponPlayer = player.GetModPlayer<WeaponPlayer>();
+			bool accepted = tokenMatches && player.HeldItem.type == itemType && weaponPlayer.Skill == skillIndex
+				&& weaponPlayer.AbsorbDeploymentCost(points);
+			if (tokenMatches) {
+				cost._pendingRequestToken = 0;
+				// 接受后给服务器 Result/SyncNPC 留出往返时间，避免同一球在销毁同步前再次请求。
+				cost._absorbRequestCooldown = accepted ? 60 : 0;
+			}
+			if (accepted)
+				SpawnAbsorbEffect(position, points);
+
+			ModPacket response = ModContent.GetInstance<global::ArknightsMod.ArknightsMod>().GetPacket();
+			response.Write((short)global::ArknightsMod.ArknightsMod.ArkMessageID.DeploymentCostAbsorbResult);
+			response.Write((short)npcIndex);
+			response.Write(requestToken);
+			response.Write(accepted);
+			response.Send();
+		}
+
+		public static void ReceiveAbsorbResult(BinaryReader reader, int sender) {
+			int npcIndex = reader.ReadInt16();
+			int requestToken = reader.ReadInt32();
+			bool accepted = reader.ReadBoolean();
+			if (Main.netMode != NetmodeID.Server || (uint)npcIndex >= Main.maxNPCs)
+				return;
+
+			NPC npc = Main.npc[npcIndex];
+			if (!npc.active || npc.ModNPC is not DeploymentCost cost
+				|| cost._reservationTicks <= 0 || cost._reservedPlayer != sender
+				|| cost._reservationToken != requestToken)
+				return;
+
+			cost._reservedPlayer = -1;
+			cost._reservationTicks = 0;
+			cost._reservationToken = 0;
+			if (!accepted)
+				return;
+
+			npc.active = false;
+			NetMessage.SendData(MessageID.SyncNPC, number: npcIndex);
+		}
+
 		public override void AI() {
 			_age++;
 			_breath += 0.09f;
+			if (_absorbRequestCooldown > 0 && --_absorbRequestCooldown <= 0)
+				_pendingRequestToken = 0;
+			if (Main.netMode == NetmodeID.Server && _reservationTicks > 0 && --_reservationTicks <= 0) {
+				_reservedPlayer = -1;
+				_reservationToken = 0;
+			}
 
 			// 轻微阻尼 + 缓慢上浮的悬停感（未进入吸引状态时）
 			NPC.velocity *= 0.94f;
@@ -128,7 +235,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			if (player != null && dist < PullRange) {
 				if (canAbsorb) {
 					_orbitInit = false;
-					if (dist < AbsorbRange) {
+					if (dist < AbsorbRange && Main.netMode != NetmodeID.Server) {
 						AbsorbBy(player, mp);
 						return;
 					}
@@ -143,15 +250,25 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				}
 			}
 
-			TryMerge();
+			bool transactionPending = _reservationTicks > 0 || _pendingRequestToken != 0;
+			if (!transactionPending)
+				TryMerge();
 
 			// 生命周期：到时开始淡出，淡出完成后移除
-			if (!_fadingOut && _age >= LifeTicks)
-				_fadingOut = true;
-			if (_fadingOut) {
-				_fadeAge++;
-				if (_fadeAge > FadeOutTicks)
-					Despawn();
+			if (transactionPending) {
+				// 两阶段吸收尚未提交时冻结过期/合并，保证客户端确认前 NPC 不会换值或消失。
+				_fadingOut = false;
+				_fadeAge = 0;
+				_age = Math.Min(_age, LifeTicks - 1);
+			}
+			else {
+				if (!_fadingOut && _age >= LifeTicks)
+					_fadingOut = true;
+				if (_fadingOut) {
+					_fadeAge++;
+					if (_fadeAge > FadeOutTicks)
+						Despawn();
+				}
 			}
 
 			Vector3 lightCol = IsFive ? new Vector3(0.4f, 0.85f, 0.45f) : new Vector3(0.18f, 0.55f, 0.2f);
@@ -175,7 +292,11 @@ namespace ArknightsMod.Content.NPCs.Friendly
 			}
 			if (best != null) {
 				mp = best.GetModPlayer<WeaponPlayer>();
-				canAbsorb = mp.CanAbsorbDeploymentCost();
+				// 服务器没有同步每个客户端的技能槽/技力细节，只负责把球拉到持有技能武器的玩家附近；
+				// 最终资格由拥有者客户端请求时的本地状态决定，再由服务器确认距离并销毁球。
+				canAbsorb = Main.netMode == NetmodeID.Server
+					? best.HeldItem.ModItem is UpgradeWeaponBase
+					: mp.CanAbsorbDeploymentCost();
 			}
 			return best;
 		}
@@ -194,20 +315,39 @@ namespace ArknightsMod.Content.NPCs.Friendly
 		}
 
 		private void AbsorbBy(Player player, WeaponPlayer mp) {
-			if (player.whoAmI == Main.myPlayer)
-				mp.AbsorbDeploymentCost(Value);
-			SpawnAbsorbEffect();
-			Despawn();
+			if (Main.netMode == NetmodeID.SinglePlayer) {
+				if (mp.AbsorbDeploymentCost(Value))
+					SpawnAbsorbEffect(NPC.Center, Value);
+				Despawn();
+				return;
+			}
+
+			if (Main.netMode != NetmodeID.MultiplayerClient || player.whoAmI != Main.myPlayer
+				|| _absorbRequestCooldown > 0)
+				return;
+
+			_absorbRequestCooldown = 4 * 60;
+			_pendingRequestToken = unchecked(++_nextClientRequestToken);
+			if (_pendingRequestToken == 0)
+				_pendingRequestToken = unchecked(++_nextClientRequestToken);
+			ModPacket packet = ModContent.GetInstance<global::ArknightsMod.ArknightsMod>().GetPacket();
+			packet.Write((short)global::ArknightsMod.ArknightsMod.ArkMessageID.DeploymentCostAbsorbRequest);
+			packet.Write((short)NPC.whoAmI);
+			packet.Write(_pendingRequestToken);
+			packet.Write(player.HeldItem.type);
+			packet.Write((byte)mp.Skill);
+			packet.Send();
 		}
 
-		private void SpawnAbsorbEffect() {
+		private static void SpawnAbsorbEffect(Vector2 position, int points) {
 			if (Main.dedServ)
 				return;
-			int count = IsFive ? 10 : 5;
-			Color col = IsFive ? FiveCore : OneCore;
+			bool isFive = points >= 5;
+			int count = isFive ? 10 : 5;
+			Color col = isFive ? FiveCore : OneCore;
 			for (int i = 0; i < count; i++) {
 				Vector2 vel = Main.rand.NextVector2Circular(2.4f, 2.4f);
-				Dust d = Dust.NewDustPerfect(NPC.Center, DustID.GreenTorch, vel, 0, col, Main.rand.NextFloat(0.9f, 1.5f));
+				Dust d = Dust.NewDustPerfect(position, DustID.GreenTorch, vel, 0, col, Main.rand.NextFloat(0.9f, 1.5f));
 				d.noGravity = true;
 			}
 		}
@@ -224,6 +364,7 @@ namespace ArknightsMod.Content.NPCs.Friendly
 				if (!other.active || other.type != myType)
 					continue;
 				if (other.ModNPC is DeploymentCost dc && dc.Value == 1 && !dc._fadingOut
+					&& dc._reservationTicks <= 0
 				    && Vector2.Distance(other.Center, NPC.Center) <= MergeRange) {
 					ones.Add(i);
 				}

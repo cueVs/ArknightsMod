@@ -192,7 +192,10 @@ namespace ArknightsMod.Content.Projectiles.Caster.Valarqvin
 				trailPositions.Dequeue();
 		}
 
-		public override void Kill(int timeLeft) {
+		public override void OnKill(int timeLeft) {
+			if (Projectile.owner != Main.myPlayer)
+				return;
+
 			Projectile.NewProjectile(
 				Projectile.GetSource_FromThis(),
 				Projectile.Center,

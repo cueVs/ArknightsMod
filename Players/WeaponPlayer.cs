@@ -119,6 +119,7 @@ namespace ArknightsMod.Players
 
 		private int oldHeld;
 		private int oldSkill;
+		private readonly Dictionary<int, int> selectedSkillByItemType = [];
 
 		// 技能数据结构
 		public int HowManySkills = 0;
@@ -144,6 +145,14 @@ namespace ArknightsMod.Players
 		public string IconName = "";
 		public List<bool> ShowSummonIconBySkills = [false, false, false];
 		public override void UpdateDead() {
+			// 死亡等价于整批干员重新部署：背包里每一把技能武器都要恢复自己的初始技力资格，
+			// 不能只让复活后最先拿起的那一把吃到玩家级重置标记。
+			foreach (Item item in Player.inventory) {
+				if (item.ModItem is UpgradeWeaponBase weapon)
+					Array.Fill(weapon.chargeReady, true);
+			}
+			ClearSkillRuntime();
+			ClearLoadedSkillIdentity();
 			chargeReady = true;
 			chargeOpen = true;
 		}
@@ -164,8 +173,8 @@ namespace ArknightsMod.Players
 						Main.projectile[id].scale = 1.5f;
 				}
 			}
-			if (!Player.dead && HowManySkills > 0) {
-				if (CurrentSkill?.ChargeType == SkillChargeType.Auto) {
+			if (!Player.dead && (HowManySkills > 0 || SkillCount > 0)) {
+				if (CurrentSkill?.ChargeType == SkillChargeType.Auto && CurrentSkill.UsesCustomCharge != true) {
 					AccessoriesAutoCharge();
 				}
 				else if (CurrentSkill == null && ChargeTypeIsPerSecond[Skill]) {
@@ -225,6 +234,43 @@ namespace ArknightsMod.Players
 			SummonMode = false;
 		}
 
+		/// <summary>
+		/// 原子地切换当前武器技能：旧技能在同一帧结束，新技能资源也在同一帧完成初始化，
+		/// 避免 UI 先改索引、下一帧才清状态造成的“旧技能效果套到新技能”串态。
+		/// </summary>
+		public bool TrySelectSkill(UpgradeWeaponBase weapon, int skill, bool force = false) {
+			if (weapon == null || skill < 0 || skill >= SkillData.Length || SkillData[skill] == null)
+				return false;
+			if (!force && (SkillCount <= skill || Skill == skill))
+				return false;
+
+			Skill = skill;
+			selectedSkillByItemType[weapon.Item.type] = skill;
+			oldSkill = skill;
+			InitSkill(weapon.chargeReady[skill]);
+			weapon.chargeReady[skill] = false;
+			return true;
+		}
+
+		private void ClearSkillRuntime() {
+			SkillCharge = 0;
+			SkillChargeMax = 0;
+			SkillActive = false;
+			SkillTimer = 0;
+			SP = 0;
+			StockCount = 0;
+			Div = 1;
+			SummonMode = false;
+		}
+
+		private void ClearLoadedSkillIdentity() {
+			oldHeld = 0;
+			oldSkill = -1;
+			SkillCount = 0;
+			for (int i = 0; i < SkillData.Length; i++)
+				SkillData[i] = null;
+		}
+
 		// 将当前技能技力填满至可释放状态
 		public void DevFillSkillCharge()
 		{
@@ -247,7 +293,8 @@ namespace ArknightsMod.Players
 		/// 另外——技力已满（技能就绪、无处可加）时也不吸收，让部署费用继续环绕等待。
 		/// </summary>
 		public bool CanAbsorbDeploymentCost() {
-			if (Player.HeldItem.ModItem is not UpgradeWeaponBase || CurrentSkill == null || SkillActive)
+			if (!Player.active || Player.dead || Player.HeldItem.ModItem is not UpgradeWeaponBase
+				|| CurrentSkill == null || SkillActive)
 				return false;
 			// 已攒满一个可用技能（技力满）：不再吸收，否则会白白吞掉部署费用
 			if (StockCount >= CurrentSkill.CurrentLevelData.MaxStack)
@@ -259,13 +306,13 @@ namespace ArknightsMod.Players
 		/// 吸收部署费用：直接把充能加到当前技能的技力条上（不以物品形式出现在背包）。
 		/// 沿用 Div 的换算关系——Div 单位的 SkillCharge 对应 1 点可见技力（与 <see cref="AutoCharge"/> 等一致）。
 		/// </summary>
-		public void AbsorbDeploymentCost(int points) {
+		public bool AbsorbDeploymentCost(int points) {
 			if (!CanAbsorbDeploymentCost())
-				return;
+				return false;
 
 			SkillLevelData data = CurrentSkill.CurrentLevelData;
 			if (StockCount >= data.MaxStack)
-				return;
+				return false;
 
 			SkillCharge += points * Div;
 			while (SkillCharge >= SkillChargeMax && StockCount < data.MaxStack) {
@@ -275,6 +322,7 @@ namespace ArknightsMod.Players
 			SP = StockCount >= data.MaxStack ? data.MaxSP : SkillCharge / Div;
 			if (StockCount >= data.MaxStack)
 				SkillCharge = 0;
+			return true;
 		}
 
 		public void SetSkill(int skill) {
@@ -310,29 +358,36 @@ namespace ArknightsMod.Players
 			AccessoriesChargeFraction = 0f; // 新添加，用于重置技力藏的加成
 
 			// 更新武器状态
-			HoldBagpipeSpear = Main.LocalPlayer.HeldItem.ModItem is BagpipeSpear;
-			HoldExusiaiVector = Main.LocalPlayer.HeldItem.ModItem is ExusiaiVector;
-			HoldKroosCrossbow = Main.LocalPlayer.HeldItem.ModItem is KroosCrossbow;
-			HoldChenSword_Item = Main.LocalPlayer.HeldItem.ModItem is ChenSword_Item;
-			HoldSilverAshWeapon = Main.LocalPlayer.HeldItem.ModItem is SilverAshWeapon;
-			HoldBeagleWeapon = Main.LocalPlayer.HeldItem.ModItem is BeagleWeapon;
-			HoldNoirShield = Main.LocalPlayer.HeldItem.ModItem is NoirShield;
-			HoldThornsWeapon = Main.LocalPlayer.HeldItem.ModItem is ThornsWeapon;
-			HoldShirayuki_Shuriken = Main.LocalPlayer.HeldItem.ModItem is Shirayuki_Shuriken;
-			HoldLava_Dagger = Main.LocalPlayer.HeldItem.ModItem is Lava_Dagger;
-			HoldKroosAlterCrossbow = Main.LocalPlayer.HeldItem.ModItem is KroosAlterCrossbow;
-			HoldPozemkaCrossbow = Main.LocalPlayer.HeldItem.ModItem is PozemkaCrossbow;
-			HoldNianWeapon = Main.LocalPlayer.HeldItem.ModItem is NianWeapon;
-			HoldSchwarzBow = Main.LocalPlayer.HeldItem.ModItem is SchwarzBow;
-			HoldTyphonBow  = Main.LocalPlayer.HeldItem.ModItem is TyphonBow;
-			HoldHazeMagicBook  = Main.LocalPlayer.HeldItem.ModItem is HazeMagicBook;
-			HoldSurtrLaevatain  = Main.LocalPlayer.HeldItem.ModItem is SurtrLaevatain;
-			HoldJessicaGun  = Main.LocalPlayer.HeldItem.ModItem is JessicaGun;
+			HoldBagpipeSpear = Player.HeldItem.ModItem is BagpipeSpear;
+			HoldExusiaiVector = Player.HeldItem.ModItem is ExusiaiVector;
+			HoldKroosCrossbow = Player.HeldItem.ModItem is KroosCrossbow;
+			HoldChenSword_Item = Player.HeldItem.ModItem is ChenSword_Item;
+			HoldSilverAshWeapon = Player.HeldItem.ModItem is SilverAshWeapon;
+			HoldBeagleWeapon = Player.HeldItem.ModItem is BeagleWeapon;
+			HoldNoirShield = Player.HeldItem.ModItem is NoirShield;
+			HoldThornsWeapon = Player.HeldItem.ModItem is ThornsWeapon;
+			HoldShirayuki_Shuriken = Player.HeldItem.ModItem is Shirayuki_Shuriken;
+			HoldLava_Dagger = Player.HeldItem.ModItem is Lava_Dagger;
+			HoldKroosAlterCrossbow = Player.HeldItem.ModItem is KroosAlterCrossbow;
+			HoldPozemkaCrossbow = Player.HeldItem.ModItem is PozemkaCrossbow;
+			HoldNianWeapon = Player.HeldItem.ModItem is NianWeapon;
+			HoldSchwarzBow = Player.HeldItem.ModItem is SchwarzBow;
+			HoldTyphonBow  = Player.HeldItem.ModItem is TyphonBow;
+			HoldHazeMagicBook  = Player.HeldItem.ModItem is HazeMagicBook;
+			HoldSurtrLaevatain  = Player.HeldItem.ModItem is SurtrLaevatain;
+			HoldJessicaGun  = Player.HeldItem.ModItem is JessicaGun;
 			// 基于武器的技能系统
 			hasNearbyEnemy = false;
 			// 旧版武器支持
+			HowManySkills = 0;
 			SetAllSkillsData();
-			Item item = Main.LocalPlayer.HeldItem;
+
+			// 死亡期间不重新初始化手中武器。UpdateDead 已清空运行态；复活后的第一帧
+			// 再按当前物品的 InitSP 正常部署，技能不会跨死亡暂停后续上。
+			if (Player.dead)
+				return;
+
+			Item item = Player.HeldItem;
 			if (item.ModItem is UpgradeWeaponBase ark) {
 				if (chargeOpen) {
 					foreach (var npc in Main.ActiveNPCs) {
@@ -362,7 +417,6 @@ namespace ArknightsMod.Players
 				int type = item.type;
 				if (type != oldHeld) {
 					oldSkill = -1;
-					Skill = 0;
 					oldHeld = type;
 					SkillCount = 0;
 
@@ -372,7 +426,14 @@ namespace ArknightsMod.Players
 						SkillCount += data == null ? 0 : 1;
 					}
 
-					SelectSkills.ChangeSkillSlot(ark);
+					Skill = selectedSkillByItemType.TryGetValue(type, out int selected)
+						&& selected >= 0 && selected < SkillData.Length && SkillData[selected] != null
+						? selected
+						: 0;
+					selectedSkillByItemType[type] = Skill;
+
+					if (!Main.dedServ && Player.whoAmI == Main.myPlayer)
+						SelectSkills.ChangeSkillSlot(ark);
 				}
 
 				if (oldSkill != Skill) {
@@ -387,19 +448,28 @@ namespace ArknightsMod.Players
 				else if (ark.chargeReady[Skill] && StockCount == 0) {
 					ark.chargeReady[Skill] = false;
 
-					// SkillLevel 只有旧体系武器的 SetAllSkillsData 会填；新体系武器（技能数据走 CSV）
-					// 手持时它仍是默认的 0，原来直接拿 SkillLevel[Skill] - 1 去索引 LevelData 会得到
-					// -1 而抛 IndexOutOfRangeException。这个异常是在 ResetEffects 里抛的，会把整个
-					// Player.Update 当帧打断，导致排在后面的 ProcessTriggers/物品使用全都不执行——
-					// 表现就是"手持这类武器时技能完全开不了"。这里改成：等级为 0 时回退到技能自身的
-					// 当前等级，并统一夹到 [1, LevelData.Length] 范围内，任何情况下都不会越界。
+					// 脱战/复活补回“初始技力下限”时，数值条、库存和内部 tick 必须一起更新。
+					// 只写 SkillCharge 会出现条上仍显示旧 SP，InitSP == MaxSP 时也不会变成可释放库存。
 					SkillData data = ark.GetSkillData(Skill);
-					if (data?.LevelData is { Length: > 0 } levelData) {
-						int level = SkillLevel[Skill] > 0 ? SkillLevel[Skill] : data.Level;
-						level = Math.Clamp(level, 1, levelData.Length);
-						SkillCharge = Math.Max(SkillCharge, levelData[level - 1].InitSP * Div);
+					if (data != null) {
+						SkillLevelData level = data.CurrentLevelData;
+						if (level.InitSP >= level.MaxSP) {
+							SkillCharge = 0;
+							StockCount = Math.Min(level.MaxStack, 1);
+							SP = level.MaxSP;
+						}
+						else {
+							SkillCharge = Math.Max(SkillCharge, level.InitSP * Div);
+							SP = SkillCharge / Math.Max(1, Div);
+						}
 					}
 				}
+			}
+			else if (oldHeld != 0) {
+				// 定时技能不能靠换到普通物品来冻结倒计时；离开技能武器即清场。
+				// 煌 S2 的“本次生命永久”由其专属 ModPlayer 显式恢复，不依赖这份公共残留状态。
+				ClearSkillRuntime();
+				ClearLoadedSkillIdentity();
 			}
 		}
 
@@ -414,6 +484,10 @@ namespace ArknightsMod.Players
 
 		public void TryAutoCharge() {
 			if (SceneCameraSkills.BlocksSkillCharge(Player)) // 稀音技能持续期间冻结充能
+				return;
+			// 标记为专属充能的技能由武器自己的部署状态驱动；否则公共条和专属暖机同时推进，
+			// 切换快捷栏后会出现两套进度分叉。
+			if (CurrentSkill?.UsesCustomCharge == true)
 				return;
 			if (chargeOpen && !hasNearbyEnemy)
 				return;
@@ -638,6 +712,10 @@ namespace ArknightsMod.Players
 
 		public void UpdateActiveSkill() {
 			if (SkillActive) {
+				// 永久技能没有持续时间倒计时；其关闭/重置条件由技能自身处理。
+				if (CurrentSkill?.IsPermanent == true)
+					return;
+
 				// 阈值本身乘倍率缩小（而不是让 SkillTimer 跳着加），并且统一用 >= 判断——
 				// 倍率是 0.5 时阈值大概率不再是整数，用 == 精确相等会出现永远判不到的情况，
 				// 参照之前修 SP 二倍速时踩过的同一个坑（见 HurtCharge 的注释）。

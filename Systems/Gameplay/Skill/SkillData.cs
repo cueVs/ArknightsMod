@@ -68,6 +68,9 @@ namespace ArknightsMod.Systems.Gameplay.Skill
 		public bool SuppressReadyPulse;
 
 		public bool IsPermanent;
+
+		/// <summary>由武器专属状态维护充能；公共自然回复与饰品回复不得再叠加。</summary>
+		public bool UsesCustomCharge;
 		/// <summary>
 		/// 等级数据
 		/// </summary>

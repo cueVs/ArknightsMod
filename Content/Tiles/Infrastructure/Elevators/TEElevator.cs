@@ -152,7 +152,7 @@ namespace ArknightsMod.Content.Tiles
 			ApplyMoveRequest(teId, floorBottomY);
 		}
 
-		internal static void ApplyMoveRequest(int teId, int floorBottomY)
+		internal static void ApplyMoveRequest(int teId, int floorBottomY, int requestingPlayerWhoAmI = -1)
 		{
 			if (floorBottomY < 0 || teId < 0)
 				return;
@@ -160,6 +160,20 @@ namespace ArknightsMod.Content.Tiles
 				return;
 
 			te.RebindPositionIfMisaligned();
+			te.ScanFloors();
+			// 客户端只能选择服务端刚扫描到的真实楼层，不能把电梯目标写成任意 Y。
+			if (!te.FloorBottomYs.Contains(floorBottomY))
+				return;
+
+			if (Main.netMode == NetmodeID.Server)
+			{
+				if ((uint)requestingPlayerWhoAmI >= Main.maxPlayers)
+					return;
+				Player requestingPlayer = Main.player[requestingPlayerWhoAmI];
+				if (!IsPlayerInElevatorRange(requestingPlayer, te))
+					return;
+			}
+
 			if (te.IsAlreadyAtFloorBottomY(floorBottomY))
 				return;
 

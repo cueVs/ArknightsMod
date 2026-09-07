@@ -3596,3 +3596,66 @@ Vulcan_Weapon: {
 	DisplayName: Vulcan_ Weapon
 	Tooltip: ""
 }
+
+HellagurOdachi: {
+	DisplayName: Hellagur's Odachi
+	Tooltip:
+		'''
+		Lower health grants faster attacks, and attacks restore health
+		“He is the General”
+		'''
+}
+
+BlazeGreatsword: {
+	DisplayName: Blaze's Chainsaw Greatsword
+	Tooltip:
+		'''
+		Attacks every enemy it touches
+		“Blood boils”
+		'''
+}
+
+FiammettaHandCannon: {
+	DisplayName: Fiammetta's Hand Cannon
+	Tooltip: Fires shells into the sky to strike the target
+}
+
+
+SpecterBoneSaw: {
+	DisplayName: Specter's Bone Saw
+	Tooltip:
+		'''
+		Attacks every enemy it touches
+		While held, raises max life by 10% and restores 2% of max life each second
+		'''
+}
+
+ShiningStaff: {
+	DisplayName: Shining's Staff
+	Tooltip:
+		'''
+		Fires black-and-white Arts blades at enemies
+		Skills provide limited healing, a personal barrier, and a defensive field
+		'''
+}
+
+PassengerConductor: {
+	DisplayName: Passenger's Electromagnetic Conductor
+	Tooltip:
+		'''
+		Fires three-round bursts of non-homing orange-gold lightning through blocks, traveling about 2.5 visible screen widths
+		Only a direct collision triggers the impact burst and chain, hitting up to 4 enemies
+		Each jump loses 15% damage and briefly slows ordinary enemies; Skill 3 deploys a skyborne thunderstorm
+		'''
+}
+
+LeiziStaff: {
+	DisplayName: Leizi's Thunder Staff
+	Tooltip:
+		'''
+		Fires non-homing scarlet-orange and gold lightning through blocks
+		A direct hit triggers an impact burst and chains between up to 4 enemies
+		Each jump loses 15% damage and briefly slows ordinary enemies
+		Can be crafted into Passenger's Electromagnetic Conductor
+		'''
+}

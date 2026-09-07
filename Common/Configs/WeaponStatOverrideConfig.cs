@@ -9,11 +9,10 @@ namespace ArknightsMod.Common.Configs
 {
 	public class WeaponStatOverrideConfig : ModConfig
 	{
-		public override ConfigScope Mode => ConfigScope.ClientSide;
+		// 武器伤害与攻速属于联机权威数据，必须由服务器配置统一同步。
+		public override ConfigScope Mode => ConfigScope.ServerSide;
 
 		// 在游戏内 Mod 配置界面中显示的开关
-		[Label("启用统一武器数值覆写")]
-		[Tooltip("开启后，所有武器的数值将由 Common/WeaponStatOverride.cs 统一控制。\n关闭则使用各武器原始数值。")]
 		[DefaultValue(true)]
 		public bool UseGlobalWeaponStats { get; set; }
 	}
