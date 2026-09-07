@@ -4056,3 +4056,24 @@ LeiziStaff: {
 // RopeBodySet.Tooltip: ""
 // RopeHeadSet.Tooltip: ""
 // RopeLegsSet.Tooltip: ""
+
+UtageKatana: {
+	DisplayName: 宴的太刀
+	Tooltip:
+		'''
+		生命值越低，挥刀越快；有效命中可以回复少量生命
+		以深紫刀幕和淡紫刃光斩击敌人
+		'''
+}
+
+RedDagger: {
+	DisplayName: 红的匕首
+	Tooltip:
+		'''
+		按住攻击，在身前极近距离连续挥出红黑斩痕
+		每道斩痕只能命中同一个敌人一次，不能穿墙伤害
+		快速部署：从快捷栏其他武器切换至该武器或传送/冲刺，即可触发爆发和5秒攻速强化，冷却5秒
+		使用传送工具时，允许从匕首切出后1.5秒内完成传送；仅携带匕首无效
+		高速落地也可触发；普通走跑、小跳或持续飞行不触发；切换不刷新冷却
+		'''
+}

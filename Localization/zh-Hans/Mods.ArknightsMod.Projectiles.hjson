@@ -334,3 +334,11 @@ PassengerThunderstorm.DisplayName: 辉煌裂片
 // ShiningHealingWispProjectile.DisplayName: Shining Healing Wisp Projectile
 LeiziFlyingDischarge.DisplayName: 惊蛰的直射闪电
 LeiziChainDischarge.DisplayName: 初雷传导
+
+UtageKatanaSwing.DisplayName: 宴的紫刃
+UtageSkillFlash.DisplayName: 宴的拔刀辉光
+
+RedDaggerHoldout.DisplayName: 红的匕首
+RedDaggerSlash.DisplayName: 红的连切
+RedDeploymentAura.DisplayName: 红的快速部署
+RedWolfPulse.DisplayName: 狼群

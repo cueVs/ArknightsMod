@@ -120,3 +120,7 @@ PassengerConductor,1,2,1,0,1,0,0,0,0
 PassengerConductor,2,3,1,0,0,0,0,0,0
 LeiziStaff,0,1,1,0,1,0,0,0,0
 LeiziStaff,1,2,1,0,1,0,0,0,0
+UtageKatana,0,1,1,0,1,0,0,0,0
+UtageKatana,1,2,1,0,1,0,0,0,0
+RedDagger,0,1,1,0,0,0,0,0,1
+RedDagger,1,2,1,0,0,0,0,0,1

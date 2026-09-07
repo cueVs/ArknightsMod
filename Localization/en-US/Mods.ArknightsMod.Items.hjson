@@ -3682,3 +3682,24 @@ LeiziStaff: {
 RopeBodySet.Tooltip: ""
 RopeHeadSet.Tooltip: ""
 RopeLegsSet.Tooltip: ""
+
+UtageKatana: {
+	DisplayName: Utage's Katana
+	Tooltip:
+		'''
+		Swings faster at low life; valid hits restore a small amount of life
+		Cuts with deep violet trails and pale lilac edges
+		'''
+}
+
+RedDagger: {
+	DisplayName: Projekt Red's Dagger
+	Tooltip:
+		'''
+		Hold attack to rapidly cut a very short area in front of you with red-black slashes
+		Each slash hits an enemy only once and cannot damage through walls
+		Rapid deployment: switch from another hotbar weapon, teleport or dash to burst and gain attack speed for 5 seconds; 5-second cooldown
+		Teleport tools may be used within 1.5 seconds of switching from the dagger; carrying it alone does not qualify
+		Fast landings also trigger it; walking, running, small hops and sustained flight do not. Switching cannot reset cooldown
+		'''
+}
