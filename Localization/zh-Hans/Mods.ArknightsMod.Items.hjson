@@ -373,6 +373,11 @@ ManticoreDefault: {
 	Tooltip: ""
 }
 
+RopeDefault: {
+	DisplayName: 暗索的服饰（常规）
+	Tooltip: ""
+}
+
 MostimaDefault: {
 	DisplayName: 莫斯提马的服饰（常规）
 	Tooltip: ""
@@ -580,6 +585,21 @@ ManticoreHead: {
 
 ManticoreLegs: {
 	DisplayName: 狮蝎的下装
+	// Tooltip: ""
+}
+
+RopeHead: {
+	DisplayName: 暗索的头套
+	// Tooltip: ""
+}
+
+RopeBody: {
+	DisplayName: 暗索的上衣
+	// Tooltip: ""
+}
+
+RopeLegs: {
+	DisplayName: 暗索的下装
 	// Tooltip: ""
 }
 
@@ -3994,7 +4014,6 @@ FiammettaHandCannon: {
 	Tooltip: 向天空释放炮弹，并对目标进行打击
 }
 
-
 SpecterBoneSaw: {
 	DisplayName: 幽灵鲨的圆锯
 	Tooltip:
@@ -4033,3 +4052,7 @@ LeiziStaff: {
 		可进一步制作为异客的电磁枢杖
 		'''
 }
+
+// RopeBodySet.Tooltip: ""
+// RopeHeadSet.Tooltip: ""
+// RopeLegsSet.Tooltip: ""

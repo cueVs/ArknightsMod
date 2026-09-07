@@ -249,7 +249,6 @@ WeaponBleedingDebuff: {
 	Description: 阻止生命再生，每秒损失8点生命
 }
 
-
 PassengerCurrentSlow: {
 	DisplayName: 电流停顿
 	Description: 移动速度降低80%，首领与多节敌人不受此效果影响

@@ -218,7 +218,6 @@ WeaponBleedingDebuff: {
 	Description: Prevents life regeneration and drains 8 life per second
 }
 
-
 PassengerCurrentSlow: {
 	DisplayName: Current Slow
 	Description: Movement speed reduced by 80%; bosses and segmented enemies are unaffected

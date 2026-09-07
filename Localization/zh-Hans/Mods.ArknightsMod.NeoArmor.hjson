@@ -1,4 +1,4 @@
-﻿NeedVanity: 需要未升级的时装
+NeedVanity: 需要未升级的时装
 Upgraded: （套装）
 VanityHint: 在制造加工站升级后可作为套装盔甲装备，并激活套装效果
 LifeReplacement: 将{0}的生命值替换为固定值{1}
@@ -195,4 +195,7 @@ SetName: {
 	UtageBody: 宴的上衣（套装）
 	UtageHead: 宴的头盔
 	UtageLegs: 宴的下装（套装）
+	// RopeBody: 暗索的上衣（套装）
+	// RopeHead: 暗索的头盔
+	// RopeLegs: 暗索的下装（套装）
 }

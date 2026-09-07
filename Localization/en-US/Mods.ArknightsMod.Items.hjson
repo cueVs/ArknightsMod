@@ -371,6 +371,11 @@ ManticoreDefault: {
 	Tooltip: ""
 }
 
+RopeDefault: {
+	DisplayName: Rope Default
+	Tooltip: ""
+}
+
 MostimaDefault: {
 	DisplayName: Mostima Default
 	Tooltip: ""
@@ -578,6 +583,21 @@ ManticoreHead: {
 
 ManticoreLegs: {
 	DisplayName: Manticore Legs
+	Tooltip: ""
+}
+
+RopeHead: {
+	DisplayName: Rope Head
+	Tooltip: ""
+}
+
+RopeBody: {
+	DisplayName: Rope Body
+	Tooltip: ""
+}
+
+RopeLegs: {
+	DisplayName: Rope Legs
 	Tooltip: ""
 }
 
@@ -3620,7 +3640,6 @@ FiammettaHandCannon: {
 	Tooltip: Fires shells into the sky to strike the target
 }
 
-
 SpecterBoneSaw: {
 	DisplayName: Specter's Bone Saw
 	Tooltip:
@@ -3659,3 +3678,7 @@ LeiziStaff: {
 		Can be crafted into Passenger's Electromagnetic Conductor
 		'''
 }
+
+RopeBodySet.Tooltip: ""
+RopeHeadSet.Tooltip: ""
+RopeLegsSet.Tooltip: ""

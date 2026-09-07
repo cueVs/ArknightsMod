@@ -1,4 +1,4 @@
-﻿NeedVanity: Requires unupgraded outfit
+NeedVanity: Requires unupgraded outfit
 Upgraded: (Set)
 VanityHint: Upgrade at the Manufacturing Station to equip as set armor and unlock set bonuses
 LifeReplacement: Replaces {0} max life with a flat {1}
@@ -195,4 +195,7 @@ SetName: {
 	UtageBody: 宴的上衣（套装）
 	UtageHead: 宴的头盔
 	UtageLegs: 宴的下装（套装）
+	RopeBody: 暗索的上衣（套装）
+	RopeHead: 暗索的头盔
+	RopeLegs: 暗索的下装（套装）
 }

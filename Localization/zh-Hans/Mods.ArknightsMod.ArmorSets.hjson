@@ -265,6 +265,13 @@ Manticore: {
 	SetBonus: 2.5秒不攻击隐匿；破隐首击+50%
 }
 
+Rope: {
+	HeadName: 暗索的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：被击中时有15%概率闪避攻击"
+	SetEffect: "[c/beebff:套装效果]：5秒内未触发闪避且未受到伤害时，下次受击必定闪避"
+	SetBonus: 受击15%闪避；5秒无闪避且无受伤则下次必闪避
+}
+
 Mizuki: {
 	HeadName: 水月的头盔
 	HelmetEffect: "[c/beebff:头盔效果]：周围存在生命低于50%的敌人时，攻击力+20%"

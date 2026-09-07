@@ -265,6 +265,13 @@ Manticore: {
 	SetBonus: Stealth after 2.5s idle; +50% break-stealth hit
 }
 
+Rope: {
+	HeadName: Rope's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: 15% chance to dodge attacks when hit"
+	SetEffect: "[c/beebff:Set]: If you neither dodge nor take damage for 5 seconds, the next hit is guaranteed to dodge"
+	SetBonus: 15% dodge on hit; after 5s with no dodge/damage, next hit always dodges
+}
+
 Mizuki: {
 	HeadName: Mizuki's Helmet
 	HelmetEffect: "[c/beebff:Helmet]: +20% damage while enemies below 50% HP are nearby"
