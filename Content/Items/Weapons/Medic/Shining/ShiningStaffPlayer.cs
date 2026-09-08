@@ -1,6 +1,5 @@
 using System;
 using ArknightsMod.Content.Projectiles.Medic.Shining;
-using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -15,7 +14,6 @@ namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 		public int ShieldMax { get; private set; }
 		public int ShieldTime { get; private set; }
 		public float ShieldHitFlash { get; private set; }
-		private int healCooldown;
 
 		public float ShieldRatio => ShieldMax > 0
 			? MathHelper.Clamp(ShieldHp / (float)ShieldMax, 0f, 1f)
@@ -38,8 +36,6 @@ namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 
 		public override void PostUpdate()
 		{
-			if (healCooldown > 0)
-				healCooldown--;
 			ShieldHitFlash *= 0.86f;
 
 			if (ShieldHp <= 0 || ShieldTime <= 0)
@@ -82,18 +78,16 @@ namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 			};
 		}
 
-		public void TryHealFromAttack(Vector2 sourcePosition)
+		public void TryHealFromAttack(Vector2 sourcePosition, int attackDamage)
 		{
 			// 命中只在持有者一侧生成治疗术体；真正的生命回复在术体抵达玩家后结算。
-			WeaponPlayer weaponPlayer = Player.GetModPlayer<WeaponPlayer>();
 			if (Player.whoAmI != Main.myPlayer || !Player.active || Player.dead
-				|| Player.HeldItem.ModItem is not ShiningStaff || weaponPlayer.Skill != 0
-				|| !weaponPlayer.SkillActive || healCooldown > 0 || Player.statLife >= Player.statLifeMax2)
+				|| attackDamage <= 0 || Player.statLife >= Player.statLifeMax2)
 				return;
 
-			int amount = Math.Max(1, Math.Min(14, (int)(Player.statLifeMax2 * 0.0125f)));
+			// 每次命中独立回复该发弹幕攻击力的 5%，不受技能状态或治疗冷却限制。
+			int amount = Math.Max(1, (int)Math.Round(attackDamage * 0.05f));
 			amount = Math.Min(amount, Player.statLifeMax2 - Player.statLife);
-			healCooldown = 45;
 
 			Vector2 toPlayer = (Player.MountedCenter - sourcePosition).SafeNormalize(Vector2.UnitY);
 			float openingTurn = Main.rand.NextBool() ? 0.58f : -0.58f;
@@ -124,7 +118,6 @@ namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 			ShieldMax = 0;
 			ShieldTime = 0;
 			ShieldHitFlash = 0f;
-			healCooldown = 0;
 		}
 
 		private void EnsureShieldProjectile()

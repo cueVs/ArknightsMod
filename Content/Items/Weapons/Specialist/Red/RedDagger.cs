@@ -10,8 +10,9 @@ namespace ArknightsMod.Content.Items.Weapons.Specialist.Red;
 
 public sealed class RedDagger : ExpansionWeaponBase
 {
-    // 五星红：精二一级攻击 413 × 17.5% = 72.275，取 72。
-    protected override int[] EliteDamage => [72, 72, 72];
+    // 原基础攻击 72 × 1.2 = 86.4，按整数面板取 86。
+    protected override int[] EliteDamage => [86, 86, 86];
+    internal const float AttackSpeedBonus = 1.1f;
     public override string Texture => "Terraria/Images/Item_" + ItemID.PsychoKnife;
     public override void SetDefaults()
     {
@@ -29,6 +30,7 @@ public sealed class RedDagger : ExpansionWeaponBase
         Item.shootSpeed = 1f;
     }
     public override bool AltFunctionUse(Player player) => false;
+    public override float UseSpeedMultiplier(Player player) => AttackSpeedBonus;
     public override bool CanUseItem(Player player)
     {
         if (ArknightsKeybinds.SkillActivatePressed(player))
@@ -55,8 +57,13 @@ public sealed class RedDagger : ExpansionWeaponBase
     }
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemID.ThrowingKnife, 50).AddIngredient(ItemID.HallowedBar, 10)
-            .AddIngredient(ItemID.SoulofNight, 8).AddIngredient(ItemID.Silk, 5)
-            .AddTile(TileID.MythrilAnvil).Register();
+        // 两条等价配方：钴锭或钯金锭任选一种，不要求同时提供。
+        foreach (int bar in new[] { ItemID.CobaltBar, ItemID.PalladiumBar })
+        {
+            CreateRecipe().AddIngredient(ItemID.ThrowingKnife, 50).AddIngredient(bar, 10)
+                .AddIngredient(ItemID.SoulofNight, 8).AddIngredient(ItemID.Silk, 5)
+                .AddIngredient(ItemID.RedDye)
+                .AddTile(TileID.MythrilAnvil).Register();
+        }
     }
 }

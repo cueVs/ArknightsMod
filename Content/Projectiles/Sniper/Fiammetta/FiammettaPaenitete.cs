@@ -170,11 +170,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			float readiness = MathHelper.Clamp(Projectile.localAI[0] / Delay, 0f, 1f);
-			float pulse = 0.86f + MathF.Sin(Main.GlobalTimeWrappedHourly * 8f + Projectile.ai[1]) * 0.1f;
-			FiammettaVisuals.DrawImpactSigil(Projectile.Center, 66f * pulse,
-				0.16f + readiness * 0.42f, Projectile.ai[1] * 0.6f - Main.GlobalTimeWrappedHourly * 0.7f,
-				new Color(240, 35, 17));
 			return false;
 		}
 	}

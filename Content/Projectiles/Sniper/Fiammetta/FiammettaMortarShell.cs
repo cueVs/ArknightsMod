@@ -22,9 +22,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 		// 以 Projectile.extraUpdates = 2 计数：120 次 AI 即 40 个真实游戏帧，和 Blissful Bombardier 的升空段一致。
 		private const int AscentUpdates = 120;
 		private const float SkyAnchorHeight = 600f;
-		private const int MarkerFadeInTicks = 14;
-		private const int MarkerNoTargetHoldTicks = 10;
-		private const int MarkerFadeTicks = 52;
 		private static readonly float MaximumHomingAngle = MathHelper.ToRadians(32f);
 
 		private bool initialized;
@@ -32,15 +29,7 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 		private bool detonating;
 		private int descentAge;
 		private int lockedTargetIndex = -1;
-		private float visualPhase;
 		private float ballisticDiveHeading;
-		private Vector2 visualStrikePoint;
-		private int visualTargetIndex = -1;
-		private int markerVisibleAge;
-		private float markerOpacity;
-		private bool visualMarkerInitialized;
-		private bool visualMarkerResolved;
-		private bool markerFadingWithoutTarget;
 
 		private Vector2 MouseTarget => new(Projectile.ai[0], Projectile.ai[1]);
 		private int Mode => Math.Clamp((int)Projectile.ai[2], 0, 3);
@@ -95,11 +84,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			if (Projectile.velocity.LengthSquared() > 0.01f)
 				Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-			// extraUpdates 会让 AI 每 tick 执行两次；法阵的插值和淡出只按真实游戏 tick 推进，
-			// 避免视觉也被额外更新再次加速。
-			if (Projectile.numUpdates == 0)
-				UpdateImpactMarker();
-
 			float descentLight = descending ? MathHelper.Clamp(descentAge / 50f, 0f, 1f) : 0f;
 			Lighting.AddLight(Projectile.Center,
 				new Vector3(0.78f, 0.17f, 0.035f) * (0.42f + descentLight * 0.36f));
@@ -109,61 +93,8 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 
 		private void Initialize() {
 			initialized = true;
-			visualPhase = Main.rand.NextFloat(MathHelper.TwoPi);
-			InitializeImpactMarker();
 			if (Projectile.velocity.LengthSquared() < 0.01f)
 				Projectile.velocity = -Vector2.UnitY * 12f;
-		}
-
-		private void InitializeImpactMarker() {
-			visualStrikePoint = MouseTarget;
-			markerOpacity = 0f;
-			visualMarkerInitialized = true;
-		}
-
-		private void UpdateImpactMarker() {
-			if (!visualMarkerInitialized)
-				InitializeImpactMarker();
-			if (!visualMarkerResolved)
-				return;
-
-			NPC target = LockedTarget;
-			if (target == null) {
-				if (visualTargetIndex >= 0) {
-					// 目标离开十五格锁定范围时，原位置的准星只淡出，不在玩家眼前跳回鼠标。
-					visualTargetIndex = -1;
-					markerFadingWithoutTarget = true;
-				}
-
-				if (markerFadingWithoutTarget) {
-					markerOpacity = Math.Max(0f, markerOpacity - 1f / MarkerFadeTicks);
-					return;
-				}
-
-				// 初次没有敌人时，鼠标落点也是在完成搜索以后才渐显，随后留在原地缓慢消失。
-				markerVisibleAge++;
-				float fadeIn = MathHelper.SmoothStep(0f, 1f,
-					MathHelper.Clamp(markerVisibleAge / (float)MarkerFadeInTicks, 0f, 1f));
-				float fadeOut = 1f - Utils.GetLerpValue(MarkerNoTargetHoldTicks + MarkerFadeInTicks,
-					MarkerNoTargetHoldTicks + MarkerFadeInTicks + MarkerFadeTicks, markerVisibleAge, true);
-				markerOpacity = 0.62f * fadeIn * fadeOut;
-				return;
-			}
-
-			if (visualTargetIndex != target.whoAmI) {
-				// 第一次定位发生在完全透明状态：直接把准星套到目标身上，再从 0 开始显形。
-				visualTargetIndex = target.whoAmI;
-				visualStrikePoint = target.Center;
-				markerVisibleAge = 0;
-				markerOpacity = 0f;
-				markerFadingWithoutTarget = false;
-			}
-
-			markerVisibleAge++;
-			markerOpacity = MathHelper.SmoothStep(0f, 1f,
-				MathHelper.Clamp(markerVisibleAge / (float)MarkerFadeInTicks, 0f, 1f));
-			// 准星显形后每帧直接使用 NPC 的几何中心，不再保留插值滞后。
-			visualStrikePoint = target.Center;
 		}
 
 		private void UpdateAscent() {
@@ -185,7 +116,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			ballisticDiveHeading = (MouseTarget - Projectile.Center)
 				.SafeNormalize(Vector2.UnitY).ToRotation();
 			LockNearestTarget();
-			ResolveInitialImpactMarker();
 
 			Vector2 desiredDirection = GetConstrainedDiveDirection(StrikePoint);
 			Vector2 fallingStart = new(Projectile.velocity.X * 0.35f, 2.6f);
@@ -257,16 +187,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			Projectile.netUpdate = true;
 		}
 
-		private void ResolveInitialImpactMarker() {
-			NPC target = LockedTarget;
-			visualTargetIndex = target?.whoAmI ?? -1;
-			visualStrikePoint = target?.Center ?? MouseTarget;
-			markerVisibleAge = 0;
-			markerOpacity = 0f;
-			markerFadingWithoutTarget = false;
-			visualMarkerResolved = true;
-		}
-
 		private Vector2 GetConstrainedDiveDirection(Vector2 strikePoint) {
 			float desiredAngle = (strikePoint - Projectile.Center)
 				.SafeNormalize(Vector2.UnitY).ToRotation();
@@ -301,24 +221,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 		}
 
 		public override bool PreDraw(ref Color lightColor) {
-			float approach = descending
-				? MathHelper.Clamp(0.58f + descentAge / 120f, 0f, 1f)
-				: MathHelper.Clamp(Projectile.localAI[0] / AscentUpdates * 0.58f, 0f, 0.58f);
-			float markerSize = Mode switch {
-				1 => 126f,
-				3 => 148f,
-				_ => 108f
-			};
-			if (!visualMarkerInitialized)
-				InitializeImpactMarker();
-			if (markerOpacity > 0.005f) {
-				FiammettaVisuals.DrawImpactSigil(visualStrikePoint,
-					markerSize * (0.88f + approach * 0.12f),
-					(0.18f + approach * 0.36f) * markerOpacity,
-					visualPhase + Main.GlobalTimeWrappedHourly * 0.52f,
-					Mode == 3 ? new Color(255, 58, 28) : new Color(245, 73, 28));
-			}
-
 			FiammettaVisuals.DrawShellTrail(Projectile, new Color(255, 43, 20),
 				new Color(255, 216, 112), Mode == 3 ? 30f : 24f);
 
@@ -344,10 +246,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			descentAge = reader.ReadInt16();
 			ballisticDiveHeading = reader.ReadSingle();
 			initialized = true;
-			if (!visualMarkerInitialized)
-				InitializeImpactMarker();
-			if (descending && !visualMarkerResolved)
-				ResolveInitialImpactMarker();
 		}
 	}
 }

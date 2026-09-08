@@ -461,8 +461,9 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 			}
 		}
 
-		private static void SpawnHitVfx(NPC target, bool empowered, Vector2 slashDirection) {
-			if (Main.dedServ)
+		// 红的狼群爆发复用同一批短粒子与 dust；此入口只生成视觉，不施加伤害或控制。
+		internal static void SpawnHitParticles(Vector2 center, bool empowered, Vector2 slashDirection) {
+			if (Main.dedServ || Main.gameMenu)
 				return;
 
 			slashDirection = slashDirection.SafeNormalize(Vector2.UnitX);
@@ -472,19 +473,28 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 				Color color = i % 4 == 0 ? new Color(255, 205, 96) : new Color(232, 42, 45);
 				Vector2 burstVelocity = slashNormal * Main.rand.NextFloat(-6.5f, 6.5f)
 					+ slashDirection * Main.rand.NextFloat(1.2f, empowered ? 5.5f : 4.2f);
-				var glow = new DefaultParticle(target.Center + Main.rand.NextVector2Circular(10f, 10f),
+				var glow = new DefaultParticle(center + Main.rand.NextVector2Circular(10f, 10f),
 					burstVelocity, empowered ? 28 : 25, Main.rand.NextFloat(0.58f, 1.08f), color, true) {
 					Deformation = new Vector2(0.46f, empowered ? 2.05f : 1.82f)
 				};
 				glow.Spawn();
 			}
 			for (int i = 0; i < (empowered ? 17 : 11); i++) {
-				Dust dust = Dust.NewDustPerfect(target.Center, i % 5 == 0 ? DustID.GoldFlame : DustID.Blood,
+				Dust dust = Dust.NewDustPerfect(center, i % 5 == 0 ? DustID.GoldFlame : DustID.Blood,
 					slashNormal * Main.rand.NextFloat(-5.8f, 5.8f)
 						+ slashDirection * Main.rand.NextFloat(0.8f, empowered ? 5.2f : 4.1f),
 					20, new Color(246, 72, 45), Main.rand.NextFloat(0.98f, 1.58f));
 				dust.noGravity = true;
 			}
+
+		}
+
+		private static void SpawnHitVfx(NPC target, bool empowered, Vector2 slashDirection) {
+			if (Main.dedServ)
+				return;
+
+			slashDirection = slashDirection.SafeNormalize(Vector2.UnitX);
+			SpawnHitParticles(target.Center, empowered, slashDirection);
 
 			SoundEngine.PlaySound(SoundID.NPCHit1 with {
 				Volume = empowered ? 0.34f : 0.25f,
@@ -513,6 +523,10 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 			}
 		}
 
+		// 派生武器共用刀幕几何、着色器和强度，只替换颜色与专属月相显示。
+		protected virtual Color BladeVfxColor(Color color) => color;
+		protected virtual bool ShowMoonPhaseVfx => true;
+
 		protected override void DrawWeaponVfx(Color lightColor) {
 			if (Main.dedServ)
 				return;
@@ -520,8 +534,8 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 			SpriteBatch spriteBatch = Main.spriteBatch;
 			Texture2D glow = TextureAssets.Extra[ExtrasID.ThePerfectGlow].Value;
 			float lowHealth = LowHealthIntensity;
-			Color crimson = Color.Lerp(new Color(174, 18, 42), new Color(244, 28, 52), lowHealth);
-			Color amber = Color.Lerp(new Color(245, 137, 61), new Color(255, 210, 124), lowHealth);
+			Color crimson = BladeVfxColor(Color.Lerp(new Color(174, 18, 42), new Color(244, 28, 52), lowHealth));
+			Color amber = BladeVfxColor(Color.Lerp(new Color(245, 137, 61), new Color(255, 210, 124), lowHealth));
 
 			BaseHeldMeleeSupport.BeginAdditive(spriteBatch);
 			DrawAttachedBladeLight(spriteBatch, crimson, amber, lowHealth);
@@ -538,7 +552,8 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 					(0.3f + 0.18f * lowHealth) * pulse);
 			}
 
-			DrawMoonPhase(spriteBatch, glow, crimson, amber);
+			if (ShowMoonPhaseVfx)
+				DrawMoonPhase(spriteBatch, glow, crimson, amber);
 			BaseHeldMeleeSupport.EndAdditive(spriteBatch);
 		}
 
@@ -567,7 +582,7 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 				Color.Lerp(crimson, amber, 0.48f) * (intensity * 0.62f), CurrentAngle, origin,
 				reachScale * pulse, SpriteEffects.None, 0f);
 			spriteBatch.Draw(bladeGlow, position + direction * 1.5f, null,
-				new Color(255, 236, 206) * (intensity * intensity * 0.42f), CurrentAngle, origin,
+				BladeVfxColor(new Color(255, 236, 206)) * (intensity * intensity * 0.42f), CurrentAngle, origin,
 				reachScale * 0.985f, SpriteEffects.None, 0f);
 		}
 
@@ -596,7 +611,7 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 			if (echoIndex > 0) {
 				DrawBladeLightPose(spriteBatch, softCrescent, sharpCrescent,
 					motionHandTrail[echoIndex], motionAngleTrail[echoIndex], reach,
-					new Color(112, 5, 22), crimson,
+					BladeVfxColor(new Color(112, 5, 22)), crimson,
 					power * 0.22f, skillScale * 0.97f, flip);
 			}
 
@@ -610,7 +625,7 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 				SpriteEffects.None, 0f);
 		}
 
-		private static void DrawBladeLightPose(SpriteBatch spriteBatch, Texture2D softCrescent,
+		private void DrawBladeLightPose(SpriteBatch spriteBatch, Texture2D softCrescent,
 			Texture2D sharpCrescent, Vector2 handWorld, float angle, float reach,
 			Color bodyColor, Color edgeColor, float opacity, float scale, SpriteEffects flip) {
 			Vector2 direction = BaseHeldMeleeSupport.Dir(angle);
@@ -627,7 +642,7 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 				edgeColor * (opacity * 0.52f), rotation, sharpCrescent.Size() * 0.5f,
 				edgeScale * scale, flip, 0f);
 			spriteBatch.Draw(sharpCrescent, center + direction * 5f, null,
-				new Color(255, 241, 204) * (opacity * 0.22f), rotation, sharpCrescent.Size() * 0.5f,
+				BladeVfxColor(new Color(255, 241, 204)) * (opacity * 0.22f), rotation, sharpCrescent.Size() * 0.5f,
 				new Vector2(0.13f, 0.38f) * scale, flip, 0f);
 		}
 
@@ -678,8 +693,8 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 					* (0.72f * strength);
 				Color shadowOuter = Color.Lerp(new Color(9, 0, 7), new Color(72, 2, 16), 1f - history)
 					* (0.6f * strength);
-				shadowVertices.Add(new TrailMaker.CustomVertexInfo(inner, shadowInner, new Vector3(history, 0f, 1f)));
-				shadowVertices.Add(new TrailMaker.CustomVertexInfo(outer, shadowOuter, new Vector3(history, 1f, 1f)));
+				shadowVertices.Add(new TrailMaker.CustomVertexInfo(inner, BladeVfxColor(shadowInner), new Vector3(history, 0f, 1f)));
+				shadowVertices.Add(new TrailMaker.CustomVertexInfo(outer, BladeVfxColor(shadowOuter), new Vector3(history, 1f, 1f)));
 
 				float hotHead = MathHelper.SmoothStep(0f, 1f, MathHelper.Clamp(history / 0.34f, 0f, 1f));
 				Color outerHead = Color.Lerp(new Color(255, 224, 164), new Color(232, 32, 52), hotHead);
@@ -692,9 +707,9 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 				// 但几何、材质与血月配色全部由赫拉格自己生成。
 				float lightHalfWidth = halfWidth * 0.62f;
 				lightVertices.Add(new TrailMaker.CustomVertexInfo(center - direction * lightHalfWidth,
-					innerLight, new Vector3(history, 0.04f, 1f)));
+					BladeVfxColor(innerLight), new Vector3(history, 0.04f, 1f)));
 				lightVertices.Add(new TrailMaker.CustomVertexInfo(center + direction * lightHalfWidth,
-					outerLight, new Vector3(history, 0.96f, 1f)));
+					BladeVfxColor(outerLight), new Vector3(history, 0.96f, 1f)));
 			}
 
 			if (shadowVertices.Count < 4 || lightVertices.Count < 4)
@@ -712,9 +727,9 @@ namespace ArknightsMod.Content.Projectiles.Guard.Hellagur
 				Color edgeColor = Color.Lerp(new Color(255, 241, 204), new Color(245, 137, 61),
 					MathHelper.SmoothStep(0f, 1f, history)) * (strength * (0.72f + lowHealth * 0.18f));
 				edgeVertices.Add(new TrailMaker.CustomVertexInfo(edgePositions[i] - normal * width,
-					edgeColor, new Vector3(history, 0.42f, 1f)));
+					BladeVfxColor(edgeColor), new Vector3(history, 0.42f, 1f)));
 				edgeVertices.Add(new TrailMaker.CustomVertexInfo(edgePositions[i] + normal * width,
-					edgeColor, new Vector3(history, 0.58f, 1f)));
+					BladeVfxColor(edgeColor), new Vector3(history, 0.58f, 1f)));
 			}
 
 			DrawBladeTrailPass(shadowVertices, lightVertices, edgeVertices);

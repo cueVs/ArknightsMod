@@ -11,8 +11,7 @@ using Terraria.ModLoader;
 namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 {
 	/// <summary>
-	/// 闪灵的法杖。普攻是黑白剑形源石技艺；治疗、防护与领域均受技力限制，
-	/// 不把医疗职业做成可以脱战无限抬血的常驻治疗器。
+	/// 闪灵的法杖。黑白剑形源石技艺命中敌人即可吸血；屏障与防护领域由技能提供。
 	/// </summary>
 	public sealed class ShiningStaff : ExpansionWeaponBase
 	{

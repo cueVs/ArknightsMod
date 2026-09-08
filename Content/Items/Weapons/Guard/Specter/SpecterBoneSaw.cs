@@ -129,9 +129,9 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Specter
 		public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient(ItemID.SawtoothShark)
-				.AddIngredient(ItemID.HallowedBar, 14)
-				.AddIngredient(ItemID.SharkFin, 5)
-				.AddIngredient(ItemID.SoulofFright, 8)
+				.AddIngredient(ItemID.HallowedBar, 5)
+				.AddIngredient(ItemID.SharkFin)
+				.AddIngredient(ItemID.SoulofFright, 4)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

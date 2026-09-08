@@ -1,6 +1,7 @@
 using System;
 using ArknightsMod.Content;
 using ArknightsMod.Content.Items.Weapons;
+using ArknightsMod.Content.Items.Weapons.Guard.Specter;
 using ArknightsMod.Content.Projectiles.Guard.Blaze;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
@@ -20,10 +21,8 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Blaze
 		public const float PowerStrikeDamageMultiplier = 2.9f;
 		public const float ExtensionAttackMultiplier = 2f;
 
-		// 链锯靠高频咬合而不是单次大数字输出：单击伤害降至原来的约三分之二，
-		// 普通持有弹幕每 7 帧刷新一次咬合判定，S3 再由独立控制器加速至每 3 帧一次。
-		// 煌六星：精二满级 765 攻击 × 20% = 153。
-		protected override int[] EliteDamage => [153, 153, 153];
+		// 保留普通咬合 7 帧及 S3 原有节奏；153 × 1.15 ≈ 176。
+		protected override int[] EliteDamage => [176, 176, 176];
 
 		private static SoundStyle SkillActiveSfx;
 
@@ -126,12 +125,17 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Blaze
 		}
 
 		public override void AddRecipes() {
-			CreateRecipe()
-				.AddIngredient(ItemID.ButchersChainsaw)
-				.AddIngredient(ItemID.ShroomiteBar, 16)
-				.AddIngredient(ItemID.Wire, 30)
-				.AddTile(TileID.MythrilAnvil)
-				.Register();
+			foreach (int saw in new[] { ItemID.ButchersChainsaw, ModContent.ItemType<SpecterBoneSaw>() }) {
+				CreateRecipe()
+					.AddIngredient(saw)
+					.AddIngredient(ItemID.Wire, 150)
+					.AddIngredient(ItemID.HallowedBar, 15)
+					.AddIngredient(ItemID.MechanicalLens)
+					.AddIngredient(ItemID.Lever, 2)
+					.AddIngredient(ItemID.Switch, 4)
+					.AddTile(TileID.MythrilAnvil)
+					.Register();
+			}
 		}
 
 	}

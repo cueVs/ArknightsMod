@@ -303,7 +303,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 
 			Projectile.Center = Target;
 			Projectile.timeLeft = 2;
-			Lighting.AddLight(Target, new Vector3(0.72f, 0.13f, 0.035f) * 0.55f);
 
 			int timer = (int)Projectile.localAI[0]++;
 			if (timer % BarrageInterval == 0 && Projectile.owner == Main.myPlayer &&
@@ -313,27 +312,10 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 					Owner.GetWeaponDamage(Owner.HeldItem), Owner.GetWeaponKnockback(Owner.HeldItem), 3);
 			}
 
-			if (!Main.dedServ && timer % 9 == 0)
-			{
-				float angle = timer * 0.09f + Main.rand.NextFloat(-0.18f, 0.18f);
-				Vector2 position = Target + angle.ToRotationVector2() * Main.rand.NextFloat(46f, 82f);
-				var mote = new DefaultParticle(position, (Target - position).SafeNormalize(Vector2.Zero) * 1.7f,
-					18, Main.rand.NextFloat(0.24f, 0.44f), new Color(255, 116, 48), true)
-				{
-					Deformation = new Vector2(0.28f, 1.7f)
-				};
-				mote.Spawn();
-			}
 		}
 
 		public override bool PreDraw(ref Color lightColor)
 		{
-			float time = Main.GlobalTimeWrappedHourly;
-			float pulse = 0.78f + MathF.Sin(time * 4.2f) * 0.12f;
-			FiammettaVisuals.DrawImpactSigil(Target, 184f * pulse, 0.62f,
-				time * 0.42f, new Color(235, 40, 20));
-			FiammettaVisuals.DrawImpactSigil(Target, 126f, 0.38f,
-				-time * 0.68f, new Color(255, 205, 102));
 			return false;
 		}
 	}

@@ -12,8 +12,8 @@ internal static class BlazeChainsawSprite
     internal const int FrameCount = 3;
     internal const int FrameWidth = 106;
     internal const int FrameHeight = 50;
-    // 单帧内的像素坐标：握柄中心与锯尖。左右翻转时保持握点稳定。
-    private static readonly Vector2 Grip = new(24f, 36f);
+    // 握点移至锯身中心稍上方，使锯身在手中略微下沉；左右翻转时保持握点稳定。
+    private static readonly Vector2 Grip = new(24f, 20f);
     private static readonly Vector2 Tip = new(102f, 22f);
 
     internal static int FrameAt(int age, int ticksPerFrame)

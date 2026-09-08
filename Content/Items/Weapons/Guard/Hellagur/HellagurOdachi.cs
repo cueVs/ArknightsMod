@@ -1,6 +1,7 @@
 using System;
 using ArknightsMod.Content;
 using ArknightsMod.Content.Items.Weapons;
+using ArknightsMod.Content.Items.Weapons.Guard.Utage;
 using ArknightsMod.Content.Projectiles.BasePROJ;
 using ArknightsMod.Content.Projectiles.Guard.Hellagur;
 using Microsoft.Xna.Framework;
@@ -15,8 +16,8 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Hellagur
 	/// <summary>赫拉格的大太刀：低血提速、母刀吸血，并以月相区分三种技能。</summary>
 	public class HellagurOdachi : ExpansionWeaponBase
 	{
-		// 原面板 152 降低 40%，四舍五入为 91；三个精英档位保持统一基准。
-		protected override int[] EliteDamage => [91, 91, 91];
+		// 裸装实测 1300 DPS 按目标 2100 等比例调整：91 × 2100 / 1300 = 147。
+		protected override int[] EliteDamage => [147, 147, 147];
 
 		private static SoundStyle SkillActiveSfx;
 
@@ -110,6 +111,7 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Hellagur
 
 		public override void AddRecipes() {
 			CreateRecipe()
+				.AddIngredient<UtageKatana>()
 				.AddIngredient(ItemID.BrokenHeroSword)
 				.AddIngredient(ItemID.ChlorophyteBar, 18)
 				.AddIngredient(ItemID.SoulofNight, 12)

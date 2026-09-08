@@ -992,12 +992,12 @@ SpecterBoneSaw: {
 ShiningStaff: {
 	1: {
 		Label: Creed
-		Desc: Manual. Raises ATK by 35% and attack speed by 55%; Arts blade hits can periodically restore a small amount of life
+		Desc: Manual. Raises ATK by 35% and attack speed by 55%
 	}
 
 	2: {
 		Label: Auto Protect
-		Desc: Auto trigger. Grants the wielder a 4-second barrier equal to 15% of maximum life; repeated barriers do not stack
+		Desc: Auto trigger. Grants the wielder an 8-second barrier equal to 15% of maximum life; repeated barriers do not stack
 	}
 
 	3: {
@@ -1040,6 +1040,7 @@ UtageKatana: {
 		Label: Distracted
 		Desc: Auto recovery, manual activation. Stops attacking for 8 seconds, grants 10-19 defense and restores 1%-2% maximum life each second. Switching weapon or skill ends the effect; both skills share a minimum cooldown that switching cannot reset
 	}
+
 	2: {
 		Label: Descending Strike - Earth Splitter
 		Desc: Auto recovery, manual activation. Consumes 50% current life, leaving at least 1; grants 50%-110% ATK and converts slashes to Arts that ignore defense but respect Arts resistance for 13-16 seconds. Switching weapon or skill ends the effect; both skills share a minimum cooldown
@@ -1051,6 +1052,7 @@ RedDagger: {
 		Label: Execution Mode
 		Desc: Switching to this weapon from another hotbar weapon, teleporting, starting a dash or landing at high speed releases a 100% ATK physical burst within 7 tiles. Grants 50% attack speed, 35%-80% ATK and 10%-20% dodge against NPC/projectile damage for 5 seconds. Shared cooldown starts on activation and lasts 5 seconds; another weapon switch or movement event is required when ready. Speed does not stack indefinitely. Bonuses apply only while holding the dagger
 	}
+
 	2: {
 		Label: Wolfpack
 		Desc: Switching to this weapon from another hotbar weapon, teleporting, starting a dash or landing at high speed releases a 140%-250% ATK physical burst within 7 tiles, stuns ordinary enemies for 1-3 seconds and grants 50% attack speed for 5 seconds. Cannot hit through walls; bosses and segmented enemies cannot be stunned. Shared 5-second cooldown starts on activation and cannot be reset by switching. Bonuses apply only while holding the dagger

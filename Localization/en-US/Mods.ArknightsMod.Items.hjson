@@ -3654,18 +3654,13 @@ ShiningStaff: {
 	Tooltip:
 		'''
 		Fires black-and-white Arts blades at enemies
-		Skills provide limited healing, a personal barrier, and a defensive field
+		Each enemy hit restores life equal to 5% of the attack's damage; skills provide a personal barrier and defensive field
 		'''
 }
 
 PassengerConductor: {
 	DisplayName: Passenger's Electromagnetic Conductor
-	Tooltip:
-		'''
-		Fires three-round bursts of non-homing orange-gold lightning through blocks, traveling about 2.5 visible screen widths
-		Only a direct collision triggers the impact burst and chain, hitting up to 4 enemies
-		Each jump loses 15% damage and briefly slows ordinary enemies; Skill 3 deploys a skyborne thunderstorm
-		'''
+	Tooltip: Fires three-round bursts of chain lightning that bounce between enemies
 }
 
 LeiziStaff: {
@@ -3696,10 +3691,8 @@ RedDagger: {
 	DisplayName: Projekt Red's Dagger
 	Tooltip:
 		'''
-		Hold attack to rapidly cut a very short area in front of you with red-black slashes
-		Each slash hits an enemy only once and cannot damage through walls
-		Rapid deployment: switch from another hotbar weapon, teleport or dash to burst and gain attack speed for 5 seconds; 5-second cooldown
-		Teleport tools may be used within 1.5 seconds of switching from the dagger; carrying it alone does not qualify
-		Fast landings also trigger it; walking, running, small hops and sustained flight do not. Switching cannot reset cooldown
+		Performs extremely fast melee attacks
+		Quick teleports or dashes trigger "Redeployment"
+		Increases movement and jump speed while held
 		'''
 }

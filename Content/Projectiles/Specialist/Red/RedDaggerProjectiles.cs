@@ -1,5 +1,6 @@
 using System;
 using ArknightsMod.Common.Particle;
+using ArknightsMod.Content.Projectiles.Guard.Hellagur;
 using ArknightsMod.Content.Buffs;
 using ArknightsMod.Content.Items.Weapons.Specialist.Red;
 using ArknightsMod.Content.Projectiles.BasePROJ;
@@ -16,15 +17,15 @@ namespace ArknightsMod.Content.Projectiles.Specialist.Red;
 // 参考本地 Calamity MantisClawHoldout 的“持有体定时生成短命斩痕”结构；无灾厄代码/资源依赖。
 public sealed class RedDaggerHoldout : ModProjectile
 {
-    private int shotTimer;
+    private float shotTimer;
     private int age;
     private int swipe;
     private float frontAngle;
     private float backAngle;
     private Player Owner => Main.player[Projectile.owner];
     public override string Texture => "Terraria/Images/Item_" + ItemID.PsychoKnife;
-    internal static int SlashInterval(float attackSpeed) =>
-        Math.Clamp((int)MathF.Round(6f / Math.Max(.1f, attackSpeed)), 2, 60);
+    internal static float SlashInterval(float attackSpeed) =>
+        Math.Clamp((int)MathF.Round(6f / Math.Max(.1f, attackSpeed)), 2, 60) / RedDagger.AttackSpeedBonus;
     public override void SetDefaults()
     {
         Projectile.width = Projectile.height = 2;
@@ -52,10 +53,11 @@ public sealed class RedDaggerHoldout : ModProjectile
             if (Vector2.DistanceSquared(aim, Projectile.velocity) > .008f || age % 6 == 0)
                 Projectile.netUpdate = true;
             Projectile.velocity = aim;
-            if (shotTimer-- <= 0)
+            if (shotTimer <= 0f)
             {
                 var combat = Owner.GetModPlayer<RedDaggerPlayer>();
-                shotTimer = SlashInterval(Owner.GetTotalAttackSpeed(DamageClass.Melee) * combat.AttackSpeedMultiplier) - 1;
+                // 累加间隔保留上次剩余的小数，使加速不会因整数帧取整而丢失或变成 20%。
+                shotTimer += SlashInterval(Owner.GetTotalAttackSpeed(DamageClass.Melee) * combat.AttackSpeedMultiplier);
                 float direction = (++swipe & 1) == 0 ? -1f : 1f;
                 float angle = aim.ToRotation() + Main.rand.NextFloat(-.4363f, .4363f);
                 float scale = Math.Clamp(Owner.GetAdjustedItemScale(Owner.HeldItem), .7f, 1.3f);
@@ -67,6 +69,7 @@ public sealed class RedDaggerHoldout : ModProjectile
                 if (Main.projectile.IndexInRange(index))
                     Main.projectile[index].CritChance = Owner.GetWeaponCrit(Owner.HeldItem);
             }
+            shotTimer -= 1f;
         }
         Vector2 directionVector = Projectile.velocity.SafeNormalize(new Vector2(Owner.direction, 0));
         float rotation = directionVector.ToRotation();
@@ -163,7 +166,7 @@ public sealed class RedDaggerSlash : ModProjectile
 public sealed class RedWolfPulse : ModProjectile
 {
     private int Age => 24 - Projectile.timeLeft;
-    public override string Texture => "Terraria/Images/MagicPixel";
+    public override string Texture => ArknightsMod.noTexture;
     public override void SetDefaults()
     {
         Projectile.width = Projectile.height = 224;
@@ -195,18 +198,12 @@ public sealed class RedWolfPulse : ModProjectile
                     OperatorStunNPC.TryApply(npc, Math.Clamp((int)Projectile.ai[0], 60, 180));
         }
         if (Age == 2)
-            RedDeploymentVisuals.Burst(Projectile.Center);
+            HellagurOdachiSwing.SpawnHitParticles(Projectile.Center, true,
+                new Vector2(Main.player[Projectile.owner].direction, 0f));
     }
-    public override bool PreDraw(ref Color lightColor)
-    {
-        float p = Age / 24f;
-        float fade = MathF.Sin(MathHelper.Clamp(p, 0, 1) * MathHelper.Pi);
-        RedDeploymentVisuals.DrawImpact(Projectile.Center, p);
-        for (int i = 0; i < 3; i++)
-            RedDaggerVisuals.DrawSlash(Projectile.Center, i * MathHelper.TwoPi / 3f + p * 1.8f,
-                1.45f, fade * .7f, i % 2 == 0);
-        return false;
-    }
+    // 两个技能的再部署爆发统一只生成短粒子，不再绘制整张像素纹理或旋转刀幕。
+    public override bool PreDraw(ref Color lightColor) => false;
+
 }
 
 internal static class RedDaggerVisuals

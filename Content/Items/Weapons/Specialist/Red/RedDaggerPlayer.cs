@@ -88,6 +88,15 @@ public sealed class RedDaggerPlayer : ModPlayer
         incomingFallSpeed = Math.Max(0, Player.velocity.Y * Player.gravDir);
     }
 
+    public override void PostUpdateEquips()
+    {
+        if (!Holding || Player.dead)
+            return;
+        Player.moveSpeed *= 1.1f;
+        // jumpSpeedBoost 的单位是像素/帧，将当前基础跳速与已有加成一起提高 10%。
+        Player.jumpSpeedBoost += (Terraria.Player.jumpSpeed + Player.jumpSpeedBoost) * .1f;
+    }
+
     public override void PreUpdateMovement() =>
         incomingFallSpeed = Math.Max(incomingFallSpeed, Player.velocity.Y * Player.gravDir);
 

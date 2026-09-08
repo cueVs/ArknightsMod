@@ -15,9 +15,8 @@ namespace ArknightsMod.Content.Items.Weapons.Caster.Passenger;
 public sealed class PassengerConductor : ExpansionWeaponBase
 {
     private bool stormKeyConsumed;
-    // 六星精二满级基础攻击 689 × 20% = 137.8，取 138；不计信赖、潜能和模组。
-    // 资料：https://prts.wiki/w/异客 。精英化不再额外改变本轮约定的面板基准。
-    protected override int[] EliteDamage => [138, 138, 138];
+    // 单体实测 923 DPS 按目标 1100 等比例调整：138 × 1100 / 923 ≈ 164。
+    protected override int[] EliteDamage => [164, 164, 164];
     internal const float NormalRange = 720f;
     internal const float FocusRange = 880f;
     internal const float JumpRange = 240f;

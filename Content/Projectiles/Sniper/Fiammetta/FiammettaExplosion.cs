@@ -154,15 +154,13 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 	}
 
 	/// <summary>
-	/// 菲亚梅塔专用绘制库。两张外部 PNG 都是灰度发光遮罩：代码负责红、橙、金三层着色，
+	/// 菲亚梅塔专用绘制库。爆炸 PNG 是灰度发光遮罩：代码负责红、橙、金三层着色，
 	/// 原版 SharpTears 负责高速拖尾，因此没有任何灾厄素材或着色器依赖。
 	/// </summary>
 	internal static class FiammettaVisuals
 	{
 		private const string ExplosionPath =
 			"ArknightsMod/Content/Projectiles/Sniper/Fiammetta/Assets/FiammettaExplosionBloom";
-		private const string SigilPath =
-			"ArknightsMod/Content/Projectiles/Sniper/Fiammetta/Assets/FiammettaImpactSigil";
 		private const string ShockRingPath =
 			"ArknightsMod/Content/Textures/circle_03";
 		private const string FlamePath =
@@ -184,23 +182,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 				DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 		}
 
-		internal static void DrawImpactSigil(Vector2 worldPosition, float diameter, float opacity,
-			float rotation, Color color)
-		{
-			if (Main.dedServ || diameter <= 1f || opacity <= 0f)
-				return;
-
-			Texture2D sigil = ModContent.Request<Texture2D>(SigilPath).Value;
-			Vector2 position = worldPosition - Main.screenPosition;
-			float scale = diameter / Math.Max(1f, sigil.Width);
-			BeginAdditive();
-			Main.spriteBatch.Draw(sigil, position, null, color * opacity, rotation,
-				sigil.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-			Main.spriteBatch.Draw(sigil, position, null, new Color(255, 218, 126) * (opacity * 0.46f),
-				-rotation * 0.62f, sigil.Size() * 0.5f, scale * 0.72f, SpriteEffects.None, 0f);
-			EndAdditive();
-		}
-
 		internal static void DrawExplosion(Vector2 worldPosition, float diameter, float progress, int mode)
 		{
 			if (Main.dedServ)
@@ -217,7 +198,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			}
 
 			Texture2D bloom = ModContent.Request<Texture2D>(ExplosionPath).Value;
-			Texture2D sigil = ModContent.Request<Texture2D>(SigilPath).Value;
 			Texture2D glow = TextureAssets.Extra[ExtrasID.ThePerfectGlow].Value;
 			Vector2 position = worldPosition - Main.screenPosition;
 			float explosiveEase = 1f - MathF.Pow(1f - progress, 3f);
@@ -236,17 +216,12 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			Main.spriteBatch.Draw(bloom, position, null, new Color(255, 234, 159) * (fade * 0.76f),
 				rotation * 1.31f, bloom.Size() * 0.5f, baseScale * (0.22f + explosiveEase * 0.34f), SpriteEffects.None, 0f);
 
-			float ringScale = diameter / Math.Max(1f, sigil.Width) * (0.45f + explosiveEase * 0.95f);
-			Main.spriteBatch.Draw(sigil, position, null, new Color(255, 145, 56) * (fade * 0.64f),
-				-rotation * 0.85f, sigil.Size() * 0.5f, ringScale, SpriteEffects.None, 0f);
-
 			EndAdditive();
 		}
 
 		private static void DrawNormalMortarExplosion(Vector2 worldPosition, float diameter, float progress)
 		{
 			Texture2D bloom = ModContent.Request<Texture2D>(ExplosionPath).Value;
-			Texture2D sigil = ModContent.Request<Texture2D>(SigilPath).Value;
 			Texture2D ring = ModContent.Request<Texture2D>(ShockRingPath).Value;
 			Texture2D glow = TextureAssets.Extra[ExtrasID.ThePerfectGlow].Value;
 			Vector2 position = worldPosition - Main.screenPosition;
@@ -281,30 +256,15 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 			Main.spriteBatch.Draw(bloom, position, null, new Color(255, 229, 151) * (bodyFade * 0.7f),
 				rotation * 1.18f, bloom.Size() * 0.5f, bloomScale * (0.16f + expansion * 0.31f), SpriteEffects.None, 0f);
 
-			// 第一拍是冲击环；法阵延迟到火球开始散开后才接管最后一拍。
+			// 保留冲击环与爆炸火球。
 			DrawExpandingRing(ring, position, diameter, progress, 0.01f, 0.48f,
 				0.34f, 1.72f, new Color(255, 112, 38), 0.68f);
-			float sigilProgress = Utils.GetLerpValue(0.2f, 0.96f, progress, true);
-			if (sigilProgress > 0f && sigilProgress < 1f)
-			{
-				float sigilExpansion = 1f - MathF.Pow(1f - sigilProgress, 3f);
-				float sigilFade = MathF.Sin(MathHelper.Pi * sigilProgress);
-				float sigilScale = diameter / Math.Max(1f, sigil.Width)
-					* MathHelper.Lerp(0.38f, 1.86f, sigilExpansion);
-				Main.spriteBatch.Draw(sigil, position, null,
-					new Color(255, 66, 22) * (sigilFade * 0.68f), -rotation * 0.88f,
-					sigil.Size() * 0.5f, sigilScale, SpriteEffects.None, 0f);
-				Main.spriteBatch.Draw(sigil, position, null,
-					new Color(255, 224, 145) * (sigilFade * 0.32f), rotation * 1.06f,
-					sigil.Size() * 0.5f, sigilScale * 0.72f, SpriteEffects.None, 0f);
-			}
 			EndAdditive();
 		}
 
 		private static void DrawReponiteSupernovaExplosion(Vector2 worldPosition, float diameter, float progress)
 		{
 			Texture2D bloom = ModContent.Request<Texture2D>(ExplosionPath).Value;
-			Texture2D sigil = ModContent.Request<Texture2D>(SigilPath).Value;
 			Texture2D ring = ModContent.Request<Texture2D>(ShockRingPath).Value;
 			Texture2D flame = ModContent.Request<Texture2D>(FlamePath).Value;
 			Texture2D spark = ModContent.Request<Texture2D>(SparkPath).Value;
@@ -373,9 +333,6 @@ namespace ArknightsMod.Content.Projectiles.Sniper.Fiammetta
 					SpriteEffects.None, 0f);
 			}
 
-			float sigilScale = 142f / Math.Max(1f, sigil.Width) * (0.84f + expansion * 0.28f);
-			Main.spriteBatch.Draw(sigil, position, null, new Color(255, 246, 210) * (bodyFade * 0.72f),
-				-rotation * 1.18f, sigil.Size() * 0.5f, sigilScale, SpriteEffects.None, 0f);
 			EndAdditive();
 		}
 

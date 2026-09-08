@@ -73,7 +73,10 @@ public sealed class UtageKatana : ExpansionWeaponBase
 
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemID.Katana).AddIngredient(ItemID.SoulofNight, 8)
-            .AddIngredient(ItemID.CrystalShard, 12).AddTile(TileID.MythrilAnvil).Register();
+        foreach (int sword in new[] { ItemID.Katana, ItemID.Muramasa })
+        {
+            CreateRecipe().AddIngredient(sword).AddIngredient(ItemID.SoulofNight, 4)
+                .AddIngredient(ItemID.DarkShard).AddTile(TileID.MythrilAnvil).Register();
+        }
     }
 }

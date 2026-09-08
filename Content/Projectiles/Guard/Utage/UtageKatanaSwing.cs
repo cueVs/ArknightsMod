@@ -16,13 +16,10 @@ using Terraria.ModLoader;
 namespace ArknightsMod.Content.Projectiles.Guard.Utage;
 
 // 直接继承赫拉格三段普通挥砍、三次子更新、刀身扫掠碰撞和姿态同步。
-// 不调用赫拉格的技能桥、回血或月相特效；原文件无需改动。
+// 共用赫拉格的着色器刀幕与亮度层次，保留宴自己的技能、回血和紫色配色。
 public sealed class UtageKatanaSwing : HellagurOdachiSwing
 {
     private readonly HashSet<int> struck = new();
-    private readonly float[] angles = new float[48];
-    private readonly Vector2[] hands = new Vector2[48];
-    private int samples;
     private float bladeLight;
     private Player Wielder => Main.player[Projectile.owner];
     private bool Arts => SkillMode == 4;
@@ -44,19 +41,6 @@ public sealed class UtageKatanaSwing : HellagurOdachiSwing
         if (!Projectile.active || Main.dedServ)
             return;
         bladeLight = MathHelper.Lerp(bladeLight, Damaging ? 1f : 0f, Damaging ? .18f : .12f);
-        if (Damaging)
-        {
-            for (int i = angles.Length - 1; i > 0; i--)
-            {
-                angles[i] = angles[i - 1];
-                hands[i] = hands[i - 1];
-            }
-            angles[0] = CurrentAngle;
-            hands[0] = HandWorld;
-            samples = Math.Min(samples + 1, angles.Length);
-        }
-        else
-            samples = Math.Max(0, samples - 2);
         Lighting.AddLight(TipWorld, new Vector3(.33f, .065f, .5f) * bladeLight);
     }
 
@@ -87,55 +71,18 @@ public sealed class UtageKatanaSwing : HellagurOdachiSwing
         UtageVisuals.Burst(tipWorld, Arts ? 1.3f : .85f, eventId == 1 ? 4 : 7);
     }
 
-    protected override void DrawWeaponVfxBehind(Color lightColor)
+    protected override bool ShowMoonPhaseVfx => false;
+
+    protected override Color BladeVfxColor(Color color)
     {
-        if (samples < 2)
-            return;
-        Texture2D body = UtageVisuals.Asset("HellagurSlashBody");
-        Texture2D edge = UtageVisuals.Asset("HellagurSlashEdge");
-        SpriteEffects flip = FaceLeftPose ? SpriteEffects.FlipVertically : SpriteEffects.None;
-        float power = Arts ? 1.35f : 1f;
-        // 深紫实体底层，保留刀幕的重量；后续亮边只占小部分。
-        for (int i = samples - 1; i >= 0; i -= 3)
-        {
-            float fade = (1f - i / (float)samples) * bladeLight;
-            DrawCrescent(body, hands[i], angles[i], new Color(34, 8, 57) * (fade * .24f),
-                new Vector2(1f, .78f) * power, flip);
-        }
-        BaseHeldMeleeSupport.BeginAdditive(Main.spriteBatch);
-        for (int i = samples - 1; i >= 0; i -= 3)
-        {
-            float fade = MathF.Pow(1f - i / (float)samples, 1.7f) * bladeLight;
-            DrawCrescent(body, hands[i], angles[i], UtageVisuals.Violet * (fade * .14f),
-                new Vector2(1f, .78f) * power, flip);
-            DrawCrescent(edge, hands[i], angles[i], UtageVisuals.Lilac * (fade * .13f),
-                new Vector2(1f, .78f) * power, flip);
-        }
-        BaseHeldMeleeSupport.EndAdditive(Main.spriteBatch);
+        // 保留赫拉格每层的透明度和明暗变化：暗部深紫，热刃淡紫，最亮处接近白色。
+        float value = Math.Max(color.R, Math.Max(color.G, color.B)) / 255f;
+        float highlight = color.R > 0 ? MathHelper.Clamp(color.G / (float)color.R, 0f, 1f) : 0f;
+        Color violet = Color.Lerp(new Color(148, 30, 255), UtageVisuals.Pale, highlight * highlight);
+        return new Color((byte)(violet.R * value), (byte)(violet.G * value),
+            (byte)(violet.B * value), color.A);
     }
 
-    private static void DrawCrescent(Texture2D texture, Vector2 hand, float angle, Color color,
-        Vector2 scale, SpriteEffects flip)
-    {
-        Vector2 center = hand + angle.ToRotationVector2() * 55f - Main.screenPosition;
-        Main.spriteBatch.Draw(texture, center, null, color, angle - MathHelper.PiOver2,
-            texture.Size() * .5f, new Vector2(210f, 145f) / texture.Size() * scale, flip, 0f);
-    }
-
-    protected override void DrawWeaponVfx(Color lightColor)
-    {
-        if (bladeLight < .01f)
-            return;
-        Texture2D blade = UtageVisuals.Asset("HellagurBladeGlow");
-        BaseHeldMeleeSupport.BeginAdditive(Main.spriteBatch);
-        Main.spriteBatch.Draw(blade, HandWorld - Main.screenPosition, null,
-            UtageVisuals.Violet * (bladeLight * .65f), CurrentAngle, new Vector2(5, 64),
-            new Vector2(.98f, .72f), SpriteEffects.None, 0f);
-        Main.spriteBatch.Draw(blade, HandWorld - Main.screenPosition, null,
-            UtageVisuals.Pale * (bladeLight * bladeLight * .32f), CurrentAngle, new Vector2(5, 64),
-            new Vector2(.98f, .36f), SpriteEffects.None, 0f);
-        BaseHeldMeleeSupport.EndAdditive(Main.spriteBatch);
-    }
 }
 
 internal static class UtageVisuals

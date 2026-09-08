@@ -22,8 +22,9 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 		private ref float TargetIndex => ref Projectile.ai[1];
 		private ref float Age => ref Projectile.ai[2];
 		private const float HomingRange = 980f;
-		private const float MaxSpeed = 17.5f;
-		private const int HomingDelay = 10;
+		private const float MaxSpeed = 16.5f;
+		private const int HomingDelay = 18;
+		private const float HomingInertia = 27f;
 		private const int MaxHits = 3;
 		private const int DissolveDuration = 30;
 		private int hitCount;
@@ -152,14 +153,10 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 			float warmup = Utils.GetLerpValue(HomingDelay, HomingDelay + 36f, Age, true);
 			float closePressure = Utils.GetLerpValue(360f, 70f, Projectile.Distance(target.Center), true);
 			float pullStrength = MathHelper.Lerp(0.35f, 1f, Math.Max(warmup, closePressure * 0.75f));
-			float desiredSpeed = MathHelper.Lerp(11.5f, MaxSpeed, pullStrength);
-			float turnRate = MathHelper.Lerp(0.034f, 0.125f, pullStrength);
-			float currentAngle = currentVelocity.ToRotation();
-			float desiredAngle = desiredDirection.ToRotation();
-			float newAngle = currentAngle.AngleTowards(desiredAngle, turnRate);
-			float newSpeed = MathHelper.Lerp(currentVelocity.Length(), desiredSpeed,
-				MathHelper.Lerp(0.05f, 0.14f, pullStrength));
-			Projectile.velocity = newAngle.ToRotationVector2() * newSpeed;
+			// 参考 BrinyBaron_HomingLightOrb：高惯性混合速度，柔和地弯向目标。
+			float desiredSpeed = MathHelper.Lerp(10.5f, MaxSpeed, pullStrength);
+			Vector2 desiredVelocity = desiredDirection * desiredSpeed;
+			Projectile.velocity = (currentVelocity * HomingInertia + desiredVelocity) / (HomingInertia + 1f);
 			float sway = MathF.Sin((Age + Projectile.identity * 7f) * 0.075f)
 				* MathHelper.Lerp(0.012f, 0.004f, pullStrength);
 			Projectile.velocity = Projectile.velocity.RotatedBy(sway);
@@ -206,11 +203,11 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 
 			if (Projectile.owner == Main.myPlayer)
 				Projectile.netUpdate = true;
-			if (Mode == 1 && Projectile.owner == Main.myPlayer && damageDone > 0
-				&& !target.friendly && target.lifeMax > 5 && target.type != NPCID.TargetDummy
+			if (Projectile.owner == Main.myPlayer && damageDone > 0
+				&& !target.friendly && target.type != NPCID.TargetDummy
 				&& Main.player.IndexInRange(Projectile.owner))
 				Main.player[Projectile.owner].GetModPlayer<ShiningStaffPlayer>()
-					.TryHealFromAttack(target.Center);
+					.TryHealFromAttack(target.Center, Projectile.damage);
 
 			if (hitCount >= MaxHits)
 				BeginDissolve();
@@ -820,9 +817,8 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 			float convergence = MathHelper.SmoothStep(0f, 1f,
 				MathHelper.Clamp(age / (healing ? 55f : 92f), 0f, 1f));
 			float radius = MathHelper.Lerp(healing ? 16f : 25f, healing ? 4.5f : 7f, convergence);
-			// 四瓣以 45° 起始、彼此相隔 90°，飞行过程中缓慢旋转并向轴心收拢。
-			float orbit = MathHelper.PiOver4 + age * (healing ? -0.020f : 0.012f);
-			Vector2 convergencePoint = center + direction * (healing ? 26f : 43f);
+			// 四片尖刺的位置随飞行方向旋转并向轴心收拢，尖端始终与当前速度平行。
+			float orbit = direction.ToRotation() + MathHelper.PiOver4;
 			float petalLength = MathHelper.Lerp(healing ? 28f : 44f, healing ? 19f : 29f,
 				convergence) * sizeMultiplier;
 			float petalWidth = (healing ? 4.2f : 6.2f) * sizeMultiplier;
@@ -831,11 +827,10 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 			{
 				Vector2 radial = (orbit + MathHelper.PiOver2 * i).ToRotationVector2();
 				Vector2 position = center + radial * radius;
-				Vector2 aim = (convergencePoint - position).SafeNormalize(direction);
 				Vector2 scale = new(petalWidth / petal.Width, petalLength / petal.Height);
 				Main.spriteBatch.Draw(petal, position - Main.screenPosition, null,
 					new Color(2, 3, 7) * (opacity * (healing ? 0.66f : 0.82f)),
-					aim.ToRotation() + MathHelper.PiOver2, petal.Size() * 0.5f,
+					direction.ToRotation() + MathHelper.PiOver2, petal.Size() * 0.5f,
 					scale, SpriteEffects.None, 0f);
 			}
 		}
@@ -883,11 +878,11 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 				float side = age % 8 == 0 ? -1f : 1f;
 				new ShiningInkParticle(tail + normal * side * Main.rand.NextFloat(1f, 4f),
 					-forward * Main.rand.NextFloat(0.45f, 0.82f) + normal * side * 0.38f,
-					Main.rand.Next(16, 24), Main.rand.NextFloat(0.34f, 0.52f), opacity).Spawn();
+					Main.rand.Next(16, 24), Main.rand.NextFloat(0.34f, 0.52f), opacity, projectile).Spawn();
 			}
 			if (age % 6 == 0)
 				new ShiningBarrierShardParticle(tail, -forward * 0.6f,
-					new Color(145, 154, 170), 16, 0.22f).Spawn();
+					new Color(145, 154, 170), 16, 0.22f, projectile).Spawn();
 			if (age % 12 == 0)
 			{
 				Dust dust = Dust.NewDustPerfect(tail + normal * Main.rand.NextFloat(-3f, 3f),
@@ -958,11 +953,11 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 				float side = age % 6 == 0 ? -1f : 1f;
 				new ShiningInkParticle(tail + normal * side * 2f,
 					-forward * 0.35f + normal * side * 0.24f, Main.rand.Next(13, 20),
-					Main.rand.NextFloat(0.20f, 0.33f), 0.66f).Spawn();
+					Main.rand.NextFloat(0.20f, 0.33f), 0.66f, projectile).Spawn();
 			}
 			if (age % 7 == 0)
 				new ShiningBarrierShardParticle(tail, -forward * 0.28f,
-					new Color(156, 198, 195), 14, 0.16f).Spawn();
+					new Color(156, 198, 195), 14, 0.16f, projectile).Spawn();
 		}
 
 		internal static void DrawHealingWisp(Projectile projectile, float age,
@@ -1127,25 +1122,34 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 	public sealed class ShiningInkParticle : Particle
 	{
 		private readonly float strength;
+		private readonly Projectile flightSource;
+		private readonly int flightIdentity;
 		public override string TexturePath => "ArknightsMod/Common/Particle/DefaultParticle";
 		public override BlendState DrawBlendState => BlendState.AlphaBlend;
 
 		public ShiningInkParticle(Vector2 position, Vector2 velocity, int lifetime, float scale,
-			float strength = 1f)
+			float strength = 1f, Projectile flightSource = null)
 		{
 			Position = position;
 			Velocity = velocity;
 			Lifetime = lifetime;
 			Scale = scale;
 			this.strength = MathHelper.Clamp(strength, 0f, 1f);
+			this.flightSource = flightSource;
+			flightIdentity = flightSource?.identity ?? -1;
 			Color = new Color(3, 4, 9);
-			Rotation = velocity.ToRotation() + MathHelper.PiOver2;
+			Rotation = (flightSource?.velocity ?? velocity).ToRotation() + MathHelper.PiOver2;
 		}
 
 		public override void Update()
 		{
 			Velocity *= 0.945f;
-			if (Velocity.LengthSquared() > 0.01f)
+			if (flightSource != null)
+			{
+				if (flightSource.active && flightSource.identity == flightIdentity && flightSource.velocity.LengthSquared() > 0.01f)
+					Rotation = flightSource.velocity.ToRotation() + MathHelper.PiOver2;
+			}
+			else if (Velocity.LengthSquared() > 0.01f)
 				Rotation = Velocity.ToRotation() + MathHelper.PiOver2;
 			float fadeIn = Utils.GetLerpValue(0f, 0.12f, LifetimeRatio, true);
 			Opacity = fadeIn * MathF.Pow(1f - LifetimeRatio, 1.35f) * 0.86f * strength;
@@ -1202,27 +1206,37 @@ namespace ArknightsMod.Content.Projectiles.Medic.Shining
 	public sealed class ShiningBarrierShardParticle : Particle
 	{
 		private readonly Color initialColor;
+		private readonly Projectile flightSource;
+		private readonly int flightIdentity;
 
 		// DefaultParticle 是本项目的一张独立单帧粒子贴图，不按精灵表切帧。
 		public override string TexturePath => "ArknightsMod/Common/Particle/DefaultParticle";
 		public override BlendState DrawBlendState => BlendState.Additive;
 
 		public ShiningBarrierShardParticle(Vector2 position, Vector2 velocity, Color color,
-			int lifetime, float scale)
+			int lifetime, float scale, Projectile flightSource = null)
 		{
 			Position = position;
 			Velocity = velocity;
 			Color = color;
 			initialColor = color;
+			this.flightSource = flightSource;
+			flightIdentity = flightSource?.identity ?? -1;
 			Lifetime = lifetime;
 			Scale = scale;
-			Rotation = velocity.ToRotation();
+			Rotation = flightSource != null ? flightSource.velocity.ToRotation() + MathHelper.PiOver2 : velocity.ToRotation();
 		}
 
 		public override void Update()
 		{
 			Velocity *= 0.955f;
-			Rotation += 0.08f * Math.Sign(Velocity.X == 0f ? 1f : Velocity.X);
+			if (flightSource != null)
+			{
+				if (flightSource.active && flightSource.identity == flightIdentity && flightSource.velocity.LengthSquared() > 0.01f)
+					Rotation = flightSource.velocity.ToRotation() + MathHelper.PiOver2;
+			}
+			else
+				Rotation += 0.08f * Math.Sign(Velocity.X == 0f ? 1f : Velocity.X);
 			Opacity = MathF.Pow(1f - LifetimeRatio, 1.25f);
 			Color = Color.Lerp(initialColor, Color.Transparent, LifetimeRatio * LifetimeRatio);
 			Scale *= 0.985f;
