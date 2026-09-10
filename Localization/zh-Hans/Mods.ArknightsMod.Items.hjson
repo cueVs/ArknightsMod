@@ -1,3 +1,28 @@
+AstesiaHead: {
+	DisplayName: 星极的头套
+	// Tooltip: ""
+}
+
+AstesiaBody: {
+	DisplayName: 星极的上衣
+	// Tooltip: ""
+}
+
+AstesiaLegs: {
+	DisplayName: 星极的下装
+	// Tooltip: ""
+}
+
+AstesiaDefault: {
+	DisplayName: 星极的服饰（常规）
+	Tooltip: ""
+}
+
+AstraSword: {
+	DisplayName: 星辉剑
+	Tooltip: ""
+}
+
 # Furniture
 AutoDoorItem: {
 	DisplayName: 自动门
@@ -4115,3 +4140,6 @@ HornGrenadeLauncher: {
 		成功格挡后5秒内，下一次炮击或盾击伤害翻倍
 		'''
 }
+// AstesiaBodySet.Tooltip: ""
+// AstesiaHeadSet.Tooltip: ""
+// AstesiaLegsSet.Tooltip: ""

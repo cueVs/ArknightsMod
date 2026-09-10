@@ -1,3 +1,10 @@
+Astesia: {
+	HeadName: Astesia's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: While enemies are nearby, gain +5% melee attack speed every 20s (up to +25%); expires 5s after no enemies remain"
+	SetEffect: "[c/beebff:Set]: While enemies are nearby, gain +5% defense every 20s (up to +25%); expires 5s after no enemies remain"
+	SetBonus: +5% melee speed/DEF per 20s near enemies (max 25%); resets 5s after they leave
+}
+
 W: {
 	HeadName: W's Helmet
 	HelmetEffect: "[c/beebff:Helmet]: Stunned enemies take +18% physical damage"

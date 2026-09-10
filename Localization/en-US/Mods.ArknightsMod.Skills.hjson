@@ -1,3 +1,15 @@
+AstraSword: {
+	1: {
+		Label: Constellation Ward
+		Desc: Manually activated. While active, ATK [c/3791db:+50%] and DEF [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Astra Blade
+		Desc: Manually activated. While active, ATK [c/3791db:+80%], DEF [c/3791db:+80%], and the weapon and slash scale up to [c/3791db:130%]
+	}
+}
+
 BagpipeSpear: {
 	1: {
 		Label: Swift Strike γ

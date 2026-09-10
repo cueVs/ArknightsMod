@@ -1,3 +1,28 @@
+AstesiaHead: {
+	DisplayName: Astesia Head
+	Tooltip: ""
+}
+
+AstesiaBody: {
+	DisplayName: Astesia Body
+	Tooltip: ""
+}
+
+AstesiaLegs: {
+	DisplayName: Astesia Legs
+	Tooltip: ""
+}
+
+AstesiaDefault: {
+	DisplayName: Astesia Default
+	Tooltip: ""
+}
+
+AstraSword: {
+	DisplayName: Astra Sword
+	Tooltip: ""
+}
+
 # Furniture
 AutoDoorItem: {
 	DisplayName: Automatic Door
@@ -3741,3 +3766,6 @@ HornGrenadeLauncher: {
 		A successful block doubles your next shell or bash within 5 seconds
 		'''
 }
+AstesiaBodySet.Tooltip: ""
+AstesiaHeadSet.Tooltip: ""
+AstesiaLegsSet.Tooltip: ""
