@@ -13,6 +13,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Guard.Blaze
 {
+	// By T
 	/// <summary>
 	/// 煌 / Blaze 的链锯大剑。S1、S2 为自动技能，技能键只用于手动开启 S3。
 	/// </summary>

@@ -19,6 +19,17 @@ namespace ArknightsMod.Content.Projectiles.Guard.Utage;
 // 共用赫拉格的着色器刀幕与亮度层次，保留宴自己的技能、回血和紫色配色。
 public sealed class UtageKatanaSwing : HellagurOdachiSwing
 {
+    // 单帧 60×56：以刀柄 (11,51) 为握点、刀尖 (55,1) 为朝向，保持原有战斗距离。
+    private static readonly WeaponSpriteProfile KatanaProfile = new(
+        grip: new Vector2(11f / 60f, 51f / 56f),
+        tip: new Vector2(55f / 60f, 1f / 56f),
+        nativeForwardAngle: new Vector2(44f, -50f).ToRotation(),
+        combatReach: 92f,
+        combatWidth: 29f,
+        drawScale: 92f / new Vector2(44f, -50f).Length());
+    public override string Texture => UtageKatana.WeaponTexturePath;
+    protected override WeaponSpriteProfile Profile => KatanaProfile;
+
     private readonly HashSet<int> struck = new();
     private float bladeLight;
     private Player Wielder => Main.player[Projectile.owner];

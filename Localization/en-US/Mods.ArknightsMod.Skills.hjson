@@ -1058,3 +1058,78 @@ RedDagger: {
 		Desc: Switching to this weapon from another hotbar weapon, teleporting, starting a dash or landing at high speed releases a 140%-250% ATK physical burst within 7 tiles, stuns ordinary enemies for 1-3 seconds and grants 50% attack speed for 5 seconds. Cannot hit through walls; bosses and segmented enemies cannot be stunned. Shared 5-second cooldown starts on activation and cannot be reset by switching. Bonuses apply only while holding the dagger
 	}
 }
+
+HoolheyakWindArts: {
+	1: {
+		Label: The Pursuit of Knowledge
+		Desc: Charges automatically and triggers on attack. Fires empowered wind bolts at up to 2 distinct nearby enemies for 160%-300% damage; a lone target is lifted for 2-4 seconds. Stores 1-3 charges. No charge is spent without a target
+	}
+
+	2: {
+		Label: Astral Alignment
+		Desc: Activate for 16 seconds. Cast nine-shot volleys at random nearby enemies, each dealing 20%-45% damage with an 8%-15% chance to lift small enemies for 1 second. The final bolt of each volley can create or strengthen a vortex on impact
+	}
+
+	3: {
+		Label: The Erudite's Delirium
+		Desc: Activate for 45 seconds. Attack more slowly with three parallel cyclones that pierce unlimited enemies and retain 99% of their speed each frame. Damage increases with travel distance, reaching a maximum of 320%-420% after 30 tiles. Lifts small enemies for 1.6-2.2 seconds
+	}
+}
+
+SussurroStaff: {
+	1: {
+		Label: Healing Up β
+		Desc: Activate for 20 seconds. Continuous casting heals 6-9 life each second, independent of enemies hit. Both skills share a minimum cooldown that switching cannot reset
+	}
+
+	2: {
+		Label: Deep Healing
+		Desc: Activate for 8-10 seconds. Doubles casting speed and heals 9-12 life every half second while casting; every third attack fires an empowered compression laser. Healing stops when casting stops. Minimum cooldown after the skill ends is 45 seconds
+	}
+}
+
+EbenholzStaff: {
+	1: {
+		Label: Adagio into Allegro
+		Desc: Manually activate for 5 seconds. Cast 150% faster, with each cube dealing 50%–60% damage in a dense barrage of black notes
+	}
+
+	2: {
+		Label: Desolate Echoes
+		Desc: Automatically consume all stored echoes to place 1–4 remnants near enemies, up to 5 at once. Nearby enemies trigger a 1-second pull followed by a 140%–245% explosion. Bosses resist the pull; no target means no SP is spent
+	}
+
+	3: {
+		Label: Tranquil Silence
+		Desc: Manually activate for 30 seconds. Cast 60% faster and deal 35%–65% more damage, prioritizing bosses and high-health enemies. Stored cubes deal 140% of the empowered shot damage and release a black pursuit wisp on impact
+	}
+}
+
+EthanYoyo: {
+	1: {
+		Label: Fancy Spins
+		Desc: Passive. Hits inflict Arts damage equal to 12%–30% ATK per second for 2–4 seconds; repeat hits refresh rather than stack. Both yoyos share a bind roll interval per target. Bosses and segmented enemies cannot be bound
+	}
+
+	2: {
+		Label: Cross Suspension
+		Desc: Auto recovery, manual activation. Gain 20%–70% ATK and a 37.5%–75% bind chance for 20–30 seconds. Binds last 2 seconds, or 3 at Elite 2. Bosses and segmented enemies cannot be bound
+	}
+}
+
+HornGrenadeLauncher: {
+	1: {
+		Label: Flare Grenade
+		Desc: Auto recovery, triggered on attack. The next attack deals 160%–280% damage; shells have a larger blast and leave an illuminated area for 5–8 seconds. Stores 1–2 charges
+	}
+
+	2: {
+		Label: Tempest Command
+		Desc: Manually load 10 enhanced rounds dealing 130%–240% physical damage. The last 5 add 30%–60% ATK as area Arts damage. Reactivate in the second half to fire all remaining rounds 4 frames apart and spend 60% current life, leaving at least 1. Reactivating in the first half simply ends the skill
+	}
+
+	3: {
+		Label: Ultimate Line of Defense
+		Desc: Activate for 24 seconds with an approximately 21% shorter attack interval. Gain 10%–70% ATK in the first half and 20%–140% in the second; the second half progressively drains up to 12% maximum life per second. Reactivate to end early. Stops automatically at 1 life
+	}
+}

@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Caster.Passenger;
 
+// By T
 /// <summary>异客的链式源石技艺；技能接入现有技力/升级体系，特效在本模组内独立运行。</summary>
 public sealed class PassengerConductor : ExpansionWeaponBase
 {

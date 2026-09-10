@@ -222,3 +222,13 @@ PassengerCurrentSlow: {
 	DisplayName: Current Slow
 	Description: Movement speed reduced by 80%; bosses and segmented enemies are unaffected
 }
+
+HoolheyakUpdraft: {
+	DisplayName: Levitate
+	Description: Lifted by a cyclone
+}
+
+EthanBind: {
+	DisplayName: Entangled
+	Description: Bound by spinning threads and temporarily unable to move
+}

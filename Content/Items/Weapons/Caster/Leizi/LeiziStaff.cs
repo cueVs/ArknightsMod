@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Caster.Leizi;
 
+// By T
 /// <summary>五星惊蛰：机械 Boss 后的链电法杖，之后用于合成异客。</summary>
 public sealed class LeiziStaff : ExpansionWeaponBase
 {

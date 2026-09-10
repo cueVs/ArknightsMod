@@ -253,3 +253,13 @@ PassengerCurrentSlow: {
 	DisplayName: 电流停顿
 	Description: 移动速度降低80%，首领与多节敌人不受此效果影响
 }
+
+HoolheyakUpdraft: {
+	DisplayName: 浮空
+	Description: 被旋风托起
+}
+
+EthanBind: {
+	DisplayName: 缠绕
+	Description: 被回旋的丝线束缚，暂时无法移动
+}

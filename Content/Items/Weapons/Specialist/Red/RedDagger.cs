@@ -8,12 +8,13 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Specialist.Red;
 
+// By T
 public sealed class RedDagger : ExpansionWeaponBase
 {
     // 原基础攻击 72 × 1.2 = 86.4，按整数面板取 86。
     protected override int[] EliteDamage => [86, 86, 86];
     internal const float AttackSpeedBonus = 1.1f;
-    public override string Texture => "Terraria/Images/Item_" + ItemID.PsychoKnife;
+    public override string Texture => "ArknightsMod/Content/Items/Weapons/Specialist/Red/RedDagger";
     public override void SetDefaults()
     {
         Item.damage = EliteDamage[0];

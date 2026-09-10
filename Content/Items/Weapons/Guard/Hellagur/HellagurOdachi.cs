@@ -13,6 +13,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Guard.Hellagur
 {
+	// By T
 	/// <summary>赫拉格的大太刀：低血提速、母刀吸血，并以月相区分三种技能。</summary>
 	public class HellagurOdachi : ExpansionWeaponBase
 	{

@@ -23,7 +23,7 @@ public sealed class RedDaggerHoldout : ModProjectile
     private float frontAngle;
     private float backAngle;
     private Player Owner => Main.player[Projectile.owner];
-    public override string Texture => "Terraria/Images/Item_" + ItemID.PsychoKnife;
+    public override string Texture => "ArknightsMod/Content/Items/Weapons/Specialist/Red/RedDagger";
     internal static float SlashInterval(float attackSpeed) =>
         Math.Clamp((int)MathF.Round(6f / Math.Max(.1f, attackSpeed)), 2, 60) / RedDagger.AttackSpeedBonus;
     public override void SetDefaults()
@@ -87,7 +87,7 @@ public sealed class RedDaggerHoldout : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D knife = TextureAssets.Item[ItemID.PsychoKnife].Value;
+        Texture2D knife = TextureAssets.Item[ModContent.ItemType<RedDagger>()].Value;
         DrawKnife(knife, Owner.GetBackHandPosition(Player.CompositeArmStretchAmount.Full, backAngle),
             backAngle, lightColor * .7f);
         DrawKnife(knife, Owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, frontAngle),

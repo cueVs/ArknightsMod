@@ -248,7 +248,7 @@ namespace ArknightsMod.Content.Projectiles.Guard.Blaze
 					Pitch = final ? -0.3f : MathHelper.Lerp(-0.05f, 0.3f, Ramp),
 					MaxInstances = 5
 				}, target.Center);
-				BlazeVisuals.AddShake(Owner, final ? 12 : 4, final ? 8f : 2.6f);
+				BlazeVisuals.AddImpactShake(Owner, final ? 12 : 4, final ? 8f : 2.6f);
 			}
 		}
 

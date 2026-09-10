@@ -4070,3 +4070,48 @@ RedDagger: {
 		手之时提供移速与跳跃提升
 		'''
 }
+
+HoolheyakWindArts: {
+	DisplayName: 霍尔海雅的御风羽饰
+	Tooltip:
+		'''
+		抬手释放风弹，命中后形成追踪风旋
+		吸附并卷起小怪，无法卷起首领
+		'''
+}
+
+SussurroStaff: {
+	DisplayName: 苏苏洛的医疗法杖
+	Tooltip:
+		'''
+		四连发射出无限贯穿的翠绿激光，连续施法时释放治疗蝴蝶
+		右键专注治疗附近队友，无目标时治疗自己
+		'''
+}
+
+EbenholzStaff: {
+	DisplayName: 黑键的奏鸣法杖
+	Tooltip:
+		'''
+		三连发射出追踪黑色方块，命中后爆开
+		停火时储存至多三枚残响，再次攻击时一并释放
+		'''
+}
+
+EthanYoyo: {
+	DisplayName: 伊桑的悠悠球
+	Tooltip:
+		'''
+		操纵悠悠球攻击周围敌人，有25%概率束缚小怪
+		悠悠球在外时降低仇恨，并有50%概率闪避敌怪与弹幕攻击
+		'''
+}
+
+HornGrenadeLauncher: {
+	DisplayName: 号角的榴弹炮盾
+	Tooltip:
+		'''
+		左键发射榴弹，右键举盾；举盾时近敌改为盾击
+		成功格挡后5秒内，下一次炮击或盾击伤害翻倍
+		'''
+}

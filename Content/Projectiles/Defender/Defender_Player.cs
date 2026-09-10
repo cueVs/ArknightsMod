@@ -45,6 +45,8 @@ namespace ArknightsMod.Content.Projectiles.Defender
 		{
 			parryTimer = 0;
 			openEffect = true;
+			if (Player.whoAmI == Main.myPlayer && Player.HeldItem.ModItem is IShieldGuardWeapon weapon)
+				weapon.OnGuardSuccess(Player);
 		}
 		/// <summary>
 		/// 画盾（纯贴图 sb.Draw + 消融 shader，effect 交给 spriteBatch 管理）
@@ -110,7 +112,7 @@ namespace ArknightsMod.Content.Projectiles.Defender
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers) {
 			if (ShieldMode&&CD==0) {
-				if (MathF.Sign(npc.Center.X-Player.Center.X) == Player.direction||npc.Center.Distance(Player.Center) <= 3) {
+				if (ShieldGuardRules.IsFront(Player, npc.Center.X)||npc.Center.Distance(Player.Center) <= 3) {
 					modifiers.FinalDamage *= 0.5f;
 					Player.AddBuff(BuffID.ParryDamageBuff,5*60);
 					TriggerParry();
@@ -121,7 +123,7 @@ namespace ArknightsMod.Content.Projectiles.Defender
 
 		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers) {
 			if (ShieldMode&&CD==0) {
-				if (MathF.Sign(proj.Center.X-Player.Center.X) == Player.direction) {
+				if (ShieldGuardRules.IsFront(Player, proj.Center.X)) {
 					modifiers.FinalDamage *= 0.5f;
 					Player.AddBuff(BuffID.ParryDamageBuff,5*60);
 					TriggerParry();
@@ -132,7 +134,10 @@ namespace ArknightsMod.Content.Projectiles.Defender
 
 		public override void UpdateEquips()
 		{
-			if(OpenDefender&&Main.mouseRight)
+			// Permission comes from the held weapon, not a global right-click flag.
+			OpenDefender = ShieldGuardRules.Supports(Player.HeldItem);
+			bool guarding = ShieldGuardRules.IsRaised(Player);
+			if(guarding)
 			{
 				Player.statDefense *= 1.2f;
 				Player.noKnockback = true;
@@ -140,7 +145,7 @@ namespace ArknightsMod.Content.Projectiles.Defender
 				ShieldMode = true;
 			}
 
-			if (ShieldMode && !Main.mouseRight) {
+			if (ShieldMode && !guarding) {
 				ShieldMode = false;
 				if (CD == 0)
 					CD = 5 * 60;
@@ -150,7 +155,7 @@ namespace ArknightsMod.Content.Projectiles.Defender
 		}
 
 		public override void ResetEffects() {
-			OpenDefender = true;
+			OpenDefender = false;
 		}
 	}
 

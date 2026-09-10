@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Guard.Specter
 {
+	// By T
 	/// <summary>
 	/// 幽灵鲨的圆锯。普通攻击沿用煌链锯已经验证过的持续接触群攻骨架，
 	/// 角色差异则全部放在深海视觉、持续再生与「肉斩骨断」的锁血/失能闭环中。

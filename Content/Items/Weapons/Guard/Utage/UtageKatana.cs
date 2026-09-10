@@ -10,18 +10,20 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Guard.Utage;
 
+// By T
 // 四星暂按精二一级基础攻击 575 × 15% = 86；不计信赖、潜能、模组。
 public sealed class UtageKatana : ExpansionWeaponBase
 {
     protected override int[] EliteDamage => [86, 86, 86];
-    public override string Texture => HellagurOdachi.WeaponTexturePath;
+    internal const string WeaponTexturePath = "ArknightsMod/Content/Items/Weapons/Guard/Utage/UtageKatana";
+    public override string Texture => WeaponTexturePath;
 
     public override void SetDefaults()
     {
         Item.damage = EliteDamage[0];
         Item.DamageType = DamageClass.Melee;
-        Item.width = 58;
-        Item.height = 60;
+        Item.width = 60;
+        Item.height = 56;
         Item.useTime = Item.useAnimation = 2;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.noMelee = Item.noUseGraphic = Item.autoReuse = true;

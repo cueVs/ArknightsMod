@@ -248,7 +248,7 @@ namespace ArknightsMod.Content.Projectiles.Guard.Blaze
 					Pitch = powerStrikeCycle ? -0.18f : 0.08f,
 					MaxInstances = 6
 				}, target.Center);
-				BlazeVisuals.AddShake(Owner, powerStrikeCycle ? 7 : 3, powerStrikeCycle ? 5.5f : 2.2f);
+				BlazeVisuals.AddImpactShake(Owner, powerStrikeCycle ? 7 : 3, powerStrikeCycle ? 5.5f : 2.2f);
 			}
 		}
 

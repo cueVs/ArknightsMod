@@ -3696,3 +3696,48 @@ RedDagger: {
 		Increases movement and jump speed while held
 		'''
 }
+
+HoolheyakWindArts: {
+	DisplayName: Ho'olheyak's Windfeather
+	Tooltip:
+		'''
+		Cast wind bolts by hand, forming homing vortices on impact
+		Draws in and lifts small enemies, but cannot lift bosses
+		'''
+}
+
+SussurroStaff: {
+	DisplayName: Sussurro's Medical Staff
+	Tooltip:
+		'''
+		Fires four-shot bursts of emerald lasers that pierce unlimited enemies; continuous casting releases healing butterflies
+		Right-click to focus healing on a nearby ally, or yourself if no ally is targeted
+		'''
+}
+
+EbenholzStaff: {
+	DisplayName: Ebenholz's Sonata Staff
+	Tooltip:
+		'''
+		Fires three homing black cubes that burst on impact
+		Stores up to three echoes while idle and releases them with the next attack
+		'''
+}
+
+EthanYoyo: {
+	DisplayName: Ethan's Yoyo
+	Tooltip:
+		'''
+		Attack nearby enemies with a yoyo, with a 25% chance to bind ordinary foes
+		While deployed, reduces aggro and grants 50% evasion against enemies and projectiles
+		'''
+}
+
+HornGrenadeLauncher: {
+	DisplayName: Horn's Grenade Shield
+	Tooltip:
+		'''
+		Left-click fires grenades; right-click guards, turning close-range shots into shield bashes
+		A successful block doubles your next shell or bash within 5 seconds
+		'''
+}

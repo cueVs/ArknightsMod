@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Sniper.Fiammetta
 {
+	// By T
 	/// <summary>
 	/// 菲亚梅塔的手炮。普通攻击是真正的曲射迫击炮；三个技能分别承担射程强化、
 	/// 沿弹道连续爆破、固定落点无限炮击，绝不是同一颗炮弹的三种换色。

@@ -248,6 +248,11 @@ namespace ArknightsMod.Content.Projectiles.Guard.Blaze
 			SpawnMetalSparks(position, attackDirection, heavy ? 18 : 9, heat, heavy ? 8.5f : 5.5f);
 		}
 
+		internal static void AddImpactShake(Player player, int time, float strength) {
+			if (!Main.dedServ && player.whoAmI == Main.myPlayer)
+				player.GetModPlayer<BlazeImpactShakePlayer>().Add(time, strength);
+		}
+
 		internal static void AddShake(Player player, int time, float strength) {
 			if (Main.dedServ || player.whoAmI != Main.myPlayer)
 				return;

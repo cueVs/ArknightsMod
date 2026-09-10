@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 {
+	// By T
 	/// <summary>
 	/// 闪灵的法杖。黑白剑形源石技艺命中敌人即可吸血；屏障与防护领域由技能提供。
 	/// </summary>
