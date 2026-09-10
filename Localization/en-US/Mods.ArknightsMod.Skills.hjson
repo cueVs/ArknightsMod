@@ -1145,3 +1145,10 @@ HornGrenadeLauncher: {
 		Desc: Activate for 24 seconds with an approximately 21% shorter attack interval. Gain 10%–70% ATK in the first half and 20%–140% in the second; the second half progressively drains up to 12% maximum life per second. Reactivate to end early. Stops automatically at 1 life
 	}
 }
+
+WarfarinStaff: {
+	2: {
+		Label: Unstable Plasma
+		Desc: Auto recovery, manual activation. Costs 30 SP and lasts 15 seconds. While holding the staff, your minions, sentries and their projectiles deal 30% more damage. Hits release one blood bolt dealing the staff's current damage, with a shared 0.25-second cooldown. Blood bolts hit up to twice and cannot trigger further bolts. Ends when switching away or dying
+	}
+}

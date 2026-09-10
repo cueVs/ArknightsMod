@@ -1,7 +1,9 @@
 using System;
 using ArknightsMod.Common.VisualEffects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 
 namespace ArknightsMod.Content.Projectiles.Specialist.Ethan;
@@ -47,6 +49,46 @@ internal static class EthanVisuals
             OperatorTextureEffects.Glow(p.oldPos[i] + p.Size * .5f, 12f * fade, Mint, fade * .22f);
         }
         OperatorTextureEffects.Glow(p.Center, 30f, Mint, .28f);
+    }
+    internal static void CrossDust(Vector2 center, float radius, float rotation)
+    {
+        if (Main.dedServ) return;
+        for (int axis = 0; axis < 2; axis++)
+        {
+            Vector2 line = (rotation + axis * MathHelper.PiOver2).ToRotationVector2();
+            for (int i = -4; i <= 4; i++)
+            {
+                Vector2 offset = line * (radius * i / 4f);
+                Dust dust = Dust.NewDustPerfect(center + offset, DustID.TintableDustLighted,
+                    line * i * .35f, 90, axis == 0 ? Mint : Pink, .95f);
+                dust.noGravity = true;
+                if (i % 2 == 0)
+                    OperatorTextureEffects.Mote(center + offset, line * i * .22f, Mint, 7f, 18);
+            }
+        }
+    }
+    internal static void Cross(Vector2 center, float progress, float radius, float rotation)
+    {
+        float fade = MathF.Pow(1f - MathHelper.Clamp(progress, 0f, 1f), 1.5f);
+        float length = radius * (.65f + .45f * Math.Min(1f, progress * 5f));
+        for (int axis = 0; axis < 2; axis++)
+        {
+            float angle = rotation + axis * MathHelper.PiOver2;
+            Vector2 direction = angle.ToRotationVector2();
+            Vector2 start = center - direction * length;
+            Color tint = axis == 0 ? Mint : Pink;
+            for (int layer = 0; layer < 3; layer++)
+            {
+                Color color = (layer == 2 ? Color.White : tint) * (fade * (layer == 0 ? .2f : .85f));
+                color.A = 0;
+                Main.EntitySpriteDraw(TextureAssets.MagicPixel.Value, start - Main.screenPosition,
+                    new Rectangle(0, 0, 1, 1), color, angle, new Vector2(0f, .5f),
+                    new Vector2(length * 2f, layer == 0 ? 9f : layer == 1 ? 2.5f : .8f), SpriteEffects.None);
+            }
+            OperatorTextureEffects.Glow(center + direction * length, 16f, tint, fade * .7f);
+            OperatorTextureEffects.Glow(center - direction * length, 16f, tint, fade * .7f);
+        }
+        OperatorTextureEffects.Glow(center, 30f, Mint, fade * .45f);
     }
     internal static void Pulse(Vector2 center, float progress, float radius)
     {

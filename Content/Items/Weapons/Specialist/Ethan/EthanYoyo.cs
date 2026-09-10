@@ -8,7 +8,7 @@ namespace ArknightsMod.Content.Items.Weapons.Specialist.Ethan;
 // By T
 public sealed class EthanYoyo : ExpansionWeaponBase
 {
-    protected override int[] EliteDamage => [52, 62, 74];
+    protected override int[] EliteDamage => [47, 56, 67]; // 原面板降低 10%，取整。
     public override string Texture => "Terraria/Images/Item_" + ItemID.Chik;
     public override void SetStaticDefaults()
     {
@@ -41,6 +41,6 @@ public sealed class EthanYoyo : ExpansionWeaponBase
         return base.CanUseItem(player);
     }
     public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.Chik)
-        .AddIngredient(ItemID.JungleSpores, 12).AddIngredient(ItemID.SoulofNight, 6)
+        .AddIngredient(ItemID.JungleSpores, 12)
         .AddIngredient(ItemID.GreenDye).AddTile(TileID.MythrilAnvil).Register();
 }

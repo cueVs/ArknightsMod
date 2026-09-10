@@ -76,6 +76,18 @@ internal static class SussurroVisuals
         }
     }
 
+    internal static void ButterflyBurst(Vector2 position, float direction, float size)
+    {
+        if (!Visible(position)) return;
+        Impact(position, direction, size);
+        for (int i = 0; i < 6; i++)
+        {
+            float angle = direction + i * MathHelper.TwoPi / 6f;
+            Spawn(position, angle.ToRotationVector2() * (2.5f + i % 2) * size,
+                SussurroLightKind.Butterfly, 26, .45f * size, angle + MathHelper.PiOver2);
+        }
+    }
+
     internal static void HealBloom(Vector2 position, float size)
     {
         if (!Visible(position))
@@ -269,7 +281,7 @@ internal static class SussurroVisuals
     }
 }
 
-internal enum SussurroLightKind { Needle, Mote, Streak, Muzzle, Flower, Cross }
+internal enum SussurroLightKind { Needle, Mote, Streak, Muzzle, Flower, Cross, Butterfly }
 
 public sealed class SussurroLightParticle : Particle
 {
@@ -289,6 +301,9 @@ public sealed class SussurroLightParticle : Particle
         float size = Scale * (1f - .3f * p);
         switch (Kind)
         {
+            case SussurroLightKind.Butterfly:
+                SussurroVisuals.DrawButterfly(Position, Rotation, Time, size, fade);
+                break;
             case SussurroLightKind.Needle:
                 // Halley 的内外双层纵向光粒，旋转严格跟随飞行方向。
                 SussurroVisuals.Soft(Position, new Vector2(155f, 18f) * size, SussurroVisuals.Emerald, fade * .65f, Rotation);

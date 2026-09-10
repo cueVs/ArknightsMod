@@ -25,6 +25,11 @@ internal static class EthanCombat
         if (projectile.owner != Main.myPlayer) return;
         Player owner = Main.player[projectile.owner];
         var state = owner.GetModPlayer<EthanYoyoPlayer>();
+        if (state.CrossSuspension)
+            Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, Vector2.Zero,
+                ModContent.ProjectileType<EthanCrossFlash>(), Math.Max(1, (int)MathF.Round(owner.GetWeaponDamage(owner.HeldItem) * .35f)),
+                0f, projectile.owner,
+                Math.Clamp(Math.Max(target.width, target.height) * .7f, 32f, 85f), Main.rand.NextFloat(-.18f, .18f));
         if (!state.Holding || !target.active || target.life <= 0) return;
         var control = target.GetGlobalNPC<EthanBindingNPC>();
         // One roll per enemy/owner/attack cadence, shared by the glove's second yoyo and its aura.

@@ -12,7 +12,7 @@ namespace ArknightsMod.Content.Items.Weapons.Defender.Horn;
 // By T
 public sealed class HornGrenadeLauncher : ExpansionWeaponBase, IShieldGuardWeapon
 {
-    protected override int[] EliteDamage => [105, 125, 150];
+    protected override int[] EliteDamage => [388, 462, 554]; // 原面板 × 850 / 230，取整。
     public override string Texture => "Terraria/Images/Item_" + ItemID.GrenadeLauncher;
     public override void SetDefaults()
     {
@@ -44,7 +44,8 @@ public sealed class HornGrenadeLauncher : ExpansionWeaponBase, IShieldGuardWeapo
         return false;
     }
     public void OnGuardSuccess(Player player) => player.GetModPlayer<HornLauncherPlayer>().CounterReady();
-    public override void AddRecipes() => CreateRecipe().AddIngredient<Cuora.CuoraWeapon>()
-        .AddIngredient(ItemID.Grenade, 50).AddIngredient(ItemID.HallowedBar, 12)
+    public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.ObsidianShield)
+        .AddIngredient(ItemID.GrenadeLauncher).AddIngredient(ItemID.ChlorophyteBar, 15)
+        .AddIngredient(ItemID.LavaBucket, 2)
         .AddIngredient(ItemID.IllegalGunParts).AddTile(TileID.MythrilAnvil).Register();
 }

@@ -1,4 +1,5 @@
 using System;
+using ArknightsMod.Common.Particle;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -114,6 +115,9 @@ internal static class HoolheyakWindVisuals
         Dust dust = Dust.NewDustPerfect(position, DustID.TintableDustLighted, velocity, 100, Mint, scale);
         dust.noGravity = true;
         dust.noLight = true;
+        if (ParticleManager.activeParticles.Count < 1100)
+            new DefaultParticle(position, velocity, 22, .23f * scale, Core, true)
+                { Deformation = new Vector2(.35f, 2.4f) }.Spawn();
     }
 
     internal static void Burst(Vector2 center, Vector2 velocity, int count)
@@ -124,6 +128,7 @@ internal static class HoolheyakWindVisuals
         {
             Vector2 outward = Main.rand.NextVector2CircularEdge(1f, 1f);
             Mote(center + outward * 10f, outward * Main.rand.NextFloat(1f, 3f) + velocity * .15f - Vector2.UnitY, .75f);
+            WindSpark(center + outward * 8f, outward.RotatedBy(.7f) * Main.rand.NextFloat(2f, 4f), .9f);
         }
     }
 }

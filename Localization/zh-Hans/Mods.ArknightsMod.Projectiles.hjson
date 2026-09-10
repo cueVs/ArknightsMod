@@ -361,3 +361,7 @@ HornShieldBash.DisplayName: 号角盾击
 HornGuard.DisplayName: 号角炮盾
 // AstraSwordSlash.DisplayName: Astra Sword Slash
 // AstraSwordAura.DisplayName: Astra Sword Aura
+// SussurroStaffHoldout.DisplayName: Sussurro Staff Holdout
+// EthanCrossFlash.DisplayName: Ethan Cross Flash
+WarfarinBloodBolt.DisplayName: 血液弹幕
+WarfarinPlasmaAura.DisplayName: 不稳定血浆

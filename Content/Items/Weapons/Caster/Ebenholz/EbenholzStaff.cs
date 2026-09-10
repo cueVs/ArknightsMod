@@ -13,7 +13,7 @@ namespace ArknightsMod.Content.Items.Weapons.Caster.Ebenholz;
 // By T
 public sealed class EbenholzStaff : ExpansionWeaponBase
 {
-    protected override int[] EliteDamage => [92, 104, 118];
+    protected override int[] EliteDamage => [97, 109, 124]; // 原面板提高 5%，取整。
     public override string Texture => "Terraria/Images/Item_" + ItemID.ShadowbeamStaff;
     public override void SetStaticDefaults() => Item.staff[Type] = true;
     public override void SetDefaults()
@@ -76,6 +76,8 @@ public sealed class EbenholzStaff : ExpansionWeaponBase
         }
     }
     public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.ShadowbeamStaff)
-        .AddIngredient(ItemID.SpectreBar, 10).AddIngredient(ItemID.SoulofNight, 15)
-        .AddIngredient(ItemID.BlackDye).AddTile(TileID.Bookcases).Register();
+        .AddIngredient(ItemID.SpectreBar, 5).AddIngredient(ItemID.SoulofNight, 5)
+        .AddIngredient(ItemID.BrownDye).AddIngredient(ItemID.SilverDye)
+        .AddRecipeGroup(OperatorWeaponRecipeGroups.AnyVanillaPiano)
+        .AddTile(TileID.Bookcases).Register();
 }

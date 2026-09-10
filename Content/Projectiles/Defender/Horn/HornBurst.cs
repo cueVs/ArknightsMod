@@ -28,6 +28,7 @@ public sealed class HornBurst : ModProjectile
         {
             emitted = true;
             HornVisuals.Detonation(Projectile.Center, Projectile.ai[0]);
+            HornVisuals.SkillDetonation(Projectile.Center, Projectile.ai[0], (int)Projectile.ai[2]);
         }
         Projectile.GetGlobalProjectile<ArtsProjectileMarker>().IsArtsDamage = Projectile.ai[1] == 1;
         Lighting.AddLight(Projectile.Center, .9f * Projectile.timeLeft / 28f, .55f * Projectile.timeLeft / 28f, .15f);
@@ -41,7 +42,11 @@ public sealed class HornBurst : ModProjectile
             && HornCombat.Clear(Projectile.Center, targetHitbox.Center.ToVector2());
     public override bool PreDraw(ref Color lightColor)
     {
-        if (Projectile.ai[1] == 0) HornVisuals.Explosion(Projectile.Center, 1f - Projectile.timeLeft / 28f, Projectile.ai[0]);
+        if (Projectile.ai[1] == 0)
+        {
+            HornVisuals.Explosion(Projectile.Center, 1f - Projectile.timeLeft / 28f, Projectile.ai[0]);
+            HornVisuals.SkillExplosion(Projectile.Center, 1f - Projectile.timeLeft / 28f, Projectile.ai[0], (int)Projectile.ai[2]);
+        }
         return false;
     }
 }
