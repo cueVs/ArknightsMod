@@ -1,4 +1,5 @@
 using System;
+using ArknightsMod.Content.Items.Weapons.Caster.Harmonie;
 using ArknightsMod.Content.Projectiles.Caster.Ebenholz;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
@@ -75,7 +76,7 @@ public sealed class EbenholzStaff : ExpansionWeaponBase
                 Main.projectile[index].CritChance = player.GetWeaponCrit(Item);
         }
     }
-    public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.ShadowbeamStaff)
+    public override void AddRecipes() => CreateRecipe().AddIngredient<HarmonieStaff>().AddIngredient(ItemID.ShadowbeamStaff)
         .AddIngredient(ItemID.SpectreBar, 5).AddIngredient(ItemID.SoulofNight, 5)
         .AddIngredient(ItemID.BrownDye).AddIngredient(ItemID.SilverDye)
         .AddRecipeGroup(OperatorWeaponRecipeGroups.AnyVanillaPiano)

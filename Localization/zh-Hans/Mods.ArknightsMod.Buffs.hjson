@@ -263,3 +263,8 @@ EthanBind: {
 	DisplayName: 缠绕
 	Description: 被回旋的丝线束缚，暂时无法移动
 }
+
+IndigoTideBind: {
+	DisplayName: 潮汐束缚
+	Description: 被淡紫色水光束缚，暂时无法移动
+}

@@ -3785,3 +3785,21 @@ WarfarinStaff: {
 		Dropped by Zombie Mermen and Wandering Eye Fish
 		'''
 }
+
+IndigoStaff: {
+	DisplayName: Indigo's Lighthouse Staff
+	Tooltip:
+		'''
+		Fires homing waterlights; stores up to three while idle and releases them with the next attack
+		Unleash the lighthouse's light or bind enemies in lilac tides
+		'''
+}
+
+HarmonieStaff: {
+	DisplayName: Harmonie's Concerto Staff
+	Tooltip:
+		'''
+		Fires homing notes; stores up to three while idle and plays them with the next attack
+		Envelop enemies in flowing scores and resonant waters
+		'''
+}
