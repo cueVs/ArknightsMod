@@ -1,6 +1,8 @@
 using ArknightsMod.Content;
+using ArknightsMod.Content.Items.Material;
 using ArknightsMod.Content.Items.Weapons;
 using ArknightsMod.Content.Projectiles.Guard.Astra;
+using ArknightsMod.Content.Tiles.Infrastructure;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -135,9 +137,11 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Astra
 
 		public override void AddRecipes() {
 			CreateRecipe()
-				.AddIngredient(ItemID.HallowedBar, 12)
-				.AddIngredient(ItemID.SoulofLight, 5)
-				.AddTile(TileID.MythrilAnvil)
+				.AddIngredient<SugarPack>(3)
+				.AddIngredient<OrironCluster>(3)
+				.AddIngredient<KetonColloid>(3)
+				.AddIngredient<PolyesterLump>(5)
+				.AddTile(ModContent.TileType<FactoryTile>())
 				.Register();
 		}
 	}

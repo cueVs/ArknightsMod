@@ -3766,6 +3766,7 @@ HornGrenadeLauncher: {
 		A successful block doubles your next shell or bash within 5 seconds
 		'''
 }
+
 AstesiaBodySet.Tooltip: ""
 AstesiaHeadSet.Tooltip: ""
 AstesiaLegsSet.Tooltip: ""

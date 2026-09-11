@@ -14,9 +14,8 @@ namespace ArknightsMod.Content.Items.Armor.Guard.Astesia
 			LifeBonus = 191,
 			LocalizationPrefix = "Mods.ArknightsMod.ArmorSets.Astesia",
 			Materials = recipe => recipe
-				.AddIngredient<Orundum>(50)
-				.AddIngredient<ManganeseTrihydrate>(8)
-				.AddIngredient<SugarPack>(12),
+				.AddIngredient<PolyesterLump>(7)
+				.AddIngredient<OrironCluster>(14),
 			SetBonusKey = "Mods.ArknightsMod.ArmorSets.Astesia.SetBonus",
 		};
 	}

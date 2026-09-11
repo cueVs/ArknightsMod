@@ -4140,6 +4140,7 @@ HornGrenadeLauncher: {
 		成功格挡后5秒内，下一次炮击或盾击伤害翻倍
 		'''
 }
+
 // AstesiaBodySet.Tooltip: ""
 // AstesiaHeadSet.Tooltip: ""
 // AstesiaLegsSet.Tooltip: ""
