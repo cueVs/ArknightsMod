@@ -1158,6 +1158,7 @@ IndigoStaff: {
 		Label: Lighthouse Guardian
 		Desc: Auto recovery, manual activation. Costs 20 SP and lasts 4 seconds. Attack speed becomes 5 times as fast, each shot deals 50% damage and costs 20% mana. Stored waterlights still release with the next attack
 	}
+
 	2: {
 		Label: Labyrinth of Light
 		Desc: Auto recovery, manual activation. Costs 40 SP and lasts 20 seconds. Gain 25% attack speed. Hits have a 60% chance to apply a 2-second tide mark and bind ordinary enemies. Marks deal 25% weapon damage every 0.5 seconds; bosses take damage without being bound. Repeated hits refresh the mark without stacking per owner. Marks end beyond 900 pixels or when the skill ends
@@ -1169,6 +1170,7 @@ HarmonieStaff: {
 		Label: Delicate Footwork
 		Desc: Auto recovery, manual activation. Costs 20 SP and lasts 5 seconds. Attack speed becomes 5 times as fast, each shot deals 50% damage and costs 20% mana. Stored notes still release with the next attack
 	}
+
 	2: {
 		Label: Drowning Calamity
 		Desc: Auto recovery, manual activation. Costs 40 SP and lasts 20 seconds. Gain 25% attack speed and create a 140-pixel-radius resonance pool at a visible point up to 600 pixels toward the cursor. Slows ordinary enemies and deals 35% weapon damage every 0.5 seconds without passing through walls. Bosses take damage without being slowed. One pool per owner; ends when switching weapons, the skill ends, or the owner moves 1000 pixels away

@@ -1,4 +1,4 @@
-using ArknightsMod.Content.Items.Weapons.Guard.Astra;
+using ArknightsMod.Content.Items.Weapons.Guard.Astesia;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArknightsMod.Content.Projectiles.Guard.Astra
+namespace ArknightsMod.Content.Projectiles.Guard.Astesia
 {
 	/// <summary>
 	/// 星辉剑（二技能）开启时的背后光环：纯外观弹幕，64×64，贴图 AstraSwordAura。

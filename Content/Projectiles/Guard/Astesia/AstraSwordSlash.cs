@@ -7,7 +7,7 @@ using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArknightsMod.Content.Projectiles.Guard.Astra
+namespace ArknightsMod.Content.Projectiles.Guard.Astesia
 {
 	/// <summary>
 	/// 星辉剑·弧光：移植自 ASTES1A（星极）的 TaurusProj —— 原版 Excalibur 挥砍能量弧，

@@ -1,7 +1,7 @@
 using ArknightsMod.Content;
 using ArknightsMod.Content.Items.Material;
 using ArknightsMod.Content.Items.Weapons;
-using ArknightsMod.Content.Projectiles.Guard.Astra;
+using ArknightsMod.Content.Projectiles.Guard.Astesia;
 using ArknightsMod.Content.Tiles.Infrastructure;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
@@ -11,7 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ArknightsMod.Content.Items.Weapons.Guard.Astra
+namespace ArknightsMod.Content.Items.Weapons.Guard.Astesia
 {
 	/// <summary>
 	/// 星辉剑（AstraSword）：常态表现移植自 ASTES1A（星极）的示范武器 Taurus ——
@@ -46,8 +46,8 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Astra
 			Item.damage = 72;
 			Item.DamageType = DamageClass.Melee;
 			Item.knockBack = 4.5f;
-			Item.width = 40;
-			Item.height = 40;
+			Item.width = 78;
+			Item.height = 78;
 			Item.scale = 1f;
 			Item.UseSound = SoundID.Item1;
 			Item.rare = ItemRarityID.Lime;
