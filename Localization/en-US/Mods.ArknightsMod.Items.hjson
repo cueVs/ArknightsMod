@@ -3735,8 +3735,9 @@ SussurroStaff: {
 	DisplayName: Sussurro's Medical Staff
 	Tooltip:
 		'''
-		Fires four-shot bursts of emerald lasers that pierce unlimited enemies; continuous casting releases healing butterflies
-		Right-click to focus healing on a nearby ally, or yourself if no ally is targeted
+		Fires swift healing rays that damage enemies
+		Repeated attacks provide additional healing
+		Right-click to release powerful homing healing butterflies
 		'''
 }
 
@@ -3744,8 +3745,8 @@ EbenholzStaff: {
 	DisplayName: Ebenholz's Sonata Staff
 	Tooltip:
 		'''
-		Fires three homing black cubes that burst on impact
-		Stores up to three echoes while idle and releases them with the next attack
+		Releases homing black sonata cubes
+		Stores multiple echoes to release together
 		'''
 }
 
@@ -3753,8 +3754,9 @@ EthanYoyo: {
 	DisplayName: Ethan's Yoyo
 	Tooltip:
 		'''
-		Attack nearby enemies with a yoyo, with a 25% chance to bind ordinary foes
-		While deployed, reduces aggro and grants 50% evasion against enemies and projectiles
+		Has a small chance to bind ordinary enemies
+		Reduces player aggro while in use
+		Has a 10% chance to dodge damage
 		'''
 }
 
@@ -3762,11 +3764,42 @@ HornGrenadeLauncher: {
 	DisplayName: Horn's Grenade Shield
 	Tooltip:
 		'''
-		Left-click fires grenades; right-click guards, turning close-range shots into shield bashes
-		A successful block doubles your next shell or bash within 5 seconds
+		Automatically guards while held and raises the shield again when its cooldown ends; left-click always fires grenades
+		A successful block doubles your next shell within 5 seconds
 		'''
 }
 
 AstesiaBodySet.Tooltip: ""
 AstesiaHeadSet.Tooltip: ""
 AstesiaLegsSet.Tooltip: ""
+
+WarfarinStaff: {
+	DisplayName: Warfarin's Plasma Staff
+	Tooltip:
+		'''
+		Fires five blood bolts in a burst; each follows gravity, hits up to twice and vanishes on terrain
+		Deals summon damage without consuming mana or minion slots
+		Press the skill activation key for Unstable Plasma: summons deal 30% more damage and release blood bolts on hit
+		Lasts 15 seconds; 30 SP with automatic recovery; summons share a 0.25-second blood bolt cooldown
+		Only active while holding this staff; additional bolts deal this staff's current damage
+		Dropped by Zombie Mermen and Wandering Eye Fish
+		'''
+}
+
+IndigoStaff: {
+	DisplayName: Indigo's Lighthouse Staff
+	Tooltip:
+		'''
+		Fires homing waterlights; stores up to three while idle and releases them with the next attack
+		Unleash the lighthouse's light or bind enemies in lilac tides
+		'''
+}
+
+HarmonieStaff: {
+	DisplayName: Harmonie's Concerto Staff
+	Tooltip:
+		'''
+		Fires homing notes; stores up to three while idle and plays them with the next attack
+		Envelop enemies in flowing scores and resonant waters
+		'''
+}

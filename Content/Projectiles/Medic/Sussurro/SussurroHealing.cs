@@ -16,36 +16,84 @@ public sealed class SussurroHealingButterfly : ModProjectile
         Projectile.width = Projectile.height = 12;
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;
-        Projectile.penetrate = -1;
-        Projectile.timeLeft = 180;
+        Projectile.DamageType = DamageClass.Magic;
+        Projectile.penetrate = 1;
+        Projectile.extraUpdates = 3;
+        Projectile.timeLeft = 180 * 4;
         Projectile.netImportant = true;
     }
-    public override bool? CanDamage() => false;
+    private bool Attacking => Projectile.ai[0] == -2f && Projectile.damage > 0;
+    public override bool? CanDamage() => Attacking ? null : false;
+    public override bool CanHitPvp(Player target) => false;
+    public override bool? CanHitNPC(NPC target) => Attacking && target.CanBeChasedBy(Projectile) ? null : false;
     public override void AI()
     {
         Player owner = Main.player[Projectile.owner];
-        int targetIndex = (int)Projectile.ai[0];
-        if (!Main.player.IndexInRange(targetIndex) || owner.HeldItem.ModItem is not SussurroStaff
-            || !owner.active || owner.dead || !SussurroStaffPlayer.CanTreat(owner, Main.player[targetIndex]))
+        if (owner.HeldItem.ModItem is not SussurroStaff || !owner.active || owner.dead)
         {
             Projectile.Kill();
             return;
         }
-        Player target = Main.player[targetIndex];
-        Projectile.localAI[0]++;
+        // 目标模式仅由发射者决定并同步；满血也发射，在飞行中随队伍血量重新选择用途。
+        if (Projectile.owner == Main.myPlayer && Projectile.numUpdates == 0 && Projectile.damage > 0)
+        {
+            int next = (int)Projectile.ai[0];
+            if (SussurroStaffPlayer.AllPlayersHealthy())
+                next = -2;
+            else if (!Main.player.IndexInRange(next) || !SussurroStaffPlayer.CanTreat(owner, Main.player[next])
+                || Main.player[next].statLife >= Main.player[next].statLifeMax2)
+                next = SussurroStaffPlayer.FindPatient(owner, Projectile.Center);
+            if (next != (int)Projectile.ai[0])
+            {
+                Projectile.ai[0] = next;
+                Projectile.netUpdate = true;
+            }
+        }
+        Projectile.friendly = Attacking;
+        Projectile.localAI[0] += 1f / Projectile.MaxUpdates;
         float age = Projectile.localAI[0];
+        if (!Main.dedServ && Projectile.numUpdates == 0 && (int)age % 3 == 0)
+            SussurroVisuals.Firefly(Projectile.Center, -Projectile.velocity * .12f, .65f);
+
+        int targetIndex = (int)Projectile.ai[0];
+        Player target = Main.player.IndexInRange(targetIndex) ? Main.player[targetIndex] : null;
+        if (Attacking)
+        {
+            NPC enemy = null;
+            float best = 1200f * 1200f;
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                float distance = npc.DistanceSQ(Projectile.Center);
+                if (distance < best && npc.CanBeChasedBy(Projectile))
+                {
+                    best = distance;
+                    enemy = npc;
+                }
+            }
+            if (enemy != null)
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity,
+                    (enemy.Center - Projectile.Center).SafeNormalize(Vector2.UnitY) * 6f, .06f);
+            return;
+        }
+        if (target == null || !SussurroStaffPlayer.CanTreat(owner, target))
+        {
+            // 仍有缺血玩家但不在治疗范围内时暂留空中，不能误判为全员满血。
+            Projectile.velocity *= .98f;
+            return;
+        }
         Vector2 toTarget = target.MountedCenter - Projectile.Center;
         // LivingShard 蝴蝶先舒展开翅膀，再以柔和惯性靠近；近身治疗不必等命中敌人。
-        if (age < 10f)
-            Projectile.velocity *= .93f;
+        if (age < 3f)
+            Projectile.velocity *= .98f;
         else
         {
-            float speed = MathHelper.Clamp(8f + toTarget.Length() * .035f + (age - 10f) * .08f, 8f, 28f);
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, toTarget.SafeNormalize(Vector2.UnitY) * speed, .16f);
+            float speed = MathHelper.Clamp(5f + toTarget.Length() * .018f + age * .04f, 5f, 16f);
+            // 右键蝴蝶有伤害基数；左键被动治疗蝴蝶仍使用原有速度与追踪。
+            float movementScale = Projectile.damage > 0 ? .5f : 1f;
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity,
+                toTarget.SafeNormalize(Vector2.UnitY) * speed * movementScale, .16f * movementScale);
         }
-        if (!Main.dedServ && (int)age % 3 == 0)
-            SussurroVisuals.Firefly(Projectile.Center, -Projectile.velocity * .12f, .65f);
-        if (age >= 10f && toTarget.Length() < 24f && Projectile.owner == Main.myPlayer)
+        if (age >= 3f && toTarget.Length() < 24f && Projectile.owner == Main.myPlayer)
         {
             int amount = Math.Min(Math.Clamp((int)Projectile.ai[1], 0, 12), Math.Max(0, target.statLifeMax2 - target.statLife));
             if (amount > 0)
@@ -68,9 +116,12 @@ public sealed class SussurroHealingButterfly : ModProjectile
             Projectile.Kill();
         }
     }
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        => SussurroVisuals.Impact(target.Center, Projectile.velocity.ToRotation(), .85f);
     public override bool PreDraw(ref Color lightColor)
     {
-        SussurroVisuals.DrawButterfly(Projectile.Center, Projectile.velocity.X * .025f,
+        // 蝴蝶绘制的头部朝上，补 90 度后与实际飞行向量一致。
+        SussurroVisuals.DrawButterfly(Projectile.Center, Projectile.velocity.ToRotation() + MathHelper.PiOver2,
             Projectile.localAI[0], Projectile.ai[2] > 0f ? 1.1f : .85f, 1f);
         return false;
     }

@@ -232,3 +232,8 @@ EthanBind: {
 	DisplayName: Entangled
 	Description: Bound by spinning threads and temporarily unable to move
 }
+
+IndigoTideBind: {
+	DisplayName: Tidal Bind
+	Description: Bound in lilac waterlight, temporarily unable to move
+}

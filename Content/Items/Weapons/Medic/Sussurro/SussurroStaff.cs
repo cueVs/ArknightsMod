@@ -42,6 +42,31 @@ public sealed class SussurroStaff : ExpansionWeaponBase
     }
 
     public override bool AltFunctionUse(Player player) => true;
+    internal static bool CanHoldRightClick(Player player) => Main.mouseRight && !Main.gameMenu
+        && !Main.mapFullscreen && !Main.blockMouse && !Main.playerInventory && !player.mouseInterface
+        && player.chest == -1 && player.TalkNPC == null && !player.sleeping.isSleeping
+        && !player.dead && !player.CCed && !player.noItems;
+
+    public override void HoldItem(Player player)
+    {
+        base.HoldItem(player);
+        int holdoutType = ModContent.ProjectileType<SussurroStaffHoldout>();
+        Item.noUseGraphic = player.ownedProjectileCounts[holdoutType] > 0;
+        if (player.whoAmI != Main.myPlayer)
+            return;
+        if (ArknightsKeybinds.SkillActivatePressed(player))
+            player.GetModPlayer<SussurroStaffPlayer>().TryActivate();
+        // 与 SHPC 一样直接读取右键状态；原版 altFunctionUse 只负责阻止左键射击管线。
+        if (!CanHoldRightClick(player) || player.itemAnimation > 0
+            || player.ownedProjectileCounts[holdoutType] > 0
+            || Main.SmartInteractX != -1 || Main.SmartInteractY != -1 || Main.SmartInteractProj != -1
+            || !player.CheckMana(Item, pay: false))
+            return;
+        Vector2 aim = (Main.MouseWorld - player.MountedCenter).SafeNormalize(Vector2.UnitX * player.direction);
+        Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.MountedCenter, aim,
+            holdoutType, 0, 0f, player.whoAmI);
+    }
+
     public override bool CanUseItem(Player player)
     {
         if (ArknightsKeybinds.SkillActivatePressed(player))
@@ -49,7 +74,9 @@ public sealed class SussurroStaff : ExpansionWeaponBase
             player.GetModPlayer<SussurroStaffPlayer>().TryActivate();
             return false;
         }
-        return base.CanUseItem(player);
+        return player.altFunctionUse != 2
+            && player.ownedProjectileCounts[ModContent.ProjectileType<SussurroStaffHoldout>()] == 0
+            && base.CanUseItem(player);
     }
     public override float UseSpeedMultiplier(Player player)
         => player.GetModPlayer<SussurroStaffPlayer>().DeepTreatment ? 2f : 1f;
@@ -61,10 +88,12 @@ public sealed class SussurroStaff : ExpansionWeaponBase
             return false;
         SussurroStaffPlayer treatment = player.GetModPlayer<SussurroStaffPlayer>();
         Vector2 direction = (Main.MouseWorld - player.MountedCenter).SafeNormalize(new Vector2(player.direction, 0f));
-        position = player.MountedCenter + direction * 36f;
-        treatment.RegisterCast(player.altFunctionUse == 2);
+        // 枪口也沿方块碰撞移动，贴墙射击不能把激光直接生成到墙后。
+        position = player.MountedCenter + Collision.TileCollision(player.MountedCenter - new Vector2(9f),
+            direction * 36f, 18, 18, true, true);
         if (player.altFunctionUse == 2)
-            return false; // 右键专注治疗光标附近的队友，不向队友射出伤害激光。
+            return false;
+        treatment.RegisterCast(false);
 
         direction = direction.RotatedByRandom(MathHelper.ToRadians(2f));
         bool compressed = treatment.NextCompressedShot();
@@ -81,10 +110,11 @@ public sealed class SussurroStaff : ExpansionWeaponBase
 
     public override void AddRecipes()
     {
-        // 钴/钯两种世界都能制作，不要求机械首领材料。
-        foreach (int bar in new[] { ItemID.CobaltBar, ItemID.PalladiumBar })
-            CreateRecipe().AddIngredient(ItemID.EmeraldStaff).AddIngredient(bar, 12)
-                .AddIngredient(ItemID.CrystalShard, 15).AddIngredient(ItemID.PixieDust, 15)
-                .AddIngredient(ItemID.HealingPotion, 10).AddTile(TileID.Anvils).Register();
+        // 六种早期宝石法杖全部各一把，不包含琥珀法杖。
+        CreateRecipe().AddIngredient(ItemID.SapphireStaff).AddIngredient(ItemID.RubyStaff)
+            .AddIngredient(ItemID.EmeraldStaff).AddIngredient(ItemID.AmethystStaff)
+            .AddIngredient(ItemID.DiamondStaff).AddIngredient(ItemID.TopazStaff)
+            .AddIngredient(ItemID.HealingPotion, 100).AddIngredient(ItemID.CrystalShard, 20)
+            .AddIngredient(ItemID.PixieDust, 20).AddTile(TileID.Anvils).Register();
     }
 }

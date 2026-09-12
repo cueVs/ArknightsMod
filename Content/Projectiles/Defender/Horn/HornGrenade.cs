@@ -1,3 +1,4 @@
+using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -8,6 +9,9 @@ namespace ArknightsMod.Content.Projectiles.Defender.Horn;
 
 public sealed class HornGrenade : ModProjectile
 {
+    internal byte VisualState;
+    public override void SendExtraAI(BinaryWriter writer) => writer.Write(VisualState);
+    public override void ReceiveExtraAI(BinaryReader reader) => VisualState = reader.ReadByte();
     public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.GrenadeI;
     public override void SetStaticDefaults()
     {
@@ -33,6 +37,7 @@ public sealed class HornGrenade : ModProjectile
             Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.Torch, -Projectile.velocity * .15f, 100, default, 1.2f);
             dust.noGravity = true;
         }
+        HornVisuals.SkillTrail(Projectile, VisualState);
         if (Projectile.owner != Main.myPlayer) return;
         foreach (NPC npc in Main.ActiveNPCs)
             if (npc.CanBeChasedBy(Projectile) && npc.Hitbox.Intersects(Projectile.Hitbox))
@@ -55,7 +60,7 @@ public sealed class HornGrenade : ModProjectile
         void Spawn(int damage, int kind)
         {
             int index = Projectile.NewProjectile(source.GetSource_FromThis(), center, Vector2.Zero,
-                ModContent.ProjectileType<HornBurst>(), damage, source.knockBack, source.owner, radius, kind);
+                ModContent.ProjectileType<HornBurst>(), damage, source.knockBack, source.owner, radius, kind, (source.ModProjectile as HornGrenade)?.VisualState ?? 0);
             if (Main.projectile.IndexInRange(index)) Main.projectile[index].CritChance = source.CritChance;
         }
     }

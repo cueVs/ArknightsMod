@@ -57,7 +57,7 @@ public sealed class SussurroStaffPlayer : ModPlayer
         if (Player.whoAmI != Main.myPlayer)
             return;
         // 仅成功扣魔力并进入 Shoot 的施法延长窗口；断蓝、松手、收起都会停止积累治疗。
-        castGrace = Math.Max(2, Player.itemAnimationMax) + 2;
+        castGrace = Math.Max(allyMode ? 20 : 2, Player.itemAnimationMax) + 2;
         recipient = Player.whoAmI;
         if (allyMode)
         {
@@ -94,6 +94,52 @@ public sealed class SussurroStaffPlayer : ModPlayer
             || (healer.team != 0 && healer.team == target.team))
         && target.DistanceSQ(healer.Center) <= 600f * 600f;
 
+    internal static bool AllPlayersHealthy()
+    {
+        foreach (Player other in Main.ActivePlayers)
+            if (!other.dead && other.statLife < other.statLifeMax2)
+                return false;
+        return true;
+    }
+
+    internal static int FindPatient(Player healer, Vector2 focus)
+    {
+        int target = -1;
+        float best = float.MaxValue;
+        foreach (Player other in Main.ActivePlayers)
+        {
+            if (!CanTreat(healer, other) || other.statLife >= other.statLifeMax2)
+                continue;
+            float distance = other.DistanceSQ(focus);
+            if (distance < best)
+            {
+                best = distance;
+                target = other.whoAmI;
+            }
+        }
+        return target;
+    }
+
+    internal void ReleaseButterflies(Vector2 start, Vector2 aim)
+    {
+        RegisterCast(true);
+        int target = FindPatient(Player, Main.MouseWorld);
+        int heal = HealAmount(TreatmentActive ? mode : 0, rank);
+        // 仅右键按实测 2600 → 目标 600 缩放，不改左键面板和治疗量。
+        int damage = Math.Max(1, (int)MathF.Round(Player.GetWeaponDamage(Player.HeldItem) * (2f * 600f / 2600f)));
+        int count = Main.rand.Next(2, 4);
+        for (int i = 0; i < count; i++)
+        {
+            float spread = MathHelper.ToRadians(-5f + 10f * i / (count - 1f));
+            Vector2 velocity = aim.RotatedBy(spread) * 3.5f;
+            int index = Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), start, velocity,
+                ModContent.ProjectileType<SussurroHealingButterfly>(), damage, 1f, Player.whoAmI,
+                target, heal, DeepTreatment ? 1f : 0f);
+            if (Main.projectile.IndexInRange(index))
+                Main.projectile[index].CritChance = Player.GetWeaponCrit(Player.HeldItem);
+        }
+    }
+
     public override void PostUpdate()
     {
         if (skillLockout > 0)
@@ -110,6 +156,12 @@ public sealed class SussurroStaffPlayer : ModPlayer
             return;
         }
         castGrace--;
+        // 右键由手持弹幕管理三连发；不再叠加左键的被动治疗蝴蝶。
+        if (Player.ownedProjectileCounts[ModContent.ProjectileType<SussurroStaffHoldout>()] > 0)
+        {
+            healingClock = 0;
+            return;
+        }
         if (++healingClock < HealInterval(DeepTreatment))
             return;
         healingClock = 0;

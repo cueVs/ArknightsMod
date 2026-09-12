@@ -21,6 +21,8 @@ public sealed class HornLauncherPlayer : ModPlayer
     private bool Selected => Holding && Skills.CurrentSkill?.Key.Item == nameof(HornGrenadeLauncher);
     internal int Mode => Selected && Skills.SkillActive && Skills.Skill == activeMode - 1 ? activeMode : 0;
     internal bool Dumping => dumpCount > 0;
+    internal byte VisualState => Dumping || (Mode == 2 && ammunition <= 5) ? (byte)4
+        : Mode == 2 ? (byte)2 : Overdrive ? (byte)5 : Mode == 3 ? (byte)3 : (byte)0;
     private int Rank => Math.Clamp((Skills.CurrentSkill.ForceReplaceLevel ?? Skills.CurrentSkill.Level) - 1, 0, 9);
     private bool Overdrive => Mode == 3 && Skills.SkillTimer >= 12 * 60 * WeaponPlayer.ActiveDurationMultiplier;
     internal void CounterReady()
@@ -75,6 +77,7 @@ public sealed class HornLauncherPlayer : ModPlayer
         if (!Holding || Player.whoAmI != Main.myPlayer || (Dumping && !release)) return;
         Vector2 aim = (Main.MouseWorld - Player.MountedCenter).SafeNormalize(new Vector2(Player.direction, 0));
         Player.ChangeDir(aim.X >= 0f ? 1 : -1);
+        byte visualState = release ? (byte)4 : VisualState; // Snapshot before the last round ends S2.
         float physical = 1f, arts = 0f, radius = 95f;
         int flare = 0;
         if (release || Mode == 2)
@@ -101,16 +104,20 @@ public sealed class HornLauncherPlayer : ModPlayer
         counterTime = 0;
         int hit = Math.Max(1, (int)MathF.Round(baseDamage * physical * counter));
         int artsHit = (int)MathF.Round(baseDamage * arts * counter);
-        bool bash = !release && Player.GetModPlayer<Defender_Player>().ShieldMode && HornCombat.NearEnemy(Player, aim);
         Vector2 origin = Player.MountedCenter;
         if (HornCombat.Clear(origin, origin + aim * 43f)) origin += aim * 43f;
-        int index = Projectile.NewProjectile(source, bash ? Player.MountedCenter : origin, bash ? aim : aim * 17f,
-            bash ? ModContent.ProjectileType<HornShieldBash>() : ModContent.ProjectileType<HornGrenade>(),
+        int index = Projectile.NewProjectile(source, origin, aim * 17f,
+            ModContent.ProjectileType<HornGrenade>(),
             hit, knockback, Player.whoAmI, radius, flare, artsHit);
-        if (Main.projectile.IndexInRange(index)) Main.projectile[index].CritChance = Player.GetWeaponCrit(Player.HeldItem);
+        if (Main.projectile.IndexInRange(index))
+        {
+            Main.projectile[index].CritChance = Player.GetWeaponCrit(Player.HeldItem);
+            ((HornGrenade)Main.projectile[index].ModProjectile).VisualState = visualState;
+            Main.projectile[index].netUpdate = true;
+        }
         HornVisuals.Muzzle(origin, aim, counter > 1f);
-        SoundEngine.PlaySound(bash ? SoundID.Item1 : SoundID.Item61 with { Volume = .55f, Pitch = -.3f, MaxInstances = 4 }, origin);
-        Player.velocity -= aim * (bash ? .3f : .65f);
+        SoundEngine.PlaySound(SoundID.Item61 with { Volume = .55f, Pitch = -.3f, MaxInstances = 4 }, origin);
+        Player.velocity -= aim * .65f;
         int guardType = ModContent.ProjectileType<HornGuard>();
         foreach (Projectile p in Main.ActiveProjectiles)
             if (p.owner == Player.whoAmI && p.type == guardType) { p.ai[2] = 10; p.netUpdate = true; }

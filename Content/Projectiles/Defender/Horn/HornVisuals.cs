@@ -1,4 +1,5 @@
 using System;
+using ArknightsMod.Common.Particle;
 using ArknightsMod.Common.VisualEffects;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,7 +7,7 @@ using Terraria.ID;
 
 namespace ArknightsMod.Content.Projectiles.Defender.Horn;
 
-internal static class HornVisuals
+internal static partial class HornVisuals
 {
     internal static readonly Color Gold = new(255, 206, 100), White = new(255, 250, 215);
     internal static void Sparks(Vector2 center, int count, float speed)
@@ -44,6 +45,18 @@ internal static class HornVisuals
                 i % 3 == 0 ? White : new Color(255, 153, 57), Main.rand.NextFloat(13f, 23f), 20);
         }
         Sparks(center, 24, 7f);
+        // 烟团之外再向外射出细长亮屑与火尘，让爆心和冲击方向更清楚。
+        for (int i = 0; i < 18; i++)
+        {
+            Vector2 outward = (MathHelper.TwoPi * i / 18f + Main.rand.NextFloat(-.1f, .1f)).ToRotationVector2();
+            Vector2 position = center + outward * radius * .22f;
+            Vector2 velocity = outward * Main.rand.NextFloat(5f, 10f);
+            Dust dust = Dust.NewDustPerfect(position, DustID.Torch, velocity, 30, default, Main.rand.NextFloat(1.2f, 1.8f));
+            dust.noGravity = true;
+            if (ParticleManager.activeParticles.Count < 1100)
+                new DefaultParticle(position, velocity, Main.rand.Next(22, 34), .3f,
+                    i % 3 == 0 ? White : Gold, false) { Deformation = new Vector2(.3f, 2.6f) }.Spawn();
+        }
     }
     internal static void Explosion(Vector2 center, float progress, float radius)
     {

@@ -48,7 +48,7 @@ public sealed class EthanYoyoPlayer : ModPlayer
         if (Player.whoAmI != Main.myPlayer || !Holding
             || Player.ownedProjectileCounts[ModContent.ProjectileType<EthanSpinningYoyo>()] == 0
             || (info.DamageSource.SourceNPCIndex < 0 && info.DamageSource.SourceProjectileLocalIndex < 0)
-            || Main.rand.NextFloat() >= .5f) return false;
+            || Main.rand.NextFloat() >= .1f) return false;
         Player.immune = true;
         Player.immuneTime = Math.Max(Player.immuneTime, 20);
         EthanVisuals.Scatter(Player.Center, 20, 4f);

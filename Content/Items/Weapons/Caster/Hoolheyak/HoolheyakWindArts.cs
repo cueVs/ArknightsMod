@@ -16,7 +16,7 @@ namespace ArknightsMod.Content.Items.Weapons.Caster.Hoolheyak;
 public sealed class HoolheyakWindArts : ExpansionWeaponBase
 {
     public override string Texture => "Terraria/Images/Item_" + ItemID.SpiritFlame;
-    protected override int[] EliteDamage => [108, 122, 138];
+    protected override int[] EliteDamage => [116, 131, 148]; // 原面板提高 7%，取整。
     private int barrageShot;
     private bool skillKeyConsumed;
     internal static readonly float[] SeekingDamage = [1.6f, 1.7f, 1.8f, 2f, 2.1f, 2.2f, 2.4f, 2.6f, 2.8f, 3f];
@@ -157,10 +157,10 @@ public sealed class HoolheyakWindArts : ExpansionWeaponBase
     }
 
     public override void AddRecipes() => CreateRecipe()
-        .AddIngredient(ItemID.SpellTome)
+        .AddIngredient(ItemID.CrystalStorm)
+        .AddIngredient(ItemID.CloudinaBottle)
         .AddIngredient(ItemID.Feather, 15)
-        .AddIngredient(ItemID.SoulofFlight, 20)
-        .AddIngredient(ItemID.SpectreBar, 10)
+        .AddIngredient(ItemID.SoulofFlight, 15)
         .AddTile(TileID.Bookcases)
         .Register();
 }
