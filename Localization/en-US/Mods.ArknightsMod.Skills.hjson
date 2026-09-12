@@ -1091,12 +1091,12 @@ HoolheyakWindArts: {
 SussurroStaff: {
 	1: {
 		Label: Healing Up β
-		Desc: Activate for 20 seconds. Continuous casting heals 6-9 life each second, independent of enemies hit. Both skills share a minimum cooldown that switching cannot reset
+		Desc: Activate for 20 seconds. Continuous casting releases medical butterflies that heal 6-9 life each second. Medical projectiles only take effect after 0.5 seconds. Successful treatment causes medication sickness, reducing further treatment by 100% for 11.4 seconds. Both skills share a minimum cooldown that switching cannot reset
 	}
 
 	2: {
 		Label: Deep Healing
-		Desc: Activate for 8-10 seconds. Doubles casting speed and heals 9-12 life every half second while casting; every third attack fires an empowered compression laser. Healing stops when casting stops. Minimum cooldown after the skill ends is 45 seconds
+		Desc: Activate for 8-10 seconds. Releases medical butterflies that heal 9-12 life every half second while casting. Medical projectiles only take effect after 0.5 seconds. Successful treatment causes medication sickness, reducing further treatment by 100% for 11.4 seconds; every third attack fires an empowered compression laser. Healing stops when casting stops. Minimum cooldown after the skill ends is 45 seconds
 	}
 }
 
@@ -1147,6 +1147,11 @@ HornGrenadeLauncher: {
 }
 
 WarfarinStaff: {
+	1: {
+		Label: Emergency Dressing
+		Desc: Auto recovery, manual activation. Throws a plasma bag toward the injured ally nearest the cursor. It can heal 30-48 life after 0.5 seconds; medical treatment then causes medication sickness, reducing further treatment by 100% for 11.4 seconds
+	}
+
 	2: {
 		Label: Unstable Plasma
 		Desc: Auto recovery, manual activation. Costs 30 SP and lasts 15 seconds. While holding the staff, your minions, sentries and their projectiles deal 30% more damage. Hits release one blood bolt dealing the staff's current damage, with a shared 0.25-second cooldown. Blood bolts hit up to twice and cannot trigger further bolts. Ends when switching away or dying

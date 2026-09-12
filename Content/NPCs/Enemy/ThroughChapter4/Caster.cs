@@ -1,6 +1,8 @@
-﻿using ArknightsMod.Systems.Gameplay.Damage;
+using ArknightsMod.Systems.Gameplay.Damage;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
@@ -179,13 +181,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			if (Main.netMode == NetmodeID.MultiplayerClient)
 				return;
 
-			Player target = Main.player[NPC.target];
-			Vector2 direction = (target.Center - NPC.Center).SafeNormalize(Vector2.Zero);
-
-			int damage = 10; // 无视防御的伤害
-			float knockback = 0f;
-
-			NPC.NewNPC(NPC.GetSource_FromAI(),(int)NPC.Center.X,(int)NPC.Center.Y,ModContent.NPCType<CasterShoot>());
+			NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y,
+				ModContent.NPCType<CasterShoot>(), Target: NPC.target);
 		}
 
 		public override void AI() {
@@ -394,14 +391,22 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		}
 	}
 	public class CasterShoot : ModNPC {
+		private static BasicEffect trailEffect;
 
 		public override string Texture => "ArknightsMod/Content/NPCs/Enemy/ThroughChapter4/explode";
+
+		public override void SetStaticDefaults() {
+			NPCID.Sets.ProjectileNPC[Type] = true;
+			NPCID.Sets.TrailCacheLength[Type] = 11;
+			NPCID.Sets.TrailingMode[Type] = 0;
+		}
 
 		public override void SetDefaults() {
 			NPC.width = 10;
 			NPC.height = 10;
 			NPC.friendly = false;
 			NPC.lifeMax = 1;
+			NPC.HideStrikeDamage = true;
 			NPC.timeLeft = 200;
 			NPC.scale = 1f;
 			NPC.damage = 10;
@@ -409,32 +414,207 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			NPC.noTileCollide = true;
 		}
 
+		private const float MoveSpeed = 12f;
 		private Vector2 speedPos;
-		private float Distance;
-		private Vector2 playerPos;
-		private int index;
-		public override void OnSpawn(IEntitySource source)
-		{
-			Distance = playerPos.Distance(Main.player[0].position);
-			playerPos = Main.player[0].position;
-			speedPos = playerPos-NPC.Center;
-			for (int i = 0; i < Main.player.Length; i++) {
-				if (Main.player[i].active && NPC.Center.Distance(Main.player[i].position) < Distance) {
-					index = i;
-					Distance = Main.player[i].position.Distance(Main.player[i].position);
-					playerPos = Main.player[i].position;
-				}
-			}
-			speedPos = playerPos-NPC.Center;
+
+		public override void OnSpawn(IEntitySource source) {
+			Player target = Main.player[NPC.target];
+			speedPos = (target.MountedCenter - NPC.Center).SafeNormalize(Vector2.UnitY) * MoveSpeed;
 		}
 
 		public override void AI() {
 			NPC.velocity = speedPos;
-			NPC.velocity.Normalize();
-			Dust dust;
-			dust = Dust.NewDustDirect(NPC.position, 22, 22, DustID.BlueTorch, 0, 0, 0, default, 4);
-			dust.noGravity = true;
-			NPC.velocity *= 1.01f;
+			Lighting.AddLight(NPC.Center, 0.04f, 0.22f, 0.65f);
+		}
+
+		private static Color TrailColor(float progress, Color head, Color middle, Color tail, float opacity) {
+			Color color = progress < 0.45f
+				? Color.Lerp(head, middle, progress / 0.45f)
+				: Color.Lerp(middle, tail, (progress - 0.45f) / 0.55f);
+			float fade = 1f - MathHelper.SmoothStep(0.58f, 1f, progress);
+			return color * (opacity * fade);
+		}
+
+		private static void DrawTrailLayer(GraphicsDevice device, BasicEffect effect, List<Vector2> points,
+			Texture2D texture, float headWidth, Color head, Color middle, Color tail, float opacity) {
+			if (points.Count < 2)
+				return;
+
+			int count = points.Count;
+			var left = new Vector2[count];
+			var right = new Vector2[count];
+			var colors = new Color[count];
+
+			for (int i = 0; i < count; i++) {
+				Vector2 tangent;
+				if (i == 0)
+					tangent = points[0] - points[1];
+				else if (i == count - 1)
+					tangent = points[i - 1] - points[i];
+				else
+					tangent = points[i - 1] - points[i + 1];
+
+				tangent = tangent.SafeNormalize(Vector2.UnitX);
+				Vector2 normal = new Vector2(-tangent.Y, tangent.X);
+				float progress = i / (float)(count - 1);
+				float width = MathHelper.Lerp(headWidth, 0.2f, progress);
+				left[i] = points[i] - normal * width;
+				right[i] = points[i] + normal * width;
+				colors[i] = TrailColor(progress, head, middle, tail, opacity);
+			}
+
+			var vertices = new VertexPositionColorTexture[(count - 1) * 6];
+			int vertexIndex = 0;
+			for (int i = 0; i < count - 1; i++) {
+				float progress = i / (float)(count - 1);
+				float nextProgress = (i + 1) / (float)(count - 1);
+				vertices[vertexIndex++] = new VertexPositionColorTexture(new Vector3(left[i], 0f), colors[i], new Vector2(progress, 0f));
+				vertices[vertexIndex++] = new VertexPositionColorTexture(new Vector3(right[i], 0f), colors[i], new Vector2(progress, 1f));
+				vertices[vertexIndex++] = new VertexPositionColorTexture(new Vector3(left[i + 1], 0f), colors[i + 1], new Vector2(nextProgress, 0f));
+				vertices[vertexIndex++] = new VertexPositionColorTexture(new Vector3(right[i], 0f), colors[i], new Vector2(progress, 1f));
+				vertices[vertexIndex++] = new VertexPositionColorTexture(new Vector3(right[i + 1], 0f), colors[i + 1], new Vector2(nextProgress, 1f));
+				vertices[vertexIndex++] = new VertexPositionColorTexture(new Vector3(left[i + 1], 0f), colors[i + 1], new Vector2(nextProgress, 0f));
+			}
+
+			effect.TextureEnabled = true;
+			effect.Texture = texture;
+			foreach (EffectPass pass in effect.CurrentTechnique.Passes) {
+				pass.Apply();
+				device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length / 3);
+			}
+		}
+
+		private static void DrawTriangleLayer(GraphicsDevice device, BasicEffect effect, List<Vector2> points,
+			float headWidth, Color head, Color middle, Color tail, float opacity) {
+			if (points.Count < 2)
+				return;
+
+			int count = points.Count;
+			var left = new Vector2[count];
+			var right = new Vector2[count];
+			var colors = new Color[count];
+			for (int i = 0; i < count; i++) {
+				Vector2 tangent;
+				if (i == 0)
+					tangent = points[0] - points[1];
+				else if (i == count - 1)
+					tangent = points[i - 1] - points[i];
+				else
+					tangent = points[i - 1] - points[i + 1];
+
+				tangent = tangent.SafeNormalize(Vector2.UnitX);
+				Vector2 normal = new Vector2(-tangent.Y, tangent.X);
+				float progress = i / (float)(count - 1);
+				float width = MathHelper.Lerp(headWidth, 0f, progress);
+				left[i] = points[i] - normal * width;
+				right[i] = points[i] + normal * width;
+				colors[i] = TrailColor(progress, head, middle, tail, opacity);
+			}
+
+			var vertices = new VertexPositionColor[(count - 1) * 6];
+			int vertexIndex = 0;
+			for (int i = 0; i < count - 1; i++) {
+				vertices[vertexIndex++] = new VertexPositionColor(new Vector3(left[i], 0f), colors[i]);
+				vertices[vertexIndex++] = new VertexPositionColor(new Vector3(right[i], 0f), colors[i]);
+				vertices[vertexIndex++] = new VertexPositionColor(new Vector3(left[i + 1], 0f), colors[i + 1]);
+				vertices[vertexIndex++] = new VertexPositionColor(new Vector3(right[i], 0f), colors[i]);
+				vertices[vertexIndex++] = new VertexPositionColor(new Vector3(right[i + 1], 0f), colors[i + 1]);
+				vertices[vertexIndex++] = new VertexPositionColor(new Vector3(left[i + 1], 0f), colors[i + 1]);
+			}
+
+			effect.TextureEnabled = false;
+			foreach (EffectPass pass in effect.CurrentTechnique.Passes) {
+				pass.Apply();
+				device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length / 3);
+			}
+		}
+
+		private static void AddEllipse(List<VertexPositionColor> vertices, Vector2 center, Vector2 direction,
+			float length, float width, Color centerColor, Color edgeColor, int segments) {
+			direction = direction.SafeNormalize(Vector2.UnitX);
+			Vector2 normal = direction.RotatedBy(MathHelper.PiOver2);
+			for (int i = 0; i < segments; i++) {
+				float angle = MathHelper.TwoPi * i / segments;
+				float nextAngle = MathHelper.TwoPi * (i + 1) / segments;
+				Vector2 edge = direction * MathF.Cos(angle) * length + normal * MathF.Sin(angle) * width;
+				Vector2 nextEdge = direction * MathF.Cos(nextAngle) * length + normal * MathF.Sin(nextAngle) * width;
+				vertices.Add(new VertexPositionColor(new Vector3(center, 0f), centerColor));
+				vertices.Add(new VertexPositionColor(new Vector3(center + edge, 0f), edgeColor));
+				vertices.Add(new VertexPositionColor(new Vector3(center + nextEdge, 0f), edgeColor));
+			}
+		}
+
+		private static void DrawOrb(GraphicsDevice device, BasicEffect effect, Vector2 center, Vector2 direction) {
+			float pulse = 1f + MathF.Sin(Main.GlobalTimeWrappedHourly * 8f) * 0.06f;
+			var vertices = new List<VertexPositionColor>(144);
+			Vector2 normal = direction.RotatedBy(MathHelper.PiOver2);
+			AddEllipse(vertices, center - direction * 1.4f, direction, 9.5f * pulse, 6.5f * pulse,
+				new Color(30, 102, 255, 100), new Color(8, 22, 110, 0), 20);
+			AddEllipse(vertices, center, direction, 6f * pulse, 4f * pulse,
+				new Color(178, 239, 255), new Color(22, 72, 235, 210), 20);
+			Vector2 highlight = center + direction * 1.5f - normal * 0.8f;
+			AddEllipse(vertices, highlight, direction, 2.5f * pulse, 1.6f * pulse,
+				new Color(245, 253, 255), new Color(80, 192, 255, 0), 16);
+
+			effect.TextureEnabled = false;
+			foreach (EffectPass pass in effect.CurrentTechnique.Passes) {
+				pass.Apply();
+				device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices.ToArray(), 0, vertices.Count / 3);
+			}
+		}
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
+			if (Main.dedServ)
+				return false;
+
+			if (trailEffect == null || trailEffect.IsDisposed) {
+				trailEffect = new BasicEffect(Main.instance.GraphicsDevice) {
+					VertexColorEnabled = true,
+					World = Matrix.Identity,
+					View = Matrix.Identity
+				};
+			}
+
+			var points = new List<Vector2>(NPC.oldPos.Length + 1) {
+				NPC.Center - screenPos
+			};
+			Vector2 normal = new Vector2(-NPC.velocity.Y, NPC.velocity.X).SafeNormalize(Vector2.UnitY);
+			float waveTime = Main.GlobalTimeWrappedHourly * 9f;
+			for (int i = 0; i < NPC.oldPos.Length; i++) {
+				if (NPC.oldPos[i] == Vector2.Zero)
+					break;
+				Vector2 point = NPC.oldPos[i] + NPC.Size * 0.5f - screenPos;
+				float progress = (i + 1f) / NPC.oldPos.Length;
+				point += normal * MathF.Sin(waveTime - i * 0.78f) * (1.4f * progress);
+				if (Vector2.DistanceSquared(points[^1], point) > 1f)
+					points.Add(point);
+			}
+
+			GraphicsDevice device = Main.instance.GraphicsDevice;
+			spriteBatch.End();
+			device.BlendState = BlendState.Additive;
+			device.RasterizerState = RasterizerState.CullNone;
+			device.DepthStencilState = DepthStencilState.None;
+			device.SamplerStates[0] = SamplerState.LinearClamp;
+
+			Matrix projection = Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1f, 1f);
+			trailEffect.Projection = Main.GameViewMatrix.TransformationMatrix * projection;
+			Texture2D flameTrail = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/FlameTrail").Value;
+			Texture2D lineTrail = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/LineTrail").Value;
+
+			DrawTriangleLayer(device, trailEffect, points, 9f,
+				new Color(86, 184, 255), new Color(42, 106, 232), new Color(24, 34, 128), 0.3f);
+			DrawTrailLayer(device, trailEffect, points, flameTrail, 15f,
+				new Color(54, 132, 255), new Color(25, 74, 215), new Color(28, 18, 112), 0.38f);
+			DrawTrailLayer(device, trailEffect, points, lineTrail, 9f,
+				new Color(188, 241, 255), new Color(48, 166, 255), new Color(38, 48, 176), 0.72f);
+			DrawTrailLayer(device, trailEffect, points, lineTrail, 3f,
+				new Color(247, 253, 255), new Color(108, 220, 255), new Color(42, 92, 220), 0.9f);
+			DrawOrb(device, trailEffect, NPC.Center - screenPos, NPC.velocity.SafeNormalize(Vector2.UnitX));
+
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState,
+				DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+			return false;
 		}
 		public override void OnHitPlayer(Player target, Player.HurtInfo info) {
 			target.immuneTime = 0;

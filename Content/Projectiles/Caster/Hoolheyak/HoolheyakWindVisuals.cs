@@ -105,6 +105,9 @@ internal static class HoolheyakWindVisuals
         Dust dust = Dust.NewDustPerfect(position, DustID.Cloud, velocity, 150, Mint, scale);
         dust.noGravity = true;
         dust.noLight = true;
+        if (ParticleManager.activeParticles.Count < 1100)
+            new DefaultParticle(position, velocity * .65f, 18, .18f * scale, Core, true)
+                { Deformation = new Vector2(.5f, 1.7f) }.Spawn();
     }
 
     // 小颗粒沿风带切线逸出；只补粒子，不改变原有风带与云尘的绘制。

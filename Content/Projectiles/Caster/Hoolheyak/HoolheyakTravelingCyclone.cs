@@ -37,8 +37,16 @@ public sealed class HoolheyakTravelingCyclone : ModProjectile
         Projectile.velocity *= .99f;
         Projectile.ai[1] += Projectile.velocity.Length();
         Projectile.ai[2]++;
-        if (!Main.dedServ && (int)Projectile.ai[2] % 4 == 0)
-            HoolheyakWindVisuals.Mote(Projectile.Center + Main.rand.NextVector2Circular(28f, 45f), -Projectile.velocity * .1f, 1f);
+        if (!Main.dedServ && (int)Projectile.ai[2] % 2 == 0)
+        {
+            Vector2 forward = Projectile.velocity.SafeNormalize(Vector2.UnitX);
+            Vector2 side = forward.RotatedBy(MathHelper.PiOver2);
+            float phase = Projectile.ai[2] * .48f + Projectile.identity;
+            Vector2 offset = side * MathF.Sin(phase) * 28f + new Vector2(0f, MathF.Cos(phase) * 38f);
+            HoolheyakWindVisuals.Mote(Projectile.Center + offset, -Projectile.velocity * .1f + side * .45f, 1f);
+            HoolheyakWindVisuals.WindSpark(Projectile.Center + offset * .75f,
+                -forward * 1.2f + side * MathF.Cos(phase) * 1.4f, .85f);
+        }
     }
     public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
     {

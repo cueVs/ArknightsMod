@@ -12,7 +12,8 @@ public sealed class HornGrenade : ModProjectile
     internal byte VisualState;
     public override void SendExtraAI(BinaryWriter writer) => writer.Write(VisualState);
     public override void ReceiveExtraAI(BinaryReader reader) => VisualState = reader.ReadByte();
-    public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.GrenadeI;
+    // Use Terraria's first-tier rocket sprite while retaining Horn's custom arc and explosion logic.
+    public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.RocketI;
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 10;

@@ -30,8 +30,16 @@ public sealed class WarfarinStaffPlayer : ModPlayer
             return;
         keyWasDown = true;
         WeaponPlayer skills = Player.GetModPlayer<WeaponPlayer>();
-        if (skills.CurrentSkill?.Key.Item != nameof(WarfarinStaff) || skills.SkillActive
-            || skills.StockCount <= 0 || PlasmaActive)
+        if (skills.CurrentSkill?.Key.Item != nameof(WarfarinStaff) || skills.Skill is < 0 or > 1
+            || skills.SkillActive || skills.StockCount <= 0)
+            return;
+
+        if (skills.Skill == 0)
+        {
+            ActivateEmergencyDressing(skills);
+            return;
+        }
+        if (PlasmaActive)
             return;
         int duration = Math.Max(1, (int)MathF.Ceiling(skills.CurrentSkill.CurrentLevelData.ActiveTime
             * 60f * WeaponPlayer.ActiveDurationMultiplier));
@@ -44,6 +52,42 @@ public sealed class WarfarinStaffPlayer : ModPlayer
         skills.SkillTimer = 0;
         procCooldown = 0;
         SoundEngine.PlaySound(SoundID.Item29 with { Volume = .5f, Pitch = -.35f }, Player.Center);
+    }
+
+    private void ActivateEmergencyDressing(WeaponPlayer skills)
+    {
+        int rank = Math.Clamp((skills.CurrentSkill.ForceReplaceLevel ?? skills.CurrentSkill.Level) - 1, 0, 9);
+        int target = FindEmergencyPatient();
+        Vector2 start = Player.MountedCenter + new Vector2(Player.direction * 22f, -18f);
+        Vector2 aim = (Main.MouseWorld - start).SafeNormalize(new Vector2(Player.direction, -.3f));
+        int index = Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), start, aim * 8f,
+            ModContent.ProjectileType<WarfarinEmergencyDressing>(), 0, 0f, Player.whoAmI,
+            target, 30 + rank * 2);
+        if (!Main.projectile.IndexInRange(index))
+            return;
+        skills.DelStockCount();
+        skills.SkillActive = true;
+        skills.SkillTimer = 0;
+        SoundEngine.PlaySound(SoundID.Item29 with { Volume = .45f, Pitch = -.05f }, Player.Center);
+    }
+
+    private int FindEmergencyPatient()
+    {
+        int selected = Player.whoAmI;
+        float best = 180f * 180f;
+        foreach (Player other in Main.ActivePlayers)
+        {
+            if (!other.active || other.dead || other.statLife >= other.statLifeMax2
+                || (other.whoAmI != Player.whoAmI && other.hostile && Player.hostile && other.team != Player.team))
+                continue;
+            float distance = other.DistanceSQ(Main.MouseWorld);
+            if (distance < best)
+            {
+                best = distance;
+                selected = other.whoAmI;
+            }
+        }
+        return selected;
     }
 
     public override void PostUpdate()

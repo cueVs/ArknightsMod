@@ -42,5 +42,7 @@ public sealed class EthanYoyo : ExpansionWeaponBase
     }
     public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.Chik)
         .AddIngredient(ItemID.JungleSpores, 12)
-        .AddIngredient(ItemID.GreenDye).AddTile(TileID.MythrilAnvil).Register();
+        .AddIngredient(ItemID.GreenDye).AddIngredient<global::ArknightsMod.Content.Items.Material.Sugar>()
+        .AddIngredient<global::ArknightsMod.Content.Items.Material.SugarPack>(17)
+        .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>()).Register();
 }
