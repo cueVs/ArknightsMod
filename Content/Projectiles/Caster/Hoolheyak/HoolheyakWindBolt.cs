@@ -49,9 +49,10 @@ public sealed class HoolheyakWindBolt : ModProjectile
         }
         Projectile.rotation = Projectile.velocity.ToRotation();
         Projectile.localAI[0]++;
-        if (!Main.dedServ && Projectile.localAI[0] % 3 == 0)
+        // Keep physical dust and custom particles layered over the procedural spiral throughout flight.
+        if (!Main.dedServ && Projectile.localAI[0] % 2 == 0)
             HoolheyakWindVisuals.Mote(Projectile.Center, -Projectile.velocity * .08f, .65f);
-        if (!Main.dedServ && Projectile.localAI[0] % (Mode >= Barrage ? 6 : 3) == 0)
+        if (!Main.dedServ && Projectile.localAI[0] % (Mode >= Barrage ? 4 : 2) == 0)
         {
             Vector2 forward = Projectile.velocity.SafeNormalize(Vector2.UnitX);
             Vector2 side = forward.RotatedBy(MathHelper.PiOver2);

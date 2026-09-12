@@ -47,5 +47,7 @@ public sealed class HornGrenadeLauncher : ExpansionWeaponBase, IShieldGuardWeapo
     public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.ObsidianShield)
         .AddIngredient(ItemID.GrenadeLauncher).AddIngredient(ItemID.ChlorophyteBar, 15)
         .AddIngredient(ItemID.LavaBucket, 2)
-        .AddIngredient(ItemID.IllegalGunParts).AddTile(TileID.MythrilAnvil).Register();
+        .AddIngredient(ItemID.IllegalGunParts).AddIngredient<global::ArknightsMod.Content.Items.Material.Orirock>(12)
+        .AddIngredient<global::ArknightsMod.Content.Items.Material.D32Steel>(4)
+        .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>()).Register();
 }

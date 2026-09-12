@@ -134,7 +134,9 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Blaze
 					.AddIngredient(ItemID.MechanicalLens)
 					.AddIngredient(ItemID.Lever, 2)
 					.AddIngredient(ItemID.Switch, 4)
-					.AddTile(TileID.MythrilAnvil)
+					.AddIngredient<global::ArknightsMod.Content.Items.Material.Device>(5)
+					.AddIngredient<global::ArknightsMod.Content.Items.Material.D32Steel>(4)
+					.AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>())
 					.Register();
 			}
 		}

@@ -14,8 +14,8 @@ namespace ArknightsMod.Content.Items.Weapons.Caster.Indigo;
 public sealed class IndigoStaff : ExpansionWeaponBase
 {
     protected override int[] EliteDamage => [24, 28, 32];
-    // 物品图沿用原版紫晶法杖占位，技能图标复用黑键；所有水光表现由代码绘制。
-    public override string Texture => "Terraria/Images/Item_" + ItemID.AmethystStaff;
+    // 单帧法杖贴图；技能图标仍复用现有占位图。
+    public override string Texture => "ArknightsMod/Content/Items/Weapons/Caster/Indigo/IndigoStaff";
     public override void SetStaticDefaults() => Item.staff[Type] = true;
     public override void SetDefaults()
     {
@@ -83,5 +83,7 @@ public sealed class IndigoStaff : ExpansionWeaponBase
 
     public override void AddRecipes() => CreateRecipe().AddIngredient(ItemID.MagicMissile)
         .AddIngredient(ItemID.BottledWater, 5).AddIngredient(ItemID.Amethyst, 8)
-        .AddIngredient(ItemID.FallenStar, 5).AddTile(TileID.Bookcases).Register();
+        .AddIngredient(ItemID.FallenStar, 5).AddIngredient<global::ArknightsMod.Content.Items.Material.Device>()
+        .AddIngredient<global::ArknightsMod.Content.Items.Material.OrironCluster>(14)
+        .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>()).Register();
 }

@@ -1,4 +1,5 @@
 using System;
+using ArknightsMod.Content.Items.Weapons.Medic;
 using ArknightsMod.Content.Projectiles.Medic.Sussurro;
 using ArknightsMod.Players;
 using Microsoft.Xna.Framework;
@@ -26,7 +27,8 @@ public sealed class SussurroStaff : ExpansionWeaponBase
         Item.width = Item.height = 40;
         Item.damage = EliteDamage[0];
         Item.DamageType = DamageClass.Magic;
-        // 沿用异客的原生连发计数：0、4、8、12 帧射击，间隔 15 帧后在第 27 帧开始下一轮。
+        // 四连发：第 0、4、8、12 帧射击，27 帧开始下一轮。
+        // 不能把 useAnimation 拉到治疗间隔，否则四发结束后法杖会长期停在举起状态。
         Item.useTime = 4;
         Item.useAnimation = 27;
         Item.useLimitPerAnimation = 4;
@@ -78,8 +80,7 @@ public sealed class SussurroStaff : ExpansionWeaponBase
             && player.ownedProjectileCounts[ModContent.ProjectileType<SussurroStaffHoldout>()] == 0
             && base.CanUseItem(player);
     }
-    public override float UseSpeedMultiplier(Player player)
-        => player.GetModPlayer<SussurroStaffPlayer>().DeepTreatment ? 2f : 1f;
+    public override float UseSpeedMultiplier(Player player) => 1f;
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source,
         Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -115,6 +116,8 @@ public sealed class SussurroStaff : ExpansionWeaponBase
             .AddIngredient(ItemID.EmeraldStaff).AddIngredient(ItemID.AmethystStaff)
             .AddIngredient(ItemID.DiamondStaff).AddIngredient(ItemID.TopazStaff)
             .AddIngredient(ItemID.HealingPotion, 100).AddIngredient(ItemID.CrystalShard, 20)
-            .AddIngredient(ItemID.PixieDust, 20).AddTile(TileID.Anvils).Register();
+            .AddIngredient(ItemID.PixieDust, 20).AddIngredient<global::ArknightsMod.Content.Items.Material.Device>()
+            .AddIngredient<global::ArknightsMod.Content.Items.Material.RMA7012>(10)
+            .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>()).Register();
     }
 }
