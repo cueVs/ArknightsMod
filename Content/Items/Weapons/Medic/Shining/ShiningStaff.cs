@@ -195,7 +195,9 @@ namespace ArknightsMod.Content.Items.Weapons.Medic.Shining
 				.AddIngredient(ItemID.SpectreStaff)
 				.AddIngredient(ItemID.SpectreBar, 16)
 				.AddIngredient(ItemID.CrystalShard, 20)
-				.AddTile(TileID.MythrilAnvil)
+				.AddIngredient<global::ArknightsMod.Content.Items.Material.Polyketon>(6)
+				.AddIngredient<global::ArknightsMod.Content.Items.Material.BipolarNanoflake>(4)
+				.AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>())
 				.Register();
 		}
 	}

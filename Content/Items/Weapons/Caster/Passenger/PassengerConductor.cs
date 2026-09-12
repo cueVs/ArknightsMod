@@ -163,7 +163,9 @@ public sealed class PassengerConductor : ExpansionWeaponBase
             .AddIngredient(ItemID.SpectreBar, 12)
             .AddIngredient(ItemID.CrystalShard, 15)
             .AddIngredient(ItemID.Wire, 40)
-            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient<global::ArknightsMod.Content.Items.Material.Oriron>(8)
+            .AddIngredient<global::ArknightsMod.Content.Items.Material.BipolarNanoflake>(4)
+            .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>())
             .Register();
     }
 }

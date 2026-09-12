@@ -80,5 +80,7 @@ public sealed class EbenholzStaff : ExpansionWeaponBase
         .AddIngredient(ItemID.SpectreBar, 5).AddIngredient(ItemID.SoulofNight, 5)
         .AddIngredient(ItemID.BrownDye).AddIngredient(ItemID.SilverDye)
         .AddRecipeGroup(OperatorWeaponRecipeGroups.AnyVanillaPiano)
-        .AddTile(TileID.Bookcases).Register();
+        .AddIngredient<global::ArknightsMod.Content.Items.Material.Polyketon>(7)
+        .AddIngredient<global::ArknightsMod.Content.Items.Material.D32Steel>(4)
+        .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>()).Register();
 }

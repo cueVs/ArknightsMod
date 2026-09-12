@@ -1,5 +1,6 @@
 using System;
 using ArknightsMod.Content.Items.Weapons.Medic.Sussurro;
+using ArknightsMod.Content.Items.Weapons.Medic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -93,9 +94,11 @@ public sealed class SussurroHealingButterfly : ModProjectile
             Projectile.velocity = Vector2.Lerp(Projectile.velocity,
                 toTarget.SafeNormalize(Vector2.UnitY) * speed * movementScale, .16f * movementScale);
         }
-        if (age >= 3f && toTarget.Length() < 24f && Projectile.owner == Main.myPlayer)
+        // 医疗弹幕前半秒穿过玩家，必须绕出后再接住，不能贴身瞬间回血。
+        if (age >= MedicalTreatment.InitialTreatmentDelayTicks && toTarget.Length() < 24f && Projectile.owner == Main.myPlayer)
         {
-            int amount = Math.Min(Math.Clamp((int)Projectile.ai[1], 0, 12), Math.Max(0, target.statLifeMax2 - target.statLife));
+            int requestedAmount = Math.Clamp((int)Projectile.ai[1], 0, 12);
+            int amount = MedicalTreatment.Apply(target, requestedAmount);
             if (amount > 0)
             {
                 if (target.whoAmI == Main.myPlayer)

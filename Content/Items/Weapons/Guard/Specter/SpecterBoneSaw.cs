@@ -133,7 +133,9 @@ namespace ArknightsMod.Content.Items.Weapons.Guard.Specter
 				.AddIngredient(ItemID.HallowedBar, 5)
 				.AddIngredient(ItemID.SharkFin)
 				.AddIngredient(ItemID.SoulofFright, 4)
-				.AddTile(TileID.MythrilAnvil)
+				.AddIngredient<global::ArknightsMod.Content.Items.Material.Orirock>(6)
+				.AddIngredient<global::ArknightsMod.Content.Items.Material.LoxicKohl>(8)
+				.AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>())
 				.Register();
 		}
 	}

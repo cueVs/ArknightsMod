@@ -214,7 +214,9 @@ namespace ArknightsMod.Content.Items.Weapons.Sniper.Fiammetta
 				.AddIngredient(ItemID.GrenadeLauncher)
 				.AddIngredient(ItemID.ShroomiteBar, 16)
 				.AddIngredient(ItemID.RocketI, 50)
-				.AddTile(TileID.MythrilAnvil)
+				.AddIngredient<global::ArknightsMod.Content.Items.Material.Device>(6)
+				.AddIngredient<global::ArknightsMod.Content.Items.Material.CrystallineElectronicUnit>(3)
+				.AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>())
 				.Register();
 		}
 

@@ -88,6 +88,8 @@ public sealed class HarmonieStaff : ExpansionWeaponBase
         foreach (int bar in new[] { ItemID.CobaltBar, ItemID.PalladiumBar })
             CreateRecipe().AddIngredient<IndigoStaff>().AddIngredient(bar, 12)
                 .AddIngredient(ItemID.CrystalShard, 8).AddIngredient(ItemID.SoulofLight, 6)
-                .AddTile(TileID.Bookcases).Register();
+                .AddIngredient<global::ArknightsMod.Content.Items.Material.Device>(3)
+                .AddIngredient<global::ArknightsMod.Content.Items.Material.RMA7024>(6)
+                .AddTile(ModContent.TileType<global::ArknightsMod.Content.Tiles.Infrastructure.FactoryTile>()).Register();
     }
 }

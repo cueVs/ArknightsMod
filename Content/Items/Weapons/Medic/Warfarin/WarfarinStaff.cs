@@ -1,4 +1,5 @@
 using ArknightsMod.Content.Projectiles.Medic.Warfarin;
+using ArknightsMod.Content.Items.Weapons.Medic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -26,8 +27,9 @@ public sealed class WarfarinStaff : ExpansionWeaponBase
         Item.damage = EliteDamage[0];
         Item.DamageType = DamageClass.Summon;
         Item.useStyle = ItemUseStyleID.Shoot;
-        Item.useTime = 5;
-        Item.useAnimation = 40;
+        // 五连血弹集中射出，下一次完整攻击按医疗五级规则在 5.7 秒后开始。
+        Item.useTime = 12;
+        Item.useAnimation = MedicalTreatment.StandardAttackIntervalTicks;
         Item.useLimitPerAnimation = 5;
         Item.noMelee = true;
         Item.autoReuse = true;
