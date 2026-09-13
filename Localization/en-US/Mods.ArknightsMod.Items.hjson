@@ -1842,7 +1842,7 @@ ChenSword_Item: {
 
 OriginiumIngot: {
 	DisplayName: Originium Ingot
-	Tooltip: ""
+	Tooltip: Can be traded with the merchant Cannot for collectible items
 }
 
 SolidColorLowSofa: {

@@ -98,7 +98,7 @@ namespace ArknightsMod.Content.Projectiles.Medic.Kaltsit
 		// ── 生命 / 复苏 ──
 		private const int   LifeMax          = 1086;
 		private const int   Defense          = 41;
-		private const int   ReceiveCooldownMax = 20;
+		private const int   ReceiveCooldownBase = 40;
 		private const int   ReviveTicks      = 1200; // 水晶状态持续多久后自动复苏，约 20 秒
 
 		// ── 伤害（没有对应武器，直接给固定基础伤害）──
@@ -436,14 +436,23 @@ namespace ArknightsMod.Content.Projectiles.Medic.Kaltsit
 			return target != null;
 		}
 
-		// -------- 受伤：只吃"怪物主动打过来的弹幕"，不再因为身体撞在一起就掉血 --------
-		// M3 现在会飞到目标侧面站位，追击/游走途中难免会跟别的怪擦身而过——继续按"碰一下
-		// 就扣血"来判定的话，纯粹路过也会挨打，很冤。改成只认"敌对弹幕命中"：那才是
-		// 怪物真的把 M3 当成目标主动打过来（M3 依旧是合法的仇恨目标，能被怪物锁定攻击），
-		// 而不是擦身而过的无差别碰撞伤害。水晶状态无敌（receiveCooldown/state 逻辑不变）。
+		// -------- 受伤：敌对 NPC 本体和敌对弹幕都能命中 M3，伤害结算到它自己的生命值 --------
+		// 两种命中共用 receiveCooldown；基础无敌时间与原版玩家普通受伤相同，为 40 tick。
+		// 主人具有 longInvince（十字项链一类效果）时，同样按原版规则延长到 80 tick。
+		// 水晶和出场状态不会调用这里，因此保持无敌。
 		private void TakeIncomingDamage() {
 			if (Main.myPlayer != Projectile.owner) return;
-			if (receiveCooldown > 0) { receiveCooldown--; return; }
+			if (receiveCooldown > 0) {
+				receiveCooldown--;
+				return;
+			}
+
+			foreach (NPC npc in Main.ActiveNPCs) {
+				if (!npc.active || npc.friendly || npc.damage <= 0 || npc.dontTakeDamage) continue;
+				if (!Projectile.Hitbox.Intersects(npc.Hitbox)) continue;
+				ApplyDamage(npc.damage);
+				return;
+			}
 
 			foreach (Projectile other in Main.ActiveProjectiles) {
 				if (!other.active || !other.hostile || other.owner == Projectile.owner) continue;
@@ -456,7 +465,8 @@ namespace ArknightsMod.Content.Projectiles.Medic.Kaltsit
 		private void ApplyDamage(int rawDamage) {
 			int dealt = Math.Max(1, rawDamage - Defense);
 			life -= dealt;
-			receiveCooldown = ReceiveCooldownMax;
+			Player owner = Main.player[Projectile.owner];
+			receiveCooldown = owner.longInvince ? ReceiveCooldownBase * 2 : ReceiveCooldownBase;
 			Projectile.netUpdate = true;
 
 			if (!Main.dedServ) {

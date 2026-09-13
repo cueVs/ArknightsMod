@@ -1982,7 +1982,7 @@ ChenSword_Item: {
 
 OriginiumIngot: {
 	DisplayName: 源石锭
-	// Tooltip: ""
+	Tooltip: 可以跟商人坎诺特交易藏品道具
 }
 
 SolidColorLowSofa: {
