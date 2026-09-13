@@ -1,0 +1,64 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria;
+//using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.ModLoader;
+using Terraria.GameContent.UI.BigProgressBar;
+using System;
+using System.Diagnostics;
+
+namespace ArknightsMod.Content.BossBars
+{
+	public class AACTBossBarNM : ModBossBar
+	{
+		private int bossHeadIndex = -1;
+
+		public override Asset<Texture2D> GetIconTexture(ref Rectangle? iconFrame)
+		{
+			if (bossHeadIndex != -1)
+			{
+				return TextureAssets.NpcHeadBoss[bossHeadIndex];
+			}
+			return null;
+		}
+
+		private float timer = 0;
+		private float randomtimer = 0;
+		private float randomshake;
+		private float stage3health;
+
+		public override bool? ModifyInfo(ref BigProgressBarInfo info, ref float life, ref float lifeMax, ref float shield, ref float shieldMax) {
+			NPC npc = Main.npc[info.npcIndexToAimAt];
+			if (!npc.active) {
+				return false;
+			}
+			stage3health = npc.lifeMax * 0.45f;
+			timer++;
+			if (timer > 120) {
+				timer = 120;
+			}
+			randomtimer++;
+			randomshake = (float)(-4 * Math.Sin(randomtimer / 12) - 2 * Math.Sin(randomtimer / 4) - 3 * Math.Sin(randomtimer / 2) + 4 * Math.Sin(randomtimer / 144) + 6 * Math.Cos(randomtimer / 48) - 4 * Math.Cos(randomtimer / 24));
+			bossHeadIndex = npc.GetBossHeadTextureIndex();
+
+			life = (float)Math.Sin(timer * Math.PI / 240) * npc.life + (npc.lifeMax * 0.9f - npc.life) / stage3health * npc.lifeMax * 0.1f * randomshake / 20;
+			lifeMax = stage3health - (npc.lifeMax * 0.9f - npc.life) / stage3health * npc.lifeMax * 0.05f * randomshake / 20;
+
+			if(life > lifeMax) {
+				life = lifeMax;
+			}
+
+			if(life < 0) {
+				life = 0;
+			}
+
+			if(lifeMax < 0) {
+				lifeMax = 0;
+			}
+
+			return true;
+		}
+	}
+}

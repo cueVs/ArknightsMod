@@ -1,0 +1,375 @@
+BlackIce.DisplayName: Black Ice
+BlackIceExplode.DisplayName: Black Ice Explode
+BlackIceFloor.DisplayName: Black Ice Floor
+BlackIceIntro.DisplayName: Black Ice Intro
+BlackIceProjectile.DisplayName: Black Ice Projectile
+Blizzard.DisplayName: Blizzard
+BlizzardStorm.DisplayName: Blizzard Storm
+BlizzardStormStarter.DisplayName: Blizzard Storm Starter
+DeepcolorMinion.DisplayName: Tentacle
+CameraTruck.DisplayName: Mobile Camera Truck
+SceneCameraShot.DisplayName: Scene Camera Shot
+SceneCameraBullet.DisplayName: Scene Camera Bullet
+SceneCameraHitBurst.DisplayName: Scene Camera Hit Burst
+DeepcolorSketchLogoAttack.DisplayName: Deepcolor Sketch Logo Attack
+DeepcolorSketchLogoStrike.DisplayName: Deepcolor Sketch Logo Strike
+IceAltarShockwave.DisplayName: Ice Altar Shockwave
+IceAltarSummonWisp.DisplayName: Ice Altar Summon Wisp
+IceAltarTwinLineRing.DisplayName: Ice Altar Twin Line Ring
+FNBanFloor.DisplayName: F N Ban Floor
+FNIceDust.DisplayName: F N Ice Dust
+FNIceRingChoice.DisplayName: F N Ice Ring Choice
+FNIceRingRound.DisplayName: F N Ice Ring Round
+FNInvincibleEffect.DisplayName: F N Invincible Effect
+FrostNovaJump.DisplayName: Frost Nova Jump
+FrostNovaRevival.DisplayName: Frost Nova Revival
+FrostNovaSmoke.DisplayName: Frost Nova Smoke
+FrostNovaWhiteRing.DisplayName: Frost Nova White Ring
+Icebreak.DisplayName: Icebreak
+Iceexplode.DisplayName: Iceexplode
+Oneirosbomb.DisplayName: Oneirosbomb
+Snowcastershoot.DisplayName: Snowcastershoot
+PmpExplode.DisplayName: Pmp Explode
+PmpFireBall.DisplayName: Pmp Fire Ball
+PmpFireRain.DisplayName: Pmp Fire Rain
+PMPSTG2Effect.DisplayName: P M P S T G2 Effect
+AACTDeathdust.DisplayName: A A C T Deathdust
+AACTEndShow.DisplayName: A A C T End Show
+CollapsedExplodeAim.DisplayName: Collapsed Explode Aim
+CollapsedFrame.DisplayName: Collapsed Frame
+CollapsedHitboxblueCore.DisplayName: Collapsed Hitboxblue Core
+Deathdust.DisplayName: Deathdust
+ExplodeAim.DisplayName: Explode Aim
+ExplodeAimPro.DisplayName: Explode Aim Pro
+ExplodeAimSmall.DisplayName: Explode Aim Small
+ExplodeArea.DisplayName: Explode Area
+ExplodeAreaPro.DisplayName: Explode Area Pro
+ExplodeAreaSmall.DisplayName: Explode Area Small
+ExplodeRingBig.DisplayName: Explode Ring Big
+ExplodeRingSmall.DisplayName: Explode Ring Small
+ExplodeWave.DisplayName: Explode Wave
+HitboxblueCore.DisplayName: Hitboxblue Core
+HitboxblueFrame.DisplayName: Hitboxblue Frame
+HitboxRedCorner.DisplayName: Hitbox Red Corner
+HitboxRedFrame.DisplayName: Hitbox Red Frame
+IACTScreenWave.DisplayName: I A C T Screen Wave
+ISTG3InCore.DisplayName: I S T G3 In Core
+ISTG3InRing.DisplayName: I S T G3 In Ring
+ISTG3OutPrism.DisplayName: I S T G3 Out Prism
+ISTG3OutRing.DisplayName: I S T G3 Out Ring
+Missle.DisplayName: Missle
+MisslePro.DisplayName: Missle Pro
+FloatingSeaDrifterShoot.DisplayName: Floating Sea Drifter Shoot
+FPSPShoot.DisplayName: F P S P Shoot
+PocketSeaCrawlerShoot.DisplayName: Pocket Sea Crawler Shoot
+PocketSeaCrawlerShoot2.DisplayName: Pocket Sea Crawler Shoot2
+PSPShoot.DisplayName: P S P Shoot
+PWTFTT.DisplayName: P W T F T T
+seashoot.DisplayName: seashoot
+splitwater2.DisplayName: splitwater2
+TFTTRush.DisplayName: T F T T Rush
+TFTTRush2.DisplayName: T F T T Rush2
+TFTTShoot.DisplayName: T F T T Shoot
+TFTTSkillshoot.DisplayName: T F T T Skillshoot
+waterbombdie.DisplayName: waterbombdie
+CasterShoot.DisplayName: Caster Shoot
+CrossbowmanBolt.DisplayName: Crossbowman Bolt
+DoubleCut.DisplayName: Double Cut
+explode.DisplayName: explode
+LightShieldCut.DisplayName: Light Shield Cut
+Motarbomb.DisplayName: Motarbomb
+SCproj.DisplayName: S Cproj
+ShieldGuardShield.DisplayName: Shield Guard Shield
+InsaneZombieLHit.DisplayName: Insane Zombie L Hit
+_StunDebuffProjectile.DisplayName: _ Stun Debuff Projectile
+AcidOgSlugProjectile.DisplayName: Acid Og Slug Projectile
+BagpipeSpear_Projectile.DisplayName: Bagpipe Spear_ Projectile
+FrostNovaYellowAura.DisplayName: Frost Nova Yellow Aura
+ChenSword_S3Lung.DisplayName: Chen Sword_ S3 Lung
+ChenSword_S3Projectile.DisplayName: Chen Sword_ S3 Projectile
+DurinWand_Projectile.DisplayName: Durin Wand_ Projectile
+Exusiai_Gun_Effect.DisplayName: Exusiai_ Gun_ Effect
+ExusiaiRingAndWingProj.DisplayName: Exusiai Ring And Wing Proj
+ExusiaiVector_Bullet.DisplayName: Exusiai Vector_ Bullet
+FangSpear_Stab.DisplayName: Fang Spear_ Stab
+KroosAlterCrossbow_Arrow.DisplayName: Kroos Alter Crossbow_ Arrow
+KroosAlterCrossbow_Effect.DisplayName: Kroos Alter Crossbow_ Effect
+KroosAlterCrossbow_Hold.DisplayName: Kroos Alter Crossbow_ Hold
+KroostheKeenGlint_Crossbow_Circle1.DisplayName: Kroosthe Keen Glint_ Crossbow_ Circle1
+KroostheKeenGlint_Crossbow_Circle2.DisplayName: Kroosthe Keen Glint_ Crossbow_ Circle2
+MostimaRingAndWingProj.DisplayName: Mostima Ring And Wing Proj
+NianSword_Projectile.DisplayName: Nian Sword_ Projectile
+NianSword.DisplayName: Nian Sword
+OrchidUmbrellla_Projectile.DisplayName: Orchid Umbrellla_ Projectile
+PozemkaCrossbow_Projectile.DisplayName: Pozemka Crossbow_ Projectile
+PozemkaCrossbow_Sentry.DisplayName: Pozemka Crossbow_ Sentry
+PozemkaCrossbow_Sentry_Projectile.DisplayName: Pozemka Crossbow_ Sentry_ Projectile
+SanCrash.DisplayName: San Crash
+ShawWaterCannon_Projectile.DisplayName: Shaw Water Cannon_ Projectile
+Shinginzan_Projectile.DisplayName: Shinginzan_ Projectile
+ThornsSword_Projectile.DisplayName: Thorns Sword_ Projectile
+YatoKatana_Projectile.DisplayName: Yato Katana_ Projectile
+SakiNote1.DisplayName: Saki Note1
+SakiNote2Bright.DisplayName: Saki Note2 Bright
+SakiNote2Dark.DisplayName: Saki Note2 Dark
+SakiNoteCommon.DisplayName: Saki Note Common
+SakiNoteIdle.DisplayName: Saki Note Idle
+SakiSlashHit.DisplayName: Saki Slash Hit
+SakiSlashHit2.DisplayName: Saki Slash Hit2
+SakiSwordBlack.DisplayName: Saki Sword Black
+SakiSwordWhite.DisplayName: Saki Sword White
+Wisdel_Probe.DisplayName: Wisdel_ Probe
+WisdelExplode.DisplayName: Wisdel Explode
+WisdelHitNormal.DisplayName: Wisdel Hit Normal
+WisdelShotBigCircle.DisplayName: Wisdel Shot Big Circle
+WisdelShotLarge.DisplayName: Wisdel Shot Large
+WisdelShotNormal.DisplayName: Wisdel Shot Normal
+ArmorPiercingArrowhead.DisplayName: Armor Piercing Arrowhead
+sw_Proj_1.DisplayName: sw_ Proj_1
+sw_Proj_2.DisplayName: sw_ Proj_2
+Dragon_Proj.DisplayName: Dragon_ Proj
+Skill_2_Attack_Proj.DisplayName: Skill_2_ Attack_ Proj
+PenNib.DisplayName: Pen Nib
+BlueberryDarkChocolateProjectile.DisplayName: Blueberry Dark Chocolate Projectile
+BlueberryProjectile.DisplayName: Blueberry Projectile
+DarkChocolateProjectile.DisplayName: Dark Chocolate Projectile
+MGL_Shield.DisplayName: M G L_ Shield
+MGL_Sword.DisplayName: M G L_ Sword
+TyphonArrow.DisplayName: Typhon Arrow
+Arrow.DisplayName: Arrow
+Arrow_Circle.DisplayName: Arrow_ Circle
+Arrow_Effect.DisplayName: Arrow_ Effect
+Adnachiel_Arrow.DisplayName: Adnachiel_ Arrow
+Adnachiel_Arrow_Circle.DisplayName: Adnachiel_ Arrow_ Circle
+Adnachiel_Arrow_Effect.DisplayName: Adnachiel_ Arrow_ Effect
+LavaSpellbookHoldout.DisplayName: Lava Spellbook Holdout
+Lava_Dagger_Explode.DisplayName: Lava_ Dagger_ Explode
+Shirayuki_Shuriken_Proj.DisplayName: Shirayuki_ Shuriken_ Proj
+JiCi4.DisplayName: Ji Ci4
+jiciwd2.DisplayName: jiciwd2
+jiciwd3.DisplayName: jiciwd3
+jiciwd5.DisplayName: jiciwd5
+yinhdsz2.DisplayName: yinhdsz2
+yinhdsz3.DisplayName: yinhdsz3
+yinhdsz4.DisplayName: yinhdsz4
+yinhdsz5.DisplayName: yinhdsz5
+yinhdsz6.DisplayName: yinhdsz6
+TYTX.DisplayName: T Y T X
+SnowSniper_Shot.DisplayName: Snow Sniper_ Shot
+Skill_3_Attack_Proj.DisplayName: Skill_3_ Attack_ Proj
+NoirShield_MainAtk.DisplayName: Noir Shield_ Main Atk
+NoirShield_Projectile.DisplayName: Noir Shield_ Projectile
+_12F_Projectile.DisplayName: _12 F_ Projectile
+YatoKatanaSheath_Projectile.DisplayName: Yato Katana Sheath_ Projectile
+NianShield.DisplayName: Nian Shield
+SchwarzArrow.DisplayName: Schwarz Arrow
+TrailStripe.DisplayName: Trail Stripe
+BagpipeSpearProj2.DisplayName: Bagpipe Spear Proj2
+BagpipeSpearProj3.DisplayName: Bagpipe Spear Proj3
+BagpipeSpearProj4.DisplayName: Bagpipe Spear Proj4
+ReceptionRoomDecorDrawProjectile.DisplayName: Reception Room Decor Draw Projectile
+ShieldHitParticles.DisplayName: Shield Hit Particles
+Haze_Magicball.DisplayName: Haze_ Magicball
+Haze_Crimsonball.DisplayName: Haze_ Crimsonball
+Haze_Effect.DisplayName: Haze_ Effect
+PmpSlugEgg.DisplayName: Pmp Slug Egg
+FierySlugFireballProjectile.DisplayName: Fiery Slug Fireball Projectile
+DeathDebrisProjectile.DisplayName: Death Debris Projectile
+NPCDebrisProjectile.DisplayName: N P C Debris Projectile
+PmpTrailFlame.DisplayName: Pmp Trail Flame
+Fireworks_Hand_Proj_Explosive.DisplayName: Fireworks_ Hand_ Proj_ Explosive
+FireworksHandProj.DisplayName: Fireworks Hand Proj
+FireworksHandProjGlow.DisplayName: Fireworks Hand Proj Glow
+ProjLightCircle.DisplayName: Proj Light Circle
+ParticleExplosionParticle.DisplayName: Particle Explosion Particle
+Light_Vertical.DisplayName: Light_ Vertical
+Light_horizontal.DisplayName: Light_horizontal
+Light.DisplayName: Light
+BlackExplosionParticle.DisplayName: Black Explosion Particle
+BlackExplosion.DisplayName: Black Explosion
+ProjLightCore.DisplayName: Proj Light Core
+DedicationTrackingProj.DisplayName: Dedication Tracking Proj
+IceAltarInboundWisp.DisplayName: Ice Altar Inbound Wisp
+TrailShard.DisplayName: Trail Shard
+TyphonS2Arrow.DisplayName: Typhon S2 Arrow
+BurnFireParticle.DisplayName: Burn Fire Particle
+BurnFireSpawner.DisplayName: Burn Fire Spawner
+PalsyLightning.DisplayName: Palsy Lightning
+PalsyLightningSpawner.DisplayName: Palsy Lightning Spawner
+ValarqvinProj_2.DisplayName: Valarqvin Proj_2
+ValarqvinProj.DisplayName: Valarqvin Proj
+DN_Shield.DisplayName: D N_ Shield
+DN_Sword.DisplayName: D N_ Sword
+GravityDagger.DisplayName: Gravity Dagger
+RedMagicBlade.DisplayName: Red Magic Blade
+StaticPredictLine.DisplayName: Static Predict Line
+DaggerPredictLine.DisplayName: Dagger Predict Line
+TyphonAimReticle.DisplayName: Typhon Aim Reticle
+TyphonStar.DisplayName: Typhon Star
+DelayDagger.DisplayName: Delay Dagger
+GroundDagger.DisplayName: Ground Dagger
+StallDagger.DisplayName: Stall Dagger
+TransparentSlash.DisplayName: Transparent Slash
+TyphonStarReleaseBurst.DisplayName: Typhon Star Release Burst
+BarrageDagger.DisplayName: Barrage Dagger
+CrownslayerSmokeEmitter.DisplayName: Crownslayer Smoke Emitter
+SwordSlashEffect.DisplayName: Sword Slash Effect
+PramanixShockwaveRing.DisplayName: Pramanix Shockwave Ring
+PramanixSkill1Snowflake.DisplayName: Pramanix Skill1 Snowflake
+PramanixSkill3VolleyFx.DisplayName: Pramanix Skill3 Volley Fx
+RosmontisTacticalEquipment.DisplayName: Rosmontis Tactical Equipment
+DorothySweeper.DisplayName: Dorothy Sweeper
+DorothySweeperShot.DisplayName: Dorothy Sweeper Shot
+ExusiaiAlterBomb.DisplayName: Exusiai Alter Bomb
+CivilightDustMote.DisplayName: Civilight Dust Mote
+StewardProj.DisplayName: Steward Proj
+MelanthaSlash.DisplayName: Melantha Slash
+CardiganShieldBash.DisplayName: Cardigan Shield Bash
+HongdouLanceThrust.DisplayName: Hongdou Lance Thrust
+HongdouSpearStab.DisplayName: Hongdou Spear Stab
+DobermannWhipProjectile.DisplayName: Dobermann Whip Projectile
+GravelSlash.DisplayName: Gravel Slash
+GravelShieldVfx.DisplayName: Gravel Shield Vfx
+GoldenglowBeacon.DisplayName: Goldenglow Beacon
+GoldenglowBolt.DisplayName: Goldenglow Bolt
+EstelleGlovePunch.DisplayName: Estelle Glove Punch
+MousseGlovePunch.DisplayName: Mousse Glove Punch
+BeehunterBatSwing.DisplayName: Beehunter Bat Swing
+MeteorArrow.DisplayName: Meteor Arrow
+LupineScarletExplosion.DisplayName: Lupine Scarlet Explosion
+LupineScarletRightClickController.DisplayName: Lupine Scarlet Right Click Controller
+LupineScarletSkillShard.DisplayName: Lupine Scarlet Skill Shard
+LupineScarletSwingProjectile.DisplayName: Lupine Scarlet Swing Projectile
+RopeHookProjectile.DisplayName: Rope Hook Projectile
+RopeWhipProjectile.DisplayName: Rope Whip Projectile
+Cardi_Shield.DisplayName: Cardi_ Shield
+Cardi_Sword.DisplayName: Cardi_ Sword
+Cuora_Bat.DisplayName: Cuora_ Bat
+Cuora_Shield.DisplayName: Cuora_ Shield
+PlumeSweepProjectile.DisplayName: Plume Sweep Projectile
+PlumeStabProjectile.DisplayName: Plume Stab Projectile
+PlumeSpearStab.DisplayName: Plume Spear Stab
+ValarqvinHitParticle.DisplayName: Valarqvin Hit Particle
+ValarqvinProj3_Hit.DisplayName: Valarqvin Proj3_ Hit
+ValarqvinProj_Hit.DisplayName: Valarqvin Proj_ Hit
+EntelechiaScytheCircleSlashProjectile.DisplayName: Entelechia Scythe Circle Slash Projectile
+EntelechiaScytheStarFXProjectile.DisplayName: Entelechia Scythe Star F X Projectile
+EntelechiaScytheCursorMiniSlashProjectile.DisplayName: Entelechia Scythe Cursor Mini Slash Projectile
+EntelechiaScytheBladeWaveProjectile.DisplayName: Entelechia Scythe Blade Wave Projectile
+EntelechiaCrossStar.DisplayName: Entelechia Cross Star
+EntelechiaHitBurst.DisplayName: Entelechia Hit Burst
+EntelechiaScytheS3Aura.DisplayName: Entelechia Scythe S3 Aura
+ClosureScanShotProjectile.DisplayName: Closure Scan Shot Projectile
+ClosureHitBurstProjectile.DisplayName: Closure Hit Burst Projectile
+ClosureMuzzleFlashProjectile.DisplayName: Closure Muzzle Flash Projectile
+ClosureMarkLaserProjectile.DisplayName: Closure Mark Laser Projectile
+ClosureTargetMarkProjectile.DisplayName: Closure Target Mark Projectile
+RevenantsShadow.DisplayName: Revenants Shadow
+ClosureLaserImpactProjectile.DisplayName: Closure Laser Impact Projectile
+ClosurePartialSquareProjectile.DisplayName: Closure Partial Square Projectile
+ClosureShieldProjectile.DisplayName: Closure Shield Projectile
+CommandCenterPet.DisplayName: Command Center Pet
+ClosureSkillSquareEffect.DisplayName: Closure Skill Square Effect
+ReedFlameShadowFlame.DisplayName: Reed Flame Shadow Flame
+PompeiiLavaCoreExplosion.DisplayName: Pompeii Lava Core Explosion
+Mon3tr.DisplayName: Mon3tr
+RaptorDroneBullet.DisplayName: Raptor Drone Bullet
+TragodiaWaveSpawner.DisplayName: Tragodia Wave Spawner
+EntelechiaScythe_Projectile.DisplayName: Entelechia Scythe_ Projectile
+LaevatainProjectile_1.DisplayName: Laevatain Projectile_1
+LaevatainProjectile_1_plan2.DisplayName: Laevatain Projectile_1_plan2
+LaevatainProjectile_2.DisplayName: Laevatain Projectile_2
+LaevatainProjectile_3.DisplayName: Laevatain Projectile_3
+LaevatainProjectile_3_impactFire.DisplayName: Laevatain Projectile_3_impact Fire
+LaevatainProjectile_3_swordDrop.DisplayName: Laevatain Projectile_3_sword Drop
+LaevatainProjectile_normal.DisplayName: Laevatain Projectile_normal
+LaevatainQiHitFlash.DisplayName: Laevatain Qi Hit Flash
+LightParticle.DisplayName: Light Particle
+RibbonProjectile.DisplayName: Ribbon Projectile
+StarParticle.DisplayName: Star Particle
+WaveProjectile.DisplayName: Wave Projectile
+Pre_Attack.DisplayName: Pre_ Attack
+TragodiaNormalAttack.DisplayName: Tragodia Normal Attack
+SP1Extract.DisplayName: S P1 Extract
+SP1TragodiaNormalAttack.DisplayName: S P1 Tragodia Normal Attack
+InstinctCall.DisplayName: Instinct Call
+InstinctCallDust.DisplayName: Instinct Call Dust
+InstinctCallNoteDust.DisplayName: Instinct Call Note Dust
+InstinctCallSuctionLines.DisplayName: Instinct Call Suction Lines
+SP2ExtraVisual.DisplayName: S P2 Extra Visual
+SP2TragodiaNormalAttack.DisplayName: S P2 Tragodia Normal Attack
+SP2Wave.DisplayName: S P2 Wave
+SP3ExtraVisual.DisplayName: S P3 Extra Visual
+SP3TragodiaNormalAttack.DisplayName: S P3 Tragodia Normal Attack
+SP3Wave.DisplayName: S P3 Wave
+Vulcan_Hammer.DisplayName: Vulcan_ Hammer
+Vulcan_Shield.DisplayName: Vulcan_ Shield
+Frostleaf_Axe.DisplayName: Frostleaf_ Axe
+Frostleaf_Projectile.DisplayName: Frostleaf_ Projectile
+FrostleafAxeSwing.DisplayName: Frostleaf Axe Swing
+HongdouLanceProjectile.DisplayName: Hongdou Lance Projectile
+FrostleafIceShard.DisplayName: Frostleaf Ice Shard
+HongdouBreachWave.DisplayName: Hongdou Breach Wave
+BlazeFlameArc.DisplayName: Blaze Flame Arc
+BlazeChainsawHoldout.DisplayName: Blaze Chainsaw
+BlazeScarletEjecta.DisplayName: Scarlet Saw Ejecta
+HellagurBloodSlash.DisplayName: Hellagur Blood Slash
+HellagurOdachiSwing.DisplayName: Hellagur Odachi Swing
+BlazeBoilingBurstController.DisplayName: Blaze Boiling Burst Controller
+FiammettaCannonHoldout.DisplayName: Fiammetta's Hand Cannon
+FiammettaReponiteController.DisplayName: Reponite Target
+FiammettaMortarShell.DisplayName: Phoenix Mortar Shell
+FiammettaScorchingShell.DisplayName: Paenitete Shell
+FiammettaScorchMark.DisplayName: Scorch Mark
+FiammettaExplosion.DisplayName: Phoenix Bombardment
+SpecterBoneSawHoldout.DisplayName: Specter's Bone Saw
+SpecterFrenzyAura.DisplayName: Bone Fracture
+ShiningBarrierProjectile.DisplayName: Shining Barrier Projectile
+ShiningBladeProjectile.DisplayName: Shining Blade Projectile
+ShiningSanctuaryProjectile.DisplayName: Shining Sanctuary Projectile
+PassengerChainDischarge.DisplayName: Passenger's Chain Lightning
+PassengerFlyingDischarge.DisplayName: Passenger's Lightning Bolt
+PassengerArcVisual.DisplayName: Arc Afterglow
+PassengerThunderstorm.DisplayName: Glorious Shards
+ShiningHealingWispProjectile.DisplayName: Shining Healing Wisp Projectile
+LeiziFlyingDischarge.DisplayName: Leizi's Lightning Bolt
+LeiziChainDischarge.DisplayName: Thunderclap Chain
+UtageKatanaSwing.DisplayName: Utage's Violet Blade
+UtageSkillFlash.DisplayName: Utage's Draw Flash
+RedDaggerHoldout.DisplayName: Projekt Red's Dagger
+RedDaggerSlash.DisplayName: Red's Rapid Cut
+RedDeploymentAura.DisplayName: Red's Rapid Deployment
+RedWolfPulse.DisplayName: Wolfpack
+HoolheyakWindBolt.DisplayName: Ho'olheyak's Wind Bolt
+HoolheyakSmallVortex.DisplayName: Wind Vortex
+HoolheyakTravelingCyclone.DisplayName: Erudite's Cyclone
+SussurroNeedle.DisplayName: Emerald Needle
+SussurroCompressionRay.DisplayName: Vital Compression Beam
+SussurroHealingButterfly.DisplayName: Healing Butterfly
+SussurroHealingBloom.DisplayName: Vital Bloom
+SussurroMedicalAura.DisplayName: Medical Halo
+EbenholzCube.DisplayName: Black Echo
+EbenholzBurst.DisplayName: Echo Rupture
+EbenholzRemnant.DisplayName: Remnant of the Past
+EbenholzOrbit.DisplayName: Silent Scale
+EthanSpinningYoyo.DisplayName: Ethan's Yoyo
+EthanEcho.DisplayName: Lingering Spin
+HornGrenade.DisplayName: Horn's Grenade
+HornBurst.DisplayName: Artillery Burst
+HornFlare.DisplayName: Flare Field
+HornShieldBash.DisplayName: Horn's Shield Bash
+HornGuard.DisplayName: Horn's Shield
+AstraSwordSlash.DisplayName: Astra Sword Slash
+AstraSwordAura.DisplayName: Astra Sword Aura
+SussurroStaffHoldout.DisplayName: Sussurro Staff Holdout
+EthanCrossFlash.DisplayName: Ethan Cross Flash
+WarfarinBloodBolt.DisplayName: Blood Bolt
+WarfarinPlasmaAura.DisplayName: Unstable Plasma
+IndigoDroplet.DisplayName: Lighthouse Waterlight
+IndigoBurst.DisplayName: Lilac Ripple
+IndigoOrbit.DisplayName: Floating Waterlights
+IndigoTideSeal.DisplayName: Tidal Light Seal
+HarmonieNote.DisplayName: Echoing Note
+HarmonieBurst.DisplayName: Resonant Chord
+HarmonieOrbit.DisplayName: Stored Melody
+HarmonieResonance.DisplayName: Drowning Calamity

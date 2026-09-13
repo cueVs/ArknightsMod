@@ -1,0 +1,375 @@
+// BlackIce.DisplayName: Black Ice
+// BlackIceExplode.DisplayName: Black Ice Explode
+// BlackIceFloor.DisplayName: Black Ice Floor
+// BlackIceIntro.DisplayName: Black Ice Intro
+// BlackIceProjectile.DisplayName: Black Ice Projectile
+// Blizzard.DisplayName: Blizzard
+// BlizzardStorm.DisplayName: Blizzard Storm
+// BlizzardStormStarter.DisplayName: Blizzard Storm Starter
+DeepcolorMinion.DisplayName: 触手
+CameraTruck.DisplayName: 移动摄影车
+SceneCameraShot.DisplayName: 稀音的摄像机快门
+SceneCameraBullet.DisplayName: 稀音的摄像机弹丸
+SceneCameraHitBurst.DisplayName: 稀音的摄像机命中特效
+// DeepcolorSketchLogoAttack.DisplayName: Deepcolor Sketch Logo Attack
+// DeepcolorSketchLogoStrike.DisplayName: Deepcolor Sketch Logo Strike
+IceAltarShockwave.DisplayName: 冰晶祭坛冲击波
+IceAltarSummonWisp.DisplayName: 冰晶祭坛召唤风絮
+IceAltarTwinLineRing.DisplayName: 冰晶祭坛双线环
+// FNBanFloor.DisplayName: F N Ban Floor
+// FNIceDust.DisplayName: F N Ice Dust
+// FNIceRingChoice.DisplayName: F N Ice Ring Choice
+// FNIceRingRound.DisplayName: F N Ice Ring Round
+// FNInvincibleEffect.DisplayName: F N Invincible Effect
+// FrostNovaJump.DisplayName: Frost Nova Jump
+// FrostNovaRevival.DisplayName: Frost Nova Revival
+// FrostNovaSmoke.DisplayName: Frost Nova Smoke
+// FrostNovaWhiteRing.DisplayName: Frost Nova White Ring
+Icebreak.DisplayName: 碎冰之刃
+Iceexplode.DisplayName: 冰寒炸弹
+Oneirosbomb.DisplayName: 虚幻
+Snowcastershoot.DisplayName: 寒冰射线
+// PmpExplode.DisplayName: Pmp Explode
+// PmpFireBall.DisplayName: Pmp Fire Ball
+// PmpFireRain.DisplayName: Pmp Fire Rain
+// PMPSTG2Effect.DisplayName: P M P S T G2 Effect
+AACTDeathdust.DisplayName: AACT死亡粒子效果
+AACTEndShow.DisplayName: 邪魔炮火中枢先兆者尾杀演出
+CollapsedExplodeAim.DisplayName: 坍缩爆炸核心
+CollapsedFrame.DisplayName: 坍缩框架
+CollapsedHitboxblueCore.DisplayName: 坍缩预判核心
+Deathdust.DisplayName: 死亡粒子效果触发器
+ExplodeAim.DisplayName: 准星
+ExplodeAimPro.DisplayName: 准星
+ExplodeAimSmall.DisplayName: 准星
+ExplodeArea.DisplayName: 爆炸
+ExplodeAreaPro.DisplayName: 二阶爆炸
+ExplodeAreaSmall.DisplayName: 爆炸区域
+ExplodeRingBig.DisplayName: 爆炸区域边框
+ExplodeRingSmall.DisplayName: 爆炸区域边框
+ExplodeWave.DisplayName: 爆炸波纹
+HitboxblueCore.DisplayName: 预判核心
+HitboxblueFrame.DisplayName: 预判框架
+HitboxRedCorner.DisplayName: 爆炸区域边框
+HitboxRedFrame.DisplayName: 爆炸区域边框
+IACTScreenWave.DisplayName: IACT屏幕冲击波
+ISTG3InCore.DisplayName: IACT三阶段瞄准目标
+ISTG3InRing.DisplayName: IACT三阶段瞄准目标
+ISTG3OutPrism.DisplayName: IACT三阶段瞄准目标
+ISTG3OutRing.DisplayName: IACT三阶段瞄准目标
+Missle.DisplayName: 导弹
+MisslePro.DisplayName: 二阶导弹
+FloatingSeaDrifterShoot.DisplayName: 水花弹
+// FPSPShoot.DisplayName: F P S P Shoot
+PocketSeaCrawlerShoot.DisplayName: 囊海爬行者的喷射物
+PocketSeaCrawlerShoot2.DisplayName: 囊海爬行者的刺
+PSPShoot.DisplayName: 始海穿刺者的口器
+PWTFTT.DisplayName: 首言者
+seashoot.DisplayName: 首言者
+splitwater2.DisplayName: 首言者
+TFTTRush.DisplayName: 首言者
+TFTTRush2.DisplayName: 首言者
+TFTTShoot.DisplayName: 首言者
+TFTTSkillshoot.DisplayName: 首言者
+// waterbombdie.DisplayName: waterbombdie
+// CasterShoot.DisplayName: Caster Shoot
+CrossbowmanBolt.DisplayName: 弩箭
+// DoubleCut.DisplayName: Double Cut
+explode.DisplayName: 迫击炮弹
+// LightShieldCut.DisplayName: Light Shield Cut
+Motarbomb.DisplayName: 炮弹
+SCproj.DisplayName: 溅射法术
+// ShieldGuardShield.DisplayName: Shield Guard Shield
+// InsaneZombieLHit.DisplayName: Insane Zombie L Hit
+// _StunDebuffProjectile.DisplayName: _ Stun Debuff Projectile
+AcidOgSlugProjectile.DisplayName: 酸液
+// BagpipeSpear_Projectile.DisplayName: Bagpipe Spear_ Projectile
+// FrostNovaYellowAura.DisplayName: Frost Nova Yellow Aura
+// ChenSword_S3Lung.DisplayName: Chen Sword_ S3 Lung
+// ChenSword_S3Projectile.DisplayName: Chen Sword_ S3 Projectile
+// DurinWand_Projectile.DisplayName: Durin Wand_ Projectile
+// Exusiai_Gun_Effect.DisplayName: Exusiai_ Gun_ Effect
+// ExusiaiRingAndWingProj.DisplayName: Exusiai Ring And Wing Proj
+// ExusiaiVector_Bullet.DisplayName: Exusiai Vector_ Bullet
+// FangSpear_Stab.DisplayName: Fang Spear_ Stab
+// KroosAlterCrossbow_Arrow.DisplayName: Kroos Alter Crossbow_ Arrow
+// KroosAlterCrossbow_Effect.DisplayName: Kroos Alter Crossbow_ Effect
+// KroosAlterCrossbow_Hold.DisplayName: Kroos Alter Crossbow_ Hold
+// KroostheKeenGlint_Crossbow_Circle1.DisplayName: Kroosthe Keen Glint_ Crossbow_ Circle1
+// KroostheKeenGlint_Crossbow_Circle2.DisplayName: Kroosthe Keen Glint_ Crossbow_ Circle2
+// MostimaRingAndWingProj.DisplayName: Mostima Ring And Wing Proj
+// NianSword_Projectile.DisplayName: Nian Sword_ Projectile
+// NianSword.DisplayName: Nian Sword
+// OrchidUmbrellla_Projectile.DisplayName: Orchid Umbrellla_ Projectile
+// PozemkaCrossbow_Projectile.DisplayName: Pozemka Crossbow_ Projectile
+// PozemkaCrossbow_Sentry.DisplayName: Pozemka Crossbow_ Sentry
+// PozemkaCrossbow_Sentry_Projectile.DisplayName: Pozemka Crossbow_ Sentry_ Projectile
+SanCrash.DisplayName: 神经损伤
+// ShawWaterCannon_Projectile.DisplayName: Shaw Water Cannon_ Projectile
+// Shinginzan_Projectile.DisplayName: Shinginzan_ Projectile
+// ThornsSword_Projectile.DisplayName: Thorns Sword_ Projectile
+// YatoKatana_Projectile.DisplayName: Yato Katana_ Projectile
+// SakiNote1.DisplayName: Saki Note1
+// SakiNote2Bright.DisplayName: Saki Note2 Bright
+// SakiNote2Dark.DisplayName: Saki Note2 Dark
+// SakiNoteCommon.DisplayName: Saki Note Common
+// SakiNoteIdle.DisplayName: Saki Note Idle
+// SakiSlashHit.DisplayName: Saki Slash Hit
+// SakiSlashHit2.DisplayName: Saki Slash Hit2
+// SakiSwordBlack.DisplayName: Saki Sword Black
+// SakiSwordWhite.DisplayName: Saki Sword White
+// Wisdel_Probe.DisplayName: Wisdel_ Probe
+// WisdelExplode.DisplayName: Wisdel Explode
+// WisdelHitNormal.DisplayName: Wisdel Hit Normal
+// WisdelShotBigCircle.DisplayName: Wisdel Shot Big Circle
+// WisdelShotLarge.DisplayName: Wisdel Shot Large
+// WisdelShotNormal.DisplayName: Wisdel Shot Normal
+// ArmorPiercingArrowhead.DisplayName: Armor Piercing Arrowhead
+// sw_Proj_1.DisplayName: sw_ Proj_1
+// sw_Proj_2.DisplayName: sw_ Proj_2
+// Dragon_Proj.DisplayName: Dragon_ Proj
+// Skill_2_Attack_Proj.DisplayName: Skill_2_ Attack_ Proj
+// PenNib.DisplayName: Pen Nib
+// BlueberryDarkChocolateProjectile.DisplayName: Blueberry Dark Chocolate Projectile
+// BlueberryProjectile.DisplayName: Blueberry Projectile
+// DarkChocolateProjectile.DisplayName: Dark Chocolate Projectile
+// MGL_Shield.DisplayName: M G L_ Shield
+// MGL_Sword.DisplayName: M G L_ Sword
+// TyphonArrow.DisplayName: Typhon Arrow
+// Arrow.DisplayName: Arrow
+// Arrow_Circle.DisplayName: Arrow_ Circle
+// Arrow_Effect.DisplayName: Arrow_ Effect
+// Adnachiel_Arrow.DisplayName: Adnachiel_ Arrow
+// Adnachiel_Arrow_Circle.DisplayName: Adnachiel_ Arrow_ Circle
+// Adnachiel_Arrow_Effect.DisplayName: Adnachiel_ Arrow_ Effect
+// LavaSpellbookHoldout.DisplayName: Lava Spellbook Holdout
+// Lava_Dagger_Explode.DisplayName: Lava_ Dagger_ Explode
+// Shirayuki_Shuriken_Proj.DisplayName: Shirayuki_ Shuriken_ Proj
+// JiCi4.DisplayName: Ji Ci4
+// jiciwd2.DisplayName: jiciwd2
+// jiciwd3.DisplayName: jiciwd3
+// jiciwd5.DisplayName: jiciwd5
+// yinhdsz2.DisplayName: yinhdsz2
+// yinhdsz3.DisplayName: yinhdsz3
+// yinhdsz4.DisplayName: yinhdsz4
+// yinhdsz5.DisplayName: yinhdsz5
+// yinhdsz6.DisplayName: yinhdsz6
+// TYTX.DisplayName: T Y T X
+// SnowSniper_Shot.DisplayName: Snow Sniper_ Shot
+// Skill_3_Attack_Proj.DisplayName: Skill_3_ Attack_ Proj
+// NoirShield_MainAtk.DisplayName: Noir Shield_ Main Atk
+// NoirShield_Projectile.DisplayName: Noir Shield_ Projectile
+// _12F_Projectile.DisplayName: _12 F_ Projectile
+// YatoKatanaSheath_Projectile.DisplayName: Yato Katana Sheath_ Projectile
+// NianShield.DisplayName: Nian Shield
+// SchwarzArrow.DisplayName: Schwarz Arrow
+// TrailStripe.DisplayName: Trail Stripe
+// BagpipeSpearProj2.DisplayName: Bagpipe Spear Proj2
+// BagpipeSpearProj3.DisplayName: Bagpipe Spear Proj3
+// BagpipeSpearProj4.DisplayName: Bagpipe Spear Proj4
+// ReceptionRoomDecorDrawProjectile.DisplayName: Reception Room Decor Draw Projectile
+// ShieldHitParticles.DisplayName: Shield Hit Particles
+// Haze_Magicball.DisplayName: Haze_ Magicball
+// Haze_Crimsonball.DisplayName: Haze_ Crimsonball
+// Haze_Effect.DisplayName: Haze_ Effect
+PmpSlugEgg.DisplayName: 炽焰源石虫卵
+FierySlugFireballProjectile.DisplayName: 炽焰源石虫火球射弹
+// DeathDebrisProjectile.DisplayName: Death Debris Projectile
+// NPCDebrisProjectile.DisplayName: N P C Debris Projectile
+// PmpTrailFlame.DisplayName: Pmp Trail Flame
+// Fireworks_Hand_Proj_Explosive.DisplayName: Fireworks_ Hand_ Proj_ Explosive
+// FireworksHandProj.DisplayName: Fireworks Hand Proj
+// FireworksHandProjGlow.DisplayName: Fireworks Hand Proj Glow
+// ProjLightCircle.DisplayName: Proj Light Circle
+// ParticleExplosionParticle.DisplayName: Particle Explosion Particle
+// Light_Vertical.DisplayName: Light_ Vertical
+// Light_horizontal.DisplayName: Light_horizontal
+// Light.DisplayName: Light
+// BlackExplosionParticle.DisplayName: Black Explosion Particle
+// BlackExplosion.DisplayName: Black Explosion
+// ProjLightCore.DisplayName: Proj Light Core
+// DedicationTrackingProj.DisplayName: Dedication Tracking Proj
+// IceAltarInboundWisp.DisplayName: Ice Altar Inbound Wisp
+// TrailShard.DisplayName: Trail Shard
+// TyphonS2Arrow.DisplayName: Typhon S2 Arrow
+// BurnFireParticle.DisplayName: Burn Fire Particle
+// BurnFireSpawner.DisplayName: Burn Fire Spawner
+// PalsyLightning.DisplayName: Palsy Lightning
+// PalsyLightningSpawner.DisplayName: Palsy Lightning Spawner
+// ValarqvinProj_2.DisplayName: Valarqvin Proj_2
+// ValarqvinProj.DisplayName: Valarqvin Proj
+// DN_Shield.DisplayName: D N_ Shield
+// DN_Sword.DisplayName: D N_ Sword
+GravityDagger.DisplayName: 重力匕首
+RedMagicBlade.DisplayName: 红魔刃
+StaticPredictLine.DisplayName: 静态预警线
+DaggerPredictLine.DisplayName: 匕首预警线
+// TyphonAimReticle.DisplayName: Typhon Aim Reticle
+// TyphonStar.DisplayName: Typhon Star
+DelayDagger.DisplayName: 延时匕首
+GroundDagger.DisplayName: 地刺匕首
+StallDagger.DisplayName: 滞空匕首
+TransparentSlash.DisplayName: 透明斩击
+// TyphonStarReleaseBurst.DisplayName: Typhon Star Release Burst
+// BarrageDagger.DisplayName: Barrage Dagger
+// CrownslayerSmokeEmitter.DisplayName: Crownslayer Smoke Emitter
+// SwordSlashEffect.DisplayName: Sword Slash Effect
+// PramanixShockwaveRing.DisplayName: Pramanix Shockwave Ring
+// PramanixSkill1Snowflake.DisplayName: Pramanix Skill1 Snowflake
+// PramanixSkill3VolleyFx.DisplayName: Pramanix Skill3 Volley Fx
+// RosmontisTacticalEquipment.DisplayName: Rosmontis Tactical Equipment
+// DorothySweeper.DisplayName: Dorothy Sweeper
+// DorothySweeperShot.DisplayName: Dorothy Sweeper Shot
+// ExusiaiAlterBomb.DisplayName: Exusiai Alter Bomb
+// CivilightDustMote.DisplayName: Civilight Dust Mote
+// StewardProj.DisplayName: Steward Proj
+// MelanthaSlash.DisplayName: Melantha Slash
+// CardiganShieldBash.DisplayName: Cardigan Shield Bash
+// HongdouLanceThrust.DisplayName: Hongdou Lance Thrust
+// HongdouSpearStab.DisplayName: Hongdou Spear Stab
+// DobermannWhipProjectile.DisplayName: Dobermann Whip Projectile
+// GravelSlash.DisplayName: Gravel Slash
+// GravelShieldVfx.DisplayName: Gravel Shield Vfx
+// GoldenglowBeacon.DisplayName: Goldenglow Beacon
+// GoldenglowBolt.DisplayName: Goldenglow Bolt
+// EstelleGlovePunch.DisplayName: Estelle Glove Punch
+// MousseGlovePunch.DisplayName: Mousse Glove Punch
+// BeehunterBatSwing.DisplayName: Beehunter Bat Swing
+// MeteorArrow.DisplayName: Meteor Arrow
+// LupineScarletExplosion.DisplayName: Lupine Scarlet Explosion
+// LupineScarletRightClickController.DisplayName: Lupine Scarlet Right Click Controller
+// LupineScarletSkillShard.DisplayName: Lupine Scarlet Skill Shard
+// LupineScarletSwingProjectile.DisplayName: Lupine Scarlet Swing Projectile
+// RopeHookProjectile.DisplayName: Rope Hook Projectile
+// RopeWhipProjectile.DisplayName: Rope Whip Projectile
+// Cardi_Shield.DisplayName: Cardi_ Shield
+// Cardi_Sword.DisplayName: Cardi_ Sword
+// Cuora_Bat.DisplayName: Cuora_ Bat
+// Cuora_Shield.DisplayName: Cuora_ Shield
+// PlumeSweepProjectile.DisplayName: Plume Sweep Projectile
+// PlumeStabProjectile.DisplayName: Plume Stab Projectile
+// PlumeSpearStab.DisplayName: Plume Spear Stab
+// ValarqvinHitParticle.DisplayName: Valarqvin Hit Particle
+// ValarqvinProj3_Hit.DisplayName: Valarqvin Proj3_ Hit
+// ValarqvinProj_Hit.DisplayName: Valarqvin Proj_ Hit
+// EntelechiaScytheCircleSlashProjectile.DisplayName: Entelechia Scythe Circle Slash Projectile
+// EntelechiaScytheStarFXProjectile.DisplayName: Entelechia Scythe Star F X Projectile
+// EntelechiaScytheCursorMiniSlashProjectile.DisplayName: Entelechia Scythe Cursor Mini Slash Projectile
+// EntelechiaScytheBladeWaveProjectile.DisplayName: Entelechia Scythe Blade Wave Projectile
+// EntelechiaCrossStar.DisplayName: Entelechia Cross Star
+// EntelechiaHitBurst.DisplayName: Entelechia Hit Burst
+// EntelechiaScytheS3Aura.DisplayName: Entelechia Scythe S3 Aura
+// ClosureScanShotProjectile.DisplayName: Closure Scan Shot Projectile
+// ClosureHitBurstProjectile.DisplayName: Closure Hit Burst Projectile
+// ClosureMuzzleFlashProjectile.DisplayName: Closure Muzzle Flash Projectile
+// ClosureMarkLaserProjectile.DisplayName: Closure Mark Laser Projectile
+// ClosureTargetMarkProjectile.DisplayName: Closure Target Mark Projectile
+// RevenantsShadow.DisplayName: Revenants Shadow
+// ClosureLaserImpactProjectile.DisplayName: Closure Laser Impact Projectile
+// ClosurePartialSquareProjectile.DisplayName: Closure Partial Square Projectile
+// ClosureShieldProjectile.DisplayName: Closure Shield Projectile
+// CommandCenterPet.DisplayName: Command Center Pet
+// ClosureSkillSquareEffect.DisplayName: Closure Skill Square Effect
+// ReedFlameShadowFlame.DisplayName: Reed Flame Shadow Flame
+// PompeiiLavaCoreExplosion.DisplayName: Pompeii Lava Core Explosion
+// Mon3tr.DisplayName: Mon3tr
+// RaptorDroneBullet.DisplayName: Raptor Drone Bullet
+// TragodiaWaveSpawner.DisplayName: Tragodia Wave Spawner
+// EntelechiaScythe_Projectile.DisplayName: Entelechia Scythe_ Projectile
+// LaevatainProjectile_1.DisplayName: Laevatain Projectile_1
+// LaevatainProjectile_1_plan2.DisplayName: Laevatain Projectile_1_plan2
+// LaevatainProjectile_2.DisplayName: Laevatain Projectile_2
+// LaevatainProjectile_3.DisplayName: Laevatain Projectile_3
+// LaevatainProjectile_3_impactFire.DisplayName: Laevatain Projectile_3_impact Fire
+// LaevatainProjectile_3_swordDrop.DisplayName: Laevatain Projectile_3_sword Drop
+// LaevatainProjectile_normal.DisplayName: Laevatain Projectile_normal
+// LaevatainQiHitFlash.DisplayName: Laevatain Qi Hit Flash
+// LightParticle.DisplayName: Light Particle
+// RibbonProjectile.DisplayName: Ribbon Projectile
+// StarParticle.DisplayName: Star Particle
+// WaveProjectile.DisplayName: Wave Projectile
+// Pre_Attack.DisplayName: Pre_ Attack
+// TragodiaNormalAttack.DisplayName: Tragodia Normal Attack
+// SP1Extract.DisplayName: S P1 Extract
+// SP1TragodiaNormalAttack.DisplayName: S P1 Tragodia Normal Attack
+// InstinctCall.DisplayName: Instinct Call
+// InstinctCallDust.DisplayName: Instinct Call Dust
+// InstinctCallNoteDust.DisplayName: Instinct Call Note Dust
+// InstinctCallSuctionLines.DisplayName: Instinct Call Suction Lines
+// SP2ExtraVisual.DisplayName: S P2 Extra Visual
+// SP2TragodiaNormalAttack.DisplayName: S P2 Tragodia Normal Attack
+// SP2Wave.DisplayName: S P2 Wave
+// SP3ExtraVisual.DisplayName: S P3 Extra Visual
+// SP3TragodiaNormalAttack.DisplayName: S P3 Tragodia Normal Attack
+// SP3Wave.DisplayName: S P3 Wave
+// Vulcan_Hammer.DisplayName: Vulcan_ Hammer
+// Vulcan_Shield.DisplayName: Vulcan_ Shield
+// Frostleaf_Axe.DisplayName: Frostleaf_ Axe
+// Frostleaf_Projectile.DisplayName: Frostleaf_ Projectile
+// FrostleafAxeSwing.DisplayName: Frostleaf Axe Swing
+// HongdouLanceProjectile.DisplayName: Hongdou Lance Projectile
+// FrostleafIceShard.DisplayName: Frostleaf Ice Shard
+// HongdouBreachWave.DisplayName: Hongdou Breach Wave
+// BlazeFlameArc.DisplayName: Blaze Flame Arc
+BlazeChainsawHoldout.DisplayName: 煌的链锯
+BlazeScarletEjecta.DisplayName: 炽血锯屑
+// HellagurBloodSlash.DisplayName: Hellagur Blood Slash
+// HellagurOdachiSwing.DisplayName: Hellagur Odachi Swing
+// BlazeBoilingBurstController.DisplayName: Blaze Boiling Burst Controller
+FiammettaCannonHoldout.DisplayName: 菲亚梅塔的手炮
+FiammettaReponiteController.DisplayName: 偿还落点
+FiammettaMortarShell.DisplayName: 凤凰迫击炮弹
+FiammettaScorchingShell.DisplayName: 愧悔灼痕弹
+FiammettaScorchMark.DisplayName: 灼痕
+FiammettaExplosion.DisplayName: 凤凰炮击
+SpecterBoneSawHoldout.DisplayName: 幽灵鲨的圆锯
+SpecterFrenzyAura.DisplayName: 肉斩骨断
+// ShiningBarrierProjectile.DisplayName: Shining Barrier Projectile
+// ShiningBladeProjectile.DisplayName: Shining Blade Projectile
+// ShiningSanctuaryProjectile.DisplayName: Shining Sanctuary Projectile
+PassengerChainDischarge.DisplayName: 异客的闪电链
+PassengerFlyingDischarge.DisplayName: 异客的直射闪电
+PassengerArcVisual.DisplayName: 电弧余辉
+PassengerThunderstorm.DisplayName: 辉煌裂片
+// ShiningHealingWispProjectile.DisplayName: Shining Healing Wisp Projectile
+LeiziFlyingDischarge.DisplayName: 惊蛰的直射闪电
+LeiziChainDischarge.DisplayName: 初雷传导
+UtageKatanaSwing.DisplayName: 宴的紫刃
+UtageSkillFlash.DisplayName: 宴的拔刀辉光
+RedDaggerHoldout.DisplayName: 红的匕首
+RedDaggerSlash.DisplayName: 红的连切
+RedDeploymentAura.DisplayName: 红的快速部署
+RedWolfPulse.DisplayName: 狼群
+HoolheyakWindBolt.DisplayName: 霍尔海雅的螺旋风弹
+HoolheyakSmallVortex.DisplayName: 御风旋涡
+HoolheyakTravelingCyclone.DisplayName: 博览者的旋风
+SussurroNeedle.DisplayName: 翠绿针束
+SussurroCompressionRay.DisplayName: 生命压缩光束
+SussurroHealingButterfly.DisplayName: 治疗蝴蝶
+SussurroHealingBloom.DisplayName: 生命绽放
+SussurroMedicalAura.DisplayName: 医疗光环
+EbenholzCube.DisplayName: 黑色残响
+EbenholzBurst.DisplayName: 残响爆破
+EbenholzRemnant.DisplayName: 旧日残影
+EbenholzOrbit.DisplayName: 缄默音阶
+EthanSpinningYoyo.DisplayName: 伊桑的悠悠球
+EthanEcho.DisplayName: 回旋余韵
+HornGrenade.DisplayName: 号角榴弹
+HornBurst.DisplayName: 炮火爆发
+HornFlare.DisplayName: 照明区域
+HornShieldBash.DisplayName: 号角盾击
+HornGuard.DisplayName: 号角炮盾
+// AstraSwordSlash.DisplayName: Astra Sword Slash
+// AstraSwordAura.DisplayName: Astra Sword Aura
+// SussurroStaffHoldout.DisplayName: Sussurro Staff Holdout
+// EthanCrossFlash.DisplayName: Ethan Cross Flash
+WarfarinBloodBolt.DisplayName: 血液弹幕
+WarfarinPlasmaAura.DisplayName: 不稳定血浆
+IndigoDroplet.DisplayName: 灯塔水光
+IndigoBurst.DisplayName: 紫潮涟漪
+IndigoOrbit.DisplayName: 悬浮水光
+IndigoTideSeal.DisplayName: 光影潮印
+HarmonieNote.DisplayName: 回响音符
+HarmonieBurst.DisplayName: 共鸣奏鸣
+HarmonieOrbit.DisplayName: 蓄能乐谱
+HarmonieResonance.DisplayName: 沉溺之灾

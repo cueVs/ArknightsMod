@@ -1,0 +1,196 @@
+MusicConfig: {
+	DisplayName: Music Config
+
+	EnableArknightsSpaceDaytime: {
+		Label: Enable Arknights Space Daytime
+		Tooltip: ""
+	}
+
+	EnableArknightsSpaceNighttimeLow: {
+		Label: Enable Arknights Space Nighttime Low
+		Tooltip: ""
+	}
+
+	EnableArknightsSpaceNighttimeHigh: {
+		Label: Enable Arknights Space Nighttime High
+		Tooltip: ""
+	}
+
+	EnableArknightsForestDaytime: {
+		Label: Enable Arknights Forest Daytime
+		Tooltip: ""
+	}
+
+	EnableArknightsForestNighttime: {
+		Label: Enable Arknights Forest Nighttime
+		Tooltip: ""
+	}
+
+	EnableArknightsOceanDaytime: {
+		Label: Enable Arknights Ocean Daytime
+		Tooltip: ""
+	}
+
+	EnableArknightsOceanNighttime: {
+		Label: Enable Arknights Ocean Nighttime
+		Tooltip: ""
+	}
+
+	EnableArknightsHallowedOceanDaytime: {
+		Label: Enable Arknights Hallowed Ocean Daytime
+		Tooltip: ""
+	}
+
+	EnableArknightsHallowedOceanNighttime: {
+		Label: Enable Arknights Hallowed Ocean Nighttime
+		Tooltip: ""
+	}
+
+	EnableArknightsCorruptedOceanDaytime: {
+		Label: Enable Arknights Corrupted Ocean Daytime
+		Tooltip: ""
+	}
+
+	EnableArknightsCorruptedOceanNighttime: {
+		Label: Enable Arknights Corrupted Ocean Nighttime
+		Tooltip: ""
+	}
+
+	EnableArknightsCrimsonOceanDaytime: {
+		Label: Enable Arknights Crimson Ocean Daytime
+		Tooltip: ""
+	}
+
+	EnableArknightsCrimsonOceanNighttime: {
+		Label: Enable Arknights Crimson Ocean Nighttime
+		Tooltip: ""
+	}
+}
+
+Dropconfig: {
+	DisplayName: Dropconfig
+
+	DropOriginiumSlug: {
+		Label: Drop Originium Slug
+		Tooltip: ""
+	}
+
+	DropOriginiumSlugAlpha: {
+		Label: Drop Originium Slug Alpha
+		Tooltip: ""
+	}
+
+	DropOriginiumSlugBeta: {
+		Label: Drop Originium Slug Beta
+		Tooltip: ""
+	}
+
+	DropSoldier1: {
+		Label: Drop Soldier1
+		Tooltip: ""
+	}
+
+	DropSoldier2: {
+		Label: Drop Soldier2
+		Tooltip: ""
+	}
+
+	DropAcidOgSlug: {
+		Label: Drop Acid Og Slug
+		Tooltip: ""
+	}
+
+	DropLS: {
+		Label: Drop L S
+		Tooltip: ""
+	}
+
+	DropAcidOgSlug1: {
+		Label: Drop Acid Og Slug1
+		Tooltip: ""
+	}
+
+	DropAcidOgSlug2: {
+		Label: Drop Acid Og Slug2
+		Tooltip: ""
+	}
+
+	DropDrone1: {
+		Label: Drop Drone1
+		Tooltip: ""
+	}
+
+	DropDrone2: {
+		Label: Drop Drone2
+		Tooltip: ""
+	}
+}
+
+MonsterConfig: {
+	DisplayName: Monster Config
+
+	EnableOriginiumSlug: {
+		Label: Enable Originium Slug
+		Tooltip: ""
+	}
+
+	EnableOriginiumSlugAlpha: {
+		Label: Enable Originium Slug Alpha
+		Tooltip: ""
+	}
+
+	EnableOriginiumSlugBeta: {
+		Label: Enable Originium Slug Beta
+		Tooltip: ""
+	}
+
+	EnableAcidOgSlug: {
+		Label: Enable Acid Og Slug
+		Tooltip: ""
+	}
+
+	EnableSoldier: {
+		Label: Enable Soldier
+		Tooltip: ""
+	}
+}
+
+WeaponStatOverrideConfig: {
+	UseGlobalWeaponStats: {
+		Tooltip:
+			'''
+			When enabled, values in Common/WeaponStatOverride.cs override each weapon's defaults.
+			Disable this to use the values declared by each weapon instead.
+			'''
+		Label: Enable Unified Weapon Stats
+	}
+
+	DisplayName: Weapon Stat Override Config
+}
+
+DebugConfig: {
+	DisplayName: Debug Config
+
+	AutoUpgradeNeoArmor: {
+		Label: Auto-upgrade NeoArmor
+		Tooltip: Marks newly acquired NeoArmor as upgraded in debug builds.
+	}
+}
+
+SkillChargeConfig: {
+	DisplayName: Skill Charge Config
+
+	DoubleSPRegenSpeed: {
+		Label: 技力恢复二倍速
+		Tooltip:
+			'''
+			开启后，所有干员武器的技力条恢复速度整体 x2（自然回复/受击回复/攻击回复/饰品加速）。
+			技力上限、技能消耗等数值不受影响；部署费用吸收、套装直接赠送技力等"技力返还"类效果也不会被翻倍。
+			'''
+	}
+
+	DoubleSkillDurationConsumption: {
+		Label: 技能持续时间技力消耗二倍速
+		Tooltip: 开启后，技能开启期间"消耗"技力的速度整体 x2，表现为技能的持续时间缩短为原来的一半。
+	}
+}

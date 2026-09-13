@@ -1,0 +1,125 @@
+FrostNova.DisplayName: 霜星
+IceCrystalAltar.DisplayName: 冰晶祭坛
+IceCleaver.DisplayName: 雪怪小队凿冰人
+Oneiros.DisplayName: 虚幻
+SnowCaster.DisplayName: 雪怪小队术士
+SnowSoldier.DisplayName: 雪怪小队
+SnowSniper.DisplayName: 雪怪狙击手
+SnowHound.DisplayName: 霜牙
+Evolution.DisplayName: “进化的本质”
+tumor1.DisplayName: 畸变赘生物
+tumor2.DisplayName: 畸变恶性瘤
+AcidOgSlug.DisplayName: 酸液源石虫
+Pompeii.DisplayName: “庞贝”
+AACT.DisplayName: 邪魔炮火中枢先兆者
+AACTIntro.DisplayName: 邪魔炮火中枢先兆者（引物）
+AACTStage3TrueHealth.DisplayName: 邪魔炮火中枢先兆者（三阶段代理NPC）
+IACT.DisplayName: 帝国炮火中枢先兆者
+IACTIntro.DisplayName: 帝国炮火中枢先兆者（引物）
+IACTStage3target.DisplayName: 邪魔炮火中枢先兆者（三阶段目标）
+IAT.DisplayName: 帝国炮火先兆者
+IATIntro.DisplayName: 帝国炮火先兆者（引物）
+BasinSeaReaper.DisplayName: 钵海收割者
+DeepSeaSlider.DisplayName: 底海滑动者
+FloatingSeaDrifter.DisplayName: 浮海飘航者
+NourishedPiercer.DisplayName: 富营养的穿刺者
+PocketSeaCrawler.DisplayName: 囊海爬行者
+PrimalSeaPiercer.DisplayName: 始海穿刺者
+ShellSeaRunner.DisplayName: 壳海狂奔者
+TheFirstToTalk.DisplayName: 首言者
+Caster.DisplayName: 术士
+Crossbowman.DisplayName: 弩手
+CrossbowmanLeader.DisplayName: 弩手组长
+DoubleSword.DisplayName: 双持剑士
+Drone.DisplayName: 妖怪
+DroneII.DisplayName: 妖怪MKII
+Hound.DisplayName: 猎狗
+HoundPro.DisplayName: 猎狗pro
+LightShield.DisplayName: 轻甲卫兵
+MortarGunner.DisplayName: 炮手
+OriginiumSlug.DisplayName: 源石虫
+OriginiumSlugAlpha.DisplayName: 源石虫Alpha
+OriginiumSlugBeta.DisplayName: 源石虫Beta
+Seniorcaster.DisplayName: 高阶术士
+ShieldGuard.DisplayName: 重装防御者
+Soldier.DisplayName: 士兵
+SoldierLeader.DisplayName: 士兵组长
+InsaneZombieL.DisplayName: 狂暴宿主组长
+Rioter.DisplayName: 暴徒
+Crownslayer.DisplayName: 弑君者
+RockCrab.DisplayName: 磐蟹
+MiZhenQiaoXie.DisplayName: 迷珍巧械
+
+Closure: {
+	DisplayName: 可露希尔
+
+	TownNPCMood: {
+		Content: 我很满足
+		NoHome: 我讨厌没有家
+		FarFromHome: 我离家太远了
+		LoveSpace: 我非常喜欢有这么大的空间
+		DislikeCrowded: 我不喜欢这么拥挤
+		HateCrowded: 我讨厌这么拥挤
+		LikeBiome: 我喜欢{BiomeName}
+		DislikeBiome: 我不喜欢{BiomeName}
+		LoveNPC: 我非常喜欢{NPCName}
+		LikeNPC: 我喜欢{NPCName}
+		DislikeNPC: 我不喜欢{NPCName}
+		HateNPC: 我讨厌{NPCName}
+		LikeNPC_Princess: 我喜欢 {NPCName}
+		Princess_LovesNPC: 我喜欢 {NPCName}
+	}
+
+	Buttons: {
+		Shop2: 时装商店
+		Annihilation: 剿灭作战
+		Switch: 切换
+		Help: 帮助
+	}
+
+	// Census.SpawnCondition: Conditions unknown
+}
+
+Level11.DisplayName: Level11
+
+Cannot: {
+	DisplayName: 坎诺特
+
+	TownNPCMood: {
+		Content: 我很满足
+		NoHome: 我讨厌没有家
+		FarFromHome: 我离家太远了
+		LoveSpace: 我非常喜欢有这么大的空间
+		DislikeCrowded: 我不喜欢这么拥挤
+		HateCrowded: 我讨厌这么拥挤
+		LikeBiome: 我喜欢{BiomeName}
+		DislikeBiome: 我不喜欢{BiomeName}
+		LoveNPC: 我非常喜欢{NPCName}
+		LikeNPC: 我喜欢{NPCName}
+		DislikeNPC: 我不喜欢{NPCName}
+		HateNPC: 我讨厌{NPCName}
+		LikeNPC_Princess: 我喜欢 {NPCName}
+		Princess_LovesNPC: 我喜欢 {NPCName}
+	}
+
+	Buttons: {
+		Shop: 商店
+		Touch: 试探性碰碰商品
+	}
+
+	// Census.SpawnCondition: Conditions unknown
+
+	DeathMessage: {
+		Death: ""
+		Runaway: 坎诺特逃走了
+	}
+}
+
+LeporibeastShorthorn.DisplayName: 小角跳兽
+Cragpincer.DisplayName: 岩壳蟹
+FieryOriginiumSlugNPC.DisplayName: 炽焰源石虫
+PmpSlugEggLandNPC.DisplayName: 炽焰源石虫卵
+// DeploymentCost.DisplayName: Deployment Cost
+// RaptorDrone.DisplayName: Raptor Drone
+// CasterShoot.DisplayName: Caster Shoot
+FogRollingGrass.DisplayName: 雾滚草

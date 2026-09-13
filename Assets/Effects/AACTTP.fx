@@ -17,7 +17,7 @@ float2 uImageSize2;
 float2 uImageSize3;
 float2 uImageOffset;
 float uSaturation;
-float4 uSourceRect; // Doesn't seem to be used, but included for parity.
+float4 uSourceRect;
 float2 uZoom;
 
 float4 AACTTP(float2 coords : TEXCOORD0) : COLOR0
@@ -25,12 +25,9 @@ float4 AACTTP(float2 coords : TEXCOORD0) : COLOR0
     float4 color = tex2D(uImage0, coords);
     if (!any(color))
         return color;
-    // pos 就是中心了
     float2 pos = (uTargetPosition - uScreenPosition) / uScreenResolution;
     //float2 pos = float2(0.5, 0.5);
-    // offset 是中心到当前点的向量
     float2 offset = (coords - pos);
-    // 因为长宽比不同进行修正
     float2 rpos = offset * float2(uScreenResolution.x / uScreenResolution.y * 0.75, 1);
     float dis = length(rpos);
     // 在屏幕变长k（小于等于1）占比内启用，这里范围改成椭圆了

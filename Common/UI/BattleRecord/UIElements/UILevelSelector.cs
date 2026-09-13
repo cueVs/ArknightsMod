@@ -20,7 +20,7 @@ namespace ArknightsMod.Common.UI.BattleRecord.UIElements
 		private UIText[] _levelTexts = new UIText[LEVEL_TEXT_COUNT];
 		private Vector2 _mousePosCache = Vector2.Zero;
 		private bool _mouseHandle = false;
-		private List<string> _levelNames = new List<string>();
+		private List<string> _levelNames = [];
 		private int _levelIndex = 0;
 		private int _willChangeIndex = 0;
 		private float _topOffsetPixel = 0f;

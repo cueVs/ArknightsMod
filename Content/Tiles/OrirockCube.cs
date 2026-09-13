@@ -1,3 +1,4 @@
+using ArknightsMod.Content.Items.Material;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -13,7 +14,7 @@ namespace ArknightsMod.Content.Tiles
 	{
 		public override void SetStaticDefaults() {
 			TileID.Sets.Ore[Type] = true;
-			// Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
+			Main.tileSpelunker[Type] = true; // 受探矿药水（Spelunker）高亮影响
 			Main.tileOreFinderPriority[Type] = 180; // Metal Detector value, see https://terraria.gamepedia.com/Metal_Detector
 													// Main.tileShine2[Type] = true; // Modifies the draw color slightly.
 													// Main.tileShine[Type] = 975; // How often tiny dust appear off this tile. Larger is less frequently. Example: 975

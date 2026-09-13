@@ -1,0 +1,258 @@
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using ArknightsMod.Common.VisualEffects;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria.Audio;
+
+namespace ArknightsMod.Content.Projectiles
+{
+	public class Cube : ModProjectile
+	{
+		public override string Texture => "ArknightsMod/Content/Projectiles/Cube";
+		public override void SetStaticDefaults() {
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 180;
+		}
+
+		public override void SetDefaults() {
+			Projectile.width = 36;
+			Projectile.height = 36;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 1800;
+			Projectile.alpha = 0;
+			Projectile.damage = 0;
+			Projectile.light = 1f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 1f;
+		}
+
+		private bool isVertexLaunched = false;
+		private float timer;
+		private int r;
+		private float RingOpacity;
+
+		public override void AI() {
+			//发射8个顶点，ai0为编号
+			var newSource = Projectile.GetSource_FromThis();
+			timer++;
+			if (!isVertexLaunched) {
+				for (int i = 1; i <= 8; i++) {
+					Projectile.NewProjectile(newSource, Projectile.Center, Projectile.velocity, ModContent.ProjectileType<CubeVertex>(), 12, 0.8f, 0, i);
+				}
+				isVertexLaunched = true;
+			}
+
+			Projectile.velocity = new Vector2(Math.Min(timer / 60, 5), 0).RotatedBy(0);
+
+			Projectile.rotation += Math.Min(timer / 120, 0.1f);
+
+			//shader光环
+			RingOpacity = Math.Min(Math.Min(timer / 60, 1), Projectile.timeLeft/120);
+			r = (int)(60 * MathF.Sin(timer * MathHelper.Pi / 240)) + 180;
+
+			if (Main.netMode != NetmodeID.Server && !Terraria.Graphics.Effects.Filters.Scene["FNTwistedRing"].IsActive()) {
+				Terraria.Graphics.Effects.Filters.Scene.Activate("FNTwistedRing", Projectile.Center).GetShader().UseColor(new Color(r, 0, 255) * RingOpacity).UseTargetPosition(Projectile.Center + new Vector2(3, 0)).UseIntensity(RingOpacity).UseOpacity(RingOpacity).UseProgress(RingOpacity * 0.1f);
+				ArknightsMod.FNTwistedRing.Parameters["uTime"].SetValue((float)Main.time / 64);
+				SoundEngine.PlaySound(SoundID.NPCHit5);
+			}
+			if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["FNTwistedRing"].IsActive()) {
+				Terraria.Graphics.Effects.Filters.Scene.Activate("FNTwistedRing", Projectile.Center).GetShader().UseColor(new Color(r, 0, 255) * RingOpacity).UseTargetPosition(Projectile.Center + new Vector2(3, 0)).UseIntensity(RingOpacity).UseOpacity(RingOpacity).UseProgress(RingOpacity * 0.1f);
+				ArknightsMod.FNTwistedRing.Parameters["uTime"].SetValue((float)Main.time / 64);
+			}
+			if (Main.netMode != NetmodeID.Server && Terraria.Graphics.Effects.Filters.Scene["FNTwistedRing"].IsActive() && Projectile.timeLeft <= 1) {
+				Terraria.Graphics.Effects.Filters.Scene["FNTwistedRing"].Deactivate();
+			}
+		}
+		//拖尾
+		public override bool PreDraw(ref Color lightColor) {
+			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/LineTrail").Value;
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(Projectile.width / 2 + 6, Projectile.height / 2), new Color(r, 0, 255) * RingOpacity, new Color(0, 0, 0) * RingOpacity, 15f, true);
+			return true;
+		}
+
+		//public override void PostDraw(Color lightColor) {
+		//	Texture2D Cube = ModContent.Request<Texture2D>("ArknightsMod/Content/Projectiles/Cube").Value;
+		//	Main.EntitySpriteDraw(Cube, Projectile.Center - Main.screenPosition + new Vector2(-6, 3), new Rectangle(0, 0, Cube.Width, Cube.Height), Color.White, 0, new Vector2(Cube.Width / 2, Cube.Height / 2), Projectile.scale * RingOpacity, SpriteEffects.None, 0);
+		//}
+	}
+
+	public class CubeVertex : ModProjectile
+	{
+		public override string Texture => "ArknightsMod/Content/Projectiles/Cube";
+		public override void SetStaticDefaults() {
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 60;
+		}
+
+		public override void SetDefaults() {
+			Projectile.width = 36;
+			Projectile.height = 36;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 1800;
+			Projectile.alpha = 0;
+			Projectile.damage = 0;
+			Projectile.light = 1f;
+			Projectile.friendly = false;
+			Projectile.hostile = false;
+			Projectile.scale = 0.6f;
+		}
+
+		private float timer;
+		private int r;
+		private bool isInitialized = false;
+		private Vector2 oldCenter;
+		private Vector2 oldVelcty;
+
+		//三种棱长的长度和之间的夹角
+		private float dx;   //第一个点与第二个点的间距
+		private float dy;   //第一条线与第二条线的间距
+		private float dz;   //第一个面与第二个面的间距
+		private float ang1; //法线与第一条线（第二个点）的夹角
+		private float ang2; //第一条线（第二个点）与第二条线（第一条线的邻边）的夹角
+		private float ang3; //第二条线（第一条线的邻边）与第三条线（垂直纸面的边）的夹角
+
+		//三种扩展方式
+		private Vector2 con;
+		private Vector2 exp;
+		private Vector2 dim;
+
+		//八个顶点，分别为第一个面的原点、连接点、扩展点和扩展连接点、扩展到第二个面的原点、连接点、二次扩展点和二次扩展连接点
+		private Vector2 A;
+		private Vector2 conA;
+		private Vector2 expA;
+		private Vector2 expconA;
+		private Vector2 dimA;
+		private Vector2 dimconA;
+		private Vector2 dimexpA;
+		private Vector2 dimexpconA;
+
+		//重映射六个顶点的旋转角度
+		private Vector2 spinconA;
+		private Vector2 spinexpA;
+		private Vector2 spinexpconA;
+		private Vector2 spindimA;
+		private Vector2 spindimconA;
+		private Vector2 spindimexpA;
+
+		//重定义锚点
+		private Vector2 demidCube;
+
+		public Vector2 GetAferSpinVertex(Vector2 UpVertex, Vector2 DownVertex, Vector2 CurrentVertex, float timer, float phi, float offsetscale) {//1号点，8号点，当前点，时间，相位，偏移半径倍率
+			float uplen = (UpVertex - CurrentVertex).Length();
+			float downlen = (DownVertex - CurrentVertex).Length();
+			float deltalen = (UpVertex - DownVertex).Length();
+			float p = (uplen + downlen + deltalen) / 2;
+			float s = MathF.Sqrt(p * (p - uplen) * (p - downlen) * (p - deltalen));//海伦公式
+			float radius = 2 * s / deltalen;//旋转轴上的高
+			float scalelen = MathF.Sqrt(MathF.Pow(uplen, 2) - MathF.Pow(radius, 2));//占比的长度（距离1号点）
+			float lerpscale = scalelen / deltalen;//用于lerp的百分比
+			Vector2 lerpvector = Vector2.Lerp(UpVertex, DownVertex, lerpscale);//在旋转轴上的投影点
+			float theta = UpVertex.X - DownVertex.X >= 0 ? MathF.Atan((DownVertex.Y - UpVertex.Y) / (DownVertex.X - UpVertex.X)) : MathF.Atan((DownVertex.Y - UpVertex.Y) / (DownVertex.X - UpVertex.X)) - MathHelper.Pi;//旋转轴与水平方向夹角，也是旋转线与竖直方向夹角，如果不加判定条件，是大小从90°到-90°单调递增或减两次
+			float offsetradius = offsetscale * deltalen * MathF.Sin(timer * MathHelper.Pi / 240 + phi);//偏移半径
+			Vector2 finalvertex = lerpvector + new Vector2(0, -offsetradius).RotatedBy(theta);//新的顶点
+			return finalvertex;
+		}
+
+		public override void AI() {
+			//初始化位置和速度
+			if (!isInitialized) {
+				oldCenter = Projectile.Center;
+				isInitialized = true;
+			}
+			else {
+				oldVelcty = new Vector2(Math.Min((timer + 0) / 60, 5), 0).RotatedBy(0);
+				oldCenter += oldVelcty;
+			}
+
+			Projectile.rotation += Math.Min(timer / 120, 0.1f);
+
+			//不变定义量初始化
+			con = new Vector2(dx, 0).RotatedBy(ang1);
+			exp = new Vector2(dy, 0).RotatedBy(ang1 + ang2);
+			dim = new Vector2(dz, 0).RotatedBy(ang1 + ang2 - ang3);
+
+			//棱长和夹角随时间变化
+			timer++;
+			dx = Math.Min(timer / 3, 160);
+			dy = Math.Min(timer / 3, 160);
+			dz = Math.Min(timer / 3, 160);
+			ang1 += MathHelper.Pi / 240;
+			ang2 = MathHelper.Pi / 12 * MathF.Sin(timer * MathHelper.Pi / 240) + MathHelper.Pi / 3;
+			ang3 = MathHelper.Pi / 6 * MathF.Cos(timer * MathHelper.Pi / 240) + 2 * MathHelper.Pi / 3;
+
+			//映射锚点和旋转参量
+			demidCube =  - (dim + con + exp) / 2;//为了让立方体初始左上角顶点以立方体中心点旋转的锚点
+
+			//映射变化点
+			A = demidCube;
+			conA = A + con;
+			expA = A + exp;
+			expconA = A + con + exp;
+			dimA = A + dim;
+			dimconA = A + dim + con;
+			dimexpA = A + dim + exp;
+			dimexpconA = A + dim + con + exp;
+
+			//映射旋转2-7号点，7、5、6、2、4、3号点相位依次为0、1、2、3、4、5倍的π除以3
+			spinconA = GetAferSpinVertex(A, dimexpconA, conA, timer, MathHelper.Pi, 0.5f);
+			spinexpA = GetAferSpinVertex(A, dimexpconA, expA, timer, 5 * MathHelper.Pi / 3, 0.5f);
+			spinexpconA = GetAferSpinVertex(A, dimexpconA, expconA, timer, 4 * MathHelper.Pi / 3, 0.5f);
+			spindimA = GetAferSpinVertex(A, dimexpconA, dimA, timer, MathHelper.Pi / 3, 0.5f);
+			spindimconA = GetAferSpinVertex(A, dimexpconA, dimconA, timer, 2 * MathHelper.Pi / 3, 0.5f);
+			spindimexpA = GetAferSpinVertex(A, dimexpconA, dimexpA, timer, 0, 0.5f);
+
+			switch (Projectile.ai[0]) {
+				case 1:
+					Projectile.Center = oldCenter + A;
+					break;
+				case 2:
+					Projectile.Center = oldCenter + spinconA;
+					break;
+				case 3:
+					Projectile.Center = oldCenter + spinexpA;
+					break;
+				case 4:
+					Projectile.Center = oldCenter + spinexpconA;
+					break;
+				case 5:
+					Projectile.Center = oldCenter + spindimA;
+					break;
+				case 6:
+					Projectile.Center = oldCenter + spindimconA;
+					break;
+				case 7:
+					Projectile.Center = oldCenter + spindimexpA;
+					break;
+				case 8:
+					Projectile.Center = oldCenter + dimexpconA;
+					break;
+			}
+
+			r = (int)(60 * MathF.Sin(timer * MathHelper.Pi / 240)) + 180;
+		}
+
+		public override bool PreDraw(ref Color lightColor) {
+			Texture2D trailtexture = ModContent.Request<Texture2D>("ArknightsMod/Common/VisualEffects/WindTrail").Value;
+			TrailMaker.ProjectileDrawTailByConstWidth(Projectile, trailtexture, new Vector2(Projectile.width / 2 / 0.6f + 2, Projectile.height / 2 / 0.6f - 5), new Color(r, 0, 255), new Color(0, 0, 0), 25f, true);
+			return true;
+		}
+
+		private float RingOpacity;
+
+		//public override void PostDraw(Color lightColor) {
+		//	RingOpacity = Math.Min(Math.Min(timer / 60, 1), Projectile.timeLeft / 120);
+		//	Texture2D Cube = ModContent.Request<Texture2D>("ArknightsMod/Content/Projectiles/Cube").Value;
+		//	Main.EntitySpriteDraw(Cube, Projectile.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, Cube.Width, Cube.Height), Color.White, 0, new Vector2(Cube.Width / 2, Cube.Height / 2), Projectile.scale * RingOpacity, SpriteEffects.None, 0);
+		//}
+	}
+}

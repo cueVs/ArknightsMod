@@ -58,10 +58,10 @@ namespace ArknightsMod.Content.Tiles.Furniture
 			if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance)) { // Avoid being able to trigger it from long range
 				player.GamepadEnableGrappleCooldown();
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Orundum>(), 100);
-				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.OrirockCube>(), 100);
-				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.Grind>(), 100);
-				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.MnOre>(), 100);
-				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Placeable.RMA12>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.OrirockCube>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Grindstone>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.ManganeseOre>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.RMA7012>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Device>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.LoxicKohl>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.Oriron>(), 100);
@@ -71,8 +71,8 @@ namespace ArknightsMod.Content.Tiles.Furniture
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CoagulatingGel>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.IncandescentAlloy>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CrystallineComponent>(), 100);
-				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CompoundCF>(), 100);
-				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.SSS>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.CompoundCuttingFluid>(), 100);
+				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.SemiSyntheticSolvent>(), 100);
 				player.QuickSpawnItem(new EntitySource_TileBreak(i, j), ModContent.ItemType<Items.Material.TransmutedSalt>(), 100);
 			}
 

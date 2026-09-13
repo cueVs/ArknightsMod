@@ -1,0 +1,86 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ArknightsMod.Content.Items.Accessories.Rogue.Rarity_l2
+{
+    public class TheNightMurmurs : ModItem
+    {
+      
+
+        public override void SetDefaults()
+        {
+            Item.width = 24;
+            Item.height = 28;
+            Item.accessory = true;
+            Item.rare = 1;
+			Item.value = Item.sellPrice(0, 3, 0, 0);
+		}
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<TheNightMurmursPlayer>().tranquilityCount++;
+        }
+    }
+
+    public class TheNightMurmursPlayer : ModPlayer
+    {
+        public int tranquilityCount = 0;
+
+        public override void ResetEffects()
+        {
+            tranquilityCount = 0;
+        }
+
+        public override void UpdateDead()
+        {
+            tranquilityCount = 0;
+        }
+    }
+
+    public class TheNightMurmursGlobalNPC : GlobalNPC
+    {
+        public override bool InstancePerEntity => true;
+
+        public override void SetDefaults(NPC npc)
+        {
+            if (!IsBoss(npc))
+            {
+                ApplyHealthReduction(npc);
+            }
+        }
+
+        private bool IsBoss(NPC npc)
+        {
+            return npc.boss ||
+                   NPCID.Sets.ShouldBeCountedAsBoss[npc.type] ||
+                   npc.friendly;
+        }
+
+        private void ApplyHealthReduction(NPC npc)
+        {
+            int totalCount = 0;
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+                if (player.active && !player.dead)
+                {
+                    totalCount += player.GetModPlayer<TheNightMurmursPlayer>().tranquilityCount;
+                }
+            }
+
+            if (totalCount > 0)
+            {
+                float multiplier = 1f;
+                for (int i = 0; i < totalCount; i++)
+                {
+                    multiplier *= 0.9f;
+                }
+
+                npc.lifeMax = (int)(npc.lifeMax * multiplier);
+                npc.life = (int)(npc.life * multiplier);
+            }
+        }
+    }
+}

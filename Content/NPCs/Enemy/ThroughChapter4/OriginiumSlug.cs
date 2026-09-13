@@ -1,4 +1,5 @@
 using ArknightsMod.Content.Items.Placeable.Banners;
+using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -17,7 +18,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 		private int direction;
 
 		public override bool IsLoadingEnabled(Mod mod) {
-			return ModContent.GetInstance<MonsterConfig>().EnableOriginiumSlug;
+			return GetInstance<MonsterConfig>().EnableOriginiumSlug;
 		}
 
 		public override void SetStaticDefaults() {
@@ -51,7 +52,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Placeable.OrirockCube>(), ModContent.GetInstance<Dropconfig>().DropOriginiumSlug, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.OrirockCube>(), GetInstance<Dropconfig>().DropOriginiumSlug, 1, 2));
 
 		}
 
@@ -104,42 +105,63 @@ namespace ArknightsMod.Content.NPCs.Enemy.ThroughChapter4
 			if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active) {
 				NPC.TargetClosest();
 			}
-			if (NPC.ai[3] % 180 == 0) {
-				NPC.ai[3] = 0;
-				status = Main.rand.Next(5);
-				if (status == 1 || status == 3) {
-					direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
-					NPC.direction = direction;
+			if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient) {
+				if (Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) > 400 || Math.Abs(Main.player[NPC.target].Center.Y - NPC.Center.Y) > 200) {
+					if (NPC.ai[3] % 180 == 0) {
+						NPC.ai[3] = 0;
+						status = Main.rand.Next(5);
+						if (status == 1 || status == 3) {
+							NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
+						}
+						if (status == 4) {
+							NPC.direction *= -1;
+						}
+					}
+					switch (status) {
+						case 0:
+							NPC.velocity.X = 1f * NPC.direction;
+							break;
+						case 1:
+							NPC.velocity.X = 0.9f * NPC.direction;
+							break;
+						case 2:
+							NPC.velocity.X *= 0;
+							break;
+						case 3:
+							NPC.velocity.X = 1.3f * NPC.direction;
+							break;
+						case 4:
+							NPC.velocity.X = 0.7f * NPC.direction;
+							break;
+					}
+					if (NPC.collideX) {
+						NPC.velocity.Y = 1.2f * NPC.directionY;
+					}
+					NPC.ai[3]++;
 				}
-				if (status == 4) {
-					NPC.direction *= -1;
-				}
-			}
-			switch (status) {
-				case 0:
-					NPC.velocity.X = 1f * NPC.direction;
-					break;
-				case 1:
-					NPC.velocity.X = 0.9f * NPC.direction;
-					break;
-				case 2:
-					NPC.velocity.X *= 0;
-					break;
-				case 3:
-					NPC.velocity.X = 1.3f * NPC.direction;
-					break;
-				case 4:
-					NPC.velocity.X = 0.7f * NPC.direction;
-					break;
-			}
-			if (NPC.collideX) {
-				NPC.velocity.Y = 1.2f * NPC.directionY;
-			}
-			NPC.ai[3]++;
+				else {
+					if (Math.Abs(Main.player[NPC.target].Center.X - NPC.Center.X) > 2) {
+						NPC.direction = (Main.player[NPC.target].Center.X > NPC.Center.X).ToDirectionInt();
+						NPC.velocity.X = 1f * NPC.direction;
+					}
+					else {
+						NPC.velocity.X *= 0;
+					}
+					if (NPC.collideX) {
+						NPC.velocity.Y = 1.2f * NPC.directionY;
+					}
+					NPC.ai[3]++;
 
-			base.AI();
+					if (NPC.ai[3] % 100 == 0 && NPC.collideY) {
+						NPC.ai[3] = 0;
+					}
+				}
+			}
 		}
-
+		public override bool? CanFallThroughPlatforms() {
+			Player player = Main.player[NPC.target];
+			return (player.position.Y + player.height) - (NPC.position.Y + NPC.height) > 30;
+		}
 		public override void HitEffect(NPC.HitInfo hit) {
 			// Spawn confetti when this zombie is hit.
 

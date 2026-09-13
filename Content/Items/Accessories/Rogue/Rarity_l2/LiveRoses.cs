@@ -1,0 +1,54 @@
+using Terraria;
+using Terraria.ModLoader;
+using System;
+using Terraria.ID;
+namespace ArknightsMod.Content.Items.Accessories.Rogue.Rarity_l2
+{
+    public class LiveRoses : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 30;
+            Item.height = 28;
+			Item.value = Item.sellPrice(0, 3, 0, 0);
+			Item.rare = ItemRarityID.Blue;
+            Item.accessory = true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<LiveRosesPlayer>().count++;
+        }
+    }
+
+    public class LiveRosesPlayer : ModPlayer
+    {
+        public int count; 
+
+        public override void ResetEffects()
+        {
+            count = 0;
+        }
+
+
+        public float Multiplier => (float)Math.Pow(1.2, count);
+
+        public override void UpdateLifeRegen()
+        {
+            if (count > 0)
+            {
+
+                Player.lifeRegen = (int)(Player.lifeRegen * Multiplier);
+            }
+        }
+
+        public override void GetHealLife(Item item, bool quickHeal, ref int healValue)
+        {
+            if (count > 0)
+            {
+
+                healValue = (int)(healValue * Multiplier);
+            }
+        }
+    }
+}

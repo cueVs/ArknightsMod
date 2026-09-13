@@ -1,0 +1,1183 @@
+AstraSword: {
+	1: {
+		Label: Constellation Ward
+		Desc: Manually activated. While active, ATK [c/3791db:+50%] and DEF [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Astra Blade
+		Desc: Manually activated. While active, ATK [c/3791db:+80%], DEF [c/3791db:+80%], and the weapon and slash scale up to [c/3791db:130%]
+	}
+}
+
+BagpipeSpear: {
+	1: {
+		Label: Swift Strike γ
+		Desc:
+			'''
+			ATK [c/3791db:+45%]
+			ASPD [c/3791db:+45]
+			'''
+	}
+
+	2: {
+		Label: High-Impact Assault
+		Desc:
+			'''
+			Next attack's ATK increased to [c/3791db:200%] and strikes an additional time
+			[c/eda128:Can be charged 3 times]
+			'''
+	}
+
+	3: {
+		Label: Breaking Shot
+		Desc:
+			'''
+			Attack interval [c/f6643b:increased (+70%)]
+			Block [c/3791db:+1]
+			ATK and DEF [c/3791db:+120%]
+			Attacks become [c/3791db:triple strikes]
+			'''
+	}
+}
+
+ChenSword: {
+	1: {
+		Label: Chixiao: Afterimage
+		Desc:
+			'''
+			Strike the target with [c/3791db:10] consecutive slashes
+			Each slash deals Physical damage equal to [c/3791db:320%] of ATK
+			'''
+	}
+}
+
+KroosCrossbow: {
+	1: {
+		Label: Double Shot: Auto
+		Desc:
+			'''
+			Next attack fires [c/3791db:2] shots in a row
+			Each shot deals Physical damage equal to [c/3791db:140%] of ATK
+			'''
+	}
+}
+
+PozemkaCrossbow: {
+	1: {
+		Label: Iamb
+		Desc:
+			'''
+			ATK [c/3791db:+60%]
+			[c/3791db:40%] chance per attack for that attack's ATK to increase to [c/3791db:225%]
+			[c/EDA128:Infinite duration]
+			'''
+	}
+
+	2: {
+		Label: Pointe
+		Desc:
+			'''
+			Press the skill key to immediately attack [c/3791db:3] times forward
+			Each attack deals Physical damage equal to [c/3791db:230%] of your ATK
+			[c/EDA128:Can be charged 2 times]
+			'''
+	}
+
+	3: {
+		Label: Quick Sketch
+		Desc:
+			'''
+			Attack interval [c/3791db:shortened]
+			Each attack's ATK increased to [c/3791db:200%] ([c/3791db:255%] against enemies within 25 tiles)
+			'''
+	}
+}
+
+AdnachielCrossbow: {
+	1: {
+		Label: ATK Up α
+		Desc: ATK [c/3791db:+50%]
+	}
+}
+
+ExusiaiVector: {
+	1: {
+		Label: Assault Mode
+		Desc:
+			'''
+			Next attack becomes a [c/3791db:3]-round burst
+			Each shot deals damage equal to [c/3791db:145%] of ATK
+			'''
+	}
+
+	2: {
+		Label: Sweep Mode
+		Desc:
+			'''
+			Attacks become a [c/3791db:4]-round burst
+			Each shot deals damage equal to [c/3791db:125%] of ATK
+			'''
+	}
+
+	3: {
+		Label: Overload Mode
+		Desc:
+			'''
+			Attacks become a [c/3791db:5]-round burst
+			Attack interval [c/3791db:shortened to a degree]
+			ATK increased to [c/3791db:110%]
+			[c/EDA128:Skill activates automatically]
+			'''
+	}
+}
+
+KroosAlterCrossbow: {
+	1: {
+		Label: Unseen
+		Desc:
+			'''
+			ATK [c/3791db:+40%]
+			Attacks become a [c/3791db:2]-round burst
+			Greatly reduces aggro
+			'''
+	}
+
+	2: {
+		Label: Throat Seal
+		Desc:
+			'''
+			Attack interval [c/3791db:greatly shortened]
+			Attacks become a [c/3791db:2]-round burst
+			After firing [c/3791db:32] arrows, attacks become a [c/3791db:4]-round burst for the rest of the skill
+			'''
+	}
+}
+
+Lava_Dagger: {
+	1: {
+		Label: Tactical Chant α
+		Desc: ASPD [c/3791db:+50]
+	}
+}
+
+Shirayuki_Shuriken: {
+	1: {
+		Label: Enemy Surge
+		Desc: Maximum projectile range [c/3791db:increased]
+	}
+
+	2: {
+		Label: Concentrated Blade
+		Desc: Attacks throw a spinning large shuriken; hit targets take damage equal to [c/3791db:80%] of ATK per second
+	}
+}
+
+NianWeapon: {
+	1: {
+		Label: Tin Burning
+		Desc:
+			'''
+			DEF [c/3791db:+70%]
+			ATK [c/3791db:+45%]
+			Normal attacks deal [c/3791db:Arts] damage
+			[c/00FF00:During the skill, Nian smashes the large shield in her hands toward enemies, dealing 100% magic damage.]
+			'''
+	}
+
+	2: {
+		Label: Copper Seal
+		Desc:
+			'''
+			[c/f6643b:Stops attacking]
+			DEF [c/3791db:+130%], Block [c/3791db:+1]
+			On receiving an enemy attack, deals Arts damage to the attacker equal to [c/3791db:90%] of ATK and silences them for [c/3791db:5] seconds
+			[c/00FF00:The original block-based counter damage and silence effects are disabled. Instead, every 0.5 seconds, enemies within a certain range take 50% source-less magic damage.]
+			'''
+	}
+
+	3: {
+		Label: Iron Defense
+		Desc:
+			'''
+			ATK [c/3791db:+120%]
+			Nearby allied Operators gain DEF [c/3791db:+80%], Block [c/3791db:+1] and status resistance
+			[c/00FF00:The original resistance and ally defense/block bonuses are disabled. The large shield now follows the mouse to attack, dealing 100% physical damage.]
+			'''
+	}
+}
+
+ThornsWeapon: {
+	1: {
+		Label: ATK Up γ
+		Desc: ATK [c/3791db:+100%]
+	}
+
+	2: {
+		Label: Thorns
+		Desc:
+			'''
+			Stops attacking
+			ATK [c/3791db:+60%]
+			DEF [c/3791db:+110%]
+			When hit by an enemy, releases thorns that perform a ranged attack on enemies in front (at most once every [c/3791db:0.6]s)
+			'''
+	}
+
+	3: {
+		Label: Supreme Art
+		Desc:
+			'''
+			Maximum projectile range [c/3791db:increased] and projectiles home onto targets
+			ATK [c/3791db:+60%]
+			ASPD [c/3791db:+25]
+			Ranged attacks no longer reduce ATK
+			[c/EDA128:From the second activation onward, bonuses double and the duration becomes infinite]
+			'''
+	}
+}
+
+BeagleWeapon: {
+	1: {
+		Label: DEF Up α
+		Desc: DEF [c/3791db:+25%]
+	}
+}
+
+SilverAshWeapon: {
+	1: {
+		Label: Power Strike γ
+		Desc: Next attack's ATK increased to [c/3791db:290%]
+	}
+
+	2: {
+		Label: Snowfield Survival
+		Desc:
+			'''
+			[c/EDA128:Can toggle between this state and the initial state]
+			[c/f6643b:No longer performs ranged attacks]
+			DEF [c/3791db:+100%]
+			Heals [c/3791db:+6%] of Max HP per second
+			[c/AAA8AA:Right-click to toggle states; [c/f6643b:5-second] cooldown between toggles]
+			'''
+	}
+
+	3: {
+		Label: True Silver Slash
+		Desc:
+			'''
+			DEF [c/f6643b:-70%]
+			ATK [c/3791db:+200%]
+			Each attack becomes a [c/3791db:large-area] slash whose damage no longer falls off
+			'''
+	}
+}
+
+ChenSword_Item: {
+	1: {
+		Label: Sheath Strike
+		Desc:
+			'''
+			Smash the scabbard into the enemy, dealing Physical damage equal to [c/3791db:320%] of ATK
+			Inflicts [c/000000:Confusion] on the target for [c/3791db:1.5]s
+			'''
+	}
+
+	2: {
+		Label: Chixiao: Draw
+		Desc: After a brief charge, deal [c/EDA128:Physical] damage equal to [c/3791db:500%] of ATK and [c/EDA128:Arts] damage equal to [c/3791db:500%] of ATK to enemies in front (can be held)
+	}
+
+	3: {
+		Label: Chixiao: Afterimage
+		Desc:
+			'''
+			Hold to charge, then strike the target [c/3791db:10] consecutive times
+			Each strike deals Physical damage equal to [c/3791db:320%] of ATK (can be held)
+			'''
+	}
+}
+
+SchwarzBow: {
+	1: {
+		Desc: The next attack deals 220% damage, 80% chance to deal 160% damage and inflict a defense reduction for the next hit
+		Label: Charged Shot
+	}
+
+	2: {
+		Desc: ATK +130%, 50% chance to deal 160% damage and inflict a defense reduction
+		Label: Sharp Eye
+	}
+
+	3: {
+		Label: Final Tactics
+		Desc: Attack Interval increases a bit, ATK +180%, 100% chance to deal 160% damage and inflict a defense reduction
+	}
+}
+
+TyphonBow: {
+	1: {
+		Label: Quickshot
+		Desc:
+			'''
+			ATK +45%, ASPD +45%
+			While active, defeating an enemy grants +5% ATK and ASPD (up to 30 stacks) and refunds 3 seconds of skill duration
+			'''
+	}
+
+	2: {
+		Label: Twin-Mind Arrows
+		Desc:
+			'''
+			Each attack fires 2 homing arrows that prioritize two different targets
+			On hit, 40% chance to confuse the target for 1 second
+			After the second activation, duration becomes infinite
+			'''
+	}
+
+	3: {
+		Label: Storm of Arrows
+		Desc:
+			'''
+			Rain a barrage of arrows on the marked target; each arrow has weak homing
+			On hit, the arrow stays embedded in the enemy for 3.5 seconds
+			Each arrow embedded in the target increases subsequent hit damage by 7%
+			Once 10 or more arrows are embedded, fires an additional 100%-ATK arrow from the wielder
+			'''
+	}
+}
+
+ChargeReady: Initial skill points have been restored
+
+ValarqvinWeapon: {
+	2: {
+		Label: After I Saw Decay
+		Desc: ASPD +50%, attacks [c/3791db:2] targets at once
+	}
+
+	1: {
+		Label: Before I Saw Ruin
+		Desc:
+			'''
+			Next attack's ATK increased to [c/3791db:130%] and improves the Necrosis conversion rate
+			Can be charged twice
+			'''
+	}
+}
+
+HazeMagicBook: {
+	2: {
+		Label: Crimson Eye
+		Desc: Max HP [c/f6643b:-75%], ATK [c/3791db:+60%], ASPD [c/3791db:+60%]
+	}
+
+	1: {
+		Label: ATK Up β
+		Desc: ATK [c/3791db:+80%]
+	}
+}
+
+DN_Weapon: {
+	1: {
+		Label: ATK Up β
+		Desc: ATK [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Shield Counter
+		Desc: ATK [c/3791db:+80%], attacks become shield charges
+	}
+}
+
+DeepcolorSketch: {
+	1: {
+		Label: Shadow Tentacle
+		Desc:
+			'''
+			All Tentacles' ATK and DEF [c/3791db:+6%]
+			Restores [c/3791db:7] HP per second
+			'''
+	}
+
+	2: {
+		Label: Visual Trap
+		Desc:
+			'''
+			Expands Tentacles' attack range
+			Allies within range gain [c/3791db:50%] chance to dodge
+			'''
+	}
+}
+
+SaintBell: {
+	1: {
+		Label: Belltone Snowsquall
+		Desc:
+			'''
+			(Coming soon)
+			2 charges, costs [c/3791db:12] SP
+			'''
+	}
+
+	2: {
+		Label: Frost Tide Over Peaks
+		Desc:
+			'''
+			While active, left-click releases a shockwave for [c/3791db:380%] magic damage
+			Heavy chill buildup; every 3 hits guarantees freeze
+			Lasts until toggled off, costs [c/3791db:45] SP
+			'''
+	}
+
+	3: {
+		Label: Mountains Bow
+		Desc: Expands attack range, immediately lures all enemies in range to reachable ground near you for [c/3791db:10] seconds, frost accumulation speed increased, ATK [c/3791db:+100%], ASPD [c/3791db:+13%], attacks ignore [c/3791db:10] Arts Resistance, each attack deals Arts damage equal to [c/3791db:260%] ATK
+	}
+}
+
+StewardStaff: {
+	1: {
+		Label: Power Strike Y
+		Desc: Charges on attack; when full, the next attack deals [c/3791db:190%] damage
+	}
+}
+
+SkadisGreatsword: {
+	1: {
+		Label: Swift Strike Y
+		Desc:
+			'''
+			ATK [c/3791db:+45%]
+			ASPD [c/3791db:+45]
+			'''
+	}
+
+	2: {
+		Label: Wave Leap
+		Desc: Within [c/3791db:30] seconds of deployment, ATK [c/3791db:+170%]
+	}
+
+	3: {
+		Label: Tidal Elegy
+		Desc: ATK, DEF and Max HP [c/3791db:+130%]
+	}
+}
+
+GoldenglowWand: {
+	1: {
+		Label: Sparks Flying
+		Desc:
+			'''
+			Drone +1, locks onto enemies
+			ATK [c/3791db:+40%], ASPD [c/3791db:+50]
+			'''
+	}
+
+	2: {
+		Label: Current Surge
+		Desc:
+			'''
+			Drone +1, locks onto enemies
+			Attack range expanded, ATK [c/3791db:+60%]
+			[c/EDA128:Infinite duration]
+			'''
+	}
+
+	3: {
+		Label: Pure Radiance
+		Desc:
+			'''
+			[c/f6643b:Stops attacking], Drone +2
+			Attack range expands to the entire screen, ATK [c/3791db:+80%]
+			'''
+	}
+}
+
+MelanthasSword: {
+	1: {
+		Label: ATK Up α
+		Desc: ATK [c/3791db:+50%]
+	}
+}
+
+VanillaAxe: {
+	1: {
+		Label: Charge: Reinforcements
+		Desc: ATK [c/3791db:+35%]
+	}
+}
+
+PlumePike: {
+	1: {
+		Label: Swift Strike α
+		Desc:
+			'''
+			ATK [c/3791db:+25%]
+			ASPD [c/3791db:+25]
+			'''
+	}
+}
+
+GitanoUmbrella: {
+	1: {
+		Label: Swift Strike α
+		Desc:
+			'''
+			ATK [c/3791db:+25%]
+			ASPD [c/3791db:+25]
+			'''
+	}
+}
+
+HongdouLance: {
+	1: {
+		Label: ATK Up B
+		Desc: ATK [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Hammer Tune
+		Desc:
+			'''
+			Attack interval slightly [c/f6643b:increased (+0.5s)]
+			ATK [c/3791db:+200%]
+			'''
+	}
+}
+
+BeanstalkOrb: {
+	1: {
+		Label: Tactical Chant B
+		Desc: ASPD [c/3791db:+75]
+	}
+
+	2: {
+		Label: Destiny
+		Desc:
+			'''
+			ATK [c/3791db:+100%], attack range expanded
+			Attacks all enemies in range at once
+			[c/f6643b:Stops attacking for 10 seconds after the skill ends]
+			'''
+	}
+}
+
+JessicaGun: {
+	1: {
+		Label: Power Strike B
+		Desc: Charges on attack; when full, the next attack deals [c/3791db:230%] damage
+	}
+
+	2: {
+		Label: Cover Smoke
+		Desc:
+			'''
+			ATK [c/3791db:+80%]
+			Gain [c/3791db:75%] Physical and Arts dodge
+			'''
+	}
+}
+
+MeteorBow: {
+	1: {
+		Label: Armor Break
+		Desc:
+			'''
+			Charges on attack; when full, the next attack deals [c/3791db:180%] Physical damage
+			Reduces the target's DEF by [c/f6643b:-35%] for [c/3791db:5] seconds
+			'''
+	}
+
+	2: {
+		Label: Armor Break: Spread
+		Desc:
+			'''
+			Immediately deal [c/3791db:200%] Physical damage to up to [c/3791db:5] enemies
+			Reduces their DEF by [c/f6643b:-40%] for [c/3791db:5] seconds
+			'''
+	}
+}
+
+DobermannWhip: {
+	1: {
+		Label: Power Strike B
+		Desc: Charges on attack; when full, the next attack deals [c/3791db:230%] damage
+	}
+
+	2: {
+		Label: Whip
+		Desc: ATK [c/3791db:+100%]
+	}
+}
+
+MataimaruGlaive: {
+	1: {
+		Label: HP Recovery B
+		Desc: Instantly restores [c/3791db:50%] of Max HP
+	}
+
+	2: {
+		Label: Oni Power
+		Desc:
+			'''
+			DEF [c/f6643b:reduced to 0]
+			ATK [c/3791db:+150%]
+			'''
+	}
+}
+
+FrostleafAxe: {
+	1: {
+		Label: Frost Lance Blade
+		Desc:
+			'''
+			Charges on attack; when full, the next attack deals [c/3791db:150%] Physical damage
+			Reduces the target's movement speed by [c/f6643b:-50%] for [c/3791db:3] seconds
+			'''
+	}
+
+	2: {
+		Label: Frozen Blade
+		Desc:
+			'''
+			ASPD [c/3791db:+50]
+			Each attack reduces the target's movement speed by [c/f6643b:-50%]
+			[c/3791db:40%] chance to bind the target for [c/3791db:2] seconds
+			'''
+	}
+}
+
+EstelleGlove: {
+	1: {
+		Label: ATK Up B
+		Desc: ATK [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Selfless Assault
+		Desc:
+			'''
+			ATK [c/3791db:+150%]
+			[c/f6643b:No longer a healing target]
+			'''
+	}
+}
+
+RopeClaw: {
+	1: {
+		Label: Grapple Launch
+		Desc:
+			'''
+			Charges on attack; the next attack pulls the enemy to you
+			Dealing [c/3791db:190%] Physical damage
+			'''
+	}
+
+	2: {
+		Label: Double Grapple
+		Desc:
+			'''
+			Drag [c/3791db:2] distant enemies to you
+			Dealing [c/3791db:225%] Physical damage
+			'''
+	}
+}
+
+EntelechiaScythe: {
+	1: {
+		Label: Rose Shadow Tracking
+		Desc:
+			'''
+			Increases the next attack's damage to [c/3791db:175%]
+			and attacks [c/3791db:twice] in succession
+			'''
+	}
+
+	2: {
+		Label: Crimson Coalescence
+		Desc:
+			'''
+			Stops attacking and summons blood scythes at self and cursor
+			to slash all surrounding enemies
+			dealing physical damage equal to [c/3791db:195%] ATK every [c/3791db:0.5]s
+			'''
+	}
+
+	3: {
+		Label: Parting of Soul and Desire
+		Desc:
+			'''
+			Attack range expanded, ATK [c/3791db:+135%]
+			and attack speed increased
+			'''
+	}
+}
+
+MousseGlove: {
+	1: {
+		Label: Scratch
+		Desc:
+			'''
+			Charges on attack; the next attack's ATK [c/3791db:+75%]
+			Reduces the hit target's ATK by [c/f6643b:-40%] for [c/3791db:5] seconds
+			'''
+	}
+
+	2: {
+		Label: Fluffed Up
+		Desc: ATK and DEF [c/3791db:+75%]
+	}
+}
+
+GravelDualBlades: {
+	1: {
+		Label: Shadow Strike
+		Desc:
+			'''
+			[c/EDA128:Charged at skill start]
+			DEF [c/3791db:+400%], decaying over [c/3791db:12] seconds
+			'''
+	}
+
+	2: {
+		Label: Rat Swarm
+		Desc:
+			'''
+			[c/EDA128:Charged at skill start]
+			Gain a shield absorbing [c/3791db:250%] of Max HP
+			The shield decays over [c/3791db:10] seconds
+			'''
+	}
+}
+
+BeehunterBag: {
+	1: {
+		Label: DEF Up B
+		Desc: DEF [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Shell Defense
+		Desc:
+			'''
+			[c/f6643b:Stops attacking], Block [c/3791db:+1]
+			DEF [c/3791db:+130%]
+			Restores [c/3791db:3%] of Max HP per second
+			'''
+	}
+}
+
+EarthspiritWand: {
+	1: {
+		Label: ATK Up B
+		Desc: ATK [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Quicksand
+		Desc:
+			'''
+			[c/f6643b:Stops attacking]
+			Enemy units in attack range are slowed once every [c/3791db:1.4] seconds
+			'''
+	}
+}
+
+ShawAxe: {
+	1: {
+		Label: Steam Pump
+		Desc:
+			'''
+			Charges on attack; the next attack pushes the target away forcefully
+			Dealing [c/3791db:150%] Physical damage
+			'''
+	}
+
+	2: {
+		Label: High-Pressure Water Cannon
+		Desc:
+			'''
+			Immediately push all enemies in front (2 tiles) away forcefully
+			Dealing [c/3791db:300%] Physical damage
+			'''
+	}
+}
+
+SceneCamera: {
+	1: {
+		Label: Protective Camouflage
+		Desc:
+			'''
+			All Camera Trucks' ATK [c/3791db:+60%]
+			Gain Camouflage: immune to all damage from the nearest single enemy, until a second enemy attacks; re-targets the nearest attacker if the immune one leaves or dies (per truck)
+			Infinite duration
+			'''
+	}
+
+	2: {
+		Label: Panorama Overload Camera
+		Desc:
+			'''
+			Immediately deploy 1 Camera Truck (does not occupy a minion slot; cap stays 5)
+			All trucks expand recon: enemies within the ring take [c/3791db:+150%] damage from you
+			All Camera Trucks' ATK and DEF [c/3791db:+130%]
+			Lasts 20s; afterwards all trucks are stunned for 5s
+			'''
+	}
+}
+
+CardiganWeapon: {
+	1: {
+		Label: HP Recovery α
+		Desc: Instantly restores [c/3791db:40%] of Max HP
+	}
+}
+
+CuoraWeapon: {
+	1: {
+		Label: DEF Up γ
+		Desc: Defense [c/3791db:+80%]
+	}
+
+	2: {
+		Label: Shell Defense
+		Desc:
+			'''
+			Defense [c/3791db:+130%]
+			Restores [c/3791db:20%] of Max HP per second
+			Movement speed [c/f6643b:-10%]
+			'''
+	}
+}
+
+CardiWeapon: {
+	1: {
+		Label: HP Recovery α
+		Desc: Instantly restores [c/3791db:40%] of Max HP
+	}
+}
+
+ClosureScanGun: {
+	1: {
+		Label: Recursive Strategy
+		Desc: Immediately grants your reinforcements 1 layer of Shield (does not stack); gradually gain 3 Deployment Cost over the skill's duration. Each subsequent use of this skill after deployment increases the Deployment Cost gained by +1 (up to a maximum of 7).
+	}
+
+	2: {
+		Label: Model Expansion
+		Desc: Immediately gain 10 Deployment Cost, gradually gaining 15 more over the skill's duration. Your reinforcements' DEF +60% and Block +1; your ATK +80%, striking 2 targets at once and able to hit enemies blocked by your reinforcements. Deploying an operator within a Tactical Point's effect range immediately refunds 40% of its Deployment Cost.
+	}
+
+	3: {
+		Label: Q.E.D.
+		Desc: Gradually gain 18 Deployment Cost over the skill's duration. Attack interval reduced by 0.5s. Locks onto enemies within your and your reinforcements' original attack range, dealing 250% of Closure's ATK as Physical damage and inflicting a stacking 6% Sluggish effect for 3 seconds (stacks up to 60%). Every 9th attack increases the number of targets hit by +1 (up to 6 triggers).
+	}
+}
+
+SurtrLaevatain: {
+	1: {
+		Label: Flame Sword
+		Desc:
+			'''
+			ATK [c/3791db:+210%]
+			Empowered attacks
+			Lasts [c/3791db:35] seconds
+			'''
+	}
+
+	2: {
+		Label: Molten Core
+		Desc:
+			'''
+			ATK [c/3791db:+120%]
+			Attacks become thrusts; [c/3791db:+50%] extra damage against a single target
+			Lasts [c/3791db:20] seconds
+			'''
+	}
+
+	3: {
+		Label: Twilight
+		Desc:
+			'''
+			ATK [c/3791db:+330%], increased attack range
+			Max HP [c/3791db:+1200] and heal to full
+			Continuously loses HP, ramping up to [c/f6643b:10%] of Max HP per second
+			Persists until death
+			'''
+	}
+}
+
+Tragodia: {
+	3: {
+		Label: Empty Theatre
+		Desc:
+			'''
+			ATK [c/3791db:+125%]
+			Attacks become [c/3791db:ultra-wide] wave strikes
+			Lasts [c/3791db:30] seconds
+			'''
+	}
+
+	2: {
+		Label: Mass Delusion
+		Desc:
+			'''
+			Attack speed [c/3791db:greatly increased]
+			Right-click to summon a "Creation"; right-click again to detonate it
+			The explosion deals [c/3791db:area damage] and binds targets for [c/3791db:6] seconds
+			'''
+	}
+
+	1: {
+		Label: Echoes of the Night
+		Desc:
+			'''
+			ATK [c/3791db:+60%]
+			Next attack binds the target for [c/3791db:3] seconds and follows up with an extract strike
+			'''
+	}
+}
+
+HellagurOdachi: {
+	1: {
+		Label: Crescent Moon
+		Desc: Offensive Recovery; auto trigger. The next attack deals 175% ATK twice
+	}
+
+	2: {
+		Label: Half Moon
+		Desc: Manual. For 13 seconds, raises ATK by 80%, makes attacks strike twice, and grants 75% combat-damage evasion
+	}
+
+	3: {
+		Label: Full Moon
+		Desc: Manual. For 15 seconds, raises ATK by 100% and reach; each swing can strike up to 3 targets
+	}
+}
+
+BlazeGreatsword: {
+	1: {
+		Label: Power Strike γ
+		Desc: Offensive Recovery; auto trigger. After 2 effective attacks, the next chainsaw cleave deals 290% ATK as Physical damage
+	}
+
+	2: {
+		Label: Chainsaw Extension Module
+		Desc: Auto Recovery and auto trigger. After a 70-second warm-up, permanently raises ATK by 100%, DEF by 35%, and reach until death
+	}
+
+	3: {
+		Label: Boiling Burst
+		Desc: Manual. Over 10 seconds, ramps ATK and DEF up to +80%; during the first 8 seconds, the cutting interval accelerates from 7 frames to 3 frames; at 9 seconds, deals 400% of current ATK nearby and loses 25% max life (cannot reduce life below 1)
+	}
+}
+
+FiammettaHandCannon: {
+	1: {
+		Label: Provocate
+		Desc: Offensive Recovery; manual. For 30 seconds, raises ATK by 100% and extends maximum bombardment range
+	}
+
+	2: {
+		Label: Paenitete
+		Desc: Offensive Recovery; manual. Fires a scorching shell forward; the terminal blast deals 350% ATK as Physical damage, followed by five sequential scorch-mark explosions
+	}
+
+	3: {
+		Label: Reponite
+		Desc: Offensive Recovery; manually toggled. Continuously bombards the selected point with expanded explosions whose small inner radius deals greatly increased damage
+	}
+}
+
+SpecterBoneSaw: {
+	1: {
+		Label: ATK Up γ
+		Desc: Manual. For 30 seconds, raises ATK by 100%
+	}
+
+	2: {
+		Label: Bone Fracture
+		Desc: Manual. For 15 seconds, raises ATK by 160% and prevents life from falling below 1; becomes incapacitated for 10 seconds afterward
+	}
+}
+
+ShiningStaff: {
+	1: {
+		Label: Creed
+		Desc: Manual. Raises ATK by 35% and attack speed by 55%
+	}
+
+	2: {
+		Label: Auto Protect
+		Desc: Auto trigger. Grants the wielder an 8-second barrier equal to 15% of maximum life; repeated barriers do not stack
+	}
+
+	3: {
+		Label: Creed Field
+		Desc: Manual. Raises ATK by 50% and defense by 30, reduces damage taken by 18%, and unfolds a large black-and-white defensive field
+	}
+}
+
+PassengerConductor: {
+	1: {
+		Label: Touch of Static
+		Desc: Auto recovery, auto trigger. A direct lightning collision consumes a charge, deals 150%-250% damage, chains between up to 4 targets, and slows ordinary enemies by 80% for 1.5 seconds. Missed shots do not consume charges
+	}
+
+	2: {
+		Label: Focus Command
+		Desc: Auto recovery, manual activation. Extends flight range from about 2.5 to 2.9 visible screen widths, increases ATK by 10%-30%, reduces attack interval by 20%-50%, and chains between up to 5 targets only after a direct collision. Lasts 25-35 seconds
+	}
+
+	3: {
+		Label: Glorious Shards
+		Desc: Auto recovery, manual activation. Places a stationary 4-second storm with a 16-tile radius at the visible enemy with the highest current HP within 25 tiles of the cursor. Every 0.5 seconds, drops a 100%-150% damage bolt onto a random enemy inside, then chains between up to 4 targets within the storm. Stores 2 charges; one cast per key press. Storms vanish when the weapon is put away
+	}
+}
+
+LeiziStaff: {
+	1: {
+		Label: ATK Up γ
+		Desc: Auto recovery, manual activation. Increases ATK by 30%-100% for 30 seconds
+	}
+
+	2: {
+		Label: Thunderclap
+		Desc: Auto recovery, manual activation. Increases ATK by 60%-150% and removes chain damage falloff for 30-35 seconds
+	}
+}
+
+UtageKatana: {
+	1: {
+		Label: Distracted
+		Desc: Auto recovery, manual activation. Stops attacking for 8 seconds, grants 10-19 defense and restores 1%-2% maximum life each second. Switching weapon or skill ends the effect; both skills share a minimum cooldown that switching cannot reset
+	}
+
+	2: {
+		Label: Descending Strike - Earth Splitter
+		Desc: Auto recovery, manual activation. Consumes 50% current life, leaving at least 1; grants 50%-110% ATK and converts slashes to Arts that ignore defense but respect Arts resistance for 13-16 seconds. Switching weapon or skill ends the effect; both skills share a minimum cooldown
+	}
+}
+
+RedDagger: {
+	1: {
+		Label: Execution Mode
+		Desc: Switching to this weapon from another hotbar weapon, teleporting, starting a dash or landing at high speed releases a 100% ATK physical burst within 7 tiles. Grants 50% attack speed, 35%-80% ATK and 10%-20% dodge against NPC/projectile damage for 5 seconds. Shared cooldown starts on activation and lasts 5 seconds; another weapon switch or movement event is required when ready. Speed does not stack indefinitely. Bonuses apply only while holding the dagger
+	}
+
+	2: {
+		Label: Wolfpack
+		Desc: Switching to this weapon from another hotbar weapon, teleporting, starting a dash or landing at high speed releases a 140%-250% ATK physical burst within 7 tiles, stuns ordinary enemies for 1-3 seconds and grants 50% attack speed for 5 seconds. Cannot hit through walls; bosses and segmented enemies cannot be stunned. Shared 5-second cooldown starts on activation and cannot be reset by switching. Bonuses apply only while holding the dagger
+	}
+}
+
+HoolheyakWindArts: {
+	1: {
+		Label: The Pursuit of Knowledge
+		Desc: Charges automatically and triggers on attack. Fires empowered wind bolts at up to 2 distinct nearby enemies for 160%-300% damage; a lone target is lifted for 2-4 seconds. Stores 1-3 charges. No charge is spent without a target
+	}
+
+	2: {
+		Label: Astral Alignment
+		Desc: Activate for 16 seconds. Cast nine-shot volleys at random nearby enemies, each dealing 20%-45% damage with an 8%-15% chance to lift small enemies for 1 second. The final bolt of each volley can create or strengthen a vortex on impact
+	}
+
+	3: {
+		Label: The Erudite's Delirium
+		Desc: Activate for 45 seconds. Attack more slowly with three parallel cyclones that pierce unlimited enemies and retain 99% of their speed each frame. Damage increases with travel distance, reaching a maximum of 320%-420% after 30 tiles. Lifts small enemies for 1.6-2.2 seconds
+	}
+}
+
+SussurroStaff: {
+	1: {
+		Label: Healing Up β
+		Desc: Activate for 20 seconds. Continuous casting releases medical butterflies that heal 6-9 life each second. Medical projectiles only take effect after 0.5 seconds. Successful treatment causes medication sickness, reducing further treatment by 100% for 11.4 seconds. Both skills share a minimum cooldown that switching cannot reset
+	}
+
+	2: {
+		Label: Deep Healing
+		Desc: Activate for 8-10 seconds. Releases medical butterflies that heal 9-12 life every half second while casting. Medical projectiles only take effect after 0.5 seconds. Successful treatment causes medication sickness, reducing further treatment by 100% for 11.4 seconds; every third attack fires an empowered compression laser. Healing stops when casting stops. Minimum cooldown after the skill ends is 45 seconds
+	}
+}
+
+EbenholzStaff: {
+	1: {
+		Label: Adagio into Allegro
+		Desc: Manually activate for 5 seconds. Cast 150% faster, with each cube dealing 50%–60% damage in a dense barrage of black notes
+	}
+
+	2: {
+		Label: Desolate Echoes
+		Desc: Automatically consume all stored echoes to place 1–4 remnants near enemies, up to 5 at once. Nearby enemies trigger a 1-second pull followed by a 140%–245% explosion. Bosses resist the pull; no target means no SP is spent
+	}
+
+	3: {
+		Label: Tranquil Silence
+		Desc: Manually activate for 30 seconds. Cast 60% faster and deal 35%–65% more damage, prioritizing bosses and high-health enemies. Stored cubes deal 140% of the empowered shot damage and release a black pursuit wisp on impact
+	}
+}
+
+EthanYoyo: {
+	1: {
+		Label: Fancy Spins
+		Desc: Passive. Hits inflict Arts damage equal to 12%–30% ATK per second for 2–4 seconds; repeat hits refresh rather than stack. Both yoyos share a bind roll interval per target. Bosses and segmented enemies cannot be bound
+	}
+
+	2: {
+		Label: Cross Suspension
+		Desc: Auto recovery, manual activation. Gain 20%–70% ATK and a 37.5%–75% bind chance for 20–30 seconds. Binds last 2 seconds, or 3 at Elite 2. Bosses and segmented enemies cannot be bound
+	}
+}
+
+HornGrenadeLauncher: {
+	1: {
+		Label: Flare Grenade
+		Desc: Auto recovery, triggered on attack. The next attack deals 160%–280% damage; shells have a larger blast and leave an illuminated area for 5–8 seconds. Stores 1–2 charges
+	}
+
+	2: {
+		Label: Tempest Command
+		Desc: Manually load 10 enhanced rounds dealing 130%–240% physical damage. The last 5 add 30%–60% ATK as area Arts damage. Reactivate in the second half to fire all remaining rounds 4 frames apart and spend 60% current life, leaving at least 1. Reactivating in the first half simply ends the skill
+	}
+
+	3: {
+		Label: Ultimate Line of Defense
+		Desc: Activate for 24 seconds with an approximately 21% shorter attack interval. Gain 10%–70% ATK in the first half and 20%–140% in the second; the second half progressively drains up to 12% maximum life per second. Reactivate to end early. Stops automatically at 1 life
+	}
+}
+
+WarfarinStaff: {
+	1: {
+		Label: Emergency Dressing
+		Desc: Auto recovery, manual activation. Throws a plasma bag toward the injured ally nearest the cursor. It can heal 30-48 life after 0.5 seconds; medical treatment then causes medication sickness, reducing further treatment by 100% for 11.4 seconds
+	}
+
+	2: {
+		Label: Unstable Plasma
+		Desc: Auto recovery, manual activation. Costs 30 SP and lasts 15 seconds. While holding the staff, your minions, sentries and their projectiles deal 30% more damage. Hits release one blood bolt dealing the staff's current damage, with a shared 0.25-second cooldown. Blood bolts hit up to twice and cannot trigger further bolts. Ends when switching away or dying
+	}
+}
+
+IndigoStaff: {
+	1: {
+		Label: Lighthouse Guardian
+		Desc: Auto recovery, manual activation. Costs 20 SP and lasts 4 seconds. Attack speed becomes 5 times as fast, each shot deals 50% damage and costs 20% mana. Stored waterlights still release with the next attack
+	}
+
+	2: {
+		Label: Labyrinth of Light
+		Desc: Auto recovery, manual activation. Costs 40 SP and lasts 20 seconds. Gain 25% attack speed. Hits have a 60% chance to apply a 2-second tide mark and bind ordinary enemies. Marks deal 25% weapon damage every 0.5 seconds; bosses take damage without being bound. Repeated hits refresh the mark without stacking per owner. Marks end beyond 900 pixels or when the skill ends
+	}
+}
+
+HarmonieStaff: {
+	1: {
+		Label: Delicate Footwork
+		Desc: Auto recovery, manual activation. Costs 20 SP and lasts 5 seconds. Attack speed becomes 5 times as fast, each shot deals 50% damage and costs 20% mana. Stored notes still release with the next attack
+	}
+
+	2: {
+		Label: Drowning Calamity
+		Desc: Auto recovery, manual activation. Costs 40 SP and lasts 20 seconds. Gain 25% attack speed and create a 140-pixel-radius resonance pool at a visible point up to 600 pixels toward the cursor. Slows ordinary enemies and deals 35% weapon damage every 0.5 seconds without passing through walls. Bosses take damage without being slowed. One pool per owner; ends when switching weapons, the skill ends, or the owner moves 1000 pixels away
+	}
+}

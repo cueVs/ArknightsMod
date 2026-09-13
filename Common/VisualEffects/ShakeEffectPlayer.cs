@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,14 +19,14 @@ namespace ArknightsMod.Common.VisualEffects
 			Main.screenPosition += screenShakeModifier;
 		}
 
-		public override void PostUpdate()//动态更新
+		public override void PostUpdate ()//动态更新
 		{
 			float maxScreenShakeDistance = 20;
 			float screenShakeSpeed = 10;
 
 			if (screenShakeTime > 0)//生效
 			{
-				if (screenShakeOnlyOnY == true)//只在y轴进行
+				if(screenShakeOnlyOnY == true)//只在y轴进行
 				{
 					maxScreenShakeDistance = 5;
 					screenShakeSpeed = 4;
@@ -40,7 +40,7 @@ namespace ArknightsMod.Common.VisualEffects
 						screenShakeVelocity = -screenShakeSpeed * screenShakeModifier.SafeNormalize(Vector2.Zero).RotatedByRandom(0.5);//震动速度变为反向并不断减少
 					}
 				}
-				else if (screenShakeOnlyOnX == true)//只在x轴进行
+				else if(screenShakeOnlyOnX == true)//只在x轴进行
 				{
 					maxScreenShakeDistance = 5;
 					screenShakeSpeed = 4;
@@ -54,7 +54,8 @@ namespace ArknightsMod.Common.VisualEffects
 						screenShakeVelocity = -screenShakeSpeed * screenShakeModifier.SafeNormalize(Vector2.Zero).RotatedByRandom(0.5);//震动速度变为反向并不断减少
 					}
 				}
-				else {
+				else
+				{
 					maxScreenShakeDistance = 5;
 					screenShakeSpeed = 4;
 					screenShakeModifier += screenShakeVelocity;//震动位移被震动速度所改变
@@ -74,10 +75,11 @@ namespace ArknightsMod.Common.VisualEffects
 			}
 		}
 
-		public override void ResetEffects()//重置效果
+        public override void ResetEffects()//重置效果
 		{
 			//屏幕抖动时间减少
-			if (screenShakeTime > 0) {
+			if (screenShakeTime > 0)
+			{
 				screenShakeTime--;
 			}
 		}

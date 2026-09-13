@@ -17,7 +17,7 @@ namespace ArknightsMod.VisualEffects
 
 		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/Sami");
 
-		public override int Music => MusicLoader.GetMusicSlot(Mod, "Music/arkopen");
+		public override int Music => MusicLoader.GetMusicSlot(Mod, "Sounds/Music/arkopen");
 
 		public override string DisplayName => "泰拉方舟 TerrariArknights";
 

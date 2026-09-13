@@ -1,6 +1,7 @@
 ﻿using System;
 using Terraria;
 using Terraria.ModLoader;
+using ArknightsMod.Players;
 
 namespace ArknightsMod.Content.Buffs
 {
@@ -13,7 +14,7 @@ namespace ArknightsMod.Content.Buffs
 		}
 
 		public override void Update(Player player, ref int buffIndex) {
-			var modPlayer = Main.LocalPlayer.GetModPlayer<Common.Players.WeaponPlayer>();
+			var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			if (modPlayer.SkillActive) {
 				player.statDefense += (int)Math.Round(player.statDefense * 1.2);
 			}

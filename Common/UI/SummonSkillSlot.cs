@@ -1,4 +1,4 @@
-﻿using ArknightsMod.Common.Players;
+﻿using ArknightsMod.Players;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;

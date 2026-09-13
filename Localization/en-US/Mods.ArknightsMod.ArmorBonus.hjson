@@ -1,0 +1,3 @@
+LifeReplacement: 将{0}的生命值替换为固定值{1}
+LifeBonus: 最大生命值 +{0}
+LifeItemsReduction: 生命果/生命水晶增加的生命上限 -{0} (仅生效一次)

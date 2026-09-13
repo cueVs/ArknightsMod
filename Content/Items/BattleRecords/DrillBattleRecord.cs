@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArknightsMod.Content.Items.BattleRecords
+﻿namespace ArknightsMod.Content.Items.BattleRecords
 {
 	internal class DrillBattleRecord : BattleRecordBase
 	{

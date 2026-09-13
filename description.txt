@@ -1,36 +1,56 @@
-# Hello, Doctor!
-This Mod for Terraria is made for Arknights Doctor. I'm creating the Mod based on the idea of Arknights, adding my own interpretation.
-Have a good life of Arknights in Terraria, Doctor!
-
-## What is Arknights?
-Arknights is a mobile tower defense (TD) game developed by Hypergryph. I think you Terraria lovers will love it!
-
-## What can you do with the Mod?
-You can play it as Arknights Doctor, and can use many items associated with many Operators.
-
-## Latest Update
-- Added Loxic Kohl and White Horse Kohl
-- Added Devices of all rarity
-- Added Oriron of all rarity
-- Modified recipes of some materials
-- Added Piledriver Spear
-- Added Thorns' Sword
-- Added Yato's Katana
-- Modified CN localization
-The weapons don't have ability of skills, but will be added in the future.
-
-## Contributing
-Recruitment tag: [Pixel Artist] [Spriter] [EN-CN translator] [JP-CN translator] [Programmer] [Terrarian] [Feedback] [Doctor]
-As long as you are interested in one of them, please contact our Discord (below) and tell us about it.
-🐰"There's still lots of work that needs to be done, Doctor. We can't afford to have you resting."
-There is a lot of work to be done in Terraria. We look forward to meet you.
-
-## Disclaimer
-- Please note that this mod are released under the [TERMS AND CONDITIONS OF RE-CREATION](https://www.arknights.global/fankit/guidelines).
-- I do not take any responsibility or liability for any damage or loss caused through this mod. (So, you should back up the game data periodically.)
-- You are NOT allowed to use or to reproduce the code and the images of this mod.
-- If you have any questions regarding the use of this mod, please contact our Discord (below).
-
-## Contact
-Discord (Lurker OK) : https://discord.gg/XKM2jeS9hY
-Arknights Mod thread: https://forums.terraria.org/index.php?threads/arknights-mod.117651/ (in Terraria Forums)
+[img]https://i.ibb.co/DPZJfFyn/LOGO.png[/img]
+[h1]您好，博士！[/h1]
+[h1]-------------------------------------------------------------------[/h1]
+- 这款《泰拉瑞亚》模组专为《明日方舟》的博士打造。我们基于《明日方舟》的核心概念进行创作，并融入个人理解
+- 愿您在泰拉瑞亚世界享受愉快的方舟之旅，博士！
+[h1]-------------------------------------------------------------------[/h1]
+[h1]什么是《明日方舟》？[/h1]
+- 《明日方舟》是由上海鹰角网络科技有限公司(Hypergryph)开发的一款手机塔防(TD)游戏，相信热爱泰拉瑞亚的您也会喜欢这款作品！
+[h1]-------------------------------------------------------------------[/h1]
+[h1]已完成的核心内容[/h1]
+-   [b]技能[/b] --- 明日方舟的干员武器技能系统
+-   [b]时装[/b] --- 拥有60套时装，并且拥有独特的效果
+-   [b]材料[/b] --- 精英材料的绘制和添加、以及武器的合成配方
+-   [b]物块[/b] --- 完成了罗德岛基建的大量物块和背景墙以及罗德岛基建部分建筑
+-   [b]元素损伤[/b] --- 一个敌我都适用的独特的debuff系统 
+-   [b]集成战略[/b] --- 集成战略模式的藏品商人-坎诺特、78件作为饰品的集成战略模式的收藏品
+-   [b]敌方单位[/b] --- 明日方舟主线前期部分小怪、覆潮之下的怪物、第四-第六章的主线boss：霜星、第一次夏活boss：庞贝
+[h1]-------------------------------------------------------------------[/h1]
+[h1]待完成的核心内容[/h1]
+-   [b]Boss单独的战斗场地[/b]
+-   [b]口袋世界技术[/b] --- 用于在主世界替换区块 将建筑尝试通过自研的口袋世界技术-“裁错春秋”进行添加
+-   [b]本舰建筑地图[/b] --- 类似starboard开场一样的罗德岛本舰建筑地图，用以轮流存放游戏的所有干员npc，并与其互动交谈
+[h1]-------------------------------------------------------------------[/h1]
+[h1]加入我们[/h1]
+- 招募标签：
+[code]
+[h3][泰拉瑞亚玩家][/h3]
+[h3][明日方舟玩家][/h3]
+[h3][中译英翻译][/h3]
+[h3][中译日翻译][/h3]
+[h3][像素画手][/h3]
+[h3][反馈建议][/h3]
+[h3][程序员][/h3]
+[/code]
+- 只要您对其中[b]任何一个职位[/b]感兴趣，请通过下方的Discord服务器联系我们并告知。
+- ：[i]“博士，您还有许多事情要处理。现在还不能休息哦”[/i]
+- 此模组仍有大量内容亟待完善，我们期待您的加入
+[h1]-------------------------------------------------------------------[/h1]
+[h1]版权声明[/h1]
+- [b][u][i]如有对本模组的代码及图像素材进行任何形式的复用或二次发布，需向开发人员取得授权[/i][/u][/b]
+- 本模组遵循[url=https://www.arknights.global/fankit/guidelines]明日方舟官方二次创作条款与条件（英文版）[/url]发布
+- 开发者不对使用本模组造成的任何数据损坏或损失承担责任（建议定期备份游戏数据）
+- 如有使用疑问，请通过Discord联系我们（如下）
+[h1]-------------------------------------------------------------------[/h1]
+[h1]联系我们[/h1]
+- [url=https://discord.gg/XKM2jeS9hY]Discord服务器(允许潜水)[/url]
+- [url=https://forums.terraria.org/index.php?threads/arknights-mod.117651/] 明日方舟模组讨论帖(发布于泰拉瑞亚论坛)[/url]
+- qq群号：891522802（二维码在下方）
+[quote=tModLoader]由 cueV 开发[/quote]
+[h1]-------------------------------------------------------------------[/h1]
+[h1]注：更新内容到改动说明中查看[/h1]
+[h1]-------------------------------------------------------------------[/h1]
+关键词：Arknights、明日方舟、Terraria、泰拉瑞亚、
+[h1]-------------------------------------------------------------------[/h1]
+[img]https://i.imgur.com/zRcSD60.png[/img]
+[h1]-------------------------------------------------------------------[/h1]

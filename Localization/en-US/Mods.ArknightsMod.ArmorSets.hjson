@@ -1,0 +1,434 @@
+Astesia: {
+	HeadName: Astesia's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: While enemies are nearby, gain +5% melee attack speed every 20s (up to +25%); expires 5s after no enemies remain"
+	SetEffect: "[c/beebff:Set]: While enemies are nearby, gain +5% defense every 20s (up to +25%); expires 5s after no enemies remain"
+	SetBonus: +5% melee speed/DEF per 20s near enemies (max 25%); resets 5s after they leave
+}
+
+W: {
+	HeadName: W's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Stunned enemies take +18% physical damage"
+	SetEffect: "[c/beebff:Set]: 17% dodge, lower aggro; 130% ranged vs stunned enemies"
+	SetBonus: 17% dodge, lower aggro, 130% ranged vs stunned enemies
+}
+
+Melantha: {
+	HeadName: Melantha's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee damage 104%"
+	SetEffect: "[c/beebff:Set]: Melee hits grant Fearless — +1.5 HP/s regen per stack for 4s"
+	SetBonus: Melee hits grant stacking Fearless regen
+}
+
+Utage: {
+	HeadName: Utage's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee hits restore 1 HP, up to 3/s"
+	SetEffect: "[c/beebff:Set]: +0.5% melee speed per 1% missing HP; max +30% at 60% HP lost"
+	SetEffectActive: "[c/beebff:Set] (active): Current melee speed +{0}% (scales with missing HP, max +30%)"
+	SetBonus: Melee attack speed scales with missing HP, up to +30%
+}
+
+Haze: {
+	HeadName: Haze's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Magic hits reduce target magic resist 20% for 1s"
+	SetEffect: "[c/beebff:Set]: +50 max mana, +6% magic crit; doubled at night"
+	SetBonus: +50 mana, +6% magic crit; doubled at night
+}
+
+Saria: {
+	HeadName: Saria's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Skill heals on allies grant them 2 SP"
+	SetEffect: "[c/beebff:Set]: While a boss is active, every 10s gain a stack: +5% damage, +4% defense, max 5 stacks"
+	SetBonus: +5% dmg/+4% def per stack while boss active, max 5
+}
+
+KkdyAlter: {
+	HeadName: Kroos the Keen Glazer's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +15% ranged attack speed"
+	SetEffect: "[c/beebff:Set]: 20% chance ranged hits deal 150% damage and stun 0.2s"
+	SetBonus: 20% chance 150% ranged + 0.2s stun
+}
+
+Matoimaru: {
+	HeadName: Matoimaru's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Healing received 125%"
+	SetEffect: "[c/beebff:Set]: -20% defense, +30% max life"
+	SetBonus: -20% defense, +30% max life
+}
+
+Beagle: {
+	HeadName: Beagle's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Immune to knockback"
+	SetEffect: "[c/beebff:Set]: +6 defense; +6 per empty accessory slot, up to 3 times"
+	SetBonus: +6 def; +6 per empty acc slot, max 3
+}
+
+Exusiai: {
+	HeadName: Exusiai's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +20% ranged attack speed"
+	SetEffect: "[c/beebff:Set]: +6% damage, +10% max life; shared with other teammates when present"
+	SetBonus: +6% dmg, +10% life; shared with teammates
+}
+
+Mostima: {
+	HeadName: Mostima's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Hits slow enemies 15%"
+	SetEffect: "[c/beebff:Set]: +0.4 SP regen/s; shared with other full caster-set operators"
+	SetBonus: +0.4 SP/s; shared with caster operators
+}
+
+Skadi: {
+	HeadName: Skadi's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee damage 120%"
+	SetEffect: "[c/beebff:Set]: -5s respawn; vs boss: survive lethal once (-70% max HP, full heal, +30% melee speed)"
+	SetBonus: -5s respawn; boss lethal survive once
+}
+
+Entelechia: {
+	HeadName: Entelechia's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee applies bleed: 40 magic DPS for 5s"
+	SetEffect: "[c/beebff:Set]: Melee steals 10 max HP from target, +10 self max HP (cap +180, reset on death)"
+	SetBonus: Steal 10 enemy max HP per melee hit, +10 self (cap 180)
+}
+
+Amiya: {
+	HeadName: Amiya's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: -20% mana cost"
+	SetEffect: "[c/beebff:Set]: Magic hits +2 SP (x2 vs bosses); kills +8 SP"
+	SetBonus: Magic +2 SP (boss x2); kill +8 SP
+}
+
+Indigo: {
+	HeadName: Indigo's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: 130% magic vs bound/stunned enemies"
+	SetEffect: "[c/beebff:Set]: 18% chance magic hits bind 4s"
+	SetBonus: 18% chance bind 4s on magic hit
+}
+
+Lava: {
+	HeadName: Lava's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +15 SP on deploy and redeploy"
+	SetEffect: "[c/beebff:Set]: Inferno potion effect while skill active"
+	SetBonus: Inferno during skill
+}
+
+Steward: {
+	HeadName: Steward's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Magic damage 104%"
+	SetEffect: "[c/beebff:Set]: Magic attacks home toward highest-defense enemy"
+	SetBonus: Magic homing to highest-defense enemy
+}
+
+Cardigan: {
+	HeadName: Cardigan's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +40 max life"
+	SetEffect: "[c/beebff:Set]: +1 defense per 40 max life"
+	SetBonus: +1 def per 40 max life
+}
+
+Nian: {
+	HeadName: Nian's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: While present, all defender-set operators +16% max life"
+	SetEffect: "[c/beebff:Set]: On deploy/redeploy/boss spawn gain 3 shield layers (max 3); single hit >50 consumes 1 layer for -70% damage"
+	SetBonus: 3 shield layers on deploy/boss; >50 dmg consumes 1 layer for -70%
+}
+
+Spot: {
+	HeadName: Spot's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Heal output 104%"
+	SetEffect: "[c/beebff:Set]: After healing an ally, grant 17% physical dodge for 3s"
+	SetBonus: Heal 104%; post-heal 17% dodge 3s
+}
+
+Vulcan: {
+	HeadName: Vulcan's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: During skill, 25% melee dodge and 25% collision dodge"
+	SetEffect: "[c/beebff:Set]: During skill, regen 2% max life per second"
+	SetBonus: Skill: 25% melee/collision dodge; 2% max life/s regen
+}
+
+Chen: {
+	HeadName: Chen's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +5% attack/defense, 10% physical dodge"
+	SetEffect: "[c/beebff:Set]: While present, all weapon players gain 1 SP per 3s; Chen gains +1 extra"
+	SetBonus: Present: +1 SP/3s to weapon players (Chen +2); helmet +5% atk/def, 10% dodge
+}
+
+LaPluma: {
+	HeadName: La Pluma's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee heals 2 HP per attack (max 2 per attack)"
+	SetEffect: "[c/beebff:Set]: +3% melee speed per kill, max 12 stacks; reset on death"
+	SetBonus: Kill stacks +3% melee speed, max 12, reset on death
+}
+
+Lappland: {
+	HeadName: Lappland's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee adds 10% attack as magic damage"
+	SetEffect: "[c/beebff:Set]: Attacks silence enemy specials 5s; Cross Necklace effect"
+	SetBonus: Silence specials 5s; Cross Necklace effect
+}
+
+Midnight: {
+	HeadName: Midnight's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: -5 defense, +15% melee damage"
+	SetEffect: "[c/beebff:Set]: 10% chance melee deals 150% damage"
+	SetBonus: 10% chance melee 150% damage
+}
+
+Popukar: {
+	HeadName: Popukar's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee damage 103%"
+	SetEffect: "[c/beebff:Set]: +30 max life"
+	SetBonus: Melee 103%; +30 max life
+}
+
+Surtr: {
+	HeadName: Surtr's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee ignores 20 magic defense"
+	SetEffect: "[c/beebff:Set]: Survive lethal at 1 HP, 8s iframes no healing, +22% melee speed, 120s cooldown"
+	SetBonus: Lethal survive 1 HP, 8s iframes no heal, +22% melee speed, 120s CD
+}
+
+Ansel: {
+	HeadName: Ansel's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Heal output 104%"
+	SetEffect: "[c/beebff:Set]: 7% chance to heal another ally when healing"
+	SetBonus: Heal 104%; 7% chain heal
+}
+
+Hibiscus: {
+	HeadName: Hibiscus's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Heal output 104%"
+	SetEffect: "[c/beebff:Set]: +30 max life"
+	SetBonus: Heal 104%; +30 max life
+}
+
+Warfarin: {
+	HeadName: Warfarin's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Allies below 50% HP get 20 HP/s regen 10s, 60s ICD per ally"
+	SetEffect: "[c/beebff:Set]: On nearby enemy kill, self and random nearby ally gain 2 SP"
+	SetBonus: Low-HP ally regen; nearby kill +2 SP for self and random ally
+}
+
+Adnachiel: {
+	HeadName: Adnachiel's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Ranged damage 104%"
+	SetEffect: "[c/beebff:Set]: Ranged attacks home toward ranged-capable enemies"
+	SetBonus: Ranged 104%; homing to ranged enemies
+}
+
+Catapult: {
+	HeadName: Catapult's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Deploy cost -1 (no deploy cost system yet; reserved)"
+	SetEffect: "[c/beebff:Set]: Ranged damage 103%; +5 SP on deploy/redeploy"
+	SetBonus: Ranged 103%; +5 SP on deploy/redeploy
+}
+
+Fartooth: {
+	HeadName: Fartooth's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: During skill lower aggro; attacks ignore enemy dodge"
+	SetEffect: "[c/beebff:Set]: If no damage 10s +20% ranged; while boss active 130% ranged until hit or boss leaves"
+	SetBonus: 10s no dmg +20% ranged; boss 130% ranged until hit
+}
+
+Fiammetta: {
+	HeadName: Fiammetta's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +27% ranged speed when skill inactive"
+	SetEffect: "[c/beebff:Set]: Life drain over time (won't kill); >50% HP +25% ranged, >80% doubles"
+	SetBonus: Life drain; >50% +25% ranged, >80% doubles
+}
+
+Kroos: {
+	HeadName: Kroos's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: 40% chance ranged attacks consume no ammo"
+	SetEffect: "[c/beebff:Set]: 10% chance ranged deals 150% damage"
+	SetBonus: 40% no ammo; 10% chance 150% ranged
+}
+
+Melanite: {
+	HeadName: Melanite's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Ranged damage 120%"
+	SetEffect: "[c/beebff:Set]: First skill after deploy/redeploy/boss spawn +20% ranged during skill"
+	SetBonus: Ranged 120%; first skill +20% ranged
+}
+
+Provence: {
+	HeadName: Provence's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Close-range ranged 20% chance 180% damage"
+	SetEffect: "[c/beebff:Set]: Helmet proc chance increased to 50%"
+	SetBonus: Close ranged 20% chance 180% (50% with set)
+}
+
+Typhon: {
+	HeadName: Typhon's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: During skill, first hit per enemy 160% + 80% slow 3s"
+	SetEffect: "[c/beebff:Set]: Consecutive ranged hits ignore +10% def per hit, max 50%; reset after 8s no ranged attack"
+	SetBonus: Consecutive ranged ignore def stacks max 50%; 8s idle reset
+}
+
+Manticore: {
+	HeadName: Manticore's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: 10% physical and magic dodge"
+	SetEffect: "[c/beebff:Set]: After 2.5s without attacking, enter stealth; attacking breaks stealth and +50% that hit"
+	SetBonus: Stealth after 2.5s idle; +50% break-stealth hit
+}
+
+Rope: {
+	HeadName: Rope's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: 15% chance to dodge attacks when hit"
+	SetEffect: "[c/beebff:Set]: If you neither dodge nor take damage for 5 seconds, the next hit is guaranteed to dodge"
+	SetBonus: 15% dodge on hit; after 5s with no dodge/damage, next hit always dodges
+}
+
+Mizuki: {
+	HeadName: Mizuki's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +20% damage while enemies below 50% HP are nearby"
+	SetEffect: "[c/beebff:Set]: Extra 50% ATK magic hit to lowest-HP target among hits"
+	SetBonus: Bonus hit lowest-HP target for 50% ATK magic
+}
+
+Texalter: {
+	HeadName: Silent Texas's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +20% damage during passive skill"
+	SetEffect: "[c/beebff:Set]: On kill, full heal and retrigger passive (20s CD); 15% DR while CD ready"
+	SetBonus: Kill full heal + retrigger passive; 15% DR when CD ready
+}
+
+Orchid: {
+	HeadName: Orchid's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +10% magic damage"
+	SetEffect: "[c/beebff:Set]: Magic hits slow 80% for 0.8s; ineffective on most bosses"
+	SetBonus: Magic slow 80% 0.8s (not most bosses)
+}
+
+Raidian: {
+	HeadName: Raidian's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +1 minion slot; minions gain inspire equal to 20% your max HP"
+	SetEffect: "[c/beebff:Set]: +1 minion slot; summon hits mark targets for priority + 8% ATK magic bonus"
+	SetBonus: +1 minion slot; mark + 8% ATK magic on minion hits
+}
+
+Fang: {
+	HeadName: Fang's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +4 SP on deploy and redeploy"
+	SetEffect: "[c/beebff:Set]: +2 SP if no damage taken for 4s"
+	SetBonus: +4 SP on deploy; +2 SP after 4s no hit
+}
+
+Plume: {
+	HeadName: Plume's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee damage 103%"
+	SetEffect: "[c/beebff:Set]: +10% melee speed, +10% acceleration and max move speed"
+	SetBonus: +10% melee speed and move speed
+}
+
+Texas: {
+	HeadName: Texas's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +2 deploy cost on deploy and redeploy"
+	SetEffect: "[c/beebff:Set]: Skill damage and control duration 130%"
+	SetBonus: +2 deploy cost; skill damage/control 130%
+}
+
+Vanilla: {
+	HeadName: Vanilla's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee damage 103%"
+	SetEffect: "[c/beebff:Set]: +8 defense while deploy cost > 50"
+	SetBonus: +8 def when deploy cost > 50
+}
+
+Mudrock: {
+	HeadName: Mudrock's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: -30% damage taken from Sarkaz enemies"
+	SetEffect: "[c/beebff:Set]: Gain a shield every 9s (max 3). When hit for >50, consume 1 shield for -20% damage and heal 10% max HP"
+	SetBonus: Periodic shields; big hits consume shield for mitigation and heal
+	ToggleHint: Hold this item and right-click to toggle between the vanity look and the armor set look (activates the set effect). Hold and right-click again to switch back.
+}
+
+Mlynar: {
+	HeadName: Mlynar's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Melee 110%; 115% and 10% DR with 3+ enemies or a boss on field"
+	SetEffect: "[c/beebff:Set]: Draw aggro; Kazimierz operators reflect 15% of Mlynar's attack as true damage when hit"
+	SetBonus: High aggro; Kazimierz reflect on hit
+}
+
+Oblivionis: {
+	HeadName: Oblivionis's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Each note on field grants Ave Mujica members +3% armor pen and -2% enemy arts resist (max 10)"
+	SetEffect: "[c/beebff:Set]: Hits add Fever +3; all allies +15% attack speed"
+	SetBonus: Fever on hit; ally attack speed +15%
+}
+
+Ulpianus: {
+	HeadName: Ulpianus's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +12 max HP and +4 attack per kill (max 9); other Abyssal Hunters get 50%"
+	SetEffect: "[c/beebff:Set]: Heal 12 on hit (16 below 50% HP); doubled while holding signature anchor (not yet implemented)"
+	SetBonus: Heal on hit; low HP boost; anchor doubles heal
+}
+
+Rosmontis: {
+	HeadName: Rosmontis's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +25 ranged armor penetration"
+	SetEffect: "[c/beebff:Set]: +8% attack for self and Caster operators; bind key deploys tactical gear (stun/block/debuff, 20s, 60s CD)"
+	SetBonus: Caster +8% atk; keybind tactical deploy
+}
+
+Dorothy: {
+	HeadName: Dorothy's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +1 minion slot, +15% summon damage"
+	SetEffect: "[c/beebff:Set]: +1 minion slot; +3% summon damage per unused minion slot (max 10), resets on retreat; sweeper drone follows and fires"
+	SetBonus: Extra minion slot; unused slot stacks; sweeper drone
+}
+
+ExusiaiAlter: {
+	HeadName: Exusiai the New Covenant's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Ammo-skill operators +9% attack while on field; Laterano doubled"
+	SetEffect: "[c/beebff:Set]: Constant HP drain; ally ammo use heals 6% HP with 25% chance to bomb nearest enemy for 150% attack splash"
+	SetBonus: HP drain; ally ammo triggers heal and bomb
+}
+
+CivilightEterna: {
+	HeadName: Civilight Eterna's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: All allies take -10% damage from Sarkaz enemies while on field"
+	SetEffect: "[c/beebff:Set]: 3 motes orbit; touching an operator grants +50% healing received from Civilight Eterna for 6s; motes respawn after 6s"
+	SetBonus: Motes boost ally healing; respawn after 6s
+}
+
+Ling: {
+	HeadName: Ling's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +1 minion slot; +20% summon damage per empty minion slot"
+	SetEffect: "[c/beebff:Set]: +1 minion slot; each new unused minion slot grants +2 SP and +5% summon damage (max 5 stacks)"
+	SetBonus: Extra minion slot; unused slots grant SP and summon stacks
+}
+
+Bagpipe: {
+	HeadName: Bagpipe's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: +8 SP to all Vanguard operators on deploy and redeploy"
+	SetEffect: "[c/beebff:Set]: 20% chance melee hits deal an extra 150% damage hit"
+	SetBonus: Vanguard deploy SP; melee proc bonus hit
+}
+
+Deepcolor: {
+	HeadName: Deepcolor's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Self and summons gain 7% physical and magic dodge"
+	SetEffect: "[c/beebff:Set]: While on field, all of Deepcolor's summons regenerate 25 HP per second"
+	SetBonus: Summons regenerate 25 HP/s while on field
+}
+
+Wisadel: {
+	HeadName: Wisadel's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Orbiting Revenant's Shadow blocks projectiles; 60s cooldown respawn"
+	SetEffect: "[c/beebff:Set]: +15% ranged damage; marks hit enemies, aftershock triggers explosion + confuse on marked targets"
+	SetBonus: +15% ranged; residual mark detonates on aftershock
+}
+
+Mornia: {
+	HeadName: Mornia-Cherry's Helmet
+	HelmetEffect: "[c/beebff:Helmet]: Magic damage 106%"
+	SetEffect: "[c/beebff:Set]: 8% magic crit; arcane bolts seek nearby enemies"
+	SetBonus: 8% magic crit, arcane bolts seek enemies
+}
+
+Kaltsit: {
+	HeadName: 凯尔希的头盔
+	SetEffect: "[c/beebff:套装效果]：在身后召唤M3伴随战斗，优先攻击距离玩家最近的敌人；M3受到足够伤害后会化为能量水晶，暂时不参与战斗，之后会自动复苏"
+	SetBonus: 召唤M3伴随战斗，倒下后化为水晶待机
+}

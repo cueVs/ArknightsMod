@@ -14,7 +14,6 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ArknightsMod.Content.NPCs.Enemy.GT
 {
-	// Party Zombie is a pretty basic clone of a vanilla NPC. To learn how to further adapt vanilla NPC behaviors, see https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-npc-npc-clone-with-modified-projectile-hoplite
 	public class AcidOgSlug : ModNPC
 	{
 		private int status;
@@ -32,17 +31,17 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 
 
 		public override void SetStaticDefaults() {
-			Main.npcFrameCount[Type] = 15;
+			Main.npcFrameCount[Type] = 20;
 
-			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() { // Influences how the NPC looks in the Bestiary
-				Velocity = 1f // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
+			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() {
+				Velocity = 1f
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
 		}
 
 		public override void SetDefaults() {
 			NPC.width = 40;
-			NPC.height = 34;
+			NPC.height = 36;
 			NPC.damage = 12;
 			NPC.defense = 8;
 			NPC.lifeMax = 40;
@@ -62,7 +61,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
 
-			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.Oriron>(), ModContent.GetInstance<Dropconfig>().DropAcidOgSlug, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.Polyester>(), ModContent.GetInstance<Dropconfig>().DropAcidOgSlug1, 1, 2));
+			npcLoot.Add(ItemDropRule.Common(ItemType<Items.Material.LoxicKohl>(), ModContent.GetInstance<Dropconfig>().DropAcidOgSlug2, 1, 2));
 
 		}
 
@@ -89,13 +89,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 
 
 			if (Frame_State == (int)ActionState.Walk) {
-				int startFrame = 0;
-				int finalFrame = 4;
+				int startFrame = 16;
+				int finalFrame = 19;
 				int frameSpeed = 6;
 
 				if (NPC.velocity.Length() != 0) {
 					NPC.frameCounter += 0.6f;
-					NPC.frameCounter += NPC.velocity.Length() / 4f; // Make the counter go faster with more movement speed
+					NPC.frameCounter += NPC.velocity.Length() / 4f;
 				}
 
 				if (NPC.frameCounter > frameSpeed) {
@@ -110,8 +110,8 @@ namespace ArknightsMod.Content.NPCs.Enemy.GT
 				}
 			}
 			else if (Frame_State == (int)ActionState.Attack) {
-				int startFrame = 5;
-				int finalFrame = 14;
+				int startFrame = 0;
+				int finalFrame = 15;
 				int frameSpeed = 5;
 				if (NPC.frame.Y < startFrame * frameHeight) {
 					NPC.frame.Y = startFrame * frameHeight;

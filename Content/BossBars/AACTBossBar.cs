@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.ModLoader;
+using Terraria.GameContent.UI.BigProgressBar;
+using System;
 
 namespace ArknightsMod.Content.BossBars
 {
@@ -13,8 +13,13 @@ namespace ArknightsMod.Content.BossBars
 	{
 		private int bossHeadIndex = -1;
 
-		public override Asset<Texture2D> GetIconTexture(ref Rectangle? iconFrame) {
-			return bossHeadIndex != -1 ? TextureAssets.NpcHeadBoss[bossHeadIndex] : null;
+		public override Asset<Texture2D> GetIconTexture(ref Rectangle? iconFrame)
+		{
+			if (bossHeadIndex != -1)
+			{
+				return TextureAssets.NpcHeadBoss[bossHeadIndex];
+			}
+			return null;
 		}
 
 		private float timer1 = 0;
@@ -58,7 +63,7 @@ namespace ArknightsMod.Content.BossBars
 
 				randomtimer++;
 				randomshake = (float)(-4 * Math.Sin(randomtimer / 12) - 2 * Math.Sin(randomtimer / 4) - 3 * Math.Sin(randomtimer / 2) + 4 * Math.Sin(randomtimer / 144) + 6 * Math.Cos(randomtimer / 48) - 4 * Math.Cos(randomtimer / 24));
-
+				
 				life = (float)Math.Sin(timer3 * Math.PI / 240) * npc.life + (npc.lifeMax * 0.9f - npc.life) / stage3health * npc.lifeMax * 0.1f * randomshake / 20;
 				lifeMax = stage3health - (npc.lifeMax * 0.9f - npc.life) / stage3health * npc.lifeMax * 0.05f * randomshake / 20;
 
@@ -75,7 +80,12 @@ namespace ArknightsMod.Content.BossBars
 				}
 			}
 
-			return npc.ai[1] == 0 ? false : true;
+			if (npc.ai[1] == 0) {
+				return false;
+			}
+			else {
+				return true;
+			}
 		}
 	}
 }

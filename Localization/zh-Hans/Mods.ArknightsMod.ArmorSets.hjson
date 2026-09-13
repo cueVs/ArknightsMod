@@ -1,0 +1,434 @@
+Astesia: {
+	HeadName: 星极的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：附近有敌人时，每20秒近战攻击速度+5%，最多通过该效果+25%；附近无敌人超过5秒失效"
+	SetEffect: "[c/beebff:套装效果]：附近有敌人时，每20秒防御力+5%，最多通过该效果+25%；附近无敌人超过5秒失效"
+	SetBonus: 有敌人时每20秒+5%近战攻速/防御（上限25%）；无敌人5秒后清空
+}
+
+W: {
+	HeadName: W的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：场上处于眩晕状态的敌人，受到的物理伤害+18%"
+	SetEffect: "[c/beebff:套装效果]：获得17%物理与法术闪避，且不容易成为敌人的目标；对处于眩晕状态的敌人造成的远程伤害提升至130%"
+	SetBonus: 17%物理与法术闪避，不易成为敌人目标；对眩晕敌人远程伤害130%
+}
+
+Melantha: {
+	HeadName: 玫兰莎的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战伤害提升至104%"
+	SetEffect: "[c/beebff:套装效果]：造成近战伤害后，获得“无畏者”增益：每层+1.5生命/秒再生，持续4秒（可叠加层数）"
+	SetBonus: 近战命中叠加“无畏者”层数，每层+1.5生命/秒再生
+}
+
+Utage: {
+	HeadName: 宴的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：造成近战伤害后恢复1点生命值，每秒最多触发3次"
+	SetEffect: "[c/beebff:套装效果]：每损失1%生命值，近战攻速+0.5%；损失60%生命值后达到最高加成（最多+30%近战攻速）"
+	SetEffectActive: "[c/beebff:套装效果]（已激活）：当前近战攻速+{0}%（基于已损失生命，最高+30%）"
+	SetBonus: 按已损失生命值提升近战攻速，最多+30%
+}
+
+Haze: {
+	HeadName: 夜烟的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：造成魔法伤害后，使目标的法术抗性-20%，持续1秒"
+	SetEffect: "[c/beebff:套装效果]：魔力值上限+50，获得6%魔法暴击率；在夜晚时效果翻倍"
+	SetBonus: 魔力+50、魔暴+6%；夜晚效果翻倍
+}
+
+Saria: {
+	HeadName: 塞雷娅的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：使用技能治疗友方单位时，为其恢复2点技力"
+	SetEffect: "[c/beebff:套装效果]：场上存在敌方首领时，每10秒获得一层增益，提高5%攻击力与4%防御力，最多可叠加5层；持续到敌方首领退场或自身退场"
+	SetBonus: 有首领时每10秒叠层，+5%攻/+4%防，最多5层
+}
+
+KkdyAlter: {
+	HeadName: 寒芒克洛丝的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：获得15%远程攻速"
+	SetEffect: "[c/beebff:套装效果]：远程攻击时有20%概率使当次攻击的攻击力提升至150%，并使敌人眩晕0.2秒"
+	SetBonus: 20%概率远程150%伤害并眩晕0.2秒
+}
+
+Matoimaru: {
+	HeadName: 缠丸的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：使自身受到的治疗效果提升至125%"
+	SetEffect: "[c/beebff:套装效果]：防御力-20%，生命值+30%"
+	SetBonus: 防御-20%，生命+30%
+}
+
+Beagle: {
+	HeadName: 米格鲁的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：使自身免疫击退"
+	SetEffect: "[c/beebff:套装效果]：防御力+6；每闲置一个饰品栏，防御力额外+6，最多生效3次"
+	SetBonus: 防御+6；每空饰品栏+6防，最多3次
+}
+
+Exusiai: {
+	HeadName: 能天使的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：获得20%远程攻速"
+	SetEffect: "[c/beebff:套装效果]：攻击力+6%，生命上限+10%；如果场上存在其他队友（其余多人玩家或其召唤物），该增益同样赋予给其他队友"
+	SetBonus: 攻击+6%、生命+10%；有队友时共享
+}
+
+Mostima: {
+	HeadName: 莫斯提马的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：对敌方单位造成伤害后，使其减速15%"
+	SetEffect: "[c/beebff:套装效果]：技力自然恢复速度+0.4/秒；如果场上存在其他术士干员，该效果同样赋予给其他术士干员（穿着整套术师干员套装即为术师干员）"
+	SetBonus: 技力自然恢复+0.4/秒；与其他术师干员共享
+}
+
+Skadi: {
+	HeadName: 斯卡蒂的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战伤害提升至120%"
+	SetEffect: "[c/beebff:套装效果]：复活时间-5秒；场上存在敌方首领时，若自身受到致命伤害，不退场，生命上限-70%并回复所有生命值，近战攻速+30%，每次部署最多生效一次；该效果持续到敌方首领退场或自身退场"
+	SetBonus: 复活-5秒；有首领时免死一次（命上限-70%满血，近战攻速+30%）
+}
+
+Entelechia: {
+	HeadName: 隐德来希的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战攻击会使敌人受到流血效果，每秒造成40点法术伤害，持续5秒，重复造成流血效果时刷新持续时间"
+	SetEffect: "[c/beebff:套装效果]：近战攻击使目标生命上限-10、自身生命上限+10，自身最多通过此方式获得180生命上限；对敌人造成的生命上限降低效果可持续叠加；自身退场后重置自身获得的生命上限"
+	SetBonus: 近战偷敌人10上限、自身+10上限（最多+180，退场重置）
+}
+
+Amiya: {
+	HeadName: 阿米娅的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：魔力消耗-20%"
+	SetEffect: "[c/beebff:套装效果]：对敌人造成法术伤害时，获得2点技力，对敌方首领造成法术伤害时获得的技力翻倍；击杀敌人时额外获得8点"
+	SetBonus: 法伤+2技力（首领翻倍）；击杀+8技力
+}
+
+Indigo: {
+	HeadName: 深靛的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：对处于束缚、眩晕状态下的敌人造成的法术伤害提升至130%"
+	SetEffect: "[c/beebff:套装效果]：造成法术伤害时有18%概率使敌人束缚4秒"
+	SetBonus: 18%概率束缚敌人4秒
+}
+
+Lava: {
+	HeadName: 炎熔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：部署时、再部署后立刻获得15点技力"
+	SetEffect: "[c/beebff:套装效果]：技能期间获得狱火药水效果"
+	SetBonus: 技能期间狱火药水效果
+}
+
+Steward: {
+	HeadName: 史都华德的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：造成的法术伤害提升至104%"
+	SetEffect: "[c/beebff:套装效果]：进行法术攻击时，对场上防御力最高的敌人有一定追踪能力"
+	SetBonus: 法术攻击追踪场上最高防敌人
+}
+
+Cardigan: {
+	HeadName: 卡缇的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：生命上限+40"
+	SetEffect: "[c/beebff:套装效果]：每拥有40生命上限，防御力+1"
+	SetBonus: 每40生命上限+1防御
+}
+
+Nian: {
+	HeadName: 年的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：在场时，所有重装干员生命上限+16%"
+	SetEffect: "[c/beebff:套装效果]：部署、再部署或敌方首领出现时获得3层护盾（最多3层）；单次受到超过50点伤害时消耗1层，该次伤害-70%"
+	SetBonus: 部署/再部署/首领出现时3层护盾；单次>50伤害消耗1层减伤70%
+}
+
+Spot: {
+	HeadName: 斑点的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：治疗输出104%"
+	SetEffect: "[c/beebff:套装效果]：治疗友方后，为其提供17%物理闪避，持续3秒"
+	SetBonus: 治疗友方后17%物理闪避3秒
+}
+
+Vulcan: {
+	HeadName: 火神的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：技能期间获得25%近战闪避与25%碰撞闪避"
+	SetEffect: "[c/beebff:套装效果]：技能期间每秒恢复2%最大生命值"
+	SetBonus: 技能期间25%近战/碰撞闪避；每秒恢复2%最大生命
+}
+
+Chen: {
+	HeadName: 陈的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：攻击力+5%、防御力+5%，获得10%物理闪避"
+	SetEffect: "[c/beebff:套装效果]：在场时，所有持有武器技能的干员每3秒获得1点技力；陈额外获得1点"
+	SetBonus: 在场时每3秒+1技力（陈+2）；头盔+5%攻/防与10%物理闪避
+}
+
+LaPluma: {
+	HeadName: 羽毛笔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战攻击恢复2点生命（每次攻击最多2点）"
+	SetEffect: "[c/beebff:套装效果]：击杀敌人后近战攻速+3%，最多叠加12层；死亡后重置"
+	SetBonus: 击杀叠近战攻速，最多12层，死亡重置
+}
+
+Lappland: {
+	HeadName: 拉普兰德的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战攻击额外造成10%攻击力的法术伤害"
+	SetEffect: "[c/beebff:套装效果]：攻击使敌人特殊能力沉默5秒；自身获得十字项链效果"
+	SetBonus: 攻击沉默敌人特殊能力5秒；十字项链效果
+}
+
+Midnight: {
+	HeadName: 月见夜的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：防御力-5，近战伤害+15%"
+	SetEffect: "[c/beebff:套装效果]：10%概率使近战伤害提升至150%"
+	SetBonus: 10%概率近战150%伤害
+}
+
+Popukar: {
+	HeadName: 泡普卡的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战伤害103%"
+	SetEffect: "[c/beebff:套装效果]：生命上限+30"
+	SetBonus: 近战103%；生命+30
+}
+
+Surtr: {
+	HeadName: 史尔特尔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战攻击无视20点法术防御"
+	SetEffect: "[c/beebff:套装效果]：受到致命伤害时以1点生命存活，获得8秒无敌且无法治疗，近战攻速+22%，冷却120秒"
+	SetBonus: 致命伤害免死（1HP、8秒无敌禁疗、近战攻速+22%），120秒冷却
+}
+
+Ansel: {
+	HeadName: 安赛尔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：治疗输出104%"
+	SetEffect: "[c/beebff:套装效果]：治疗时有7%概率再治疗另一名附近友方"
+	SetBonus: 治疗104%；7%概率连锁治疗
+}
+
+Hibiscus: {
+	HeadName: 芙蓉的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：治疗输出104%"
+	SetEffect: "[c/beebff:套装效果]：生命上限+30"
+	SetBonus: 治疗104%；生命+30
+}
+
+Warfarin: {
+	HeadName: 华法琳的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：生命低于50%的友方获得20生命/秒再生，持续10秒（每名友方60秒冷却）"
+	SetEffect: "[c/beebff:套装效果]：击杀附近敌人时，自身与一名随机附近友方各获得2点技力"
+	SetBonus: 低血友方再生；击杀附近敌人+2技力（自身与随机友方）
+}
+
+Adnachiel: {
+	HeadName: 安德切尔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：远程伤害104%"
+	SetEffect: "[c/beebff:套装效果]：远程攻击对远程敌人有一定追踪能力"
+	SetBonus: 远程104%；远程攻击追踪远程敌人
+}
+
+Catapult: {
+	HeadName: 空爆的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：部署费用-1（模组暂无部署费用系统，效果预留）"
+	SetEffect: "[c/beebff:套装效果]：远程伤害103%；部署与再部署后获得5点技力"
+	SetBonus: 远程103%；部署/再部署+5技力
+}
+
+Fartooth: {
+	HeadName: 远牙的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：技能期间降低被瞄准优先级，攻击无视敌人闪避"
+	SetEffect: "[c/beebff:套装效果]：10秒内未受伤时远程伤害+20%；敌方首领在场时远程伤害130%，直到受伤或首领退场"
+	SetBonus: 10秒无伤+20%远程；有首领时130%远程直至受伤
+}
+
+Fiammetta: {
+	HeadName: 菲亚梅塔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：技能未激活时远程攻速+27%"
+	SetEffect: "[c/beebff:套装效果]：持续流失生命（不会致死）；生命>50%时远程+25%，>80%时效果翻倍"
+	SetBonus: 持续失血；>50%远程+25%，>80%翻倍
+}
+
+Kroos: {
+	HeadName: 克洛斯的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：40%概率远程攻击不消耗弹药"
+	SetEffect: "[c/beebff:套装效果]：10%概率远程伤害150%"
+	SetBonus: 40%不耗弹药；10%概率远程150%
+}
+
+Melanite: {
+	HeadName: 玫拉的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：远程伤害120%"
+	SetEffect: "[c/beebff:套装效果]：部署、再部署或敌方首领出现后的首次技能期间，远程伤害额外+20%"
+	SetBonus: 远程120%；首次技能期间额外+20%远程
+}
+
+Provence: {
+	HeadName: 普罗旺斯的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近距离远程攻击20%概率180%伤害"
+	SetEffect: "[c/beebff:套装效果]：头盔触发概率提升至50%"
+	SetBonus: 近距远程20%概率180%（全套50%）
+}
+
+Typhon: {
+	HeadName: 提丰的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：技能期间对每个敌人的首次命中160%伤害并80%减速3秒"
+	SetEffect: "[c/beebff:套装效果]：连续远程攻击每次额外无视10%防御，最多50%；8秒未远程攻击后重置"
+	SetBonus: 连续远程无视防御叠层（最多50%）；8秒未攻击重置
+}
+
+Manticore: {
+	HeadName: 狮蝎的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：获得10%物理与法术闪避"
+	SetEffect: "[c/beebff:套装效果]：2.5秒内不攻击则进入隐匿，不易被攻击；攻击时解除隐匿并使当次攻击+50%"
+	SetBonus: 2.5秒不攻击隐匿；破隐首击+50%
+}
+
+Rope: {
+	HeadName: 暗索的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：被击中时有15%概率闪避攻击"
+	SetEffect: "[c/beebff:套装效果]：5秒内未触发闪避且未受到伤害时，下次受击必定闪避"
+	SetBonus: 受击15%闪避；5秒无闪避且无受伤则下次必闪避
+}
+
+Mizuki: {
+	HeadName: 水月的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：周围存在生命低于50%的敌人时，攻击力+20%"
+	SetEffect: "[c/beebff:套装效果]：攻击时对命中目标中生命最少的敌人额外造成50%攻击力的法术伤害"
+	SetBonus: 攻击额外打击最低血目标（50%攻法术伤）
+}
+
+Texalter: {
+	HeadName: 缄默德克萨斯的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：被动技能持续期间攻击力+20%"
+	SetEffect: "[c/beebff:套装效果]：击杀敌人后满血并再次施放被动技能（20秒冷却）；冷却就绪但未触发时获得15%减伤"
+	SetBonus: 击杀满血重放被动；冷却就绪未触发时15%减伤
+}
+
+Orchid: {
+	HeadName: 梓兰的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：魔法伤害+10%"
+	SetEffect: "[c/beebff:套装效果]：魔法伤害使敌人减速80%持续0.8秒，对大多数首领无效"
+	SetBonus: 魔法命中减速80%（0.8秒，首领无效）
+}
+
+Raidian: {
+	HeadName: 电弧的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：召唤栏+1；召唤物获得相当于自身生命上限20%的鼓舞"
+	SetEffect: "[c/beebff:套装效果]：召唤栏+1；召唤伤害标记敌人，召唤物优先攻击并额外附带8%攻击力的法术伤害"
+	SetBonus: 召唤栏+1；标记优先攻击+8%攻法术追加伤
+}
+
+Fang: {
+	HeadName: 芬的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：部署或再部署时技力+4"
+	SetEffect: "[c/beebff:套装效果]：4秒内未受伤时技力+2"
+	SetBonus: 部署+4技力；4秒无伤+2技力
+}
+
+Plume: {
+	HeadName: 翎羽的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战伤害103%"
+	SetEffect: "[c/beebff:套装效果]：近战攻速+10%，加速度与最大移速+10%"
+	SetBonus: 近战攻速+10%；移速+10%
+}
+
+Texas: {
+	HeadName: 德克萨斯的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：部署或再部署时部署费用+2"
+	SetEffect: "[c/beebff:套装效果]：技能造成的伤害与控制时长提升至130%"
+	SetBonus: 部署费用+2；技能伤害与控制130%
+}
+
+Vanilla: {
+	HeadName: 香草的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战伤害103%"
+	SetEffect: "[c/beebff:套装效果]：当前部署费用大于50时，防御力+8"
+	SetBonus: 部署费用>50时防御+8
+}
+
+Mudrock: {
+	HeadName: 泥岩的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：受到的来自【萨卡兹】敌人的伤害降低30%"
+	SetEffect: "[c/beebff:套装效果]：每9秒获得一层护盾，最多持有3层；受到的单次伤害超过50时，消耗一张护盾使受到的伤害-20%，并回复自身相当于生命上限10%的生命值"
+	SetBonus: 周期护盾；大伤消耗护盾减伤并回血
+	ToggleHint: 手持该物品右键可切换为套装盔甲外观并激活套装效果，再次手持右键切回时装
+}
+
+Mlynar: {
+	HeadName: 玛恩纳的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：近战伤害提升至110%，场上存在三名敌人或敌方首领时改为提升至115%，并获得10%伤害减免"
+	SetEffect: "[c/beebff:套装效果]：更容易成为敌人的攻击目标；在场时，所有【卡西米尔】干员受到伤害时反弹相当于玛恩纳攻击力15%的真实伤害"
+	SetBonus: 高仇恨；卡西米尔干员受击反弹真实伤害
+}
+
+Oblivionis: {
+	HeadName: 丰川祥子的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：场上每存在一个音符，【Ave Mujica】成员无视敌人3%防御力与2%法抗，最多叠加10层"
+	SetEffect: "[c/beebff:套装效果]：对敌人造成伤害时使Fever+3，在场时所有友方单位攻速+15%"
+	SetBonus: 命中叠Fever；友方攻速+15%
+}
+
+Ulpianus: {
+	HeadName: 乌尔比安的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：每击杀一名敌人，自身生命上限+12，攻击力+4，最多叠加9次，其他【深海猎人】获得50%加成"
+	SetEffect: "[c/beebff:套装效果]：每次受到攻击时，回复12点生命值；生命值低于50%时，回复值提升至16点；手持专武【沉向深渊的锚】时，以上治疗效果翻倍"
+	SetBonus: 受击回血；低血加强；专武翻倍治疗
+}
+
+Rosmontis: {
+	HeadName: 迷迭香的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：获得25点远程盔甲穿透"
+	SetEffect: "[c/beebff:套装效果]：在场时，自身和其他【术士】干员攻击力+8%；按下绑定按键在指定位置召唤战术装备，战术装备出现时使周围敌人眩晕6秒；战术装备可以阻挡敌方飞行物并阻挡敌人经过，拥有强大的防御力，还可以使周围的敌人防御力-40、法抗-20；战术装备最多持续20秒，冷却60秒"
+	SetBonus: 术士+8%攻；按键部署战术装备（眩晕/阻挡/减防，20秒，60秒冷却）
+}
+
+Dorothy: {
+	HeadName: 多萝西的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：召唤栏+1，召唤伤害+15%"
+	SetEffect: "[c/beebff:套装效果]：召唤栏+1，每有一个未使用的仆从栏位，召唤伤害+3%，最多叠加10层，自身退场时效果重置；获得一个跟随自身的架式扫射机，自动向附近的敌人快速发射子弹，受召唤伤害加成"
+	SetBonus: 召唤栏+1；未使用仆从栏位叠召唤伤；架式扫射机跟随
+}
+
+ExusiaiAlter: {
+	HeadName: 新约能天使的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：在场时，携带弹药类技能的干员攻击力+9%，对【拉特兰】干员效果翻倍"
+	SetEffect: "[c/beebff:套装效果]：自身生命值会持续流失（会使生命值降至0）；在场时，每当有友方干员的弹药被消耗就会回复自身6%生命值，并有25%概率立刻对该干员附近的最近的敌人召唤一次轰炸，造成相当于自身攻击力150%的物理溅射伤害"
+	SetBonus: 持续失血；友方耗弹药回血并概率轰炸
+}
+
+CivilightEterna: {
+	HeadName: 魔王的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：在场时，所有友方单位受到的来自【萨卡兹】敌人的伤害降低10%"
+	SetEffect: "[c/beebff:套装效果]：召唤3个微尘环绕身侧，微尘触碰到其他干员时消失，并使其受到的来自魔王的治疗效果提升至150%，效果持续6秒；消失的微尘会在6秒后重生"
+	SetBonus: 微尘触碰干员强化受治疗；6秒后重生
+}
+
+Ling: {
+	HeadName: 令的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：召唤栏+1，每空置1个召唤栏，召唤伤害+20%"
+	SetEffect: "[c/beebff:套装效果]：召唤栏+1，每增加1个未使用的仆从栏位，自身回复2点技力，召唤伤害+5%，召唤伤害最多叠加5层"
+	SetBonus: 召唤栏+1；未使用仆从栏位叠层回技力与召唤伤
+}
+
+Bagpipe: {
+	HeadName: 风笛的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：部署或再部署时，所有【先锋】干员技力+8"
+	SetEffect: "[c/beebff:套装效果]：造成近战伤害时有20%概率额外造成一次伤害，并且这次伤害提升至150%"
+	SetBonus: 部署先锋+8技力；近战20%概率额外150%伤害
+}
+
+Deepcolor: {
+	HeadName: 深海色的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：自身和召唤物获得7%物理与法术闪避"
+	SetEffect: "[c/beebff:套装效果]：在场时，所有“深海色的召唤物”每秒恢复25点生命值"
+	SetBonus: 在场时召唤物每秒恢复25点生命
+}
+
+Wisadel: {
+	HeadName: 维什戴尔的头盔
+	HelmetEffect: "[c/beebff:头盔效果]：环绕魂灵之影，抵挡飞行物；60秒冷却重生"
+	SetEffect: "[c/beebff:套装效果]：远程伤害+15%；命中附加残影标记，余震击中标记时引发爆炸与困惑"
+	SetBonus: 远程+15%；残影标记引爆爆炸+困惑
+}
+
+Mornia: {
+	HeadName: Mornia-Cherry的头盔
+	HelmetEffect: "[c/beebff:头盔]: 魔法伤害 106%"
+	SetEffect: "[c/beebff:套装]: +8% 魔法暴击；奥术弹幕自动追踪最近的敌人"
+	SetBonus: +8% 魔法暴击，奥术弹幕自动追踪敌人
+}
+
+Kaltsit: {
+	HeadName: 凯尔希的头盔
+	SetEffect: "[c/beebff:套装效果]：在身后召唤M3伴随战斗，优先攻击距离玩家最近的敌人；M3受到足够伤害后会化为能量水晶，暂时不参与战斗，之后会自动复苏"
+	SetBonus: 召唤M3伴随战斗，倒下后化为水晶待机
+}

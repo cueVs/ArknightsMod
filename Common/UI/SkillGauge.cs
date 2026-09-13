@@ -1,6 +1,6 @@
-﻿using ArknightsMod.Common.Items;
-using ArknightsMod.Common.Players;
-using ArknightsMod.Content.Items.Weapons;
+﻿using ArknightsMod.Content.Items.Weapons;
+using ArknightsMod.Players;
+using ArknightsMod.Systems.Gameplay.Skill;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -24,6 +24,11 @@ namespace ArknightsMod.Common.UI
 		private Color gradientA;
 		private Color gradientB;
 		private Color skillColor;
+		private const int ChargePulseActiveTicks = 36;
+		private const int ChargePulsePauseTicks = 12;
+		private const int ChargePulseCycleTicks = ChargePulseActiveTicks + ChargePulsePauseTicks;
+		private const float ChargePulseExpandMax = 1.75f;
+		private static readonly Color ChargePulseColor = new(255, 220, 0);
 		private readonly Texture2D[] stockIcon = [
 			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock1", AssetRequestMode.ImmediateLoad).Value,
 			ModContent.Request<Texture2D>("ArknightsMod/Common/UI/SkillStock2", AssetRequestMode.ImmediateLoad).Value,
@@ -79,19 +84,40 @@ namespace ArknightsMod.Common.UI
 			var mp = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
 			Texture2D pixel = TextureAssets.MagicPixel.Value;
 			SkillData skill = mp.CurrentSkill;
+
+			//null reference check
+			if (skill == null) {
+				//Main.NewText($"[{GetType()}] 错误: 当前技能数据mp.CurrentSkill为null", Color.Red);
+				return;
+			}
+
 			SkillLevelData data = skill.CurrentLevelData;
-			float activeTime = data.ActiveTime * 60;
+
+			// 必须和 WeaponPlayer.UpdateActiveSkill 里判断"技能到期"的阈值用同一个倍率，
+			// 否则开了"技能持续时间技力消耗二倍速"后，进度条按 1 倍速的总长度画，
+			// 而技能在一半处就结束了，表现为条子掉到一半突然清空。
+			float activeTime = data.ActiveTime * 60 * WeaponPlayer.ActiveDurationMultiplier;
 			int maxStock = data.MaxStack;
 			int stock = mp.StockCount;
-			// Calculate quotient
-			float quotient1 = (float)mp.SkillCharge / mp.SkillChargeMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotient1 = Utils.Clamp(quotient1, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-			float quotient2 = mp.SkillTimer / activeTime; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-			quotient2 = Utils.Clamp(quotient2, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
+			//确保数值有效
+			if (activeTime <= 0)
+				activeTime = 1f;
+			if (maxStock <= 0)
+				maxStock = 1;
 
+			//Calculate quotient
+			float quotient1 = (float)mp.SkillCharge / mp.SkillChargeMax;
+			quotient1 = Utils.Clamp(quotient1, 0f, 1f);
+			float quotient2 = mp.SkillTimer / activeTime;
+			quotient2 = Utils.Clamp(quotient2, 0f, 1f);
 
-			// Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
+			//检查UI元素是否初始化
+			if (barFrame == null) {
+				Main.NewText("错误: 技能UI的barFrame元素未初始化", Color.Red);
+				return;
+			}
+
 			Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
 			hitbox.X += 2;
 			hitbox.Width -= 2;
@@ -100,12 +126,12 @@ namespace ArknightsMod.Common.UI
 
 			var aboveHead = new Rectangle(Main.screenWidth / 2 - 12, Main.screenHeight / 2 - 65, 22, 22);
 
-			// Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
 			int left = hitbox.Left;
 			int right = hitbox.Right;
 			int steps1 = (int)((right - left) * quotient1);
 			int steps2 = (int)((right - left) * quotient2);
 
+			//绘制技能条背景和填充
 			sb.Draw(pixel, new Rectangle(left, hitbox.Y, 116, hitbox.Height), gradientB);
 			for (int i = 0; i < steps1; i += 1) {
 				sb.Draw(pixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), gradientA);
@@ -116,19 +142,56 @@ namespace ArknightsMod.Common.UI
 
 			if (mp.SkillActive) {
 				sb.Draw(pixel, new Rectangle(left, hitbox.Y, 116, hitbox.Height), skillColor);
-				for (int i = 0; i < steps2; i += 1) {
-					sb.Draw(pixel, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
+				// 永久技能展开后保持整条金色，不画并不存在的倒计时。
+				if (!skill.IsPermanent) {
+					for (int i = 0; i < steps2; i += 1) {
+						sb.Draw(pixel, new Rectangle(right - i, hitbox.Y, 1, hitbox.Height), gradientB);
+					}
 				}
 			}
 
+			//检查贴图资源是否存在
 			if (maxStock > 1 && stock > 0) {
-				sb.Draw(stockIcon[stock - 1], aboveHead, Color.White);
+				if (stockIcon != null && stockIcon.Length >= stock && stockIcon[stock - 1] != null) {
+					if (stock == maxStock && !skill.SuppressReadyPulse)
+						DrawChargeReadyPulse(sb, aboveHead);
+					sb.Draw(stockIcon[stock - 1], aboveHead, Color.White);
+				}
 			}
 			else if (maxStock == 1 && !skill.AutoTrigger) {
-				if (stock == 1) {
+				if (stock == 1 && skillCanUse != null && !mp.SkillActive) {
+					DrawChargeReadyPulse(sb, aboveHead);
 					sb.Draw(skillCanUse, aboveHead, Color.White);
 				}
 			}
+		}
+
+		private static void DrawChargeReadyPulse(SpriteBatch sb, Rectangle iconRect) {
+			Texture2D pixel = TextureAssets.MagicPixel.Value;
+			int tickInCycle = (int)(Main.GameUpdateCount % ChargePulseCycleTicks);
+			if (tickInCycle >= ChargePulseActiveTicks)
+				return;
+
+			float progress = tickInCycle / (float)ChargePulseActiveTicks;
+			float alpha = 1f - progress;
+			if (alpha <= 0f)
+				return;
+
+			float expand = MathHelper.Lerp(0.55f, ChargePulseExpandMax, progress);
+			float side = iconRect.Width * expand;
+			Vector2 center = iconRect.Center.ToVector2();
+			Color color = ChargePulseColor * alpha;
+
+			sb.Draw(
+				pixel,
+				center,
+				new Rectangle(0, 0, 1, 1),
+				color,
+				MathHelper.PiOver4,
+				new Vector2(0.5f, 0.5f),
+				new Vector2(side, side),
+				SpriteEffects.None,
+				0f);
 		}
 
 		//public override void Update(GameTime gameTime) {

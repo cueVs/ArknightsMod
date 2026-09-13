@@ -1,0 +1,304 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using Terraria.DataStructures;
+using ArknightsMod.Common;
+
+namespace ArknightsMod.Content.Projectiles.Guard.Saki
+{
+	/// <summary>
+	/// 2技能物伤音符
+	/// </summary>
+    public class SakiNote2Dark : ModProjectile
+    {
+		public override string Texture => ArknightsMod.noTexture;
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.TrailingMode[Type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Type] = 10;
+		}
+		public override void SetDefaults()
+        {
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.scale = 1f;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 300;
+            Projectile.ignoreWater = true;
+			Projectile.tileCollide = true;
+            Projectile.aiStyle = -1;
+			AIType = -1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 20;
+		}
+		/// <summary>
+		/// 是否碰撞物块/命中敌怪，碰撞后即渐隐消失
+		/// </summary>
+		public int collided;
+		public int collideMax = 4;
+		private List<int> hitNPCs = [];
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
+			Player player = Main.player[Projectile.owner];
+			//使击退始终远离玩家
+			float hitDir = target.position.X - player.position.X;
+			if (hitDir < 0) { modifiers.HitDirectionOverride = -1; }
+			else { modifiers.HitDirectionOverride = 1; }
+
+			Projectile.NewProjectile
+				(new EntitySource_Parent(Projectile), target.Center, Vector2.Zero,
+				ModContent.ProjectileType<SakiSlashHit>(), 0, 0, Projectile.owner);
+
+			collided++;
+		}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
+
+			if (target.life > 0) {
+				hitNPCs.Add(target.whoAmI);
+			}
+		}
+		public override bool? CanDamage() => collided < collideMax;
+
+		public override bool OnTileCollide(Vector2 oldVelocity) {
+			collided = collideMax;
+			return false;
+		}
+		public override void OnKill(int timeLeft) {
+			/*Projectile.NewProjectile
+				(new EntitySource_Parent(Projectile), target.Center, Vector2.Zero,
+				ModContent.ProjectileType<SakiSlashHit>(), 0, 0, Projectile.owner);*/
+		}
+
+		private Vector2 perturbation = Vector2.Zero;
+		private Vector2 targetPerturbation = Vector2.Zero;
+		private int perturbTimer = 0;
+		private int perturbUpdateInterval = 10; //每10帧更新一次
+
+		public float[] oldrot = new float[40];
+		public Vector2[] oldpos = new Vector2[40];
+
+		public float maxSpeed = 4f;
+		public override void AI() {
+			for (int i = oldrot.Length - 1; i > 0; i--) {
+				oldrot[i] = oldrot[i - 1];
+				if (Math.Abs(Projectile.velocity.Length()) > 0.075f) {
+					oldpos[i] = oldpos[i - 1];
+				}
+			}
+
+			oldrot[0] = Projectile.rotation;
+			oldpos[0] = Projectile.Center;
+
+
+			//碰撞缓慢消逝
+			if (collided >= collideMax) {
+				Projectile.alpha += 10;
+				if (Projectile.alpha > 255) {
+					Projectile.Kill();
+				}
+			}
+
+			//追踪
+			float centerX = Projectile.Center.X;
+			float centerY = Projectile.Center.Y;
+			float num3 = 800f;
+			bool flag = false;
+			for (int i = 0; i < 200; i++) {
+				if (Main.npc[i].CanBeChasedBy(Projectile, false) && Collision.CanHit(Projectile.Center, 1, 1, Main.npc[i].Center, 1, 1) &&
+					!hitNPCs.Contains(Main.npc[i].whoAmI)) {
+					float num4 = Main.npc[i].position.X + (float)(Main.npc[i].width / 2);
+					float num5 = Main.npc[i].position.Y + (float)(Main.npc[i].height / 2);
+					float num6 = Math.Abs(Projectile.position.X + (float)(Projectile.width / 2) - num4) + Math.Abs(Projectile.position.Y + (float)(Projectile.height / 2) - num5);
+					if (num6 < num3) {
+						num3 = num6;
+						centerX = num4;
+						centerY = num5;
+						flag = true;
+					}
+				}
+			}
+			if (flag) {
+				float speed = maxSpeed;
+				Vector2 vector = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
+				float velX = centerX - vector.X;
+				float velY = centerY - vector.Y;
+				float spd = (float)Math.Sqrt((double)(velX * velX + velY * velY));
+				spd = speed / spd;
+				velX *= spd;
+				velY *= spd;
+				Projectile.velocity.X = (Projectile.velocity.X * 20f + velX) / 21f;
+				Projectile.velocity.Y = (Projectile.velocity.Y * 20f + velY) / 21f;
+				return;
+			}
+
+			//随机扰动
+			Vector2 velocity = Projectile.velocity;
+			float projSpeed = velocity.Length();
+
+			if (projSpeed > 0f) {
+				Vector2 dir = Vector2.Normalize(velocity);
+
+				//计算垂直向量（两个方向）
+				Vector2 perpendicular = new Vector2(-dir.Y, dir.X);
+
+				//更新扰动方向
+				perturbTimer++;
+				if (perturbTimer >= perturbUpdateInterval) {
+					perturbTimer = 0;
+					float strength = Main.rand.NextFloat(-0.1f, 0.1f);
+					targetPerturbation = perpendicular * strength;
+				}
+				perturbation = targetPerturbation;
+				Projectile.velocity = velocity + perturbation;
+				Projectile.velocity = Vector2.Normalize(Projectile.velocity) * projSpeed;
+			}
+		}
+		public override bool PreDraw(ref Color lightColor)
+        {
+			Texture2D tex = ModContent.Request<Texture2D>($"ArknightsMod/Content/Projectiles/Guard/Saki/Note2").Value;
+			Texture2D glow = ModContent.Request<Texture2D>($"ArknightsMod/Content/Projectiles/Guard/Saki/Assets/ray_130").Value;
+			Color color = new Color(54, 53, 143) * 1.5f;
+
+
+			Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, new Color(200, 200, 200) * Projectile.Opacity,
+				0f, tex.Size() / 2, Projectile.scale * 0.8f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, color * Projectile.Opacity,
+				0f, tex.Size() / 2, Projectile.scale * 0.7f, SpriteEffects.None, 0f);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default,
+				Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+
+			Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.Opacity,
+				0f, glow.Size() / 2, Projectile.scale * 0.15f, SpriteEffects.None, 0f);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default,
+				Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+
+			for (int i = 0; i < 2; i++)
+			{
+				DrawStar(Projectile.Center, Main.rand.NextFloat(7, 10));
+			}
+
+			DrawTrail((int)(12 * Projectile.scale), "oblvns_trail4", "oblvns_trail4");
+			DrawTrail((int)(12 * Projectile.scale), "oblvns_trail", "oblvns_trail");
+			DrawTrail((int)(8 * Projectile.scale), "oblvns_trail3", "oblvns_trail3");
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default,
+				Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+
+			return false;
+        }
+		private Vector2 _cachedPositionOffset;
+		private float _cachedScale;
+		private int _updateTimer;
+		public void DrawStar(Vector2 center, float radius)
+		{
+			if (++_updateTimer >= 2)
+			{
+				_updateTimer = 0;
+
+				// 更新随机数
+				_cachedPositionOffset = new Vector2(radius).RotatedByRandom(MathHelper.Pi);
+				_cachedScale = Main.rand.NextFloat(0.05f, 0.3f);
+			}
+			Texture2D star = ModContent.Request<Texture2D>($"ArknightsMod/Content/Projectiles/Guard/Saki/Assets/star_234_2").Value;
+			Vector2 position = center + _cachedPositionOffset;
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default,
+				Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+
+			float alpha = (float)EaseFunction.SineEase(Projectile.timeLeft, 0.2f, 0.4f, 4);
+			Main.spriteBatch.Draw(star, position - Main.screenPosition, null, new Color(255, 255, 255) * Projectile.Opacity,
+				0f, star.Size() / 2, Projectile.scale * _cachedScale, SpriteEffects.None, 0f);
+
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.Default,
+				Main.Rasterizer, null, Main.GameViewMatrix.ZoomMatrix);
+		}
+
+		public void DrawTrail(int Width, string tex1, string tex2) {
+			int Direction = (int)Projectile.ai[0];
+			Vector2[] OldPos = oldpos;
+			float[] OldRot = oldrot;
+			List<VertexPositionColorTexture> bars = [];
+			for (int i = 1; i < OldPos.Length; ++i) {
+				if (OldPos[i] == Vector2.Zero)
+					continue;
+				if (OldPos[i] == OldPos[i - 1])
+					continue;
+				var vCur = OldRot[i].ToRotationVector2();
+				var vNext = OldRot[i - 1].ToRotationVector2();
+
+				float dist = MathHelper.WrapAngle(OldRot[i - 1]) - MathHelper.WrapAngle(OldRot[i]);
+				dist = Math.Abs(MathHelper.WrapAngle(dist));
+				var middleDistance = (OldPos[i] - OldPos[i - 1]).Length() / 2;
+				var controlPoint1 = OldPos[i] - vCur * middleDistance * 2;
+				var controlPoint2 = OldPos[i - 1] + vNext * middleDistance * 2;
+				List<Vector2> interp = [OldPos[i] - vCur];
+
+				for (float t = 0; t <= dist / 2; t += 0.05f) {
+					float it = t / dist;
+					if (dist == 0)
+						it = 0;
+					var pos = Vector2.CatmullRom(controlPoint1, OldPos[i], OldPos[i - 1], controlPoint2, it);
+					interp.Add(pos);
+				}
+				interp.Add(OldPos[i - 1]);
+				int width = (int)(Width * (1f + (Projectile.scale - 1f) / 1.5f));
+
+				for (int j = interp.Count - 1; j > 1; j--) {
+					var curPos = interp[j];
+					var nextPos = interp[j - 1];
+					var normalDir = nextPos - curPos;
+					normalDir = Vector2.Normalize(new Vector2(-normalDir.Y, normalDir.X));
+
+					var factor = (i - j / (float)interp.Count) / OldPos.Length;
+
+					Vector2 texCoord1 = new Vector2(factor, 1); // 左上角
+					Vector2 texCoord2 = new Vector2(factor, 0); // 右上角
+
+					if (Direction == -1) {
+						texCoord1 = new Vector2(1, 1) - new Vector2(1 - factor, 1);
+						texCoord2 = new Vector2(1, 1) - new Vector2(1 - factor, 0);
+					}
+					bars.Add(new VertexPositionColorTexture((curPos + normalDir * -width).ToVector3(), new Color(0, 0, 0), texCoord1));
+					bars.Add(new VertexPositionColorTexture((curPos + normalDir * width).ToVector3(), new Color(0, 0, 0), texCoord2));
+				}
+			}
+			List<VertexPositionColorTexture> triangleList = [];
+			if (bars.Count > 2) {
+				for (int i = 0; i < bars.Count - 2; i += 2) {
+					triangleList.Add(bars[i]);
+					triangleList.Add(bars[i + 2]);
+					triangleList.Add(bars[i + 1]);
+
+					triangleList.Add(bars[i + 1]);
+					triangleList.Add(bars[i + 2]);
+					triangleList.Add(bars[i + 3]);
+				}
+				var screenCenter = Main.screenPosition + new Vector2(Main.screenWidth, Main.screenHeight) / 2f;
+				var screenSize = new Vector2(Main.screenWidth, Main.screenHeight) / Main.GameViewMatrix.Zoom;
+				var projection = Matrix.CreateOrthographicOffCenter(0, screenSize.X, screenSize.Y, 0, 0, 1);
+				var screenPos = screenCenter - screenSize / 2f;
+				var model = Matrix.CreateTranslation(new Vector3(-screenPos.X, -screenPos.Y, 0));
+
+				shader.Parameters["uTransform"].SetValue(model * projection);
+				shader.Parameters["alpha"].SetValue(Projectile.Opacity / 1.5f);
+				shader.Parameters["uOpacity"].SetValue((Projectile.alpha + 75) / 220f);
+				Main.graphics.GraphicsDevice.Textures[0] = ModContent.Request<Texture2D>($"ArknightsMod/Content/Projectiles/Guard/Saki/Assets/{tex1}").Value;
+				Main.graphics.GraphicsDevice.Textures[1] = ModContent.Request<Texture2D>($"ArknightsMod/Content/Projectiles/Guard/Saki/Assets/{tex2}").Value;
+				shader.CurrentTechnique.Passes[0].Apply();
+				Main.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, triangleList.ToArray(), 0, triangleList.Count / 3);
+			}
+		}
+		Effect shader = ModContent.Request<Effect>("ArknightsMod/Content/Projectiles/Guard/Saki/Assets/Sakiko").Value;
+	}
+}
+

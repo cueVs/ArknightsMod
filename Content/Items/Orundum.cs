@@ -1,3 +1,4 @@
+using ArknightsMod.Content.Tiles.Infrastructure;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -15,7 +16,7 @@ namespace ArknightsMod.Content.Items
 			Item.width = 58; // The item texture's width
 			Item.height = 52; // The item texture's height
 
-			Item.maxStack = 9999; // The item's max stack value
+			Item.maxStack = Item.CommonMaxStack; // The item's max stack value
 			Item.value = Item.sellPrice(0, 0, 1, 50); // The value of the item in copper coins. Item.buyPrice & Item.sellPrice are helper methods that returns costs in copper coins based on platinum/gold/silver/copper arguments provided to it.
 		}
 
@@ -26,5 +27,11 @@ namespace ArknightsMod.Content.Items
 		//		.AddTile(TileID.WorkBenches)
 		//		.Register();
 		//}
+		public override void AddRecipes() {
+			Recipe recipe = CreateRecipe(10);
+			recipe.AddIngredient<Material.OriginiumShard>();
+			recipe.AddTile(ModContent.TileType<FactoryTile>());
+			recipe.Register();
+		}
 	}
 }

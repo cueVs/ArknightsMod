@@ -49,9 +49,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IncandescentAlloy>(), 3, 3, 5));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CrystallineComponent>(), 3, 3, 5));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IntegratedDevice>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ItemType<IncandescentAlloy>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ItemType<CrystallineComponent>(), 3, 3, 5));
+			npcLoot.Add(ItemDropRule.Common(ItemType<IntegratedDevice>(), 3, 3, 5));
 		}
 
 		//NPC专家模式|大师模式血量倍率（普通模式血量*倍率*2|血量*倍率*3）
@@ -123,9 +123,9 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 				LightScale2 = 0;
 			}//周期3秒
 
-			Texture2D OutringTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/OAF").Value;
-			Texture2D InringTexture2 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IAFR").Value;
-			Texture2D waveTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLightwave").Value;
+			Texture2D OutringTexture2 = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/OAF").Value;
+			Texture2D InringTexture2 = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IAFR").Value;
+			Texture2D waveTexture = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLightwave").Value;
 			if (IATcrashed != true) {
 				if (npctimer <= 20)//刚进入二阶段的第1/3秒，内圈的2、8应用于此处
 				{
@@ -219,18 +219,18 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			}
 			#endregion
 
-			Texture2D healthTexture1 = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB2").Value;//血条
+			Texture2D healthTexture1 = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTHB2").Value;//血条
 			Main.EntitySpriteDraw(healthTexture1, NPC.Center - Main.screenPosition + new Vector2(0, 1 + bardistance), new Rectangle(0, 0, (int)(healthTexture1.Width * stage1healthscale), healthTexture1.Height), Color.White, 0, new Vector2(healthTexture1.Width / 2, healthTexture1.Height / 2), barscale, SpriteEffects.None, 0);
 
-			Texture2D atkTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTTM").Value;//攻击冷却条
+			Texture2D atkTexture = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTTM").Value;//攻击冷却条
 			Main.EntitySpriteDraw(atkTexture, NPC.Center - Main.screenPosition + new Vector2(0, 8 + bardistance), new Rectangle(0, 0, (int)(atkTexture.Width * atkscale), atkTexture.Height), Color.White, 0, new Vector2(atkTexture.Width / 2, atkTexture.Height / 2), barscale, SpriteEffects.None, 0);
 
-			Texture2D barTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTBar").Value;//属性条
+			Texture2D barTexture = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTBar").Value;//属性条
 			Main.EntitySpriteDraw(barTexture, NPC.Center - Main.screenPosition + new Vector2(0, 3 + bardistance), new Rectangle(0, 0, barTexture.Width, barTexture.Height), Color.White, 0, new Vector2(barTexture.Width / 2, barTexture.Height / 2), barscale, SpriteEffects.None, 0);
 
 			if (IATcrashed != true)//灯光，坠毁锁血后高亮消失
 			{
-				Texture2D lightsTexture = ModContent.Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLights").Value;//闪灯部分
+				Texture2D lightsTexture = Request<Texture2D>("ArknightsMod/Content/NPCs/Enemy/RoaringFlare/ImperialArtilleyCoreTargeteer/IACTLights").Value;//闪灯部分
 				if (lightsOn == true) {
 					Main.EntitySpriteDraw(lightsTexture, NPC.Center - Main.screenPosition + new Vector2(0, 3), new Rectangle(0, 0, lightsTexture.Width, lightsTexture.Height), Color.White, NPC.rotation, new Vector2(lightsTexture.Width / 2, lightsTexture.Height / 2), 1f, SpriteEffects.None, 0);
 				}
@@ -405,7 +405,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			if (IATcrashed != true)//拖尾特效，坠毁时就没有了
 			{
 				Lighting.AddLight(NPC.Center, redlightscale, 0f, 0f);//发光
-				Dust taildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12), 20, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
+				Dust taildust2 = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12), DustID.PurificationPowder, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1.4f);//蓝色
 				taildust2.noGravity = true;
 			}
 
@@ -452,13 +452,13 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			{
 				if (truestage2 == 1 && timer2 >= normalatkcooldown) {
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
-					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
+					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 					timer2 = 0;
 				}
 				if (timer2 >= normalatkcooldown && stage != 2) {
 					timer2 = 0;
 					SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/AlertPro") with { Volume = 1f, Pitch = 0f }, NPC.Center);
-					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAimSmall>(), NPC.damage, 0f, 0, 0);
+					Projectile.NewProjectile(newSource, Player.Center.X, Player.Center.Y, 0, 0, ProjectileType<ExplodeAimSmall>(), NPC.damage, 0f, 0, 0);
 				}
 
 				//灯光判定
@@ -634,7 +634,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 							targetY = (float)(-stage1to2r * Math.Cos(2 * stg1to2safetimer * Math.PI / (stage1to2locktime - 180)));
 							NPC.velocity = new Vector2(Player.Center.X, Player.Center.Y) + new Vector2(targetX, targetY) - NPC.Center;//期间的位置变动
 							if ((int)stg1to2safetimer % stage1to2atkspeed == 0) {
-								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
+								Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ProjectileType<ExplodeAim>(), NPC.damage, 0f, 0, 0);
 							}
 						}
 					}
@@ -660,7 +660,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					if (deathtimer >= 180)//下坠3秒后爆炸并触发爆炸粒子
 					{
 						deathcheck = 2;
-						Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<Deathdust>(), 0, 0f, 0, 0);//爆炸粒子
+						Projectile.NewProjectile(newSource, NPC.Center.X, NPC.Center.Y, 0, 0, ProjectileType<Deathdust>(), 0, 0f, 0, 0);//爆炸粒子
 					}
 					NPC.velocity.X = NPC.velocity.X * (360 - deathtimer) / 360;
 					downAcceleration = deathtimer * 0.01f;
@@ -670,7 +670,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 					NPC.velocity.Y += downAcceleration;
 					Vector2 dustPos = NPC.Center + new Vector2(Main.rand.NextFloat(12), 0).RotatedByRandom(MathHelper.TwoPi);
 					for (int i = 0; i < 2; i++) {
-						Dust dust8 = Dust.NewDustPerfect(dustPos, 219, Velocity: Vector2.Zero, Scale: 1.35f);
+						Dust dust8 = Dust.NewDustPerfect(dustPos, DustID.Fireworks, Velocity: Vector2.Zero, Scale: 1.35f);
 						dust8.velocity = 3 * dustPos - 3 * NPC.Center;
 					}
 				}
@@ -741,7 +741,7 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 			if (missled != true) {
 				randomx = Main.rand.NextFloat(-300, 300);
 
-				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ModContent.ProjectileType<Missle>(), 10, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X + randomx, Projectile.Center.Y - 1800, -randomx / 60, 0, ProjectileType<Missle>(), 10, 0f, 0, 0);
 				missled = true;
 			}
 
@@ -770,18 +770,18 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 			if (timer == 10) {
 				for (int i = 0; i < 4; i++) {
-					Projectile.NewProjectile(newSource, (float)(Projectile.Center.X - 30 * Math.Tan((1 + 2 * i) * MathHelper.PiOver4)), (float)(Projectile.Center.Y - 30 * Math.Sqrt(2) * Math.Sin((1 + 2 * i) * MathHelper.PiOver4)), 0, 0, ModContent.ProjectileType<HitboxRedCorner>(), 0, 0f, 0, i + 4);
+					Projectile.NewProjectile(newSource, (float)(Projectile.Center.X - 30 * Math.Tan((1 + 2 * i) * MathHelper.PiOver4)), (float)(Projectile.Center.Y - 30 * Math.Sqrt(2) * Math.Sin((1 + 2 * i) * MathHelper.PiOver4)), 0, 0, ProjectileType<HitboxRedCorner>(), 0, 0f, 0, i + 4);
 				}
 			}
 
 			if (timer == 50) {
-				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeWave>(), 10, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileType<ExplodeWave>(), 10, 0f, 0, 0);
 
 			}
 
 			if (timer == 60) {
 				SoundEngine.PlaySound(new SoundStyle("ArknightsMod/Assets/Sound/ImperialArtilleyCoreTargeteer/Explode") with { Volume = 1f, Pitch = 0f }, Projectile.Center);
-				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeAreaSmall>(), 10, 0f, 0, 0);
+				Projectile.NewProjectile(newSource, Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileType<ExplodeAreaSmall>(), 10, 0f, 0, 0);
 			}
 		}
 	}
@@ -810,10 +810,10 @@ namespace ArknightsMod.Content.NPCs.Enemy.RoaringFlare.ImperialArtilleyCoreTarge
 
 		public override void AI() {
 			Vector2 dustPos = Projectile.Center + new Vector2(Main.rand.NextFloat(16), 0).RotatedByRandom(MathHelper.TwoPi);
-			Dust dust = Dust.NewDustPerfect(dustPos, 55, Velocity: Vector2.Zero, Scale: 1.5f);
+			Dust dust = Dust.NewDustPerfect(dustPos, DustID.Pixie, Velocity: Vector2.Zero, Scale: 1.5f);
 			dust.noGravity = true;
 			dust.velocity = 4 * dustPos - 4 * Projectile.Center;
-			Dust dust2 = Dust.NewDustPerfect(dustPos, 6, Velocity: Vector2.Zero, Scale: 4f);
+			Dust dust2 = Dust.NewDustPerfect(dustPos, DustID.Torch, Velocity: Vector2.Zero, Scale: 4f);
 			dust2.noGravity = true;
 			dust2.velocity = 4 * dustPos - 4 * Projectile.Center;
 			for (int i = 0; i < 2; i++) {

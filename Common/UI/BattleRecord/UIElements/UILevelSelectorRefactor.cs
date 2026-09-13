@@ -17,7 +17,7 @@ namespace ArknightsMod.Common.UI.BattleRecord.UIElements
 		private const int LEVEL_TEXT_COUNT = 5;
 
 		private readonly UIText[] _levelTexts = new UIText[LEVEL_TEXT_COUNT];
-		private readonly List<string> _levelNames = new List<string>();
+		private readonly List<string> _levelNames = [];
 
 		public event Action<UILevelSelectorRefactor> OnRound;
 

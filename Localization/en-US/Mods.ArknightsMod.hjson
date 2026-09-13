@@ -1,0 +1,89 @@
+DamageClasses.SpellDamage.DisplayName: Arcane Damage
+UI.UpgradeUI.Upgrade: Level Up
+UpgradeWeapon.LevelPreview.Damage: Damage
+
+Currencies: {
+	OrundumCurrency: Orundum
+	OriginiumIngotCurrency: Originium Ingot
+}
+
+CommonTooltips.CannotOriginiumIngotValue: Sell price to Cannot: {0} × {1}
+
+ItemDropRuleCondition: {
+	CannotRunaway: When Cannot Runaway
+	CannotDead: When Cannot Dead
+}
+
+StatusMessage: {
+	IACT: {
+		Intro: 检测到未经许可擅自闯入禁区的实体，标记为打击目标.
+		Summon: 你感受到了来自帝国的威胁...
+		Summon2: 发现可疑目标，予以抹除.
+		Stage1to2: 目标强度高于预测强度，调用高阶权限实施打击.
+		Stage2to3: 目标强度过高，调用最终权限实施打击.
+		Stage2: 估算目标运动趋势，实施精确打击.
+		Stage3: 已获得最高权限，启动多功能辅助系统.
+		End: 检测到主结构严重损毁，启动自毁模式...
+		Complete: 来自帝国的轰炸无人机已被击毁...
+	}
+
+	UpdateClosureShop: Closure's Fashion Shop has been updated—go check it out!
+	AACT.Collapsed: "{0} Collapsed."
+	FN.AllFloorBanned: "{0}没有留意到自己已无立足之地。"
+	Pmp.GetTooClose: "{0}站在了喷发的活火山口上。"
+}
+
+WorldGen: {
+	GrindstonePassMessage: "{$Mods.ArknightsMod.Items.Grindstone.DisplayName}"
+	ManganeseOrePassMessage: "{$Mods.ArknightsMod.Items.ManganeseOre.DisplayName}"
+	OrirockCubePassMessage: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+	RMA7012PassMessage: "{$Mods.ArknightsMod.Items.RMA7012.DisplayName}"
+}
+
+Tiles: {
+	BannerTile.MapEntry: Banner
+	AnniversaryWheel.MapEntry: "{$Mods.ArknightsMod.Items.AnniversaryWheel.DisplayName}"
+	DareUsa.MapEntry: "{$Mods.ArknightsMod.Items.DareUsa.DisplayName}"
+	Grindstone.MapEntry: Grindstone
+	ManganeseOre.MapEntry: Manganese Ore
+	OrirockCube.MapEntry: "{$Mods.ArknightsMod.Items.OrirockCube.DisplayName}"
+	RMA7012.MapEntry: "{$Mods.ArknightsMod.Items.RMA7012.DisplayName}"
+	FactoryTile.MapEntry: Manufacturing Station
+	WMusicBoxTile.MapEntry: Music Box (W)
+	HoundTile.MapEntry: Hound Tile
+	HoundproTile.MapEntry: Houndpro Tile
+	SolidColorLowSofa.MapEntry: Solid Color Low Sofa
+	ClearBlackTV.MapEntry: Clear Black T V
+	GrayFiberRug.MapEntry: Gray Fiber Rug
+	MatteBlackFloorTile.MapEntry: Matte Black Floor Tile
+	MinimalBlackClock.MapEntry: Minimal Black Clock
+	PorcelainBed.MapEntry: Porcelain Bed
+	PorcelainNightstand.MapEntry: Porcelain Nightstand
+	SolidCheckeredBookcase.MapEntry: Solid Checkered Bookcase
+	OrangeContainerLargeTile.MapEntry: Orange Container Large Tile
+	OrangeContainerTile.MapEntry: Orange Container Tile
+	YellowRailingTile.MapEntry: Yellow Railing Tile
+	TrainingRoomSofaTile.MapEntry: Training Room Sofa Tile
+	WaterDispenserTile.MapEntry: Water Dispenser Tile
+	VaseTableTile.MapEntry: Vase Table Tile
+	TrashCanTile.MapEntry: Trash Can Tile
+	SafeBoxTile.MapEntry: Safe Box Tile
+	OfficeReclinerTile.MapEntry: Office Recliner Tile
+	OfficeDeskTile.MapEntry: Office Desk Tile
+	OfficeChairTile.MapEntry: Office Chair Tile
+	FileRackTile.MapEntry: File Rack Tile
+	ComputerDeskTile.MapEntry: Computer Desk Tile
+	PipeBlueLightPipeTile.MapEntry: "{$Mods.ArknightsMod.Items.PipeBlueLightItem.DisplayName}"
+	ElevatorTile.MapEntry: "{$Mods.ArknightsMod.Items.Elevator.DisplayName}"
+	ElevatorButtonTile.MapEntry: "{$Mods.ArknightsMod.Items.ElevatorButton.DisplayName}"
+	GrindstoneTile.MapEntry: Grindstone Tile
+	ManganeseOreTile.MapEntry: Manganese Ore Tile
+	OrirockCubeTile.MapEntry: Orirock Cube Tile
+	RMA7012Tile.MapEntry: R M A7012 Tile
+	FactoryPlusTile.MapEntry: Factory Plus Tile
+}
+
+Keybinds: {
+	"Rosmontis Tactical Deploy.DisplayName": Rosmontis  Tactical  Deploy
+	"Skill Activate.DisplayName": Skill  Activate
+}

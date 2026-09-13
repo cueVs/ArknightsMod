@@ -1,0 +1,270 @@
+DeepcolorMinionBuff: {
+	DisplayName: 触手
+	Description: 触手正在为你作战
+}
+
+GoldenglowBeaconBuff: {
+	DisplayName: 浮游信标
+	Description: 当前已部署 {0} 个浮游单元，右键取消可全部移除
+}
+
+CameraTruckBuff: {
+	DisplayName: 移动摄影车
+	Description: 已部署移动摄影车
+}
+
+Mon3trBuff: {
+	DisplayName: Mon3tr
+	Description: M3正伴随在身边
+}
+
+AcidOgSlugDebuff: {
+	DisplayName: 分泌物腐蚀
+	Description: 击中目标后使其防御力减少2
+}
+
+BagpipeSpearS1: {
+	DisplayName: 迅捷打击·γ型
+	Description:
+		'''
+		攻击力[c/3791db:+45%]
+		攻击速度[c/3791db:+45]
+		'''
+}
+
+BagpipeSpearS2: {
+	DisplayName: 高效冲击
+	Description:
+		'''
+		下一次的攻击力提升至[c/3791db:200%]且额外攻击一次
+		[c/eda128:可充能3次]
+		'''
+}
+
+BagpipeSpearS3: {
+	DisplayName: 闭膛连发
+	Description:
+		'''
+		攻击间隔[c/f6643b:增大(+70%)]
+		阻挡数[c/3791db:+1]
+		攻击力和防御力[c/3791db:+120%]
+		攻击变为[c/3791db:三连击]
+		'''
+}
+
+ChenSwordS3: {
+	DisplayName: 赤霄·绝影
+	Description:
+		'''
+		对目标发动[c/3791db:10]次连续斩击
+		每次造成相当于攻击力[c/3791db:320%]的物理伤害
+		(并在最后一击时使目标晕眩4秒)
+		'''
+}
+
+TyphonSkillArrowStunBuff: {
+	DisplayName: 猎影箭晕眩
+	Description: 暂时无法行动
+}
+
+ExusiaiRingAndWingBuff: {
+	// DisplayName: Exusiai Ring And Wing Buff
+	// Description: Mods.ArknightsMod.Buffs.ExusiaiRingAndWingBuff.Description
+}
+
+KroosCrossbowS1: {
+	DisplayName: 二连射·自动
+	Description: 下次攻击时连续射击[c/3791db:2]次，每次射击造成相当于攻击力[c/3791db:140%]的物理伤害
+}
+
+MostimaRingAndWingBuff: {
+	// DisplayName: Mostima Ring And Wing Buff
+	// Description: Mods.ArknightsMod.Buffs.MostimaRingAndWingBuff.Description
+}
+
+RAMeatchipBuff: {
+	DisplayName: 脆肉薯条转醇
+	Description:
+		'''
+		攻击力[c/3791db:+15%]
+		攻击速度[c/3791db:+15%]
+		'''
+}
+
+RARicecrabBuff: {
+	DisplayName: 蟹肉碎拌饭
+	Description:
+		'''
+		防御[c/3791db:+8%]
+		最大生命值[c/3791db:+8%]
+		'''
+}
+
+StunDebuff: {
+	// DisplayName: Stun Debuff
+	// Description: Mods.ArknightsMod.Buffs.StunDebuff.Description
+}
+
+Tumor1: {
+	// DisplayName: Tumor1
+	// Description: Mods.ArknightsMod.Buffs.Tumor1.Description
+}
+
+Tumor2: {
+	// DisplayName: Tumor2
+	// Description: Mods.ArknightsMod.Buffs.Tumor2.Description
+}
+
+gutucs: {
+	// DisplayName: gutucs
+	// Description: Mods.ArknightsMod.Buffs.gutucs.Description
+}
+
+sjds: {
+	// DisplayName: sjds
+	// Description: Mods.ArknightsMod.Buffs.sjds.Description
+}
+
+sjds2: {
+	// DisplayName: sjds2
+	// Description: Mods.ArknightsMod.Buffs.sjds2.Description
+}
+
+BagpipeDefenseBuff: {
+	DisplayName: 闭膛连发
+	Description: 防御力[c/3791db:+120%]
+}
+
+SeasonedRationsBuff: {
+	Description: 最大生命值[c/3791db:+10%]
+	DisplayName: 调味干粮
+}
+
+DehydratedSeasonedJerkyBuff: {
+	Description:
+		'''
+		移动速度[c/3791db:+8%]
+		最大生命值[c/3791db:+5%]
+		'''
+	DisplayName: 脱水增味肉干
+}
+
+PramanixSlowDebuff: {
+	Description: 移动速度降低
+	DisplayName: 寒域减速
+}
+
+PramanixFreezeDebuff: {
+	Description: 无法行动
+	DisplayName: 寒域冻结
+}
+
+CivilightEternaHealBoostBuff: {
+	// DisplayName: Civilight Eterna Heal Boost Buff
+	// Description: Mods.ArknightsMod.Buffs.CivilightEternaHealBoostBuff.Description
+}
+
+EntelechiaBleedDebuff: {
+	// DisplayName: Entelechia Bleed Debuff
+	// Description: Mods.ArknightsMod.Buffs.EntelechiaBleedDebuff.Description
+}
+
+HazeMagicFragileDebuff: {
+	// DisplayName: Haze Magic Fragile Debuff
+	// Description: Mods.ArknightsMod.Buffs.HazeMagicFragileDebuff.Description
+}
+
+IndigoBindDebuff: {
+	// DisplayName: Indigo Bind Debuff
+	// Description: Mods.ArknightsMod.Buffs.IndigoBindDebuff.Description
+}
+
+LapplandSilenceDebuff: {
+	// DisplayName: Lappland Silence Debuff
+	// Description: Mods.ArknightsMod.Buffs.LapplandSilenceDebuff.Description
+}
+
+MostimaSlowDebuff: {
+	// DisplayName: Mostima Slow Debuff
+	// Description: Mods.ArknightsMod.Buffs.MostimaSlowDebuff.Description
+}
+
+NianShieldBuff: {
+	// DisplayName: Nian Shield Buff
+	// Description: Mods.ArknightsMod.Buffs.NianShieldBuff.Description
+}
+
+OrchidSlowDebuff: {
+	// DisplayName: Orchid Slow Debuff
+	// Description: Mods.ArknightsMod.Buffs.OrchidSlowDebuff.Description
+}
+
+SpotHealDodgeBuff: {
+	// DisplayName: Spot Heal Dodge Buff
+	// Description: Mods.ArknightsMod.Buffs.SpotHealDodgeBuff.Description
+}
+
+TyphonHelmetSlowDebuff: {
+	// DisplayName: Typhon Helmet Slow Debuff
+	// Description: Mods.ArknightsMod.Buffs.TyphonHelmetSlowDebuff.Description
+}
+
+WarfarinAllyRegenBuff: {
+	// DisplayName: Warfarin Ally Regen Buff
+	// Description: Mods.ArknightsMod.Buffs.WarfarinAllyRegenBuff.Description
+}
+
+FearlessDebuff: {
+	// DisplayName: Fearless Debuff
+	// Description: Mods.ArknightsMod.Buffs.FearlessDebuff.Description
+}
+
+WisadelMarkDebuff: {
+	// DisplayName: Wisadel Mark Debuff
+	// Description: Mods.ArknightsMod.Buffs.WisadelMarkDebuff.Description
+}
+
+RedeployReadyBuff: {
+	DisplayName: 再部署准备
+	Description: 死亡后的复活时间大幅缩短；脱下套装后失效
+}
+
+SurtrLaevatainS3Buff: {
+	// DisplayName: Surtr Laevatain S3 Buff
+	// Description: Mods.ArknightsMod.Buffs.SurtrLaevatainS3Buff.Description
+}
+
+FrostleafSlowDebuff: {
+	DisplayName: 寒霜减速
+	Description: 移动速度降低 50%
+}
+
+FrostleafBindDebuff: {
+	DisplayName: 寒霜束缚
+	Description: 无法移动
+}
+
+WeaponBleedingDebuff: {
+	DisplayName: 流血
+	Description: 阻止生命再生，每秒损失8点生命
+}
+
+PassengerCurrentSlow: {
+	DisplayName: 电流停顿
+	Description: 移动速度降低80%，首领与多节敌人不受此效果影响
+}
+
+HoolheyakUpdraft: {
+	DisplayName: 浮空
+	Description: 被旋风托起
+}
+
+EthanBind: {
+	DisplayName: 缠绕
+	Description: 被回旋的丝线束缚，暂时无法移动
+}
+
+IndigoTideBind: {
+	DisplayName: 潮汐束缚
+	Description: 被淡紫色水光束缚，暂时无法移动
+}

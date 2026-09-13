@@ -1,21 +1,41 @@
-
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>ArknightsMod</AssemblyName>
     <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Platform>AnyCPU</Platform>
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\NPCs\Enemy\Chapter6\FrostNova\Aerosol\Aerosol04.jpg" />
     <None Remove="Content\Items\BattleRecords\DrillBattleRecord.png" />
     <None Remove="Content\Items\BattleRecords\FrontlineBattleRecord.png" />
     <None Remove="Content\Items\BattleRecords\StrategicBattleRecord.png" />
     <None Remove="Content\Items\BattleRecords\TacticalBattleRecord.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+    <AdditionalFiles Remove="UI\**" />
+    <Compile Remove="UI\**" />
+    <EmbeddedResource Remove="UI\**" />
+    <None Remove="UI\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\LevelDatas\Skills\" />
     <Folder Include="Common\UI\BattleRecord\Images\" />
+    <None Remove="Assets\Effects\AACTSTG3RBFence.fx" />
+    <None Remove="Assets\Effects\AACTSTG3RBNoise.fx" />
+    <None Remove="Assets\Effects\CollapesdExplosion.fx" />
+    <None Remove="Assets\Effects\CollapsedExplosionPart2.fx" />
+    <None Remove="Assets\Effects\FNTwistedRing.fx" />
+    <None Remove="Common\VisualEffects\ArknightsModVertexTrailDrawType.cs.disabled" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\VisualEffects\ArknightsModVertexTrailDrawType.cs.disabled" />
   </ItemGroup>
 </Project>

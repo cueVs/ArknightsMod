@@ -10,6 +10,10 @@ public class Dropconfig : ModConfig
 	[Range(1, 100)]
 	public int DropOriginiumSlug;
 
+	[DefaultValue(1)]
+	[Range(1, 100)]
+	public int DropLS;
+
 	[DefaultValue(7)]
 	[Range(1, 100)]
 	public int DropOriginiumSlugAlpha;
@@ -28,5 +32,17 @@ public class Dropconfig : ModConfig
 
 	[DefaultValue(8)]
 	[Range(1, 100)]
-	public int DropAcidOgSlug;
+	public int DropAcidOgSlug1;
+
+	[DefaultValue(8)]
+	[Range(1, 100)]
+	public int DropAcidOgSlug2;
+
+	[DefaultValue(1)]
+	[Range(1, 100)]
+	public int DropDrone1;
+
+	[DefaultValue(10)]
+	[Range(1, 100)]
+	public int DropDrone2;
 }

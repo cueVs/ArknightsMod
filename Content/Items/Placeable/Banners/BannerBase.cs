@@ -81,7 +81,7 @@ namespace ArknightsMod.Content.Items.Placeable.Banners
 		public abstract int NPCType { get; }
 		public virtual int BannerKills => 50;
 
-		private static Dictionary<int, int> bannerIndexToNPCType = new Dictionary<int, int>();
+		private static Dictionary<int, int> bannerIndexToNPCType = [];
 
 		public override void Unload() {
 			bannerIndexToNPCType = null;

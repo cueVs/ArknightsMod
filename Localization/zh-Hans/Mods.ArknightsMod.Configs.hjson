@@ -1,0 +1,196 @@
+MusicConfig: {
+	DisplayName: 音乐配置文件
+
+	EnableArknightsSpaceDaytime: {
+		Label: 播放明日方舟太空白天音乐
+		Tooltip: 播放音乐：特里蒙的天空
+	}
+
+	EnableArknightsSpaceNighttimeLow: {
+		Label: 播放明日方舟太空夜晚音乐
+		Tooltip: 播放音乐：群星见我
+	}
+
+	EnableArknightsSpaceNighttimeHigh: {
+		Label: 播放明日方舟太空夜晚隐藏音乐
+		Tooltip: 播放音乐：Ad Astra
+	}
+
+	EnableArknightsForestDaytime: {
+		Label: 播放明日方舟森林白天音乐
+		Tooltip: 播放音乐：生命流
+	}
+
+	EnableArknightsForestNighttime: {
+		Label: 播放明日方舟森林夜晚音乐
+		Tooltip: 播放音乐：如我所见主界面曲
+	}
+
+	EnableArknightsOceanDaytime: {
+		Label: 播放明日方舟海洋白天音乐
+		Tooltip: 播放音乐：Ready?
+	}
+
+	EnableArknightsOceanNighttime: {
+		Label: 播放明日方舟海洋夜晚音乐
+		Tooltip: 播放音乐：海愿
+	}
+
+	EnableArknightsHallowedOceanDaytime: {
+		Label: 播放明日方舟神圣海洋白天音乐
+		Tooltip: 播放音乐：生路主界面曲
+	}
+
+	EnableArknightsHallowedOceanNighttime: {
+		Label: 播放明日方舟神圣海洋夜晚音乐
+		Tooltip: 播放音乐：倒置树影
+	}
+
+	EnableArknightsCorruptedOceanDaytime: {
+		Label: 播放明日方舟腐化海洋白天音乐
+		Tooltip: 播放音乐：暗潮
+	}
+
+	EnableArknightsCorruptedOceanNighttime: {
+		Label: 播放明日方舟腐化海洋夜晚音乐
+		Tooltip: 播放音乐：蔓延
+	}
+
+	EnableArknightsCrimsonOceanDaytime: {
+		Label: 播放明日方舟猩红海洋白天音乐
+		Tooltip: 播放音乐：共振
+	}
+
+	EnableArknightsCrimsonOceanNighttime: {
+		Label: 播放明日方舟猩红海洋夜晚音乐
+		Tooltip: 播放音乐：礁石不朽
+	}
+}
+
+Dropconfig: {
+	DisplayName: 战利品掉落率设置
+
+	DropOriginiumSlug: {
+		Label: 源石虫的固源岩掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropOriginiumSlugAlpha: {
+		Label: 源石虫Alpha的固源岩掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropOriginiumSlugBeta: {
+		Label: 源石虫Beta的全新装置掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropSoldier1: {
+		Label: 士兵的装置掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropSoldier2: {
+		Label: 士兵的酮凝集掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropAcidOgSlug: {
+		Label: 酸液源石虫的异铁掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropLS: {
+		Label: 小角跳兽的圆圆肉片掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropAcidOgSlug1: {
+		Label: 酸液源石虫的聚酸酯掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropAcidOgSlug2: {
+		Label: 酸液源石虫的扭转醇掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropDrone1: {
+		Label: 无人机的异铁碎片掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+
+	DropDrone2: {
+		Label: 无人机的酯原料掉落率
+		Tooltip: 数值越小，掉落概率越大，数值为1时必定掉落此物
+	}
+}
+
+MonsterConfig: {
+	DisplayName: 生物生成设置
+
+	EnableOriginiumSlug: {
+		Label: 是否启用源石虫
+		Tooltip: ""
+	}
+
+	EnableOriginiumSlugAlpha: {
+		Label: 是否启用源石虫Alpha
+		Tooltip: ""
+	}
+
+	EnableOriginiumSlugBeta: {
+		Label: 是否启用源石虫Beta
+		Tooltip: ""
+	}
+
+	EnableAcidOgSlug: {
+		Label: 是否启用酸液源石虫
+		Tooltip: ""
+	}
+
+	EnableSoldier: {
+		Label: 是否启用士兵
+		Tooltip: ""
+	}
+}
+
+WeaponStatOverrideConfig: {
+	UseGlobalWeaponStats: {
+		Tooltip:
+			'''
+			开启后，所有武器的数值将由 Common/WeaponStatOverride.cs 统一控制。
+			关闭则使用各武器原始数值。
+			'''
+		Label: 启用统一武器数值覆写
+	}
+
+	DisplayName: 武器数值覆写设置
+}
+
+DebugConfig: {
+	DisplayName: 调试设置
+
+	AutoUpgradeNeoArmor: {
+		Label: NeoArmor 自动升级
+		Tooltip: 获取 NeoArmor 物品时自动设为已升级样式（仅调试版本）
+	}
+}
+
+SkillChargeConfig: {
+	DisplayName: 技力恢复设置
+
+	DoubleSPRegenSpeed: {
+		Label: 技力恢复二倍速
+		Tooltip:
+			'''
+			开启后，所有干员武器的技力条恢复速度整体 x2（自然回复/受击回复/攻击回复/饰品加速）
+			技力上限、技能消耗等数值不受影响；部署费用吸收、套装直接赠送技力等"技力返还"类效果也不会被翻倍
+			'''
+	}
+
+	DoubleSkillDurationConsumption: {
+		Label: 技能持续时间技力消耗二倍速
+		Tooltip: 开启后，技能开启期间"消耗"技力的速度整体 x2，表现为技能的持续时间缩短为原来的一半
+	}
+}

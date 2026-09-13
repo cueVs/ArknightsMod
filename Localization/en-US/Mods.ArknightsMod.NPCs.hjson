@@ -1,0 +1,125 @@
+FrostNova.DisplayName: Frost Nova
+IceCrystalAltar.DisplayName: Ice Crystal Altar
+IceCleaver.DisplayName: Ice Cleaver
+Oneiros.DisplayName: Oneiros
+SnowCaster.DisplayName: Snow Caster
+SnowSoldier.DisplayName: Snow Soldier
+SnowSniper.DisplayName: Snow Sniper
+SnowHound.DisplayName: Snow Hound
+Evolution.DisplayName: Evolution
+tumor1.DisplayName: tumor1
+tumor2.DisplayName: tumor2
+AcidOgSlug.DisplayName: Acid Og Slug
+Pompeii.DisplayName: Pompeii
+AACT.DisplayName: A A C T
+AACTIntro.DisplayName: A A C T Intro
+AACTStage3TrueHealth.DisplayName: A A C T Stage3 True Health
+IACT.DisplayName: I A C T
+IACTIntro.DisplayName: I A C T Intro
+IACTStage3target.DisplayName: I A C T Stage3target
+IAT.DisplayName: I A T
+IATIntro.DisplayName: I A T Intro
+BasinSeaReaper.DisplayName: Basin Sea Reaper
+DeepSeaSlider.DisplayName: Deep Sea Slider
+FloatingSeaDrifter.DisplayName: Floating Sea Drifter
+NourishedPiercer.DisplayName: Nourished Piercer
+PocketSeaCrawler.DisplayName: Pocket Sea Crawler
+PrimalSeaPiercer.DisplayName: Primal Sea Piercer
+ShellSeaRunner.DisplayName: Shell Sea Runner
+TheFirstToTalk.DisplayName: The First To Talk
+Caster.DisplayName: Caster
+Crossbowman.DisplayName: Crossbowman
+CrossbowmanLeader.DisplayName: Crossbowman Leader
+DoubleSword.DisplayName: Double Sword
+Drone.DisplayName: Drone
+DroneII.DisplayName: Drone I I
+Hound.DisplayName: Hound
+HoundPro.DisplayName: Hound Pro
+LightShield.DisplayName: Light Shield
+MortarGunner.DisplayName: Mortar Gunner
+OriginiumSlug.DisplayName: Originium Slug
+OriginiumSlugAlpha.DisplayName: Originium Slug Alpha
+OriginiumSlugBeta.DisplayName: Originium Slug Beta
+Seniorcaster.DisplayName: Seniorcaster
+ShieldGuard.DisplayName: Shield Guard
+Soldier.DisplayName: Soldier
+SoldierLeader.DisplayName: Soldier Leader
+InsaneZombieL.DisplayName: Insane Zombie L
+Rioter.DisplayName: Rioter
+Crownslayer.DisplayName: Crownslayer
+RockCrab.DisplayName: Rock Crab
+MiZhenQiaoXie.DisplayName: Mysterious Trinket Mechanism
+
+Closure: {
+	DisplayName: Closure
+
+	TownNPCMood: {
+		Content: I am content.
+		NoHome: I hate not having a home.
+		FarFromHome: I am too far from home.
+		LoveSpace: I love having so much space.
+		DislikeCrowded: I dislike how crowded I am.
+		HateCrowded: I hate how crowded I am.
+		LikeBiome: I like {BiomeName}.
+		DislikeBiome: I dislike {BiomeName}.
+		LoveNPC: I love {NPCName}.
+		LikeNPC: I like {NPCName}.
+		DislikeNPC: I dislike {NPCName}.
+		HateNPC: I hate {NPCName}.
+		LikeNPC_Princess: I like {NPCName}.
+		Princess_LovesNPC: I like {NPCName}.
+	}
+
+	Buttons: {
+		Shop2: Fashion Shop
+		Annihilation: Annihilation
+		Switch: Switch
+		Help: Help
+	}
+
+	Census.SpawnCondition: Conditions unknown
+}
+
+Level11.DisplayName: Level11
+
+Cannot: {
+	DisplayName: Cannot
+
+	TownNPCMood: {
+		Content: I am content.
+		NoHome: I hate not having a home.
+		FarFromHome: I am too far from home.
+		LoveSpace: I love having so much space.
+		DislikeCrowded: I dislike how crowded I am.
+		HateCrowded: I hate how crowded I am.
+		LikeBiome: I like {BiomeName}.
+		DislikeBiome: I dislike {BiomeName}.
+		LoveNPC: I love {NPCName}.
+		LikeNPC: I like {NPCName}.
+		DislikeNPC: I dislike {NPCName}.
+		HateNPC: I hate {NPCName}.
+		LikeNPC_Princess: I like {NPCName}.
+		Princess_LovesNPC: I like {NPCName}.
+	}
+
+	Buttons: {
+		Shop: Shop
+		Touch: Test-touch the goods
+	}
+
+	Census.SpawnCondition: Conditions unknown
+
+	DeathMessage: {
+		Death: ""
+		Runaway: Cannot escaped.
+	}
+}
+
+LeporibeastShorthorn.DisplayName: Leporibeast Shorthorn
+Cragpincer.DisplayName: Cragpincer
+FieryOriginiumSlugNPC.DisplayName: Fiery Originium Slug N P C
+PmpSlugEggLandNPC.DisplayName: Pmp Slug Egg Land N P C
+DeploymentCost.DisplayName: Deployment Cost
+RaptorDrone.DisplayName: Raptor Drone
+CasterShoot.DisplayName: Caster Shoot
+FogRollingGrass.DisplayName: Fog Rolling Grass

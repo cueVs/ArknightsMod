@@ -8,9 +8,9 @@ namespace ArknightsMod.Common.UI.BattleRecord
 {
 	public sealed class BattleRecordCalculator
 	{
-		private readonly Dictionary<Type, int> _battleRecordCount = new Dictionary<Type, int>();
-		private readonly Dictionary<Type, int> _battleRecordBudget = new Dictionary<Type, int>();
-		private readonly Dictionary<Type, int> _battleRecordExperience = new Dictionary<Type, int>();
+		private readonly Dictionary<Type, int> _battleRecordCount = [];
+		private readonly Dictionary<Type, int> _battleRecordBudget = [];
+		private readonly Dictionary<Type, int> _battleRecordExperience = [];
 		public int SumExperience { get; private set; }
 		public int BuygetExperience { get; private set; }
 
